@@ -1,5 +1,56 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+html
+	head
+		meta(charset='UTF-8')
+		link(rel='stylesheet', href="css/normalize.css")
+		link(rel='stylesheet', href="css/head.css")
+		link(rel='stylesheet', href="css/search.css")
+		link(rel='stylesheet', href="css/content.css")
+	body
+		.main-container
+			.top-menu
+				a.for-clients Клиентам
+				a.for-partners Партнерам
+				a.about-us О нас
+				a.register Регистрация
+				a.login Вход
+			.head-logo
+				.logo Логотип
+				.description Подпись
+			.search
+				.city Москва
+				input.input
+				.button найти
+			.categories
+				.as-tabs
+					.all
+					.splitter
+					.tab
+					.tab
+					.tab
+					.tab
+					.tab
+					.more-button
+				.as-input
+					input.input
+					.button
+			.search-result
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+				.item
+			.more-loader
+				.waiter
+		.go-to-top
