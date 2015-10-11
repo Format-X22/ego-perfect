@@ -1,11 +1,12 @@
-@import 'global';
+@import 'vars';
 
 .top-menu {
 	width: 100%;
 	height: 40px;
 	background: @panels-color;
 	color: white;
-	box-shadow: 0 0 3px black;
+	box-shadow: @float-panels-shadow;
+	border-radius: 0 0 4px 4px;
 
 	a {
 		display: inline-block;
