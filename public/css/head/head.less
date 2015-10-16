@@ -1,25 +1,28 @@
-@import 'vars';
+@import '../global/vars';
 
 .top-menu {
 	width: 100%;
 	height: 40px;
-	background: @panels-color;
-	color: white;
+	color: @panels-color;
 	box-shadow: @float-panels-shadow;
-	border-radius: 0 0 4px 4px;
+	margin-bottom: 5px;
 
 	a {
 		display: inline-block;
 		line-height: 40px;
 		font-size: 14px;
-		width: 200px;
+		width: 150px;
 		text-align: center;
 		cursor: pointer;
 
 		&:hover {
-			color: yellow;
+			border-bottom: 5px solid @panels-color;
 			transition-property: color;
-			transition: 1s;
+			transition: 0.3s;
+		}
+
+		&.right {
+			float: right;
 		}
 	}
 }

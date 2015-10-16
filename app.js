@@ -1,61 +1,97 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+'use strict';
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+/**
+ * @class App
+ * Основной класс приложения.
+ * Содержит базовую конфигурацию.
+ */
+class App {
+    constructor () {
 
-var app = express();
+        /**
+         * @const
+         * @property {String} ROUTES_PATH Путь до роутеров.
+         */
+        this.ROUTES_PATH = './routes/';
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+        /**
+         * @property {Object} express Основной объект модуля express.
+         */
+        this.express = require('express');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(require('less-middleware')(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
+        /**
+         * @property {Object} expressApp Приложение фреймворка ExpressJS.
+         */
+        this.expressApp = this.express();
 
-app.use('/', routes);
-app.use('/users', users);
+        this.configureApp();
+        this.initRouteMap();
+        this.catch404();
+    }
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+    /**
+     * @private
+     */
+    configureApp () {
+        var app = this.expressApp;
+        var path = require('path');
+        var bodyParser = require('body-parser');
 
-// error handlers
+        app.set('views', path.join(__dirname, 'views'));
+        app.set('view engine', 'jade');
+        //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))); @TODO
+        app.use(require('morgan')('dev'));
+        app.use(bodyParser.json());
+        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(require('cookie-parser')());
+        app.use(require('less-middleware')(path.join(__dirname, 'public')));
+        app.use(this.express.static(path.join(__dirname, 'public')));
+    }
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
+    /**
+     * @private
+     */
+    initRouteMap () {
+        var app = this.expressApp;
+        var prefix = this.ROUTES_PATH;
+
+        app.use('/company',      require(prefix + 'company'));
+        app.use('/clientAdmin',  require(prefix + 'clientAdmin'));
+        app.use('/partnerAdmin', require(prefix + 'partnerAdmin'));
+        app.use('/partner',      require(prefix + 'myAdmin'));
+        app.use('/',             require(prefix + 'search'));
+    }
+
+    /**
+     * @private
+     */
+    catch404 () {
+        this.expressApp.use(function(request, response) {
+            var error = new Error('Not Found');
+
+            error.status = 404;
+            response.status(error.status);
+            this.renderError(error, response);
+        }.bind(this));
+    }
+
+    /**
+     * @private
+     * @param {Error} error Объект ошибки.
+     * @param {Object} response Объект ответа сервера.
+     */
+    renderError (error, response) {
+        var errorObject = {};
+
+        if (this.expressApp.get('env') === 'development') {
+            errorObject = error;
+        }
+
+        response.render('page404', {
+            message: error.message,
+            error: errorObject
+        });
+    }
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
-
-module.exports = app;
+module.exports = App;

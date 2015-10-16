@@ -1,0 +1,110 @@
+#!/usr/bin/env node
+'use strict';
+
+class Start {
+    constructor () {
+        var app = new (require('../app'));
+
+        this.expressApp = app.expressApp;
+        this.debug = require('debug')('egoPerfect:server');
+        this.http = require('http');
+        this.defaultPort = '3000';
+
+        this.configurePort();
+        this.startServer();
+    }
+
+    /**
+     * @private
+     */
+    configurePort () {
+        this.port = process.env.PORT || this.defaultPort;
+        this.port = this.normalizePort(this.port);
+        this.expressApp.set('port', this.port);
+    }
+
+    /**
+     * @private
+     * @param value Значение порта.
+     * @return {Number/Boolean} Номер порта числом, либо его алиас не числом, иначе false.
+     */
+    normalizePort (value) {
+        var port = parseInt(value, 10);
+
+        if (isNaN(port)) {
+            return value;
+        }
+        if (port >= 0) {
+            return port;
+        }
+        return false;
+    }
+
+    /**
+     * @private
+     */
+    startServer () {
+        this.server = this.http.createServer(this.expressApp);
+
+        this.server.listen(this.port);
+        this.server.on('listening', this.logListening.bind(this));
+        this.server.on('error', this.catchError.bind(this));
+    }
+
+    /**
+     * @private
+     */
+    logListening () {
+        var address = this.server.address();
+        var message;
+
+        if (typeof address === 'string') {
+            message = 'pipe ' + address;
+        } else {
+            message = 'port ' + address.port;
+        }
+
+        this.debug('Listening on ' + message);
+    }
+
+    /**
+     * @private
+     * @param {Error} error Объект ошибки.
+     */
+    catchError (error) {
+        if (error.syscall !== 'listen') {
+            throw error;
+        }
+
+        switch (error.code) {
+            case 'EACCES':
+                this.logError('requires elevated privileges');
+                process.exit(1);
+                break;
+            case 'EADDRINUSE':
+                this.logError('is already in use');
+                process.exit(1);
+                break;
+            default:
+                throw error;
+        }
+    }
+
+    /**
+     * @private
+     * @param {String} message Текст ошибки.
+     */
+    logError (message) {
+        var prefix;
+
+        if (typeof this.port === 'string') {
+            prefix = 'Pipe';
+        } else {
+            prefix = 'Port';
+        }
+
+        console.error([prefix, this.port, message].join(' '));
+    }
+}
+
+new Start();

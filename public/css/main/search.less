@@ -1,0 +1,123 @@
+@import '../global/vars';
+
+.search {
+	width: 990px;
+	height: 30px;
+	padding: 5px;
+	background-color: #F2F6FF;
+	box-shadow: @float-panels-shadow;
+	font-size: 22px;
+	z-index: 2;
+	position: relative;
+	border-radius: 4px;
+
+	input,
+	.button {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.city {
+		display: inline-block;
+		width: 197px;
+		height: 29px;
+		vertical-align: top;
+		margin-right: 5px;
+		box-shadow: @float-panels-shadow inset;
+		background-color: white;
+		text-align: center;
+		cursor: pointer;
+	}
+
+	.input {
+		outline: 0;
+		width: 668px;
+		height: 27px;
+		box-shadow: @float-panels-shadow inset;
+		border: none;
+		padding-left: 5px;
+	}
+
+	.button {
+		width: 110px;
+		height: 28px;
+		line-height: 28px;
+		font-size: 18px;
+		text-align: center;
+		background-color: #3333FF;
+		border-radius: 2px;
+		float: right;
+		color: white;
+		cursor: pointer;
+
+		&:hover {
+			transition-property: background-color;
+			transition: 1s;
+			background-color: darken(#3333FF, 5%);
+		}
+	}
+}
+
+.categories {
+	width: 1000px;
+	height: 30px;
+	padding: 5px 0;
+
+	.as-tabs {
+		border-bottom: 1px solid #c9e5ff;
+		font-size: 14px;
+
+		.tab {
+			color: #0000B3;
+			display: inline-block;
+			margin: 5px 0 0 10px;
+			padding: 2px 10px;
+			border: 1px solid #c9e5ff;
+			border-bottom: none;
+			border-radius: 4px 4px 0 0;
+			cursor: pointer;
+
+			&:hover {
+				background-color: lighten(#3333FF, 39%);
+			}
+
+			&.selected {
+				background-color: #3333FF;
+				color: white;
+				border-bottom: 1px solid #3333FF;
+				margin-bottom: -1px;
+
+				&:hover {
+					transition-property: background-color;
+					transition: 1s;
+					background-color: darken(#3333FF, 5%);
+				}
+			}
+		}
+
+		.more {
+			display: inline-block;
+			color: #0000B3;
+			margin: 5px 10px 0 10px;
+			padding: 2px 10px;
+			border: 1px solid #c9e5ff;
+			float: right;
+
+			.burger {
+				float: right;
+				width: 20px;
+				height: 17px;
+
+				.line {
+					border: 1px solid #0000B3;
+					width: 14px;
+					margin: 3px 0 3px 5px;
+				}
+			}
+		}
+	}
+
+	.as-input {
+		display: none;
+	}
+}
