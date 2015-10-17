@@ -1,6 +1,21 @@
 @import '../global/vars';
 
 .search-result {
-	width: 980px;
-	margin-left: 3px;
+	width: 1000px;
+
+	.item {
+		display: inline-block;
+		width: 300px;
+		height: 300px;
+		margin: 14px;
+		border: 1px solid #c9e5ff;
+		border-radius: 70px;
+		box-shadow: 0 0 0 #c9e5ff;
+		cursor: pointer;
+
+		&:hover {
+			box-shadow: 0 0 7px #c9e5ff;
+			transition: box-shadow 0.5s;
+		}
+	}
 }

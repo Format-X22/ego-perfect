@@ -27,6 +27,7 @@
 		background-color: white;
 		text-align: center;
 		cursor: pointer;
+		color: @panels-color;
 	}
 
 	.input {
@@ -102,6 +103,7 @@
 			padding: 2px 10px;
 			border: 1px solid #c9e5ff;
 			float: right;
+			cursor: pointer;
 
 			.burger {
 				float: right;
@@ -113,6 +115,10 @@
 					width: 14px;
 					margin: 3px 0 3px 5px;
 				}
+			}
+
+			&:hover {
+				background-color: lighten(#3333FF, 39%);
 			}
 		}
 	}
