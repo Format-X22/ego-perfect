@@ -90,9 +90,11 @@
 				margin-bottom: -1px;
 
 				&:hover {
-					transition-property: background-color;
-					transition: 1s;
 					background-color: darken(@active-button-color, 5%);
+
+					&:not(.animation-off) {
+						transition: background-color 1s;
+					}
 				}
 			}
 		}
