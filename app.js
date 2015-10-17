@@ -6,92 +6,111 @@
  * Содержит базовую конфигурацию.
  */
 class App {
-    constructor () {
+	constructor () {
 
-        /**
-         * @const
-         * @property {String} ROUTES_PATH Путь до роутеров.
-         */
-        this.ROUTES_PATH = './routes/';
+		/**
+		 * @const
+		 * @property {String} ROUTES_PATH Путь до роутеров.
+		 */
+		this.ROUTES_PATH = './routes/';
 
-        /**
-         * @property {Object} express Основной объект модуля express.
-         */
-        this.express = require('express');
+		/**
+		 * @property {Object} express Основной объект модуля express.
+		 */
+		this.express = require('express');
 
-        /**
-         * @property {Object} expressApp Приложение фреймворка ExpressJS.
-         */
-        this.expressApp = this.express();
+		/**
+		 * @property {Object} expressApp Приложение фреймворка ExpressJS.
+		 */
+		this.expressApp = this.express();
 
-        this.configureApp();
-        this.initRouteMap();
-        this.catch404();
-    }
+		this.configureApp();
+		this.initRouteMap();
+		this.catch404();
+	}
 
-    /**
-     * @private
-     */
-    configureApp () {
-        var app = this.expressApp;
-        var path = require('path');
-        var bodyParser = require('body-parser');
+	/**
+	 * @private
+	 */
+	configureApp () {
+		var app = this.expressApp;
+		var bodyParser = require('body-parser');
+		var publicDir = this.getPath('public');
+		var viewsDir = this.getPath('views');
+		var lessMiddle = require('less-middleware')(publicDir);
+		var extendedFlag = {
+			extended: false
+		};
 
-        app.set('views', path.join(__dirname, 'views'));
-        app.set('view engine', 'jade');
-        //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))); @TODO
-        app.use(require('morgan')('dev'));
-        app.use(bodyParser.json());
-        app.use(bodyParser.urlencoded({ extended: false }));
-        app.use(require('cookie-parser')());
-        app.use(require('less-middleware')(path.join(__dirname, 'public')));
-        app.use(this.express.static(path.join(__dirname, 'public')));
-    }
+		app.set('views', viewsDir);
+		app.set('view engine', 'jade');
+		//app.use(favicon(this.getPath('public', 'favicon.ico'))); @TODO
+		app.use(require('morgan')('dev'));
+		app.use(bodyParser.json());
+		app.use(bodyParser.urlencoded(extendedFlag));
+		app.use(require('cookie-parser')());
+		app.use(lessMiddle);
+		app.use(this.express.static(publicDir));
+	}
 
-    /**
-     * @private
-     */
-    initRouteMap () {
-        var app = this.expressApp;
-        var prefix = this.ROUTES_PATH;
+	/**
+	 * @private
+	 * @param {String} path Необходимый локальный путь.
+	 * @param {String} [concrete] Точное имя файла.
+	 */
+	getPath (path, concrete) {
+		var pathModule = require('path');
 
-        app.use('/company',      require(prefix + 'company'));
-        app.use('/clientAdmin',  require(prefix + 'clientAdmin'));
-        app.use('/partnerAdmin', require(prefix + 'partnerAdmin'));
-        app.use('/partner',      require(prefix + 'myAdmin'));
-        app.use('/',             require(prefix + 'search'));
-    }
+		if (concrete) {
+			return pathModule.join(__dirname, path, concrete);
+		}
+		return pathModule.join(__dirname, path);
+	}
 
-    /**
-     * @private
-     */
-    catch404 () {
-        this.expressApp.use(function(request, response) {
-            var error = new Error('Not Found');
+	/**
+	 * @private
+	 */
+	initRouteMap () {
+		var app = this.expressApp;
+		var prefix = this.ROUTES_PATH;
 
-            error.status = 404;
-            response.status(error.status);
-            this.renderError(error, response);
-        }.bind(this));
-    }
+		app.use('/company',	     require(prefix + 'company'));
+		app.use('/clientAdmin',  require(prefix + 'clientAdmin'));
+		app.use('/partnerAdmin', require(prefix + 'partnerAdmin'));
+		app.use('/partner',	     require(prefix + 'myAdmin'));
+		app.use('/',			 require(prefix + 'search'));
+	}
 
-    /**
-     * @private
-     * @param {Error} error Объект ошибки.
-     * @param {Object} response Объект ответа сервера.
-     */
-    renderError (error, response) {
-        var errorObject = {};
+	/**
+	 * @private
+	 */
+	catch404 () {
+		this.expressApp.use(function(request, response) {
+			var error = new Error('Not Found');
 
-        if (this.expressApp.get('env') === 'development') {
-            errorObject = error;
-        }
+			error.status = 404;
+			response.status(error.status);
+			this.renderError(error, response);
+		}.bind(this));
+	}
 
-        response.render('page404', {
-            message: error.message,
-            error: errorObject
-        });
-    }
+	/**
+	 * @private
+	 * @param {Error} error Объект ошибки.
+	 * @param {Object} response Объект ответа сервера.
+	 */
+	renderError (error, response) {
+		var errorObject = {};
+
+		if (this.expressApp.get('env') === 'development') {
+			errorObject = error;
+		}
+
+		response.render('page404', {
+			message: error.message,
+			error: errorObject
+		});
+	}
 }
 
 module.exports = App;

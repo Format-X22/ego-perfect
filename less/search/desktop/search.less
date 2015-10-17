@@ -1,5 +1,3 @@
-@import '../global/vars';
-
 .search {
 	width: 990px;
 	height: 30px;
@@ -27,7 +25,9 @@
 		background-color: white;
 		text-align: center;
 		cursor: pointer;
-		color: @panels-color;
+		color: @active-item-color;
+		font-size: 17px;
+		line-height: 29px;
 	}
 
 	.input {
@@ -45,7 +45,7 @@
 		line-height: 28px;
 		font-size: 18px;
 		text-align: center;
-		background-color: #3333FF;
+		background-color: @active-button-color;
 		border-radius: 2px;
 		float: right;
 		color: white;
@@ -54,54 +54,54 @@
 		&:hover {
 			transition-property: background-color;
 			transition: 1s;
-			background-color: darken(#3333FF, 5%);
+			background-color: darken(@active-button-color, 5%);
 		}
 	}
 }
 
 .categories {
-	width: 1000px;
+	width: 100%;
 	height: 30px;
 	padding: 5px 0;
 
 	.as-tabs {
-		border-bottom: 1px solid #c9e5ff;
+		border-bottom: 1px solid @decoration-color;
 		font-size: 14px;
 
 		.tab {
-			color: #0000B3;
+			color: @active-item-color;
 			display: inline-block;
 			margin: 5px 0 0 10px;
 			padding: 2px 10px;
-			border: 1px solid #c9e5ff;
+			border: 1px solid @decoration-color;
 			border-bottom: none;
 			border-radius: 4px 4px 0 0;
 			cursor: pointer;
 
 			&:hover {
-				background-color: lighten(#3333FF, 39%);
+				background-color: lighten(@active-button-color, 39%);
 			}
 
 			&.selected {
-				background-color: #3333FF;
+				background-color: @active-button-color;
 				color: white;
-				border-bottom: 1px solid #3333FF;
+				border-bottom: 1px solid @active-button-color;
 				margin-bottom: -1px;
 
 				&:hover {
 					transition-property: background-color;
 					transition: 1s;
-					background-color: darken(#3333FF, 5%);
+					background-color: darken(@active-button-color, 5%);
 				}
 			}
 		}
 
 		.more {
 			display: inline-block;
-			color: #0000B3;
+			color: @active-item-color;
 			margin: 5px 10px 0 10px;
 			padding: 2px 10px;
-			border: 1px solid #c9e5ff;
+			border: 1px solid @decoration-color;
 			float: right;
 			cursor: pointer;
 
@@ -111,19 +111,35 @@
 				height: 17px;
 
 				.line {
-					border: 1px solid #0000B3;
+					border: 1px solid @active-item-color;
 					width: 14px;
 					margin: 3px 0 3px 5px;
 				}
 			}
 
 			&:hover {
-				background-color: lighten(#3333FF, 39%);
+				background-color: lighten(@active-button-color, 39%);
 			}
 		}
 	}
 
 	.as-input {
 		display: none;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.search {
+		width: 657px;
+
+		.city {
+			width: 147px;
+			font-size: 14px;
+		}
+
+		.input {
+			width: 386px;
+			font-size: 17px;
+		}
 	}
 }
