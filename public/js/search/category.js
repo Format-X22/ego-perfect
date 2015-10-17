@@ -7,10 +7,7 @@ $(function () {
 		changeSelectedTab(this);
 		searchInCategory(); // @TODO ID категории
 	});
-
-	$('.categories .as-tabs .more').on('click', function () {
-		showCategoryList();
-	});
+	$('.categories .as-tabs .more').on('click', showCategoryList);
 
 	// @TODO третий обработчик выбора в списке категорий, вызывающий поиск по категории
 
