@@ -52,19 +52,16 @@ $(function () {
 	 */
 	function getPrev () {
 		var prevPage = currentPage - 1;
-		var from;
-		var to;
+		var result;
 
 		if (prevPage < 0) {
 			return [];
 		}
 
-		from = prevPage * PAGE_SIZE;
-		to = currentPage * PAGE_SIZE;
+		result = cash.slice(getPrevPageFrom(), getPrevPageTo());
+		currentPage++;
 
-		currentPage = prevPage;
-
-		return cash.slice(from, to);
+		return result;
 	}
 
 	/**
@@ -74,20 +71,17 @@ $(function () {
 	 */
 	function getNext (callback) {
 		var nextPage = currentPage + 1;
-		var from;
-		var to;
+		var result;
 
 		if (nextPage > maxPage) {
 			sendRequest(callback);
 			return;
 		}
 
-		from = (currentPage * PAGE_SIZE) + PAGE_SIZE;
-		to = (nextPage * PAGE_SIZE) + PAGE_SIZE;
+		result = cash.slice(getNextPageFrom(), getNextPageTo());
+		currentPage++;
 
-		currentPage = nextPage;
-
-		callback(cash.slice(from, to));
+		callback(result);
 	}
 
 	/**
@@ -96,7 +90,46 @@ $(function () {
 	 * Следующий шаг, куда первым аргументом будет отправлен результат.
 	 */
 	function sendRequest (callback) {
-		// @TODO в ожидании апи, не забыть currentPage++ maxPage++
+		$.getJSON('/', {
+			from: getNextPageFrom(),
+			to: getNextPageTo()
+		}).done(function (result) {
+			currentPage++;
+			maxPage++;
+			callback(result);
+		});
+	}
+
+	/**
+	 * @private
+	 * @return {Number} Индекс.
+	 */
+	function getPrevPageFrom () {
+		return (currentPage - 1) * PAGE_SIZE;
+	}
+
+	/**
+	 * @private
+	 * @return {Number} Индекс.
+	 */
+	function getPrevPageTo () {
+		return currentPage * PAGE_SIZE;
+	}
+
+	/**
+	 * @private
+	 * @return {Number} Индекс.
+	 */
+	function getNextPageFrom () {
+		return (currentPage + 1)* PAGE_SIZE;
+	}
+
+	/**
+	 * @private
+	 * @return {Number} Индекс.
+	 */
+	function getNextPageTo () {
+		return (currentPage + 2) * PAGE_SIZE;
 	}
 
 	/**
