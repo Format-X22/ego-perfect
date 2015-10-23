@@ -12,6 +12,7 @@ class Start {
 
         this.configurePort();
         this.startServer();
+		this.checkDB();
     }
 
     /**
@@ -105,6 +106,15 @@ class Start {
 
         console.error([prefix, this.port, message].join(' '));
     }
+
+	/**
+	 * @private
+	 */
+	checkDB () {
+		(new (require('../dbProvider'))).db(function (db) {
+			db && db.close();
+		});
+	}
 }
 
 new Start();
