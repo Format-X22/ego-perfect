@@ -112,6 +112,7 @@ class Start {
 	 */
 	checkDB () {
 		(new (require('../dbProvider'))).db(function (db) {
+            console.log('DB OK');
 			db && db.close();
 		});
 	}

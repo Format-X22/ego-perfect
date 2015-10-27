@@ -12,7 +12,7 @@ class App {
 		 * @const
 		 * @property {String} ROUTES_PATH Путь до роутеров.
 		 */
-		this.ROUTES_PATH = './routes/';
+		this.ROUTES_PATH = './pages/';
 
 		/**
 		 * @property {Object} express Основной объект модуля express.
@@ -37,7 +37,6 @@ class App {
 		var bodyParser = require('body-parser');
 		var publicDir = this.getPath('public');
 		var viewsDir = this.getPath('views');
-		var lessMiddle = require('less-middleware')(publicDir);
 		var extendedFlag = {
 			extended: false
 		};
@@ -49,7 +48,6 @@ class App {
 		app.use(bodyParser.json());
 		app.use(bodyParser.urlencoded(extendedFlag));
 		app.use(require('cookie-parser')());
-		app.use(lessMiddle);
 		app.use(this.express.static(publicDir));
 	}
 
@@ -74,11 +72,10 @@ class App {
 		var app = this.expressApp;
 		var prefix = this.ROUTES_PATH;
 
-		app.use('/company',	     require(prefix + 'company'));
-		app.use('/clientAdmin',  require(prefix + 'clientAdmin'));
-		app.use('/partnerAdmin', require(prefix + 'partnerAdmin'));
-		app.use('/partner',	     require(prefix + 'myAdmin'));
-		app.use('/',			 require(prefix + 'search'));
+		app.use('/admin',   require(prefix + 'admin'));
+		app.use('/partner', require(prefix + 'partner'));
+		app.use('/client',	require(prefix + 'client'));
+		app.use('/',		require(prefix + 'root'));
 	}
 
 	/**

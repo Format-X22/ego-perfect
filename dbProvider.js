@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * @class dbProvider
  * Провайдер базы данных.
@@ -6,7 +8,7 @@
  */
 class dbProvider {
 	constructor () {
-		this.DB_PATH = 'mongodb://localhost:27017/main';
+		this.DB_PATH = 'mongodb://localhost:3001/main';
 		this.dbClient = require('mongodb').MongoClient;
 	}
 

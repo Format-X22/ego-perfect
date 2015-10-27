@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res) {
-    res.render('search');
+router.get('/', function(request, response) {
+    response.send('admin');
 });
 
 module.exports = router;
