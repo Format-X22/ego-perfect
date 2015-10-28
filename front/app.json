@@ -558,7 +558,7 @@
         "classic": {
             "toolkit": "classic",
             
-            "theme": "theme-triton",
+            "theme": "A",
             
             "sass": {
                 // "save": "classic/sass/save.scss"
@@ -568,7 +568,7 @@
         "modern": {
             "toolkit": "modern",
             
-            "theme": "theme-triton",
+            "theme": "AMobile",
             
             "sass": {
                 // "save": "modern/sass/save.scss"
