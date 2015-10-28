@@ -1,17 +1,11 @@
-/**
- * This class is the main view for the application. It is specified in app.js as the
- * "mainView" property. That setting causes an instance of this class to be created and
- * added to the Viewport container.
- *
- * TODO - Replace this content of this view to suite the needs of your application.
- */
 Ext.define('A.view.main.Main', {
     extend: 'Ext.container.Container',
     xtype: 'app-main',
 
     requires: [
         'A.view.main.MainController',
-        'A.view.main.MainModel'
+        'A.view.main.MainModel',
+        'A.view.main.MobileMenu'
     ],
 
     controller: 'main',
@@ -22,14 +16,10 @@ Ext.define('A.view.main.Main', {
         {
             xtype: 'toolbar',
             hidden: true,
+            title: 'Поиск',
             items: [
-                {
-                    xtype: 'component',
-                    html: 'Поиск'
-                },
                 '->',
                 {
-                    text: 'Меню',
                     iconCls: 'x-fa fa-th-list',
                     iconAlign: 'right',
                     handler: 'showMobileMenu'
@@ -81,42 +71,29 @@ Ext.define('A.view.main.Main', {
     ],
 
     initialize: function () {
-        if (Ext.Viewport.getWindowWidth() < 600) {
-            this.down('toolbar').show();
-            Ext.Viewport.setMenu({
-                xtype: 'menu',
-                scroll: true,
-                items: [
-                    {
-                        text: 'Поиск',
-                        iconCls: 'x-fa fa-search'
-                    },
-                    {
-                        text: 'Клиентам',
-                        iconCls: 'x-fa fa-user'
-                    },
-                    {
-                        text: 'Партнерам',
-                        iconCls: 'x-fa fa-user'
-                    },
-                    {
-                        text: 'О нас',
-                        iconCls: 'x-fa fa-user'
-                    },
-                    {
-                        text: 'Вход',
-                        iconCls: 'x-fa fa-home'
-                    },
-                    {
-                        text: 'Хочу к вам',
-                        iconCls: 'x-fa fa-user-plus'
-                    }
-                ]
-            }, {
+        var isMobile = Ext.Viewport.getWindowWidth() < 600;
+
+        if (isMobile) {
+            this.transformToMobileStyle();
+        } else {
+            this.transformToTabletStyle();
+        }
+    },
+
+    privates: {
+        transformToMobileStyle: function () {
+            var mobileMenu = Ext.create('A.view.main.MobileMenu');
+            var menuConfig = {
                 side: 'right',
                 reveal: true
-            });
-        } else {
+            };
+
+            Ext.Viewport.setMenu(mobileMenu, menuConfig);
+
+            this.down('toolbar').show();
+        },
+
+        transformToTabletStyle: function () {
             this.down('tabpanel').getTabBar().show();
         }
     }
