@@ -11,11 +11,8 @@ Ext.define('A.view.main.Main', {
 
     requires: [
         'Ext.plugin.Viewport',
-        'Ext.window.MessageBox',
-
         'A.view.main.MainController',
-        'A.view.main.MainModel',
-        'A.view.main.List'
+        'A.view.main.MainModel'
     ],
 
     controller: 'main',
@@ -32,9 +29,7 @@ Ext.define('A.view.main.Main', {
             align: 'stretchmax'
         },
         title: {
-            bind: {
-                text: '{name}'
-            },
+            text: 'Меню',
             flex: 0
         },
         iconCls: 'fa-th-list'
@@ -48,57 +43,40 @@ Ext.define('A.view.main.Main', {
         }
     },
 
-    responsiveConfig: {
-        tall: {
-            headerPosition: 'top'
-        },
-        wide: {
-            headerPosition: 'left'
-        }
-    },
+    headerPosition: 'left',
 
     defaults: {
         bodyPadding: 20,
         tabConfig: {
-            plugins: 'responsive',
-            responsiveConfig: {
-                wide: {
-                    iconAlign: 'left',
-                    textAlign: 'left'
-                },
-                tall: {
-                    iconAlign: 'top',
-                    textAlign: 'center',
-                    width: 120
-                }
-            }
+            iconAlign: 'left',
+            textAlign: 'left'
         }
     },
 
-    items: [{
-        title: 'Home',
-        iconCls: 'fa-home',
-        // The following grid shares a store with the classic version's grid as well!
-        items: [{
-            xtype: 'mainlist'
-        }]
-    }, {
-        title: 'Users',
-        iconCls: 'fa-user',
-        bind: {
-            html: '{loremIpsum}'
+    items: [
+        {
+            title: 'Поиск',
+            iconCls: 'fa-search'
+        },
+        {
+            title: 'Клиентам',
+            iconCls: 'fa-user'
+        },
+        {
+            title: 'Партнерам',
+            iconCls: 'fa-user'
+        },
+        {
+            title: 'О нас',
+            iconCls: 'fa-user'
+        },
+        {
+            title: 'Вход',
+            iconCls: 'fa-home'
+        },
+        {
+            title: 'Хочу к вам',
+            iconCls: 'fa-user-plus'
         }
-    }, {
-        title: 'Groups',
-        iconCls: 'fa-users',
-        bind: {
-            html: '{loremIpsum}'
-        }
-    }, {
-        title: 'Settings',
-        iconCls: 'fa-cog',
-        bind: {
-            html: '{loremIpsum}'
-        }
-    }]
+    ]
 });

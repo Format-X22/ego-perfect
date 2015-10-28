@@ -6,56 +6,118 @@
  * TODO - Replace this content of this view to suite the needs of your application.
  */
 Ext.define('A.view.main.Main', {
-    extend: 'Ext.tab.Panel',
+    extend: 'Ext.container.Container',
     xtype: 'app-main',
 
     requires: [
-        'Ext.MessageBox',
-
         'A.view.main.MainController',
-        'A.view.main.MainModel',
-        'A.view.main.List'
+        'A.view.main.MainModel'
     ],
 
     controller: 'main',
     viewModel: 'main',
-
-    defaults: {
-        tab: {
-            iconAlign: 'top'
-        },
-        styleHtmlContent: true
-    },
-
-    tabBarPosition: 'bottom',
+    layout: 'vbox',
 
     items: [
         {
-            title: 'Home',
-            iconCls: 'x-fa fa-home',
-            layout: 'fit',
-            // The following grid shares a store with the classic version's grid as well!
-            items: [{
-                xtype: 'mainlist'
-            }]
-        },{
-            title: 'Users',
-            iconCls: 'x-fa fa-user',
-            bind: {
-                html: '{loremIpsum}'
-            }
-        },{
-            title: 'Groups',
-            iconCls: 'x-fa fa-users',
-            bind: {
-                html: '{loremIpsum}'
-            }
-        },{
-            title: 'Settings',
-            iconCls: 'x-fa fa-cog',
-            bind: {
-                html: '{loremIpsum}'
-            }
+            xtype: 'toolbar',
+            hidden: true,
+            items: [
+                {
+                    xtype: 'component',
+                    html: 'Поиск'
+                },
+                '->',
+                {
+                    text: 'Меню',
+                    iconCls: 'x-fa fa-th-list',
+                    iconAlign: 'right',
+                    handler: 'showMobileMenu'
+                }
+            ]
+        },
+        {
+            xtype: 'tabpanel',
+            flex: 1,
+            tabBarPosition: 'bottom',
+            tabBar: {
+                hidden: true
+            },
+
+            defaults: {
+                tab: {
+                    iconAlign: 'top'
+                },
+                styleHtmlContent: true
+            },
+
+            items: [
+                {
+                    title: 'Поиск',
+                    iconCls: 'x-fa fa-search'
+                },
+                {
+                    title: 'Клиентам',
+                    iconCls: 'x-fa fa-user'
+                },
+                {
+                    title: 'Партнерам',
+                    iconCls: 'x-fa fa-user'
+                },
+                {
+                    title: 'О нас',
+                    iconCls: 'x-fa fa-user'
+                },
+                {
+                    title: 'Вход',
+                    iconCls: 'x-fa fa-home'
+                },
+                {
+                    title: 'Хочу к вам',
+                    iconCls: 'x-fa fa-user-plus'
+                }
+            ]
         }
-    ]
+    ],
+
+    initialize: function () {
+        if (Ext.Viewport.getWindowWidth() < 600) {
+            this.down('toolbar').show();
+            Ext.Viewport.setMenu({
+                xtype: 'menu',
+                scroll: true,
+                items: [
+                    {
+                        text: 'Поиск',
+                        iconCls: 'x-fa fa-search'
+                    },
+                    {
+                        text: 'Клиентам',
+                        iconCls: 'x-fa fa-user'
+                    },
+                    {
+                        text: 'Партнерам',
+                        iconCls: 'x-fa fa-user'
+                    },
+                    {
+                        text: 'О нас',
+                        iconCls: 'x-fa fa-user'
+                    },
+                    {
+                        text: 'Вход',
+                        iconCls: 'x-fa fa-home'
+                    },
+                    {
+                        text: 'Хочу к вам',
+                        iconCls: 'x-fa fa-user-plus'
+                    }
+                ]
+            }, {
+                side: 'right',
+                reveal: true
+            });
+        } else {
+            this.down('tabpanel').getTabBar().show();
+        }
+    }
 });
