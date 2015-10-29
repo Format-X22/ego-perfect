@@ -68,14 +68,14 @@ Ext.define('A.view.main.Main', {
                 tab: {
                     iconAlign: 'top'
                 },
-                styleHtmlContent: true,
-                padding: 0
+                styleHtmlContent: true
             },
 
             items: [
                 {
                     title: 'Поиск',
                     iconCls: 'x-fa fa-search',
+                    padding: 0,
                     items: [
                         {
                             xtype: 'companySearch'

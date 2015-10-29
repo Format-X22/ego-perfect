@@ -3,13 +3,106 @@ Ext.define('A.view.main.Search', {
     xtype: 'companySearch',
 
     requires: [
-        'A.store.SearchStore'
+        'A.store.SearchStore',
+        'A.view.main.SearchController'
     ],
+
+    controller: 'search',
 
     layout: 'vbox',
     height: '100%',
 
     items: [
+        {
+            itemId: 'mobileSearch',
+            xtype: 'toolbar',
+            layout: 'hbox',
+            height: 50,
+            padding: 8,
+            plugins: 'responsive',
+            responsiveFormulas: {
+                isInitMobileSearch: function () {
+                    var isMobileWidth = Ext.Viewport.getWindowWidth() < 600;
+                    var widget = Ext.ComponentQuery.query('#mobileInitSearch')[0];
+                    var isInitMobileSearch;
+
+                    if (widget) {
+                        isInitMobileSearch = widget.isInitState;
+                    } else {
+                        isInitMobileSearch = true;
+                    }
+
+                    return isMobileWidth && isInitMobileSearch;
+                }
+            },
+            responsiveConfig: {
+                'width < 600': {
+                    hidden: false
+                },
+                'width < 600 && isInitMobileSearch': {
+                    hidden: true
+                },
+                'width >= 600': {
+                    hidden: true
+                }
+            },
+            items: [
+                {
+                    xtype: 'textfield',
+                    placeHolder: 'Введите текст...',
+                    flex: 1
+                },
+                {
+                    xtype: 'button',
+                    iconCls: 'x-fa fa-search',
+                    width: 32,
+                    height: 34
+                }
+            ]
+        },
+        {
+            itemId: 'mobileInitSearch',
+            xtype: 'container',
+            layout: {
+                type: 'vbox',
+                pack: 'center'
+            },
+            height: '100%',
+            padding: 20,
+            isInitState: true,
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600 && isInitMobileSearch': {
+                    hidden: false
+                },
+                'width < 600 && !isInitMobileSearch': {
+                    hidden: true
+                },
+                'width >= 600': {
+                    hidden: true
+                }
+            },
+            items: [
+                {
+                    xtype: 'textfield',
+                    placeHolder: 'Введите текст...'
+                },
+                {
+                    height: 15
+                },
+                {
+                    xtype: 'button',
+                    ui: 'mobile-search',
+                    html: 'Искать',
+                    iconCls: 'x-fa fa-search',
+                    height: 80,
+                    handler: 'mobileSearch'
+                },
+                {
+                    height: 30
+                }
+            ]
+        },
         {
             xtype: 'toolbar',
             layout: 'hbox',
@@ -26,26 +119,10 @@ Ext.define('A.view.main.Search', {
             },
             items: [
                 {
-                    xtype: 'selectfield',
-                    label: 'Город',
-                    labelWidth: 70,
-                    plugins: 'responsive',
-                    responsiveConfig: {
-                        'width < 900': {
-                            width: 200
-                        },
-                        'width >= 900': {
-                            width: 250
-                        }
-                    }
-                },
-                {
-                    width: 10
-                },
-                {
                     xtype: 'textfield',
                     label: 'Ищем',
                     labelWidth: 70,
+                    placeHolder: 'Введите текст...',
                     flex: 1
                 },
                 {
@@ -58,65 +135,10 @@ Ext.define('A.view.main.Search', {
         },
         {
             xtype: 'container',
-            layout: 'vbox',
-            height: '100%',
-            plugins: 'responsive',
-            responsiveConfig: {
-                'width < 600': {
-                    hidden: false
-                },
-                'width >= 600': {
-                    hidden: true
-                }
-            },
-            items: [
-                {
-                    xtype: 'container',
-                    flex: 1,
-                    layout: {
-                        type: 'vbox',
-                        pack: 'center'
-                    },
-                    items: [
-                        {
-                            xtype: 'selectfield',
-                            label: 'Город',
-                            labelAlign: 'top',
-                            margin: '0 0 7 0'
-                        },
-                        {
-                            xtype: 'textfield',
-                            label: 'Ищем',
-                            labelAlign: 'top',
-                            margin: '0 0 7 0'
-                        }
-                    ]
-                },
-                {
-                    xtype: 'container',
-                    flex: 1,
-                    layout: {
-                        type: 'vbox',
-                        pack: 'center'
-                    },
-                    items: [
-                        {
-                            xtype: 'button',
-                            ui: 'mobile-search',
-                            html: 'Искать',
-                            iconCls: 'x-fa fa-search',
-                            height: 80
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            xtype: 'container',
             layout: 'hbox',
             height: '100%',
             flex: 1,
-            margin: '0 10',
+            scrollable: 'horizontal',
             items: [
                 {
                     flex: 1
@@ -127,15 +149,23 @@ Ext.define('A.view.main.Search', {
                     defaultType: 'companySearchResult',
                     useComponents: true,
                     inline: true,
-                    plugins: 'responsive',
                     maxWidth: '100%',
+                    plugins: 'responsive',
                     responsiveConfig: {
-                        'width < 320': {
+                        'width < 320 && isInitMobileSearch': {
                             hidden: true,
                             width: '100%'
                         },
-                        'width < 600 && width >= 320': {
+                        'width < 320 && !isInitMobileSearch': {
+                            hidden: false,
+                            width: '100%'
+                        },
+                        'width < 600 && width >= 320 && isInitMobileSearch': {
                             hidden: true,
+                            width: 333
+                        },
+                        'width < 600 && width >= 320 && !isInitMobileSearch': {
+                            hidden: false,
                             width: 333
                         },
                         'width < 715 && width >= 600': {

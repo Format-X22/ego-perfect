@@ -10,6 +10,7 @@ $include-a-view-main-mainmodel: dynamic(true);;
 $include-a-view-main-mobilemenu: dynamic(true);;
 $include-a-view-main-register: dynamic(true);;
 $include-a-view-main-search: dynamic(true);;
+$include-a-view-main-searchcontroller: dynamic(true);;
 $include-a-view-main-searchresult: dynamic(true);;
 $include-ext-abstractcomponent: dynamic(true);;
 $include-ext-abstractmanager: dynamic(true);;
