@@ -5,7 +5,8 @@ Ext.define('A.view.main.Main', {
     requires: [
         'A.view.main.MainController',
         'A.view.main.MainModel',
-        'A.view.main.MobileMenu'
+        'A.view.main.MobileMenu',
+        'A.view.main.Search'
     ],
 
     controller: 'main',
@@ -15,7 +16,15 @@ Ext.define('A.view.main.Main', {
     items: [
         {
             xtype: 'toolbar',
-            hidden: true,
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600': {
+                    hidden: false
+                },
+                'width >= 600': {
+                    hidden: true
+                }
+            },
             title: 'Поиск',
             items: [
                 '->',
@@ -30,8 +39,26 @@ Ext.define('A.view.main.Main', {
             xtype: 'tabpanel',
             flex: 1,
             tabBarPosition: 'bottom',
-            tabBar: {
-                hidden: true
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600': {
+                    tabBar: {
+                        hidden: true
+                    },
+                    layout: {
+                        type: 'card',
+                        animation: 'flip'
+                    }
+                },
+                'width >= 600': {
+                    tabBar: {
+                        hidden: false
+                    },
+                    layout: {
+                        type: 'card',
+                        animation: 'flip'
+                    }
+                }
             },
 
             defaults: {
@@ -44,7 +71,12 @@ Ext.define('A.view.main.Main', {
             items: [
                 {
                     title: 'Поиск',
-                    iconCls: 'x-fa fa-search'
+                    iconCls: 'x-fa fa-search',
+                    items: [
+                        {
+                            xtype: 'companySearch'
+                        }
+                    ]
                 },
                 {
                     title: 'Клиентам',
@@ -60,41 +92,34 @@ Ext.define('A.view.main.Main', {
                 },
                 {
                     title: 'Вход',
-                    iconCls: 'x-fa fa-home'
+                    iconCls: 'x-fa fa-home',
+                    items: [
+                        {
+                            xtype: 'login'
+                        }
+                    ]
                 },
                 {
                     title: 'Хочу к вам',
-                    iconCls: 'x-fa fa-user-plus'
+                    iconCls: 'x-fa fa-user-plus',
+                    items: [
+                        {
+                            xtype: 'register'
+                        }
+                    ]
                 }
             ]
         }
     ],
 
     initialize: function () {
-        var isMobile = Ext.Viewport.getWindowWidth() < 600;
+        var mobileMenu = Ext.create('A.view.main.MobileMenu');
+        var menuConfig = {
+            side: 'right',
+            reveal: true
+        };
 
-        if (isMobile) {
-            this.transformToMobileStyle();
-        } else {
-            this.transformToTabletStyle();
-        }
-    },
+        Ext.Viewport.setMenu(mobileMenu, menuConfig);
 
-    privates: {
-        transformToMobileStyle: function () {
-            var mobileMenu = Ext.create('A.view.main.MobileMenu');
-            var menuConfig = {
-                side: 'right',
-                reveal: true
-            };
-
-            Ext.Viewport.setMenu(mobileMenu, menuConfig);
-
-            this.down('toolbar').show();
-        },
-
-        transformToTabletStyle: function () {
-            this.down('tabpanel').getTabBar().show();
-        }
     }
 });
