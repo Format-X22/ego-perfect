@@ -2,13 +2,19 @@ Ext.define('A.view.main.Search', {
     extend: 'Ext.container.Container',
     xtype: 'companySearch',
 
+    requires: [
+        'A.store.SearchStore'
+    ],
+
     layout: 'vbox',
     height: '100%',
 
     items: [
         {
-            xtype: 'container',
+            xtype: 'toolbar',
             layout: 'hbox',
+            height: 50,
+            padding: 8,
             plugins: 'responsive',
             responsiveConfig: {
                 'width < 600': {
@@ -34,6 +40,9 @@ Ext.define('A.view.main.Search', {
                     }
                 },
                 {
+                    width: 10
+                },
+                {
                     xtype: 'textfield',
                     label: 'Ищем',
                     labelWidth: 70,
@@ -42,9 +51,8 @@ Ext.define('A.view.main.Search', {
                 {
                     xtype: 'button',
                     iconCls: 'x-fa fa-search',
-                    width: 102,
-                    height: 34,
-                    margin: '0 0 0 10'
+                    width: 50,
+                    height: 34
                 }
             ]
         },
@@ -104,17 +112,75 @@ Ext.define('A.view.main.Search', {
             ]
         },
         {
-            xtype: 'dataview',
-            plugins: 'responsive',
+            xtype: 'container',
+            layout: 'hbox',
+            height: '100%',
             flex: 1,
-            responsiveConfig: {
-                'width < 600': {
-                    hidden: true
+            margin: '0 10',
+            items: [
+                {
+                    flex: 1
                 },
-                'width >= 600': {
-                    hidden: false
+                {
+                    xtype: 'dataview',
+                    store: 'searchStore',
+                    defaultType: 'companySearchResult',
+                    useComponents: true,
+                    inline: true,
+                    plugins: 'responsive',
+                    maxWidth: '100%',
+                    responsiveConfig: {
+                        'width < 320': {
+                            hidden: true,
+                            width: '100%'
+                        },
+                        'width < 600 && width >= 320': {
+                            hidden: true,
+                            width: 333
+                        },
+                        'width < 715 && width >= 600': {
+                            hidden: false,
+                            width: 333
+                        },
+                        'width < 1047 && width >= 715': {
+                            hidden: false,
+                            width: 665
+                        },
+                        'width < 1379 && width >= 1047': {
+                            hidden: false,
+                            width: 998
+                        },
+                        'width < 1711 && width >= 1379': {
+                            hidden: false,
+                            width: 1330
+                        },
+
+                        'width < 2043 && width >= 1711': {
+                            hidden: false,
+                            width: 1662
+                        },
+                        'width < 2375 && width >= 2043': {
+                            hidden: false,
+                            width: 1994
+                        },
+                        'width < 2707 && width >= 2375': {
+                            hidden: false,
+                            width: 2326
+                        },
+                        'width < 3039 && width >= 2707': {
+                            hidden: false,
+                            width: 2658
+                        },
+                        'width >= 3039': {
+                            hidden: false,
+                            width: '100%'
+                        }
+                    }
+                },
+                {
+                    flex: 1
                 }
-            }
+            ]
         }
     ]
 });

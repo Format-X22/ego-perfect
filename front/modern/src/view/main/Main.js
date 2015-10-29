@@ -6,7 +6,10 @@ Ext.define('A.view.main.Main', {
         'A.view.main.MainController',
         'A.view.main.MainModel',
         'A.view.main.MobileMenu',
-        'A.view.main.Search'
+        'A.view.main.Search',
+        'A.view.main.Login',
+        'A.view.main.Register',
+        'A.view.main.SearchResult'
     ],
 
     controller: 'main',
@@ -65,7 +68,8 @@ Ext.define('A.view.main.Main', {
                 tab: {
                     iconAlign: 'top'
                 },
-                styleHtmlContent: true
+                styleHtmlContent: true,
+                padding: 0
             },
 
             items: [
