@@ -1,3 +1,8 @@
 /node_modules
 .idea
 _db
+/front/build
+/front/bootstrap.css
+/front/bootstrap.js
+/front/classic.json
+/front/modern.json
