@@ -5,7 +5,9 @@ Ext.define('A.view.main.MainTabPanel', {
 
     requires: [
         'A.view.main.MainTabPanelController',
-        'A.view.main.search.SearchContainer'
+        'A.view.main.search.SearchContainer',
+        'A.view.main.auth.Login',
+        'A.view.main.auth.Register'
     ],
 
     layout: {
@@ -43,11 +45,13 @@ Ext.define('A.view.main.MainTabPanel', {
         },
         {
             title: 'Вход',
-            iconCls: 'x-fa fa-home'
+            iconCls: 'x-fa fa-home',
+            xtype: 'login'
         },
         {
             title: 'Добавить себя',
-            iconCls: 'x-fa fa-user-plus'
+            iconCls: 'x-fa fa-user-plus',
+            xtype: 'register'
         }
     ]
 });

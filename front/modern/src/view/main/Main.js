@@ -8,8 +8,6 @@ Ext.define('A.view.main.Main', {
         'A.view.main.MainTabPanel'
     ],
 
-    controller: 'main',
-    viewModel: 'main',
     layout: 'vbox',
 
     items: [

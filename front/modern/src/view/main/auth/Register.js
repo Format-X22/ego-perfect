@@ -1,4 +1,4 @@
-Ext.define('A.view.main.Register', {
+Ext.define('A.view.main.auth.Register', {
     extend: 'Ext.container.Container',
     xtype: 'register',
 
@@ -12,6 +12,18 @@ Ext.define('A.view.main.Register', {
     items: [
         {
             flex: 1
+        },
+        {
+            xtype: 'component',
+            html: 'Вы можете добавить свою компанию в наш каталог.'
+        },
+        {
+            xtype: 'component',
+            html: 'Это просто. Логин и пароль будут у вас на почте.'
+        },
+        {
+            xtype: 'component',
+            html: 'Это всё.'
         },
         {
             xtype: 'emailfield',

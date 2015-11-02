@@ -1,4 +1,4 @@
-Ext.define('A.view.main.Login', {
+Ext.define('A.view.main.auth.Login', {
     extend: 'Ext.container.Container',
     xtype: 'login',
 
