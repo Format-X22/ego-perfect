@@ -1,34 +1,9 @@
 Ext.define('A.view.main.infoPage.About', {
-    extend: 'Ext.Container',
+    extend: 'A.view.main.infoPage.AbstractPage',
     xtype: 'pageAbout',
+    store: 'pageAbout',
 
-    items: [
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        }
+    requires: [
+        'A.store.PageAbout'
     ]
 });

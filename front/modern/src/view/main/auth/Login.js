@@ -15,16 +15,14 @@ Ext.define('A.view.main.auth.Login', {
         },
         {
             xtype: 'emailfield',
-            label: 'Почта',
-            labelWidth: 70,
+            placeHolder: 'Почта',
             width: '100%',
             maxWidth: 500,
             margin: '0 0 7 0'
         },
         {
             xtype: 'passwordfield',
-            label: 'Пароль',
-            labelWidth: 70,
+            placeHolder: 'Пароль',
             width: '100%',
             maxWidth: 500,
             margin: '0 0 7 0'

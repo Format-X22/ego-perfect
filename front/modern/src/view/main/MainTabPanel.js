@@ -33,15 +33,18 @@ Ext.define('A.view.main.MainTabPanel', {
         },
         {
             title: 'Клиентам',
-            iconCls: 'x-fa fa-user'
+            iconCls: 'x-fa fa-user',
+            xtype: 'pageForClients'
         },
         {
             title: 'Партнерам',
-            iconCls: 'x-fa fa-money'
+            iconCls: 'x-fa fa-money',
+            xtype: 'pageForPartners'
         },
         {
             title: 'О нас',
-            iconCls: 'x-fa fa-thumbs-up'
+            iconCls: 'x-fa fa-thumbs-up',
+            xtype: 'pageAbout'
         },
         {
             title: 'Вход',

@@ -1,34 +1,9 @@
 Ext.define('A.view.main.infoPage.ForPartners', {
-    extend: 'Ext.Container',
+    extend: 'A.view.main.infoPage.AbstractPage',
     xtype: 'pageForPartners',
+    store: 'pageForPartners',
 
-    items: [
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        },
-        {
-            xtype: 'infoComicIcon'
-        }
+    requires: [
+        'A.store.PageForPartners'
     ]
 });

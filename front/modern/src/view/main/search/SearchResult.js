@@ -4,7 +4,7 @@ Ext.define('A.view.main.search.SearchResult', {
 
     requires: [
         'A.view.main.search.SearchResultItem',
-        'A.store.SearchStore'
+        'A.store.Search'
     ],
 
     layout: 'vbox',
@@ -29,24 +29,15 @@ Ext.define('A.view.main.search.SearchResult', {
         },
         {
             xtype: 'container',
-            layout: 'hbox',
+            layout: {
+                type: 'hbox',
+                pack: 'center'
+            },
             flex: 1,
             items: [
                 {
-                    flex: 1,
-                    plugins: 'responsive',
-                    responsiveConfig: {
-                        'width < 320 || width >= 3240': {
-                            hidden: true
-                        },
-                        'width >= 320 && width < 3240': {
-                            hidden: false
-                        }
-                    }
-                },
-                {
                     xtype: 'dataview',
-                    store: 'searchStore',
+                    store: 'search',
                     defaultType: 'searchResultItem',
                     useComponents: true,
                     inline: true,
@@ -82,18 +73,6 @@ Ext.define('A.view.main.search.SearchResult', {
                         },
                         'width < 3240 && width >= 2920': {
                             width: 2900
-                        }
-                    }
-                },
-                {
-                    flex: 1,
-                    plugins: 'responsive',
-                    responsiveConfig: {
-                        'width < 320 || width >= 3240': {
-                            hidden: true
-                        },
-                        'width >= 320 && width < 3240': {
-                            hidden: false
                         }
                     }
                 }

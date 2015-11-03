@@ -1,7 +1,7 @@
-Ext.define('A.store.SearchStore', {
+Ext.define('A.store.PageForPartners', {
     extend: 'Ext.data.Store',
     singleton: true,
-    storeId: 'searchStore',
+    storeId: 'pageForPartners',
 
     fields: ['todo'],
 

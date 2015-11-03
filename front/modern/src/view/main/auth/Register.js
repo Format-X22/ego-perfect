@@ -27,8 +27,7 @@ Ext.define('A.view.main.auth.Register', {
         },
         {
             xtype: 'emailfield',
-            label: 'Почта',
-            labelWidth: 70,
+            placeHolder: 'Почта',
             width: '100%',
             maxWidth: 500,
             margin: '0 0 7 0'
