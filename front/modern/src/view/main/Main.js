@@ -3,6 +3,7 @@ Ext.define('A.view.main.Main', {
     xtype: 'app-main',
 
     requires: [
+        'Ext.plugin.Responsive',
         'A.view.main.MobileMenuToolbar',
         'A.view.main.MobileMenu',
         'A.view.main.MainTabPanel'

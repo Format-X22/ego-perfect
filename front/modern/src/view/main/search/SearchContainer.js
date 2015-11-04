@@ -4,6 +4,7 @@ Ext.define('A.view.main.search.SearchContainer', {
     controller: 'allSearchController',
 
     requires: [
+        'Ext.plugin.Responsive',
         'A.view.main.search.StartMobileSearch',
         'A.view.main.search.StartTabletSearch',
         'A.view.main.search.SearchResult',

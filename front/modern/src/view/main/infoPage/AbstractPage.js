@@ -2,6 +2,7 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
     extend: 'Ext.Container',
 
     requires: [
+        'Ext.plugin.Responsive',
         'A.view.main.infoPage.InfoComicIcon'
     ],
 

@@ -2,6 +2,10 @@ Ext.define('A.view.main.search.SearchResultItem', {
     extend: 'Ext.dataview.component.DataItem',
     xtype: 'searchResultItem',
 
+    requires: [
+        'Ext.plugin.Responsive'
+    ],
+
     width: 320,
 
     items: [

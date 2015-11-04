@@ -3,6 +3,7 @@ Ext.define('A.view.main.search.SearchResult', {
     xtype: 'searchResult',
 
     requires: [
+        'Ext.plugin.Responsive',
         'A.view.main.search.SearchResultItem',
         'A.store.Search'
     ],
