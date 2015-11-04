@@ -304,6 +304,7 @@
      */
     "production": {
         "output": {
+            "base": "../public",
             "appCache": {
                 "enable": true,
                 "path": "cache.appcache"
@@ -324,6 +325,19 @@
      * Settings specific to testing builds.
      */
     "testing": {
+        "output": {
+            "base": "../public",
+            "appCache": {
+                "enable": true,
+                "path": "cache.appcache"
+            }
+        },
+        "loader": {
+            "cache": "${build.timestamp}"
+        },
+        "cache": {
+            "enable": true
+        }
     },
     
     /**

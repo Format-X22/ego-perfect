@@ -75,7 +75,7 @@ class App {
 		app.use('/admin',   require(prefix + 'admin'));
 		app.use('/partner', require(prefix + 'partner'));
 		app.use('/client',	require(prefix + 'client'));
-		app.use('/',		require(prefix + 'root'));
+		//app.use('/',		require(prefix + 'root'));
 	}
 
 	/**
