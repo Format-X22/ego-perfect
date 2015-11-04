@@ -8,13 +8,11 @@ Ext.define('A.view.main.search.StartMobileSearch', {
     height: '100%',
     layout: {
         type: 'vbox',
-        align: 'center'
+        align: 'center',
+        pack: 'center'
     },
 
     items: [
-        {
-            flex: 1
-        },
         {
             xtype: 'image',
             width: 100,
@@ -41,9 +39,6 @@ Ext.define('A.view.main.search.StartMobileSearch', {
         {
             xtype: 'component',
             html: 'на одном сайте'
-        },
-        {
-            flex: 1
         }
     ]
 });

@@ -8,14 +8,11 @@ Ext.define('A.view.main.auth.Login', {
     layout: {
         type: 'vbox',
         align: 'center',
-        pack: 'justify'
+        pack: 'center'
     },
     height: '100%',
 
     items: [
-        {
-            flex: 1
-        },
         {
             xtype: 'emailfield',
             placeHolder: 'Почта',
@@ -49,9 +46,6 @@ Ext.define('A.view.main.auth.Login', {
                     width: 200
                 }
             ]
-        },
-        {
-            flex: 1
         }
     ]
 });

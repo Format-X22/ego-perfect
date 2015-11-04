@@ -8,14 +8,11 @@ Ext.define('A.view.main.auth.Register', {
     layout: {
         type: 'vbox',
         align: 'center',
-        pack: 'justify'
+        pack: 'center'
     },
     height: '100%',
 
     items: [
-        {
-            flex: 1
-        },
         {
             xtype: 'component',
             html: 'Вы можете добавить свою компанию в наш каталог.'
@@ -54,9 +51,6 @@ Ext.define('A.view.main.auth.Register', {
                     width: 200
                 }
             ]
-        },
-        {
-            flex: 1
         }
     ]
 });
