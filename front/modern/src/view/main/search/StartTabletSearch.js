@@ -1,3 +1,6 @@
+/**
+ * Стартовый скрин поиска для мобильных устройств с большим экраном.
+ */
 Ext.define('A.view.main.search.StartTabletSearch', {
     extend: 'Ext.Container',
     xtype: 'startTabletSearch',

@@ -1,3 +1,6 @@
+/**
+ * Вью страницы регистрации.
+ */
 Ext.define('A.view.main.auth.Register', {
     extend: 'Ext.container.Container',
     xtype: 'register',

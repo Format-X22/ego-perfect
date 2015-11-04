@@ -1,3 +1,6 @@
+/**
+ * Стартовый скрин поиска для мобильных устройств с малым экраном.
+ */
 Ext.define('A.view.main.search.StartMobileSearch', {
     extend: 'Ext.Container',
     xtype: 'startMobileSearch',

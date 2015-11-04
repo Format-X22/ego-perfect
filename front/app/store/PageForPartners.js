@@ -1,3 +1,6 @@
+/**
+ * Стор страницы для партнеров.
+ */
 Ext.define('A.store.PageForPartners', {
     extend: 'Ext.data.Store',
     singleton: true,

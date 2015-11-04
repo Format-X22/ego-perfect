@@ -1,3 +1,6 @@
+/**
+ * Главная панель вкладок, содержащая все страницы приложения.
+ */
 Ext.define('A.view.main.MainTabPanel', {
     extend: 'Ext.tab.Panel',
     xtype: 'mainTabPanel',

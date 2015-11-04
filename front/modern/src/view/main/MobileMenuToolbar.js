@@ -1,3 +1,6 @@
+/**
+ * Тулбар с титлом текущей страницы и меню для телефонов.
+ */
 Ext.define('A.view.main.MobileMenuToolbar', {
     extend: 'Ext.Toolbar',
     xtype: 'mobileMenuToolbar',

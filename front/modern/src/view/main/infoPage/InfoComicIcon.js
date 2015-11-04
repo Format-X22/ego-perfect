@@ -1,3 +1,7 @@
+/**
+ * Информационная иконка с заголовком и описанием.
+ * Служит для предоставления информации в датавью информационных страниц.
+ */
 Ext.define('A.view.main.infoPage.InfoComicIcon', {
     extend: 'Ext.dataview.component.DataItem',
     xtype: 'infoComicIcon',
@@ -27,6 +31,10 @@ Ext.define('A.view.main.infoPage.InfoComicIcon', {
         }
     ],
 
+    /**
+     * Наполняем виджет данными.
+     * @param {Ext.data.Model} record Рекорд с данными.
+     */
     updateRecord: function (record) {
         //
     }

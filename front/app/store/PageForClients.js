@@ -1,3 +1,6 @@
+/**
+ * Стор страницы для клиентов.
+ */
 Ext.define('A.store.PageForClients', {
     extend: 'Ext.data.Store',
     singleton: true,
