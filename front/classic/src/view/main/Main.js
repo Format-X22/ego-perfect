@@ -3,9 +3,7 @@ Ext.define('A.view.main.Main', {
     xtype: 'app-main',
 
     requires: [
-        'Ext.plugin.Viewport',
-        'A.view.main.MainController',
-        'A.view.main.MainModel'
+        'Ext.plugin.Viewport'
     ],
 
     controller: 'main',

@@ -6,7 +6,7 @@ Ext.define('A.store.Search', {
     singleton: true,
     storeId: 'search',
 
-    fields: ['todo'],
+    model: 'A.model.Search',
 
     proxy: {
         type: 'memory'

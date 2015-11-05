@@ -1,7 +1,7 @@
 Ext.define('A.view.main.company.Container', {
     extend: 'Ext.Container',
 
-    requires: [
+    /*requires: [
         'A.view.main.company.Summary',
         'A.view.main.company.Gallery',
         'A.view.main.company.Reviews',
@@ -50,5 +50,5 @@ Ext.define('A.view.main.company.Container', {
                 }
             ]
         }
-    ]
+    ]*/
 });

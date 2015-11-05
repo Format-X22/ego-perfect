@@ -16,7 +16,6 @@ Ext.define('A.view.main.search.SearchResultItem', {
             xtype: 'img',
             width: 300,
             height: 300,
-            src: 'http://www.newlifefamilychiropractic.net/wp-content/uploads/2014/07/300x300.gif',
             plugins: 'responsive',
             responsiveConfig: {
                 'width < 680': {
@@ -34,6 +33,9 @@ Ext.define('A.view.main.search.SearchResultItem', {
      * @param {Ext.data.Model} record Рекорд с данными.
      */
     updateRecord: function (record) {
-        //
+        //var link = '/logo' + record.get('id');
+        var link = 'http://www.newlifefamilychiropractic.net/wp-content/uploads/2014/07/300x300.gif';
+
+        this.down('img').setSrc(link);
     }
 });
