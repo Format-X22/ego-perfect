@@ -5,9 +5,7 @@ Ext.define('A.view.main.MainTabPanel', {
 
     requires: [
         'A.view.main.MainTabPanelController',
-        'A.view.main.search.SearchContainer',
-        'A.view.main.auth.Login',
-        'A.view.main.auth.Register'
+        'A.view.main.search.SearchContainer'
     ],
 
     layout: {
@@ -40,21 +38,6 @@ Ext.define('A.view.main.MainTabPanel', {
             title: 'Партнерам',
             iconCls: 'x-fa fa-money',
             xtype: 'pageForPartners'
-        },
-        {
-            title: 'О нас',
-            iconCls: 'x-fa fa-thumbs-up',
-            xtype: 'pageAbout'
-        },
-        {
-            title: 'Вход',
-            iconCls: 'x-fa fa-home',
-            xtype: 'login'
-        },
-        {
-            title: 'Добавить себя',
-            iconCls: 'x-fa fa-user-plus',
-            xtype: 'register'
         }
     ]
 });
