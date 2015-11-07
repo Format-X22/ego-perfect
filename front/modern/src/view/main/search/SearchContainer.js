@@ -11,8 +11,6 @@ Ext.define('A.view.main.search.SearchContainer', {
         'A.view.main.search.AllSearchController'
     ],
 
-    padding: 10,
-
     items: [
         {
             xtype: 'startMobileSearch',

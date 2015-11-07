@@ -14,16 +14,19 @@ Ext.define('A.view.main.search.SearchResult', {
     items: [
         {
             xtype: 'toolbar',
+            margin: '-7 0 0 0',
             items: [
                 {
                     itemId: 'searchInput',
                     xtype: 'textfield',
+                    cls: 'result-search',
                     placeHolder: 'Введите запрос',
                     flex: 1
                 },
                 {
                     itemId: 'searchButton',
                     xtype: 'button',
+                    ui: 'search',
                     iconCls: 'x-fa fa-search'
                 }
             ]
@@ -34,6 +37,7 @@ Ext.define('A.view.main.search.SearchResult', {
                 type: 'hbox',
                 pack: 'center'
             },
+            padding: '0 10',
             flex: 1,
             items: [
                 {

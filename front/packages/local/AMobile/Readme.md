@@ -1,2 +1,0 @@
-# AMobile - Read Me
-

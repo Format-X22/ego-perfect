@@ -1,0 +1,12 @@
+$button-background-color: white;
+$button-color: $base-color;
+$button-icon-color: $base-color;
+$button-pressed-color: $base-color;
+$button-border-color: $base-color;
+$button-pressed-border-color: $base-color;
+
+.#{$prefix}button {
+	&-search-with-text &-icon {
+		margin-right: 0.3em
+	}
+}

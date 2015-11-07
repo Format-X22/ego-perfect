@@ -1,0 +1,15 @@
+.#{$prefix}field-text {
+	border: 1px solid $base-color;
+
+	&.tablet-search {
+		border-right: none;
+	}
+
+	&.mobile-search {
+		border-bottom: none;
+	}
+
+	&.result-search input {
+		border: none;
+	}
+}

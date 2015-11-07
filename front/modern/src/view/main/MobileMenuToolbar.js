@@ -16,7 +16,7 @@ Ext.define('A.view.main.MobileMenuToolbar', {
         '->',
         {
             xtype: 'button',
-            iconCls: 'x-fa fa-th-list',
+            iconCls: 'x-fa fa-bars',
             iconAlign: 'right',
             handler: 'showMobileMenu'
         }

@@ -3,6 +3,7 @@ Ext.define('A.view.main.search.StartTabletSearch', {
     xtype: 'startTabletSearch',
 
     height: '100%',
+    padding: 10,
     layout: {
         type: 'vbox',
         align: 'center'
@@ -14,9 +15,14 @@ Ext.define('A.view.main.search.StartTabletSearch', {
         },
         {
             xtype: 'image',
-            width: 150,
+            width: 240,
             height: 150,
-            src: 'http://forum.ucoz.ru/avatar/18/264922.gif'
+            src: '/resources/logo.svg'
+        },
+        {
+            xtype: 'component',
+            padding: '0 0 10 0',
+            html: 'Все компании на одном сайте'
         },
         {
             xtype: 'container',
@@ -27,24 +33,19 @@ Ext.define('A.view.main.search.StartTabletSearch', {
                 {
                     itemId: 'searchInput',
                     xtype: 'textfield',
+                    cls: 'tablet-search',
+                    border: 1,
                     placeHolder: 'Введите запрос, например - кафе в Москве',
                     flex: 1
                 },
                 {
                     itemId: 'searchButton',
                     xtype: 'button',
+                    ui: 'search-with-text',
                     html: 'Искать',
                     iconCls: 'x-fa fa-search'
                 }
             ]
-        },
-        {
-            xtype: 'component',
-            html: 'Все компании'
-        },
-        {
-            xtype: 'component',
-            html: 'на одном сайте'
         },
         {
             flex: 2

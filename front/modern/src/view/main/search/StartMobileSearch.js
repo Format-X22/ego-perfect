@@ -3,6 +3,7 @@ Ext.define('A.view.main.search.StartMobileSearch', {
     xtype: 'startMobileSearch',
 
     height: '100%',
+    padding: 10,
     layout: {
         type: 'vbox',
         align: 'center'
@@ -14,33 +15,32 @@ Ext.define('A.view.main.search.StartMobileSearch', {
         },
         {
             xtype: 'image',
-            width: 100,
-            height: 100,
-            src: 'http://forum.ucoz.ru/avatar/18/264922.gif'
+            width: 240,
+            height: 150,
+            src: '/resources/logo.svg'
+        },
+        {
+            xtype: 'component',
+            padding: '0 0 10 0',
+            html: 'Все компании на одном сайте'
         },
         {
             itemId: 'searchInput',
             xtype: 'textfield',
+            cls: 'mobile-search',
             placeHolder: 'Введите запрос',
             width: '100%'
         },
         {
             itemId: 'searchButton',
             xtype: 'button',
+            ui: 'search-with-text',
             html: 'Искать',
             iconCls: 'x-fa fa-search',
             width: '100%'
         },
         {
-            xtype: 'component',
-            html: 'Все компании'
-        },
-        {
-            xtype: 'component',
-            html: 'на одном сайте'
-        },
-        {
-            flex: 1
+            flex: 2
         }
     ]
 });
