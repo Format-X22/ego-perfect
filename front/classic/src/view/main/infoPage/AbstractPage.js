@@ -3,7 +3,7 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
 
     requires: [
         'Ext.plugin.Responsive',
-        'A.view.main.infoPage.InfoComicIcon'
+        //'A.view.main.infoPage.InfoComicIcon'
     ],
 
     layout: {
@@ -16,7 +16,7 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
     },
 
     items: [
-        {
+        /*{
             xtype: 'dataview',
             useComponents: true,
             inline: true,
@@ -37,14 +37,14 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
                     width: 810
                 }
             }
-        }
+        }*/
     ],
 
-    initialize: function () {
+    /*initialize: function () {
         var store = Ext.data.StoreManager.lookup(this.getStore());
         var dataView = this.down('dataview');
 
         dataView.setStore(store);
         this.callParent(arguments);
-    }
+    }*/
 });

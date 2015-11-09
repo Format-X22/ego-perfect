@@ -1,75 +1,36 @@
 Ext.define('A.view.main.Main', {
-    extend: 'Ext.tab.Panel',
+    extend: 'Ext.container.Viewport',
     xtype: 'app-main',
 
     requires: [
-        'Ext.plugin.Viewport',
-        'A.view.main.MainController',
-        'A.view.main.MainModel'
+        'A.view.main.search.SearchContainer',
+        'A.view.main.infoPage.ForClients',
+        'A.view.main.infoPage.ForPartners'
     ],
 
-    controller: 'main',
-    viewModel: 'main',
-
-    ui: 'navigation',
-
-    tabBarHeaderPosition: 1,
-    titleRotation: 0,
-    tabRotation: 0,
-
-    header: {
-        layout: {
-            align: 'stretchmax'
-        },
-        title: {
-            text: 'Меню',
-            flex: 0
-        },
-        iconCls: 'fa-th-list'
-    },
-
-    tabBar: {
-        flex: 1,
-        layout: {
-            align: 'stretch',
-            overflowHandler: 'none'
-        }
-    },
-
-    headerPosition: 'left',
-
-    defaults: {
-        bodyPadding: 20,
-        tabConfig: {
-            iconAlign: 'left',
-            textAlign: 'left'
-        }
-    },
+    layout: 'fit',
 
     items: [
         {
-            title: 'Поиск',
-            iconCls: 'fa-search'
-        },
-        {
-            title: 'Клиентам',
-            iconCls: 'fa-user'
-        },
-        {
-            title: 'Партнерам',
-            iconCls: 'fa-user'
-        },
-        {
-            title: 'О нас',
-            iconCls: 'fa-user'
-        },
-        {
-            title: 'Вход',
-            iconCls: 'fa-home'
-        },
-        {
-            title: 'Хочу к вам',
-            iconCls: 'fa-user-plus'
+            xtype: 'tabpanel',
+            tabBarPosition: 'top',
+            items: [
+                {
+                    title: 'Поиск',
+                    iconCls: 'x-fa fa-search',
+                    xtype: 'searchContainer'
+                },
+                {
+                    title: 'Клиентам',
+                    iconCls: 'x-fa fa-user',
+                    xtype: 'pageForClients'
+                },
+                {
+                    title: 'Партнерам',
+                    iconCls: 'x-fa fa-money',
+                    xtype: 'pageForPartners'
+                }
+            ]
         }
     ]
 });

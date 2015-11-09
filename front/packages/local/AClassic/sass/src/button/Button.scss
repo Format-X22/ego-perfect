@@ -1,0 +1,9 @@
+.#{$prefix}btn-focus {
+	&.#{$prefix}btn-default-small,
+	&.#{$prefix}btn-over.#{$prefix}btn-default-small,
+	&.#{$prefix}btn-pressed.#{$prefix}btn-default-small,
+	&.#{$prefix}btn-over.#{$prefix}btn-pressed.#{$prefix}btn-default-small {
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+}

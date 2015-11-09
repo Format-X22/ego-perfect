@@ -1,5 +1,5 @@
 Ext.define('A.view.main.infoPage.InfoComicIcon', {
-    extend: 'Ext.dataview.component.DataItem',
+    //extend: 'Ext.dataview.component.DataItem',
     xtype: 'infoComicIcon',
 
     cls: 'info-comic-icon',
