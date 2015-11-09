@@ -1,3 +1,6 @@
+/**
+ * Вью абстрактной информационной страницы.
+ */
 Ext.define('A.view.main.infoPage.AbstractPage', {
     extend: 'Ext.Container',
 
@@ -12,6 +15,10 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
     },
 
     config: {
+
+        /**
+         * @cfg {Ext.data.Store} store Стор с данными для итемов страницы.
+         */
         store: null
     },
 
@@ -40,6 +47,10 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
         }
     ],
 
+    /**
+     * @protected
+     * Проставляем стор для датавью, получая его из конфига класса.
+     */
     initialize: function () {
         var store = Ext.data.StoreManager.lookup(this.getStore());
         var dataView = this.down('dataview');

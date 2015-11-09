@@ -1,3 +1,6 @@
+/**
+ * Контейнер, содержащий все вью поиска.
+ */
 Ext.define('A.view.main.search.SearchContainer', {
     extend: 'Ext.Container',
     xtype: 'searchContainer',

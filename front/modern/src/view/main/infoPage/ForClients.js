@@ -1,3 +1,6 @@
+/**
+ * Страница для клиентов.
+ */
 Ext.define('A.view.main.infoPage.ForClients', {
     extend: 'A.view.main.infoPage.AbstractPage',
     xtype: 'pageForClients',

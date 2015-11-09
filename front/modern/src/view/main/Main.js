@@ -1,3 +1,6 @@
+/**
+ * Главный виджет.
+ */
 Ext.define('A.view.main.Main', {
     extend: 'Ext.container.Container',
     xtype: 'app-main',
@@ -42,6 +45,9 @@ Ext.define('A.view.main.Main', {
         }
     ],
 
+    /**
+     * Добавляем выдвигающееся меню для телефонов.
+     */
     initialize: function () {
         var mobileMenu = Ext.create('A.view.main.MobileMenu');
         var menuConfig = {

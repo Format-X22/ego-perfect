@@ -1,3 +1,6 @@
+/**
+ * Мобильное выдвигающееся меню.
+ */
 Ext.define('A.view.main.MobileMenu', {
     extend: 'Ext.Menu',
     controller: 'mobileMenu',
