@@ -1,11 +1,12 @@
 Ext.define('A.view.main.search.SearchResult', {
     extend: 'Ext.container.Container',
     xtype: 'searchResult',
+    controller: 'searchResultController',
 
     requires: [
         'Ext.plugin.Responsive',
-        'A.view.main.search.SearchResultItem',
-        'A.store.Search'
+        'A.store.Search',
+        'A.view.main.search.SearchResultController'
     ],
 
     cls: 'search-result',
@@ -47,13 +48,14 @@ Ext.define('A.view.main.search.SearchResult', {
             scrollable: 'vertical',
             items: [
                 {
+                    itemId: 'searchResult',
                     xtype: 'dataview',
                     store: 'search',
                     plugins: 'responsive',
                     tpl:
                         '<tpl for=".">' +
                             '<div class="item">' +
-                                '<img src="http://www.newlifefamilychiropractic.net/wp-content/uploads/2014/07/300x300.gif">' +
+                                '<img src="http://www.wilsoninfo.com/300x300.gif">' +
                             '</div>' +
                         '</tpl>',
                     itemSelector: '.item',

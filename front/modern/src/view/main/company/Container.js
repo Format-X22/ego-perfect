@@ -1,11 +1,13 @@
 Ext.define('A.view.main.company.Container', {
     extend: 'Ext.Container',
+    xtype: 'companyContainer',
+    viewModel: 'companyContainer',
 
-    /*requires: [
+    requires: [
         'A.view.main.company.Summary',
-        'A.view.main.company.Gallery',
-        'A.view.main.company.Reviews',
-        'A.view.main.company.Map'
+        //'A.view.main.company.Gallery',
+        //'A.view.main.company.Reviews',
+        //'A.view.main.company.Map'
     ],
 
     layout: 'vbox',
@@ -14,12 +16,15 @@ Ext.define('A.view.main.company.Container', {
         {
             xtype: 'toolbar',
             bind: {
-                title: '{companyName}'
+                title: '{name}'
             },
             items: [
+                '->',
                 {
+                    itemId: 'backToSearch',
                     xtype: 'button',
-                    text: 'Назад'
+                    text: 'Назад',
+                    iconCls: 'x-fa fa-chevron-left'
                 }
             ]
         },
@@ -31,6 +36,14 @@ Ext.define('A.view.main.company.Container', {
                 type: 'card',
                 animation: 'flip'
             },
+            defaults: {
+                tab: {
+                    iconAlign: 'top',
+                    flex: 1,
+                    labelCls: 'no-tab-label'
+                },
+                styleHtmlContent: true
+            },
             items: [
                 {
                     iconCls: 'x-fa fa-file-text-o',
@@ -38,17 +51,17 @@ Ext.define('A.view.main.company.Container', {
                 },
                 {
                     iconCls: 'x-fa fa-image',
-                    xtype: 'companyGallery'
+                    //xtype: 'companyGallery'
                 },
                 {
                     iconCls: 'x-fa fa-eye',
-                    xtype: 'companyReviews'
+                    //xtype: 'companyReviews'
                 },
                 {
                     iconCls: 'x-fa fa-map-o',
-                    xtype: 'companyMap'
+                    //xtype: 'companyMap'
                 }
             ]
         }
-    ]*/
+    ]
 });

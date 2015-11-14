@@ -6,13 +6,38 @@ Ext.define('A.store.Company', {
     singleton: true,
     storeId: 'company',
 
-    fields: ['todo'],
+    model: 'A.model.Company',
 
     proxy: {
         type: 'memory'
     },
 
     data: [
-        {}
+        {
+            id: 1,
+            name: 'Тест 1',
+            rating: 5,
+            phone: 'Тест',
+            site: 'Тест',
+            mail: 'Тест',
+            time: 'Тест',
+            address: 'Тест',
+            socialHrefN1: 'Тест',
+            socialHrefN2: 'Тест',
+            socialHrefN3: 'Тест',
+            socialHrefN4: 'Тест',
+            summary: 'Тест',
+            gallery: [],
+            reviews: [
+                {
+                    id: 0,
+                    raiting: 0,
+                    name: '',
+                    header: '',
+                    description: ''
+                }
+            ],
+            map: []
+        }
     ]
 });

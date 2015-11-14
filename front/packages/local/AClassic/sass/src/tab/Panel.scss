@@ -1,3 +1,9 @@
 .#{$prefix}tab-focus.#{$prefix}tab-default {
 	outline: 0;
 }
+
+.no-tab-label {
+	width: 0;
+	height: 0;
+	line-height: 0;
+}

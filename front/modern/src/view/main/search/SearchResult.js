@@ -4,11 +4,13 @@
 Ext.define('A.view.main.search.SearchResult', {
     extend: 'Ext.Container',
     xtype: 'searchResult',
+    controller: 'searchResultController',
 
     requires: [
         'Ext.plugin.Responsive',
         'A.view.main.search.SearchResultItem',
-        'A.store.Search'
+        'A.store.Search',
+        'A.view.main.search.SearchResultController'
     ],
 
     layout: 'vbox',
@@ -16,6 +18,7 @@ Ext.define('A.view.main.search.SearchResult', {
 
     items: [
         {
+            itemId: 'searchToolbar',
             xtype: 'toolbar',
             margin: '-7 0 0 0',
             items: [
@@ -35,54 +38,69 @@ Ext.define('A.view.main.search.SearchResult', {
             ]
         },
         {
+            itemId: 'resultCard',
             xtype: 'container',
             layout: {
-                type: 'hbox',
-                pack: 'center'
+                type: 'card',
+                animation: 'flip'
             },
-            padding: '0 10',
             flex: 1,
+            padding: '0 10',
             items: [
                 {
-                    xtype: 'dataview',
-                    store: 'search',
-                    defaultType: 'searchResultItem',
-                    useComponents: true,
-                    inline: true,
-                    scrollable: 'vertical',
-                    plugins: 'responsive',
-                    responsiveConfig: {
-                        'width < 320 || width >= 3220': {
-                            width: '100%'
-                        },
-                        'width < 680 && width >= 320': {
-                            width: 310
-                        },
-                        'width < 1000 && width >= 680': {
-                            width: 660
-                        },
-                        'width < 1320 && width >= 1000': {
-                            width: 980
-                        },
-                        'width < 1640 && width >= 1320': {
-                            width: 1300
-                        },
-                        'width < 1960 && width >= 1640': {
-                            width: 1620
-                        },
-                        'width < 2280 && width >= 1960': {
-                            width: 1940
-                        },
-                        'width < 2600 && width >= 2280': {
-                            width: 2260
-                        },
-                        'width < 2920 && width >= 2600': {
-                            width: 2580
-                        },
-                        'width < 3240 && width >= 2920': {
-                            width: 2900
+                    xtype: 'container',
+                    layout: {
+                        type: 'hbox',
+                        pack: 'center'
+                    },
+                    items: [
+                        {
+                            itemId: 'searchResult',
+                            xtype: 'dataview',
+                            store: 'search',
+                            defaultType: 'searchResultItem',
+                            useComponents: true,
+                            inline: true,
+                            scrollable: 'vertical',
+                            plugins: 'responsive',
+                            responsiveConfig: {
+                                'width < 320 || width >= 3220': {
+                                    width: '100%'
+                                },
+                                'width < 680 && width >= 320': {
+                                    width: 310
+                                },
+                                'width < 1000 && width >= 680': {
+                                    width: 660
+                                },
+                                'width < 1320 && width >= 1000': {
+                                    width: 980
+                                },
+                                'width < 1640 && width >= 1320': {
+                                    width: 1300
+                                },
+                                'width < 1960 && width >= 1640': {
+                                    width: 1620
+                                },
+                                'width < 2280 && width >= 1960': {
+                                    width: 1940
+                                },
+                                'width < 2600 && width >= 2280': {
+                                    width: 2260
+                                },
+                                'width < 2920 && width >= 2600': {
+                                    width: 2580
+                                },
+                                'width < 3240 && width >= 2920': {
+                                    width: 2900
+                                }
+                            }
                         }
-                    }
+                    ]
+                },
+                {
+                    xtype: 'companyContainer',
+                    hidden: true
                 }
             ]
         }

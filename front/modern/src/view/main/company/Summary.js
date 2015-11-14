@@ -73,7 +73,7 @@ Ext.define('A.view.main.company.Summary', {
                 pack: 'center'
             },
             items: [
-                {
+                /*{
                     xtype: 'button',
                     bind: {
                         iconCls: 'x-fa fa-{socialIconN1}',
@@ -100,7 +100,7 @@ Ext.define('A.view.main.company.Summary', {
                         iconCls: 'x-fa fa-{socialIconN4}',
                         href: '{socialHrefN4}'
                     }
-                }
+                }*/
             ]
         }
     ]

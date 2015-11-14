@@ -2,10 +2,10 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
     extend: 'Ext.Container',
 
     requires: [
-        'Ext.plugin.Responsive',
-        //'A.view.main.infoPage.InfoComicIcon'
+        'Ext.plugin.Responsive'
     ],
 
+    scrollable: 'vertical',
     layout: {
         type: 'hbox',
         pack: 'center'
@@ -16,12 +16,17 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
     },
 
     items: [
-        /*{
+        {
             xtype: 'dataview',
-            useComponents: true,
-            inline: true,
-            defaultType: 'infoComicIcon',
-            scrollable: 'vertical',
+            tpl:
+                '<tpl for=".">' +
+                    '<div class="item info-comic-icon">' +
+                        '<img src="http://img2.wikia.nocookie.net/__cb20130207074041/adventuretime/ru/images/5/55/180x180_profile_adventuretime_jake_01.jpg">' +
+                        '<div class="header">{header}</div>' +
+                        '<div class="description">{description}</div>' +
+                    '</div>' +
+                '</tpl>',
+            itemSelector: '.item',
             plugins: 'responsive',
             responsiveConfig: {
                 'width < 270': {
@@ -37,14 +42,15 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
                     width: 810
                 }
             }
-        }*/
+        }
     ],
 
-    /*initialize: function () {
+    initComponent: function () {
+        this.callParent(arguments);
+
         var store = Ext.data.StoreManager.lookup(this.getStore());
         var dataView = this.down('dataview');
 
         dataView.setStore(store);
-        this.callParent(arguments);
-    }*/
+    }
 });

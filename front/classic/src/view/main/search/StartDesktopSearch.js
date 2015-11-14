@@ -41,7 +41,6 @@ Ext.define('A.view.main.search.StartDesktopSearch', {
                 {
                     itemId: 'searchButton',
                     xtype: 'button',
-                    //ui: 'search-with-text',
                     html: 'Искать',
                     iconCls: 'x-fa fa-search'
                 }

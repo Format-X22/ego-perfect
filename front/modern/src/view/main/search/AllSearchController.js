@@ -3,37 +3,26 @@
  * Един по причине полной схожести действий для мобильных и планшетных устройств.
  */
 Ext.define('A.view.main.search.AllSearchController', {
-    extend: 'Ext.app.ViewController',
+    extend: 'A.view.main.company.AbstractAllSearchController',
     alias: 'controller.allSearchController',
 
-    control: {
-        '#searchInput': {
-            change: 'syncAllSearchInputs'
-        },
-        '#searchButton': {
-            tap: 'search'
-        }
+    toggleInitView: function () {
+        this.getMobileSearch().hide('fadeOut');
+        this.getTabletSearch().hide('fadeOut');
+        Ext.defer(function () {
+            this.getSearchResult().show('fade');
+        }, 200, this);
     },
 
-    /**
-     * Синхронизируем все инпуты поиска при вводе данных.
-     * @param {Ext.field.Text} originInput Поле-инициатор изменений.
-     * @param {String} value Значение поля-инициатора.
-     */
-    syncAllSearchInputs: function (originInput, value) {
-        var inputs = Ext.ComponentQuery.query('#searchInput');
-
-        Ext.Array.each(inputs, function (input) {
-            input.setValue(value);
-        });
+    getMobileSearch: function () {
+        return this.getCmp('startMobileSearch');
     },
 
-    /**
-     * Запуск поиска по тапу на кнопку поиска.
-     */
-    search: function () {
-        Ext.ComponentQuery.query('startMobileSearch')[0].hide();
-        Ext.ComponentQuery.query('startTabletSearch')[0].hide();
-        Ext.ComponentQuery.query('searchResult')[0].show();
+    getTabletSearch: function () {
+        return this.getCmp('startTabletSearch');
+    },
+
+    getSearchResult: function () {
+        return this.getCmp('searchResult');
     }
 });
