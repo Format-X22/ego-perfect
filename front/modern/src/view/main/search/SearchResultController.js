@@ -11,11 +11,13 @@ Ext.define('A.view.main.search.SearchResultController', {
     showCompany: function () {
         this.hideSearch();
         this.switchToCompany();
+        this.showMobileBackButton();
     },
 
     backToSearch: function () {
         this.showSearch();
         this.switchToSearch();
+        this.hideMobileBackButton();
     },
 
     showSearch: function () {
@@ -40,5 +42,17 @@ Ext.define('A.view.main.search.SearchResultController', {
 
     getResultCard: function () {
         return this.getView().down('#resultCard');
+    },
+
+    showMobileBackButton: function () {
+        this.getMobileBackButton().show();
+    },
+
+    hideMobileBackButton: function () {
+        this.getMobileBackButton().hide();
+    },
+
+    getMobileBackButton: function () {
+        return Ext.ComponentQuery.query('#backToSearchMobile')[0];
     }
 });

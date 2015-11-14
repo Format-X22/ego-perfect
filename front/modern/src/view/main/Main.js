@@ -19,10 +19,10 @@ Ext.define('A.view.main.Main', {
             xtype: 'mobileMenuToolbar',
             plugins: 'responsive',
             responsiveConfig: {
-                'width < 600': {
+                'width < 600 || height < 500': {
                     hidden: false
                 },
-                'width >= 600': {
+                'width >= 600 && height >= 500': {
                     hidden: true
                 }
             }
@@ -31,12 +31,12 @@ Ext.define('A.view.main.Main', {
             xtype: 'mainTabPanel',
             plugins: 'responsive',
             responsiveConfig: {
-                'width < 600': {
+                'width < 600 || height < 500': {
                     tabBar: {
                         hidden: true
                     }
                 },
-                'width >= 600': {
+                'width >= 600 && height >= 500': {
                     tabBar: {
                         hidden: false
                     }

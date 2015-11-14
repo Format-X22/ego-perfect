@@ -7,11 +7,9 @@ Ext.define('A.view.main.search.AllSearchController', {
     alias: 'controller.allSearchController',
 
     toggleInitView: function () {
-        this.getMobileSearch().hide('fadeOut');
-        this.getTabletSearch().hide('fadeOut');
-        Ext.defer(function () {
-            this.getSearchResult().show('fade');
-        }, 200, this);
+        this.getMobileSearch().hide();
+        this.getTabletSearch().hide();
+        this.getSearchResult().show();
     },
 
     getMobileSearch: function () {

@@ -10,5 +10,10 @@ Ext.define('A.view.main.MobileMenuToolbarController', {
      */
     showMobileMenu: function () {
         Ext.Viewport.toggleMenu('right');
+    },
+
+    backToSearch: function (button) {
+        Ext.ComponentQuery.query('searchResult')[0].getController().backToSearch();
+        button.hide();
     }
 });

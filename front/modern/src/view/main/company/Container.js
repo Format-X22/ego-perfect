@@ -15,6 +15,7 @@ Ext.define('A.view.main.company.Container', {
     items: [
         {
             xtype: 'toolbar',
+            hidden: true,
             bind: {
                 title: '{name}'
             },
@@ -24,7 +25,16 @@ Ext.define('A.view.main.company.Container', {
                     itemId: 'backToSearch',
                     xtype: 'button',
                     text: 'Назад',
-                    iconCls: 'x-fa fa-chevron-left'
+                    iconCls: 'x-fa fa-chevron-left',
+                    plugins: 'responsive',
+                    responsiveConfig: {
+                        'width < 600 || height < 500': {
+                            hidden: true
+                        },
+                        'width >= 600 && height >= 500': {
+                            hidden: false
+                        }
+                    }
                 }
             ]
         },
