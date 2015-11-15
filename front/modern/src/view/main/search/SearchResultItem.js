@@ -34,7 +34,7 @@ Ext.define('A.view.main.search.SearchResultItem', {
      */
     updateRecord: function (record) {
         //var link = '/logo' + record.get('id');
-        var link = 'http://www.newlifefamilychiropractic.net/wp-content/uploads/2014/07/300x300.gif';
+        var link = 'http://www.wilsoninfo.com/300x300.gif';
 
         this.down('img').setSrc(link);
     }

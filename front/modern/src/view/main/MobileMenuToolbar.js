@@ -16,6 +16,13 @@ Ext.define('A.view.main.MobileMenuToolbar', {
     },
 
     items: [
+        {
+            itemId: 'backToSearchMobile',
+            xtype: 'button',
+            iconCls: 'x-fa fa-chevron-left',
+            hidden: true,
+            handler: 'backToSearch'
+        },
         '->',
         {
             xtype: 'button',

@@ -1,0 +1,21 @@
+.company-summary-tablet {
+
+	.property {
+		width: 300px;
+		padding: 2px;
+
+		.title {
+			font-weight: bold;
+			padding: 1px;
+		}
+
+		a {
+			text-decoration: none;
+			color: darken($base-color, 30%);
+		}
+	}
+
+	.summary {
+		border-left: 1px solid lighten($base-color, 30%);;
+	}
+}

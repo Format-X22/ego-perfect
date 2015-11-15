@@ -1,23 +1,81 @@
-Ext.define('A.view.main.company.Summary', {
+Ext.define('A.view.main.company.mobile.Summary', {
     extend: 'Ext.Container',
-    xtype: 'companySummary',
+    xtype: 'companySummaryMobile',
 
     layout: 'vbox',
     scrollable: 'vertical',
+
+    defaults: {
+        plugins: 'responsive',
+        responsiveConfig: {
+            'width < 600 || height < 500': {
+                padding: '5 5 0 5'
+            },
+            'width >= 600 && height >= 500': {
+                padding: '15 15 0 15'
+            }
+        }
+    },
 
     items: [
         {
             xtype: 'component',
             bind: {
-                html: '{rating}'
+                html: '{name}'
+            },
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600 || height < 500': {
+                    hidden: false
+                },
+                'width >= 600 && height >= 500': {
+                    hidden: true
+                }
             }
         },
         {
             xtype: 'component',
-            flex: 1,
             bind: {
-                html: '{summary}'
+                html: 'Рейтинг организации: {rating}'
             }
+        },
+        {
+            xtype: 'container',
+            layout: 'hbox',
+            flex: 1,
+            items: [
+                {
+                    xtype: 'img',
+                    width: 300,
+                    height: 300,
+                    src: 'http://www.wilsoninfo.com/300x300.gif',
+                    plugins: 'responsive',
+                    responsiveConfig: {
+                        'width < 600 || height < 500': {
+                            hidden: true
+                        },
+                        'width >= 600 && height >= 500': {
+                            hidden: false
+                        }
+                    }
+                },
+                {
+                    xtype: 'component',
+                    flex: 1,
+                    bind: {
+                        html: '{summary}'
+                    },
+                    plugins: 'responsive',
+                    responsiveConfig: {
+                        'width < 600 || height < 500': {
+                            padding: 0
+                        },
+                        'width >= 600 && height >= 500': {
+                            padding: 15
+                        }
+                    }
+                }
+            ]
         },
         {
             xtype: 'fieldset',
@@ -73,7 +131,7 @@ Ext.define('A.view.main.company.Summary', {
                 pack: 'center'
             },
             items: [
-                {
+                /*{
                     xtype: 'button',
                     bind: {
                         iconCls: 'x-fa fa-{socialIconN1}',
@@ -100,7 +158,7 @@ Ext.define('A.view.main.company.Summary', {
                         iconCls: 'x-fa fa-{socialIconN4}',
                         href: '{socialHrefN4}'
                     }
-                }
+                }*/
             ]
         }
     ]

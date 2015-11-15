@@ -1,11 +1,14 @@
 Ext.define('A.view.main.company.Container', {
     extend: 'Ext.Container',
+    xtype: 'companyContainer',
+    viewModel: 'companyContainer',
 
-    /*requires: [
-        'A.view.main.company.Summary',
-        'A.view.main.company.Gallery',
-        'A.view.main.company.Reviews',
-        'A.view.main.company.Map'
+    requires: [
+        'A.view.main.company.mobile.TabPanel',
+        'A.view.main.company.tablet.TabPanel',
+        //'A.view.main.company.Gallery',
+        //'A.view.main.company.Reviews',
+        //'A.view.main.company.Map'
     ],
 
     layout: 'vbox',
@@ -13,42 +16,54 @@ Ext.define('A.view.main.company.Container', {
     items: [
         {
             xtype: 'toolbar',
+            hidden: true,
             bind: {
-                title: '{companyName}'
+                title: '{name}'
+            },
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600 || height < 500': {
+                    hidden: true
+                },
+                'width >= 600 && height >= 500': {
+                    hidden: false
+                }
             },
             items: [
+                '->',
                 {
+                    itemId: 'backToSearch',
                     xtype: 'button',
-                    text: 'Назад'
+                    text: 'Назад',
+                    iconCls: 'x-fa fa-chevron-left'
                 }
             ]
         },
         {
-            xtype: 'tabpanel',
+            xtype: 'companyTabPanelMobile',
             flex: 1,
-            tabBarPosition: 'top',
-            layout: {
-                type: 'card',
-                animation: 'flip'
-            },
-            items: [
-                {
-                    iconCls: 'x-fa fa-file-text-o',
-                    xtype: 'companySummary'
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600 || height < 500': {
+                    hidden: false
                 },
-                {
-                    iconCls: 'x-fa fa-image',
-                    xtype: 'companyGallery'
-                },
-                {
-                    iconCls: 'x-fa fa-eye',
-                    xtype: 'companyReviews'
-                },
-                {
-                    iconCls: 'x-fa fa-map-o',
-                    xtype: 'companyMap'
+                'width >= 600 && height >= 500': {
+                    hidden: true
                 }
-            ]
+            }
+        },
+        {
+            xtype: 'companyTabPanelTablet',
+            flex: 1,
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600 || height < 500': {
+                    hidden: true
+                },
+                'width >= 600 && height >= 500': {
+                    hidden: false
+                }
+            }
         }
-    ]*/
+    ]
 });
