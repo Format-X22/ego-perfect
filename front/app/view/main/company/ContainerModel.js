@@ -17,7 +17,6 @@ Ext.define('A.view.main.company.ContainerModel', {
             id:           getter('id'),
             name:         getter('name'),
             phone:        getter('phone'),
-            site:         getter('site'),
             mail:         getter('mail'),
             time:         getter('time'),
             address:      getter('address'),
@@ -40,6 +39,17 @@ Ext.define('A.view.main.company.ContainerModel', {
                     return '<i>новая</i>';
                 }
                 return value;
+            },
+            site: function () {
+                var value = getter('site')();
+
+                if (value !== '-') {
+                    return Ext.String.format(
+                        '<a href="{0}" target="_blank">{0}</a>',
+                        value
+                    );
+                }
+                return '';
             }
         }
     })()
