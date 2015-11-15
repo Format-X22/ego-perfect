@@ -1,23 +1,42 @@
-Ext.define('A.view.main.company.Summary', {
+Ext.define('A.view.main.company.tablet.Summary', {
     extend: 'Ext.Container',
-    xtype: 'companySummary',
+    xtype: 'companySummaryTablet',
 
+    cls: 'company-summary-tablet',
     layout: 'vbox',
     scrollable: 'vertical',
+
+    defaults: {
+        padding: '15 15 0 15'
+    },
 
     items: [
         {
             xtype: 'component',
             bind: {
-                html: '{rating}'
+                html: '<span class="rating-title">Рейтинг организации:</span> {rating}'
             }
         },
         {
-            xtype: 'component',
+            xtype: 'container',
+            layout: 'hbox',
             flex: 1,
-            bind: {
-                html: '{summary}'
-            }
+            items: [
+                {
+                    xtype: 'img',
+                    width: 300,
+                    height: 300,
+                    src: 'http://www.wilsoninfo.com/300x300.gif'
+                },
+                {
+                    xtype: 'component',
+                    flex: 1,
+                    padding: '0 5 20 20',
+                    bind: {
+                        html: '{summary}'
+                    }
+                }
+            ]
         },
         {
             xtype: 'fieldset',

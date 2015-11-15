@@ -4,7 +4,8 @@ Ext.define('A.view.main.company.Container', {
     viewModel: 'companyContainer',
 
     requires: [
-        'A.view.main.company.Summary',
+        'A.view.main.company.mobile.TabPanel',
+        'A.view.main.company.tablet.TabPanel',
         //'A.view.main.company.Gallery',
         //'A.view.main.company.Reviews',
         //'A.view.main.company.Map'
@@ -19,59 +20,50 @@ Ext.define('A.view.main.company.Container', {
             bind: {
                 title: '{name}'
             },
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600 || height < 500': {
+                    hidden: true
+                },
+                'width >= 600 && height >= 500': {
+                    hidden: false
+                }
+            },
             items: [
                 '->',
                 {
                     itemId: 'backToSearch',
                     xtype: 'button',
                     text: 'Назад',
-                    iconCls: 'x-fa fa-chevron-left',
-                    plugins: 'responsive',
-                    responsiveConfig: {
-                        'width < 600 || height < 500': {
-                            hidden: true
-                        },
-                        'width >= 600 && height >= 500': {
-                            hidden: false
-                        }
-                    }
+                    iconCls: 'x-fa fa-chevron-left'
                 }
             ]
         },
         {
-            xtype: 'tabpanel',
+            xtype: 'companyTabPanelMobile',
             flex: 1,
-            tabBarPosition: 'top',
-            layout: {
-                type: 'card',
-                animation: 'flip'
-            },
-            defaults: {
-                tab: {
-                    iconAlign: 'top',
-                    flex: 1,
-                    labelCls: 'no-tab-label'
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600 || height < 500': {
+                    hidden: false
                 },
-                styleHtmlContent: true
-            },
-            items: [
-                {
-                    iconCls: 'x-fa fa-file-text-o',
-                    xtype: 'companySummary'
-                },
-                {
-                    iconCls: 'x-fa fa-image',
-                    //xtype: 'companyGallery'
-                },
-                {
-                    iconCls: 'x-fa fa-eye',
-                    //xtype: 'companyReviews'
-                },
-                {
-                    iconCls: 'x-fa fa-map-o',
-                    //xtype: 'companyMap'
+                'width >= 600 && height >= 500': {
+                    hidden: true
                 }
-            ]
+            }
+        },
+        {
+            xtype: 'companyTabPanelTablet',
+            flex: 1,
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600 || height < 500': {
+                    hidden: true
+                },
+                'width >= 600 && height >= 500': {
+                    hidden: false
+                }
+            }
         }
     ]
 });

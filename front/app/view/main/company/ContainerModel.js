@@ -16,7 +16,6 @@ Ext.define('A.view.main.company.ContainerModel', {
             company:      getCompany,
             id:           getter('id'),
             name:         getter('name'),
-            rating:       getter('rating'),
             phone:        getter('phone'),
             site:         getter('site'),
             mail:         getter('mail'),
@@ -33,7 +32,15 @@ Ext.define('A.view.main.company.ContainerModel', {
             summary:      getter('summary'),
             gallery:      getter('gallery'),
             reviews:      getter('reviews'),
-            map:          getter('map')
+            map:          getter('map'),
+            rating: function () {
+                var value = getter('rating')();
+
+                if (value < 100) {
+                    return '<i>новая</i>';
+                }
+                return value;
+            }
         }
     })()
 });
