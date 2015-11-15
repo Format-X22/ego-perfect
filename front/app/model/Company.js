@@ -5,7 +5,7 @@ Ext.define('A.model.Company', {
     extend: 'Ext.data.Model',
 
     requires: [
-        'Ext.data.field.Field',
+        'A.model.field.Store',
         'A.model.Gallery',
         'A.model.Review',
         'A.model.Map'

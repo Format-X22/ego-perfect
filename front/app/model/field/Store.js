@@ -1,4 +1,4 @@
-Ext.define('A.model.Store', {
+Ext.define('A.model.field.Store', {
     extend: 'Ext.data.field.Field',
     alias: 'data.field.store',
 
