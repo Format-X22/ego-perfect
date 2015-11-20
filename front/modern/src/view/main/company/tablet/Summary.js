@@ -2,7 +2,7 @@ Ext.define('A.view.main.company.tablet.Summary', {
     extend: 'Ext.Container',
     xtype: 'companySummaryTablet',
 
-    cls: 'company-summary-tablet',
+    cls: 'company-summary company-summary-tablet',
     layout: 'hbox',
     scrollable: 'vertical',
     padding: 15,
@@ -73,7 +73,7 @@ Ext.define('A.view.main.company.tablet.Summary', {
         },
         {
             xtype: 'component',
-            cls: 'summary',
+            cls: 'separator-vertical',
             flex: 1,
             padding: '0 5 20 20',
             bind: {

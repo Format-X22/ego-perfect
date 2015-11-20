@@ -2,126 +2,57 @@ Ext.define('A.view.main.company.mobile.Summary', {
     extend: 'Ext.Container',
     xtype: 'companySummaryMobile',
 
+    cls: 'company-summary company-summary-mobile',
     layout: 'vbox',
     scrollable: 'vertical',
 
-    defaults: {
-        plugins: 'responsive',
-        responsiveConfig: {
-            'width < 600 || height < 500': {
-                padding: '5 5 0 5'
-            },
-            'width >= 600 && height >= 500': {
-                padding: '15 15 0 15'
-            }
-        }
-    },
-
     items: [
         {
-            xtype: 'component',
-            bind: {
-                html: '{name}'
-            },
-            plugins: 'responsive',
-            responsiveConfig: {
-                'width < 600 || height < 500': {
-                    hidden: false
-                },
-                'width >= 600 && height >= 500': {
-                    hidden: true
-                }
-            }
-        },
-        {
-            xtype: 'component',
-            bind: {
-                html: 'Рейтинг организации: {rating}'
-            }
-        },
-        {
             xtype: 'container',
-            layout: 'hbox',
-            flex: 1,
+            layout: {
+                type: 'vbox',
+                align: 'center',
+                pack: 'center'
+            },
             items: [
-                {
-                    xtype: 'img',
-                    width: 300,
-                    height: 300,
-                    src: 'http://www.wilsoninfo.com/300x300.gif',
-                    plugins: 'responsive',
-                    responsiveConfig: {
-                        'width < 600 || height < 500': {
-                            hidden: true
-                        },
-                        'width >= 600 && height >= 500': {
-                            hidden: false
-                        }
-                    }
-                },
                 {
                     xtype: 'component',
-                    flex: 1,
+                    padding: 15,
                     bind: {
-                        html: '{summary}'
-                    },
-                    plugins: 'responsive',
-                    responsiveConfig: {
-                        'width < 600 || height < 500': {
-                            padding: 0
-                        },
-                        'width >= 600 && height >= 500': {
-                            padding: 15
-                        }
+                        html: '{name}'
                     }
                 }
             ]
         },
         {
-            xtype: 'fieldset',
-            title: 'Контакты',
-            items: [
-                {
-                    xtype: 'textfield',
-                    readOnly: true,
-                    label: 'Телефон',
-                    bind: {
-                        value: '{phone}'
-                    }
-                },
-                {
-                    xtype: 'textfield',
-                    readOnly: true,
-                    label: 'Сайт',
-                    bind: {
-                        value: '{site}'
-                    }
-                },
-                {
-                    xtype: 'textfield',
-                    readOnly: true,
-                    label: 'Почта',
-                    bind: {
-                        value: '{mail}'
-                    }
-                },
-                {
-                    xtype: 'textfield',
-                    readOnly: true,
-                    label: 'Время работы',
-                    bind: {
-                        value: '{time}'
-                    }
-                },
-                {
-                    xtype: 'textfield',
-                    readOnly: true,
-                    label: 'Адрес',
-                    bind: {
-                        value: '{address}'
-                    }
-                }
-            ]
+            xtype: 'component',
+            cls: 'separator-horizontal',
+            margin: '5 0'
+        },
+        {
+            xtype: 'component',
+            padding: '15 10',
+            bind: {
+                html:
+                    '<div class="property"><div class="title">Рейтинг</div> <div class="value">{rating}</div></div>' +
+                    '<div class="property"><div class="title">Телефон</div> <div class="value">{phone}</div></div>' +
+                    '<div class="property"><div class="title">Сайт</div> <div class="value">{site}</div></div>' +
+                    '<div class="property"><div class="title">Почта</div> <div class="value">{mail}</div></div>' +
+                    '<div class="property"><div class="title">Время работы</div> <div class="value">{time}</div></div>' +
+                    '<div class="property"><div class="title">Адрес</div> <div class="value">{address}</div></div>'
+            }
+        },
+        {
+            xtype: 'component',
+            cls: 'separator-horizontal',
+            margin: '5 0'
+        },
+        {
+            xtype: 'component',
+            padding: 15,
+            bind: {
+                html: '{summary}'
+            }
         },
         {
             xtype: 'container',
@@ -160,6 +91,32 @@ Ext.define('A.view.main.company.mobile.Summary', {
                     }
                 }*/
             ]
+        },
+        {
+            xtype: 'component',
+            cls: 'separator-horizontal',
+            margin: '5 0 35 0'
+        },
+        {
+            xtype: 'container',
+            layout: {
+                type: 'vbox',
+                align: 'center',
+                pack: 'center'
+            },
+            items: [
+                {
+                    xtype: 'img',
+                    width: 300,
+                    height: 300,
+                    src: 'http://www.wilsoninfo.com/300x300.gif'
+                }
+            ]
+        },
+        {
+            xtype: 'component',
+            height: 15,
+            border: 0
         }
     ]
 });
