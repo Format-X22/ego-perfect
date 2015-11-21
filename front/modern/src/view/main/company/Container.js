@@ -5,10 +5,7 @@ Ext.define('A.view.main.company.Container', {
 
     requires: [
         'A.view.main.company.mobile.TabPanel',
-        'A.view.main.company.tablet.TabPanel',
-        //'A.view.main.company.Gallery',
-        //'A.view.main.company.Reviews',
-        //'A.view.main.company.Map'
+        'A.view.main.company.tablet.TabPanel'
     ],
 
     layout: 'vbox',
@@ -22,10 +19,10 @@ Ext.define('A.view.main.company.Container', {
             },
             plugins: 'responsive',
             responsiveConfig: {
-                'width < 600 || height < 500': {
+                'width < 600 || height < 400': {
                     hidden: true
                 },
-                'width >= 600 && height >= 500': {
+                'width >= 600 && height >= 400': {
                     hidden: false
                 }
             },
@@ -44,10 +41,10 @@ Ext.define('A.view.main.company.Container', {
             flex: 1,
             plugins: 'responsive',
             responsiveConfig: {
-                'width < 600 || height < 500': {
+                'width < 600 || height < 400': {
                     hidden: false
                 },
-                'width >= 600 && height >= 500': {
+                'width >= 600 && height >= 400': {
                     hidden: true
                 }
             }
@@ -57,10 +54,10 @@ Ext.define('A.view.main.company.Container', {
             flex: 1,
             plugins: 'responsive',
             responsiveConfig: {
-                'width < 600 || height < 500': {
+                'width < 600 || height < 400': {
                     hidden: true
                 },
-                'width >= 600 && height >= 500': {
+                'width >= 600 && height >= 400': {
                     hidden: false
                 }
             }

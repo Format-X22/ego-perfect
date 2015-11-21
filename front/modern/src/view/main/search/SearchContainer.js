@@ -29,10 +29,10 @@ Ext.define('A.view.main.search.SearchContainer', {
                 }
             },
             responsiveConfig: {
-                '(width < 600 || height < 500) && isInitSearch': {
+                '(width < 600 || height < 400) && isInitSearch': {
                     hidden: false
                 },
-                'width >= 600 && height >= 500': {
+                'width >= 600 && height >= 400': {
                     hidden: true
                 }
             }
@@ -41,10 +41,10 @@ Ext.define('A.view.main.search.SearchContainer', {
             xtype: 'startTabletSearch',
             plugins: 'responsive',
             responsiveConfig: {
-                'width < 600 || height < 500': {
+                'width < 600 || height < 400': {
                     hidden: true
                 },
-                'width >= 600 && height >= 500 && isInitSearch': {
+                'width >= 600 && height >= 400 && isInitSearch': {
                     hidden: false
                 }
             }

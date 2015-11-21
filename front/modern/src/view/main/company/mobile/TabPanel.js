@@ -3,7 +3,8 @@ Ext.define('A.view.main.company.mobile.TabPanel', {
     xtype: 'companyTabPanelMobile',
 
     requires: [
-        'A.view.main.company.mobile.Summary'
+        'A.view.main.company.mobile.Summary',
+        'A.view.main.company.Map'
     ],
 
     items: [
@@ -18,7 +19,8 @@ Ext.define('A.view.main.company.mobile.TabPanel', {
             iconCls: 'x-fa fa-eye'
         },
         {
-            iconCls: 'x-fa fa-map-o'
+            iconCls: 'x-fa fa-map-o',
+            xtype: 'companyMap'
         }
     ]
 });

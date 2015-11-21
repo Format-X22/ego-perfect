@@ -56,7 +56,13 @@ Ext.define('A.store.Company', {
                     description: ''
                 }
             ],
-            map: []
+            map: [
+                {
+                    id: 0,
+                    lat: 55.862015,
+                    lng: 37.521992
+                }
+            ]
         }
     ]
 });

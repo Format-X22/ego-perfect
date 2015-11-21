@@ -2,6 +2,10 @@ Ext.define('A.view.main.company.ContainerModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.companyContainer',
 
+    data: {
+        mapMarker: null
+    },
+
     formulas: (function () {
         var getCompany = function () {
             return A.store.Company.getAt(0);
