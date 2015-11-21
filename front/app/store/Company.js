@@ -22,10 +22,6 @@ Ext.define('A.store.Company', {
             mail: '5097030@mail.ru',
             time: undefined,
             address: '125413, Москва, ул. Солнечногорская, д.24А',
-            socialHrefN1: undefined,
-            socialHrefN2: undefined,
-            socialHrefN3: undefined,
-            socialHrefN4: undefined,
             summary:
                 'ООО «Спираль»: производство и установка дверей и прочих металлических конструкций.<br>' +
                 'Компания была организована в 2003 году. И приняла участие в своей первой строительной выставке в Москве.<br>' +
@@ -60,7 +56,13 @@ Ext.define('A.store.Company', {
                     description: ''
                 }
             ],
-            map: []
+            map: [
+                {
+                    id: 0,
+                    lat: 55.862015,
+                    lng: 37.521992
+                }
+            ]
         }
     ]
 });

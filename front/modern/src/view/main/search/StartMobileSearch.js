@@ -22,7 +22,7 @@ Ext.define('A.view.main.search.StartMobileSearch', {
         {
             xtype: 'component',
             padding: '0 0 10 0',
-            html: 'Все компании на одном сайте'
+            html: 'Все фирмы на одном сайте'
         },
         {
             itemId: 'searchInput',

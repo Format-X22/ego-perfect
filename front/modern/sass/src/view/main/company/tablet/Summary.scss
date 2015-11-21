@@ -1,8 +1,6 @@
-.company-summary-tablet {
+.company-summary {
 
 	.property {
-		width: 300px;
-		padding: 2px;
 
 		.title {
 			font-weight: bold;
@@ -15,7 +13,29 @@
 		}
 	}
 
-	.summary {
-		border-left: 1px solid lighten($base-color, 30%);;
+	&-tablet {
+		.property {
+			width: 300px;
+			padding: 0 2px 9px;
+		}
+	}
+
+	&-mobile {
+		.property {
+			width: 100%;
+			padding: 0 2px 18px 2px;
+		}
+	}
+
+	.separator {
+		$border: 1px solid lighten($base-color, 30%);
+
+		&-vertical {
+			border-left: $border;
+		}
+
+		&-horizontal {
+			border-top: $border;
+		}
 	}
 }

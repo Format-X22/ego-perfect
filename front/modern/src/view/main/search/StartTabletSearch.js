@@ -25,7 +25,7 @@ Ext.define('A.view.main.search.StartTabletSearch', {
         {
             xtype: 'component',
             padding: '0 0 10 0',
-            html: 'Все компании на одном сайте'
+            html: 'Все фирмы на одном сайте'
         },
         {
             xtype: 'container',
