@@ -9,12 +9,18 @@ Ext.define('A.view.main.company.Map', {
 
     layout: 'fit',
 
-    items: [
-        {
-            xtype: 'map',
-            mapOptions: {
-                zoom: 17
+    listeners: {
+        show: function () {
+            if (this.down('map')) {
+                return;
             }
+
+            this.add({
+                xtype: 'map',
+                mapOptions: {
+                    zoom: 17
+                }
+            })
         }
-    ]
+    }
 });
