@@ -55,44 +55,6 @@ Ext.define('A.view.main.company.mobile.Summary', {
             }
         },
         {
-            xtype: 'container',
-            layout: {
-                type: 'hbox',
-                align: 'center',
-                pack: 'center'
-            },
-            items: [
-                /*{
-                    xtype: 'button',
-                    bind: {
-                        iconCls: 'x-fa fa-{socialIconN1}',
-                        href: '{socialHrefN1}'
-                    }
-                },
-                {
-                    xtype: 'button',
-                    bind: {
-                        iconCls: 'x-fa fa-{socialIconN2}',
-                        href: '{socialHrefN2}'
-                    }
-                },
-                {
-                    xtype: 'button',
-                    bind: {
-                        iconCls: 'x-fa fa-{socialIconN3}',
-                        href: '{socialHrefN3}'
-                    }
-                },
-                {
-                    xtype: 'button',
-                    bind: {
-                        iconCls: 'x-fa fa-{socialIconN4}',
-                        href: '{socialHrefN4}'
-                    }
-                }*/
-            ]
-        },
-        {
             xtype: 'component',
             cls: 'separator-horizontal',
             margin: '5 0 35 0'
