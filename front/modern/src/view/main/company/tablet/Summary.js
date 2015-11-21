@@ -30,52 +30,14 @@ Ext.define('A.view.main.company.tablet.Summary', {
                             '<div class="property"><div class="title">Время работы</div> <div class="value">{time}</div></div>' +
                             '<div class="property"><div class="title">Адрес</div> <div class="value">{address}</div></div>'
                     }
-                },
-                /*{
-                 xtype: 'container',
-                 layout: {
-                 type: 'hbox',
-                 align: 'center',
-                 pack: 'center'
-                 },
-                 items: [
-                 /*{
-                 xtype: 'button',
-                 bind: {
-                 iconCls: 'x-fa fa-{socialIconN1}',
-                 href: '{socialHrefN1}'
-                 }
-                 },
-                 {
-                 xtype: 'button',
-                 bind: {
-                 iconCls: 'x-fa fa-{socialIconN2}',
-                 href: '{socialHrefN2}'
-                 }
-                 },
-                 {
-                 xtype: 'button',
-                 bind: {
-                 iconCls: 'x-fa fa-{socialIconN3}',
-                 href: '{socialHrefN3}'
-                 }
-                 },
-                 {
-                 xtype: 'button',
-                 bind: {
-                 iconCls: 'x-fa fa-{socialIconN4}',
-                 href: '{socialHrefN4}'
-                 }
-                 }*/
-                //    ]
-                //}
+                }
             ]
         },
         {
             xtype: 'component',
             cls: 'separator-vertical',
-            flex: 1,
             padding: '0 5 20 20',
+            flex: 1,
             bind: {
                 html: '{summary}'
             }
