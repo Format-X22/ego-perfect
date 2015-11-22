@@ -17,15 +17,37 @@ Ext.define('A.view.main.company.MapController', {
     },
 
     waitForAnimation: function (callback) {
-        Ext.defer(callback, 300, this);
+        var time = 300;
+
+        if (Ext.isClassic) {
+            time = 1;
+        }
+
+        Ext.defer(callback, time, this);
     },
 
     centerToCurrent: function () {
-        this.getMap().getMap().setCenter(this.getPosition());
+        this.getGoogleMapObject().setCenter(this.getPosition());
+    },
+
+    getGoogleMapObject: function () {
+        var map = this.getMap();
+
+        if (Ext.isClassic) {
+            return map.gmap;
+        } else {
+            return map.getMap();
+        }
     },
 
     getMap: function () {
-        return this.getView().down('map');
+        var selector = 'map';
+
+        if (Ext.isClassic) {
+            selector = 'gmappanel';
+        }
+
+        return this.getView().down(selector);
     },
 
     getPosition: function () {
@@ -67,7 +89,7 @@ Ext.define('A.view.main.company.MapController', {
 
     createMarker: function () {
         return new google.maps.Marker({
-            map: this.getMap().getMap()
+            map: this.getGoogleMapObject()
         });
     },
 

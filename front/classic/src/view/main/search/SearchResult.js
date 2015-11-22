@@ -6,7 +6,8 @@ Ext.define('A.view.main.search.SearchResult', {
     requires: [
         'Ext.plugin.Responsive',
         'A.store.Search',
-        'A.view.main.search.SearchResultController'
+        'A.view.main.search.SearchResultController',
+        'A.view.main.company.Container'
     ],
 
     cls: 'search-result',
@@ -37,45 +38,56 @@ Ext.define('A.view.main.search.SearchResult', {
             ]
         },
         {
-            xtype: 'container',
-            layout: {
-                type: 'hbox',
-                pack: 'center'
-            },
-            padding: '0 10',
+            itemId: 'resultCard',
+            layout: 'card',
             flex: 1,
             width: '100%',
-            scrollable: 'vertical',
             items: [
                 {
-                    itemId: 'searchResult',
-                    xtype: 'dataview',
-                    store: 'search',
-                    plugins: 'responsive',
-                    tpl:
-                        '<tpl for=".">' +
+                    xtype: 'container',
+                    layout: {
+                        type: 'hbox',
+                        pack: 'center'
+                    },
+                    padding: '0 10',
+                    width: '100%',
+                    scrollable: 'vertical',
+                    items: [
+                        {
+                            itemId: 'searchResult',
+                            xtype: 'dataview',
+                            store: 'search',
+                            plugins: 'responsive',
+                            tpl:
+                            '<tpl for=".">' +
                             '<div class="item">' +
-                                '<img src="http://www.wilsoninfo.com/300x300.gif">' +
+                            '<img src="http://www.wilsoninfo.com/300x300.gif">' +
                             '</div>' +
-                        '</tpl>',
-                    itemSelector: '.item',
-                    responsiveConfig: {
-                        'width < 730': {
-                            width: 350
-                        },
-                        'width < 1080 && width >= 730': {
-                            width: 700
-                        },
-                        'width < 1430 && width >= 1080': {
-                            width: 1050
-                        },
-                        'width < 1780 && width >= 1430': {
-                            width: 1400
-                        },
-                        'width >= 1780': {
-                            width: 1750
+                            '</tpl>',
+                            itemSelector: '.item',
+                            responsiveConfig: {
+                                'width < 730': {
+                                    width: 350
+                                },
+                                'width < 1080 && width >= 730': {
+                                    width: 700
+                                },
+                                'width < 1430 && width >= 1080': {
+                                    width: 1050
+                                },
+                                'width < 1780 && width >= 1430': {
+                                    width: 1400
+                                },
+                                'width >= 1780': {
+                                    width: 1750
+                                }
+                            }
                         }
-                    }
+                    ]
+                },
+                {
+                    xtype: 'companyContainer',
+                    hidden: true
                 }
             ]
         }

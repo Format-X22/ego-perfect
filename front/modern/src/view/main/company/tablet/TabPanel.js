@@ -9,8 +9,8 @@ Ext.define('A.view.main.company.tablet.TabPanel', {
 
     items: [
         {
-            iconCls: 'x-fa fa-file-text-o',
-            xtype: 'companySummaryTablet'
+            xtype: 'companySummaryTablet',
+            iconCls: 'x-fa fa-file-text-o'
         },
         {
             iconCls: 'x-fa fa-image'
@@ -19,8 +19,8 @@ Ext.define('A.view.main.company.tablet.TabPanel', {
             iconCls: 'x-fa fa-eye'
         },
         {
-            iconCls: 'x-fa fa-map-o',
-            xtype: 'companyMap'
+            xtype: 'companyMap',
+            iconCls: 'x-fa fa-map-o'
         }
     ]
 });

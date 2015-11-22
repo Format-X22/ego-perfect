@@ -3,6 +3,6 @@ Ext.define('A.view.main.search.SearchResultController', {
     alias: 'controller.searchResultController',
 
     showCompany: function () {
-        //
+        this.getView().down('#resultCard').setActiveItem(1);
     }
 });
