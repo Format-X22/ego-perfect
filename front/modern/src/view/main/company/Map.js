@@ -12,9 +12,17 @@ Ext.define('A.view.main.company.Map', {
     items: [
         {
             xtype: 'component',
-            padding: 20,
             bind: {
                 html: '{address}'
+            },
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600 || height < 400': {
+                    padding: '5 10'
+                },
+                'width >= 600 && height >= 400': {
+                    padding: 20
+                }
             }
         },
         {
