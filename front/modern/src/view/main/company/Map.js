@@ -7,7 +7,24 @@ Ext.define('A.view.main.company.Map', {
         'A.view.main.company.MapController'
     ],
 
-    layout: 'fit',
+    layout: 'vbox',
+
+    items: [
+        {
+            xtype: 'component',
+            padding: 20,
+            bind: {
+                html: '{address}'
+            }
+        },
+        {
+            itemId: 'mapContainer',
+            xtype: 'container',
+            layout: 'fit',
+            width: '100%',
+            flex: 1
+        }
+    ],
 
     listeners: {
         show: function () {
@@ -15,7 +32,7 @@ Ext.define('A.view.main.company.Map', {
                 return;
             }
 
-            this.add({
+            this.down('#mapContainer').add({
                 xtype: 'map',
                 mapOptions: {
                     zoom: 17
