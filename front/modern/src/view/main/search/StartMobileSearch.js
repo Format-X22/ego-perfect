@@ -28,7 +28,7 @@ Ext.define('A.view.main.search.StartMobileSearch', {
             itemId: 'searchInput',
             xtype: 'textfield',
             cls: 'mobile-search',
-            placeHolder: 'Введите запрос',
+            placeHolder: 'Что ищем?',
             width: '100%'
         },
         {

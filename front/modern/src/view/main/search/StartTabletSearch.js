@@ -38,7 +38,7 @@ Ext.define('A.view.main.search.StartTabletSearch', {
                     xtype: 'textfield',
                     cls: 'tablet-search',
                     border: 1,
-                    placeHolder: 'Введите запрос, например - кафе в Москве',
+                    placeHolder: 'Что ищем? Например - кафе в Москве',
                     flex: 1
                 },
                 {

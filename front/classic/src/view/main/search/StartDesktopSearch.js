@@ -34,7 +34,7 @@ Ext.define('A.view.main.search.StartDesktopSearch', {
                     itemId: 'searchInput',
                     xtype: 'textfield',
                     border: 1,
-                    emptyText: 'Введите запрос, например - кафе в Москве',
+                    emptyText: 'Что ищем? Например - кафе в Москве',
                     submitEmptyText: false,
                     flex: 1
                 },

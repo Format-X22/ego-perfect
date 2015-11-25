@@ -15,6 +15,7 @@ Ext.define('A.view.main.search.SearchResult', {
 
     items: [
         {
+            itemId: 'searchToolbar',
             xtype: 'container',
             layout: 'hbox',
             width: '100%',
