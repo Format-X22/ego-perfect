@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.search.StartMobileSearch', {
     extend: 'Ext.Container',
     xtype: 'startMobileSearch',

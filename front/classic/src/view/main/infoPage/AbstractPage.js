@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.infoPage.AbstractPage', {
     extend: 'Ext.Container',
 

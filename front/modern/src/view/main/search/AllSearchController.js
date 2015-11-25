@@ -12,14 +12,26 @@ Ext.define('A.view.main.search.AllSearchController', {
         this.getSearchResult().show();
     },
 
+    /**
+     *
+     * @returns {*}
+     */
     getMobileSearch: function () {
         return this.getCmp('startMobileSearch');
     },
 
+    /**
+     *
+     * @returns {*}
+     */
     getTabletSearch: function () {
         return this.getCmp('startTabletSearch');
     },
 
+    /**
+     *
+     * @returns {*}
+     */
     getSearchResult: function () {
         return this.getCmp('searchResult');
     }

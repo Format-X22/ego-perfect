@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.infoPage.InfoComicIcon', {
     extend: 'Ext.dataview.component.DataItem',
     xtype: 'infoComicIcon',

@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.company.Map', {
     extend: 'Ext.Container',
     xtype: 'companyMap',
@@ -29,20 +32,27 @@ Ext.define('A.view.main.company.Map', {
 
     listeners: {
         show: function () {
-            if (this.down('gmappanel')) {
-                return;
-            }
-
-            this.down('#mapContainer').add({
-                xtype: 'gmappanel',
-                mapOptions: {
-                    zoom: 17,
-                    center: {
-                        lat: 0,
-                        lng: 0
-                    }
-                }
-            })
+            this.initMapComponent();
         }
+    },
+
+    /**
+     *
+     */
+    initMapComponent: function () {
+        if (this.down('gmappanel')) {
+            return;
+        }
+
+        this.down('#mapContainer').add({
+            xtype: 'gmappanel',
+            mapOptions: {
+                zoom: 17,
+                center: {
+                    lat: 0,
+                    lng: 0
+                }
+            }
+        });
     }
 });

@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.company.AbstractAllSearchController', {
     extend: 'Ext.app.ViewController',
 
@@ -15,6 +18,11 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
         }
     },
 
+    /**
+     *
+     * @param originInput
+     * @param value
+     */
     syncAllSearchInputs: function (originInput, value) {
         var inputs = this.getSearchInputs();
 
@@ -23,17 +31,30 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
         });
     },
 
+    /**
+     *
+     * @returns {*}
+     */
     getSearchInputs: function () {
         return Ext.ComponentQuery.query('#searchInput');
     },
 
+    /**
+     *
+     */
     search: function () {
         this.toggleInitView();
         this.sendQuery();
     },
 
+    /**
+     *
+     */
     toggleInitView: Ext.emptyFn,
 
+    /**
+     *
+     */
     sendQuery: function () {
         var value = this.getSearchInputs()[0].getValue();
 
@@ -44,6 +65,11 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
         });*/
     },
 
+    /**
+     *
+     * @param selector
+     * @returns {*}
+     */
     getCmp: function (selector) {
         return Ext.ComponentQuery.query(selector)[0];
     }

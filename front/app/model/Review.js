@@ -1,3 +1,6 @@
+/**
+ * Модель данных отзыва.
+ */
 Ext.define('A.model.Review', {
     extend: 'Ext.data.Model',
 

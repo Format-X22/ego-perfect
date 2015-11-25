@@ -12,6 +12,10 @@ Ext.define('A.view.main.MobileMenuToolbarController', {
         Ext.Viewport.toggleMenu('right');
     },
 
+    /**
+     *
+     * @param button
+     */
     backToSearch: function (button) {
         Ext.ComponentQuery.query('searchResult')[0].getController().backToSearch();
         button.hide();

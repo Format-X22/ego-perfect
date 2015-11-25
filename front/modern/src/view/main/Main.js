@@ -46,6 +46,8 @@ Ext.define('A.view.main.Main', {
     ],
 
     /**
+     * @inheritdoc
+     * @localdoc
      * Добавляем выдвигающееся меню для телефонов.
      */
     initialize: function () {

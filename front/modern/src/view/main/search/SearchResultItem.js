@@ -28,10 +28,6 @@ Ext.define('A.view.main.search.SearchResultItem', {
         }
     ],
 
-    /**
-     * Наполняем виджет данными.
-     * @param {Ext.data.Model} record Рекорд с данными.
-     */
     updateRecord: function (record) {
         //var link = '/logo' + record.get('id');
         var link = 'http://www.wilsoninfo.com/300x300.gif';

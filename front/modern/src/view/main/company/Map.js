@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.company.Map', {
     extend: 'Ext.Container',
     xtype: 'companyMap',
@@ -36,16 +39,23 @@ Ext.define('A.view.main.company.Map', {
 
     listeners: {
         show: function () {
-            if (this.down('map')) {
-                return;
-            }
-
-            this.down('#mapContainer').add({
-                xtype: 'map',
-                mapOptions: {
-                    zoom: 17
-                }
-            })
+            this.initMapComponent();
         }
+    },
+
+    /**
+     *
+     */
+    initMapComponent: function () {
+        if (this.down('map')) {
+            return;
+        }
+
+        this.down('#mapContainer').add({
+            xtype: 'map',
+            mapOptions: {
+                zoom: 17
+            }
+        });
     }
 });

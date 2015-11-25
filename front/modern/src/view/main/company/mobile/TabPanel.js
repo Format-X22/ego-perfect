@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.company.mobile.TabPanel', {
     extend: 'A.view.main.company.AbstractTabPanel',
     xtype: 'companyTabPanelMobile',

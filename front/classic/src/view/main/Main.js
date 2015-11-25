@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.Main', {
     extend: 'Ext.container.Viewport',
     xtype: 'app-main',

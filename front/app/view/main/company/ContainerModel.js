@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.company.ContainerModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.companyContainer',

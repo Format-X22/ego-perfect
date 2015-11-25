@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.search.SearchResult', {
     extend: 'Ext.container.Container',
     xtype: 'searchResult',

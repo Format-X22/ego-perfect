@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.search.StartDesktopSearch', {
     extend: 'Ext.container.Container',
     xtype: 'startDesktopSearch',

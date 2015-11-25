@@ -1,3 +1,6 @@
+/**
+ * Модель данных для карты.
+ */
 Ext.define('A.model.Map', {
     extend: 'Ext.data.Model',
 

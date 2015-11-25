@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.company.mobile.Summary', {
     extend: 'Ext.Container',
     xtype: 'companySummaryMobile',

@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.company.Summary', {
     extend: 'Ext.Container',
     xtype: 'companySummary',

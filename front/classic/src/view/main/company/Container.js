@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.company.Container', {
     extend: 'Ext.panel.Panel',
     xtype: 'companyContainer',

@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.search.SearchResultController', {
     extend: 'A.view.main.company.AbstractSearchResultController',
     alias: 'controller.searchResultController',
@@ -12,14 +15,24 @@ Ext.define('A.view.main.search.SearchResultController', {
         this.hideMobileBackButton();
     },
 
+    /**
+     *
+     */
     showMobileBackButton: function () {
         this.getMobileBackButton().show();
     },
 
+    /**
+     *
+     */
     hideMobileBackButton: function () {
         this.getMobileBackButton().hide();
     },
 
+    /**
+     *
+     * @returns {*}
+     */
     getMobileBackButton: function () {
         return Ext.ComponentQuery.query('#backToSearchMobile')[0];
     }
