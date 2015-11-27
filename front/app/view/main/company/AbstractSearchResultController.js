@@ -1,5 +1,5 @@
 /**
- *
+ * Абстрактный контроллер результатов поиска.
  */
 Ext.define('A.view.main.company.AbstractSearchResultController', {
     extend: 'Ext.app.ViewController',
@@ -20,38 +20,19 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
     },
 
     /**
-     *
-     * @param view
-     * @param record
+     * @protected
+     * Открывает компанию, соответствующую данным рекорда.
+     * @param {Ext.data.Model} record Рекорд.
      */
-    openCompanyFromClassic: function (view, record) {
-        this.openCompany(view, record);
-    },
-
-    /**
-     *
-     * @param view
-     * @param index
-     * @param target
-     * @param record
-     */
-    openCompanyFromModern: function (view, index, target, record) {
-        this.openCompany(view, record);
-    },
-
-    /**
-     *
-     * @param view
-     * @param record
-     */
-    openCompany: function (view, record) {
+    openCompany: function (record) {
         this.loadCompany(record);
-        this.showCompany(view);
+        this.showCompany();
     },
 
     /**
-     *
-     * @param record
+     * @protected
+     * Загружает данные компании на основании указанного рекорда.
+     * @param {Ext.data.Model} record Рекорд.
      */
     loadCompany: function (record) {
         /*A.store.Company.load({
@@ -62,7 +43,8 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
     },
 
     /**
-     *
+     * @protected
+     * Показывает компанию.
      */
     showCompany: function () {
         this.hideSearch();
@@ -70,7 +52,8 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
     },
 
     /**
-     *
+     * @protected
+     * Возвращает к результатам поиска.
      */
     backToSearch: function () {
         this.showSearch();
@@ -78,46 +61,74 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
     },
 
     /**
-     *
+     * @protected
+     * Показывает поисковый виджет.
      */
     showSearch: function () {
         this.getSearchToolbar().show();
     },
 
     /**
-     *
+     * @protected
+     * Прячет поисковый виджет.
      */
     hideSearch: function () {
         this.getSearchToolbar().hide();
     },
 
     /**
-     *
+     * @protected
+     * Переключает отображение на показ виджета компании.
      */
     switchToCompany: function () {
         this.getResultCard().setActiveItem(1);
     },
 
     /**
-     *
+     * @protected
+     * Переключает отображение на показ виджета результатов поиска.
      */
     switchToSearch: function () {
         this.getResultCard().setActiveItem(0);
     },
 
     /**
-     *
-     * @returns {*}
+     * @protected
+     * @return {Ext.toolbar.Toolbar/Ext.Toolbar} Тулбар поиска.
      */
     getSearchToolbar: function () {
         return this.getView().down('#searchToolbar');
     },
 
     /**
-     *
-     * @returns {*}
+     * @protected
+     * @return {Ext.container.Container/Ext.Container} Контейнер с результатом поиска и деталями
+     * компании с возможностью переключения отображения.
      */
     getResultCard: function () {
         return this.getView().down('#resultCard');
+    },
+
+    privates: {
+
+        /**
+         * @private
+         * @param {} view Вью.
+         * @param {Ext.data.Model} record Рекорд.
+         */
+        openCompanyFromClassic: function (view, record) {
+            this.openCompany(record);
+        },
+
+        /**
+         * @private
+         * @param {} view Вью.
+         * @param {Number} index Индекс.
+         * @param {} target Цель.
+         * @param {Ext.data.Model} record Рекорд.
+         */
+        openCompanyFromModern: function (view, index, target, record) {
+            this.openCompany(record);
+        }
     }
 });

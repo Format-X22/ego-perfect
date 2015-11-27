@@ -1,7 +1,7 @@
 /**
- *
+ * Вью-модель деталей компании.
  */
-Ext.define('A.view.main.company.ContainerModel', {
+Ext.define('A.view.main.company.Model', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.companyContainer',
 
