@@ -4,7 +4,7 @@
 Ext.define('A.view.main.search.SearchContainer', {
     extend: 'Ext.Container',
     xtype: 'searchContainer',
-    controller: 'allSearchController',
+    controller: 'allSearch',
 
     requires: [
         'Ext.plugin.Responsive',

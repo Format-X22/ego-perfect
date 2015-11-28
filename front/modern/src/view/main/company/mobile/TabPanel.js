@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.company.mobile.TabPanel', {
     extend: 'A.view.main.company.AbstractTabPanel',
     xtype: 'companyTabPanelMobile',
@@ -9,8 +12,8 @@ Ext.define('A.view.main.company.mobile.TabPanel', {
 
     items: [
         {
-            iconCls: 'x-fa fa-file-text-o',
-            xtype: 'companySummaryMobile'
+            xtype: 'companySummaryMobile',
+            iconCls: 'x-fa fa-file-text-o'
         },
         {
             iconCls: 'x-fa fa-image'
@@ -19,8 +22,8 @@ Ext.define('A.view.main.company.mobile.TabPanel', {
             iconCls: 'x-fa fa-eye'
         },
         {
-            iconCls: 'x-fa fa-map-o',
-            xtype: 'companyMap'
+            xtype: 'companyMap',
+            iconCls: 'x-fa fa-map-o'
         }
     ]
 });

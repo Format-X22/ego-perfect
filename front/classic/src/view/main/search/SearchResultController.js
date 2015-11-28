@@ -1,8 +1,14 @@
+/**
+ *
+ */
 Ext.define('A.view.main.search.SearchResultController', {
     extend: 'A.view.main.company.AbstractSearchResultController',
-    alias: 'controller.searchResultController',
+    alias: 'controller.searchResult',
 
-    showCompany: function () {
-        //
+    /**
+     *
+     */
+    focusSearchInput: function (component) {
+        component.down('#searchInput').focus();
     }
 });

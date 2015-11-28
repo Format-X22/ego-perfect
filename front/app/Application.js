@@ -8,7 +8,7 @@ Ext.define('A.Application', {
     
     launch: function () {
         Ext.Loader.loadScript({
-            url: 'http://maps.google.com/maps/api/js'
+            url: '//maps.google.com/maps/api/js'
         });
     }
 });

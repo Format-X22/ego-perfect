@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.company.AbstractTabPanel', {
     extend: 'Ext.tab.Panel',
 

@@ -7,7 +7,8 @@ Ext.define('A.view.main.company.Map', {
     controller: 'companyMap',
 
     requires: [
-        'A.view.main.company.MapController'
+        'A.view.main.company.MapController',
+        'Ext.ux.GMapPanel'
     ],
 
     layout: 'vbox',
@@ -18,15 +19,7 @@ Ext.define('A.view.main.company.Map', {
             bind: {
                 html: '{address}'
             },
-            plugins: 'responsive',
-            responsiveConfig: {
-                'width < 600 || height < 400': {
-                    padding: '5 10'
-                },
-                'width >= 600 && height >= 400': {
-                    padding: 20
-                }
-            }
+            padding: 20
         },
         {
             itemId: 'mapContainer',
@@ -47,14 +40,18 @@ Ext.define('A.view.main.company.Map', {
      *
      */
     initMapComponent: function () {
-        if (this.down('map')) {
+        if (this.down('gmappanel')) {
             return;
         }
 
         this.down('#mapContainer').add({
-            xtype: 'map',
+            xtype: 'gmappanel',
             mapOptions: {
-                zoom: 17
+                zoom: 17,
+                center: {
+                    lat: 0,
+                    lng: 0
+                }
             }
         });
     }

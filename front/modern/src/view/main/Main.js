@@ -2,7 +2,7 @@
  * Главный виджет.
  */
 Ext.define('A.view.main.Main', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.form.Panel',
     xtype: 'app-main',
 
     requires: [
@@ -46,6 +46,8 @@ Ext.define('A.view.main.Main', {
     ],
 
     /**
+     * @inheritdoc
+     * @localdoc
      * Добавляем выдвигающееся меню для телефонов.
      */
     initialize: function () {
@@ -56,5 +58,21 @@ Ext.define('A.view.main.Main', {
 
         Ext.Viewport.setMenu(mobileMenu, menuConfig);
 
+    },
+
+    /**
+     * @protected
+     * Переопределяем оригинальный элемент формы, добавляя в него признаки,
+     * указывающие на то что это поисковая форма, что дает нам отображение
+     * кнопки "найти" на клавиатурах устройств в полях поиска.
+     * @return {Object} Конфиг элемента.
+     */
+    getElementConfig: function() {
+        var config = this.callParent(arguments);
+
+        config.role = 'search';
+        config.action = 'javascript:void(0)';
+
+        return config;
     }
 });

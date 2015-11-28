@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.search.StartDesktopSearch', {
     extend: 'Ext.container.Container',
     xtype: 'startDesktopSearch',
@@ -33,10 +36,14 @@ Ext.define('A.view.main.search.StartDesktopSearch', {
                 {
                     itemId: 'searchInput',
                     xtype: 'textfield',
+                    inputType: 'search',
                     border: 1,
-                    emptyText: 'Введите запрос, например - кафе в Москве',
+                    emptyText: 'Что ищем? Например - кафе в Москве',
                     submitEmptyText: false,
-                    flex: 1
+                    flex: 1,
+                    listeners: {
+                        render: 'focusSearchInput'
+                    }
                 },
                 {
                     itemId: 'searchButton',

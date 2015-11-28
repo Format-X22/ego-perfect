@@ -13,25 +13,44 @@ Ext.define('A.store.PageForClients', {
     },
 
     data: [
-        {id: 1, header: 'text', description: 'anotherText'},
-        {id: 2, header: 'text', description: 'anotherText'},
-        {id: 3, header: 'text', description: 'anotherText'},
-        {id: 4, header: 'text', description: 'anotherText'},
-        {id: 5, header: 'text', description: 'anotherText'},
-        {id: 6, header: 'text', description: 'anotherText'},
-        {id: 7, header: 'text', description: 'anotherText'},
-        {id: 8, header: 'text', description: 'anotherText'},
-        {id: 9, header: 'text', description: 'anotherText'},
-        {id: 10, header: 'text', description: 'anotherText'},
-        {id: 11, header: 'text', description: 'anotherText'},
-        {id: 12, header: 'text', description: 'anotherText'},
-        {id: 13, header: 'text', description: 'anotherText'},
-        {id: 14, header: 'text', description: 'anotherText'},
-        {id: 15, header: 'text', description: 'anotherText'},
-        {id: 16, header: 'text', description: 'anotherText'},
-        {id: 17, header: 'text', description: 'anotherText'},
-        {id: 18, header: 'text', description: 'anotherText'},
-        {id: 19, header: 'text', description: 'anotherText'},
-        {id: 20, header: 'text', description: 'anotherText'}
+        {
+            id: 1,
+            header: 'Интерактив',
+            description: 'Мы любим фильмы больше чем книги. Что бы там не говорили - это заложено в нас природой. ' +
+                         'Поэтому на нашем сайте поиск показывает картинки.'
+        },
+        {
+            id: 2,
+            header: 'Информация важнее',
+            description: 'Человек ищет что-то чтобы решить свою проблему, ему нужна информация. ' +
+                         'Мы даем информацию сразу, больше не нужно каждый раз изучать устройство ' +
+                         'очередного сайта, оно у нас едино для всех.'
+        },
+        {
+            id: 3,
+            header: 'Клиенты хотят',
+            description: 'Люди заходят на наш сайт специально чтобы найти одну из компаний, ' +
+                         'они уже готовы к предложениям. Это лучше чем надоевшая всем реклама.'
+        },
+        {
+            id: 4,
+            header: 'Коротко и по делу',
+            description: 'Описание компаний содержит только те вещи, что важнее при знакомстве ' +
+                         'с компанией, никакой перегрузки новостями, статьями и прочим. ' +
+                         'Эффективность лаконичности доказана научными исследованиями.'
+        },
+        {
+            id: 5,
+            header: 'Телефоны и планшеты',
+            description: 'Наш сайт специально оптимизирован под мобильные устройства, ' +
+                         'а значит и каждая компания сразу получает возможность быть доступной ' +
+                         'и для мобильных клиентов.'
+        },
+        {
+            id: 6,
+            header: 'Enterprise',
+            description: 'Сайт использует промышленные стандарты технологий, ' +
+                         'активно используемые в банковской среде.'
+        }
     ]
 });

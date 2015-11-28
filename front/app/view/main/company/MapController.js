@@ -1,6 +1,9 @@
+/**
+ * Вью-контроллер карты.
+ */
 Ext.define('A.view.main.company.MapController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.companyMapController',
+    alias: 'controller.companyMap',
 
     control: {
         'companyMap': {
@@ -8,6 +11,9 @@ Ext.define('A.view.main.company.MapController', {
         }
     },
 
+    /**
+     * Обновляет карту по текущим данным.
+     */
     renewMap: function () {
         this.waitForAnimation(function () {
             this.centerToCurrent();
@@ -16,62 +22,141 @@ Ext.define('A.view.main.company.MapController', {
         });
     },
 
-    waitForAnimation: function (callback) {
-        Ext.defer(callback, 300, this);
-    },
+    privates: {
 
-    centerToCurrent: function () {
-        this.getMap().getMap().setCenter(this.getPosition());
-    },
+        /**
+         * @private
+         * @param {} callback
+         */
+        waitForAnimation: function (callback) {
+            var time = 300;
 
-    getMap: function () {
-        return this.getView().down('map');
-    },
+            if (Ext.isClassic) {
+                time = 1;
+            }
 
-    getPosition: function () {
-        return {
-            lat: this.getLat(),
-            lng: this.getLng()
-        };
-    },
+            Ext.defer(callback, time, this);
+        },
 
-    getLat: function () {
-        return this.getMapModel().get('lat');
-    },
+        /**
+         * @private
+         */
+        centerToCurrent: function () {
+            this.getGoogleMapObject().setCenter(this.getPosition());
+        },
 
-    getLng: function () {
-        return this.getMapModel().get('lng');
-    },
+        /**
+         * @private
+         * @return {}
+         */
+        getGoogleMapObject: function () {
+            var map = this.getMap();
 
-    getMapModel: function () {
-        return this.getCompanyViewModel().get('map').first();
-    },
+            if (Ext.isClassic) {
+                return map.gmap;
+            } else {
+                return map.getMap();
+            }
+        },
 
-    getCompanyViewModel: function () {
-        return this.getView().up('companyContainer').getViewModel();
-    },
+        /**
+         * @private
+         * @return {}
+         */
+        getMap: function () {
+            var selector = 'map';
 
-    makeNewMarkerIfNeed: function () {
-        if (!this.getMarker()) {
-            this.setMarker(this.createMarker());
+            if (Ext.isClassic) {
+                selector = 'gmappanel';
+            }
+
+            return this.getView().down(selector);
+        },
+
+        /**
+         * @private
+         * @return {}
+         */
+        getPosition: function () {
+            return {
+                lat: this.getLat(),
+                lng: this.getLng()
+            };
+        },
+
+        /**
+         * @private
+         * @return {}
+         */
+        getLat: function () {
+            return this.getMapModel().get('lat');
+        },
+
+        /**
+         * @private
+         * @return {}
+         */
+        getLng: function () {
+            return this.getMapModel().get('lng');
+        },
+
+        /**
+         * @private
+         * @return {}
+         */
+        getMapModel: function () {
+            return this.getCompanyViewModel().get('map').first();
+        },
+
+        /**
+         * @private
+         * @return {Ext.app.ViewModel}
+         */
+        getCompanyViewModel: function () {
+            return this.getView().up('companyContainer').getViewModel();
+        },
+
+        /**
+         * @private
+         */
+        makeNewMarkerIfNeed: function () {
+            if (!this.getMarker()) {
+                this.setMarker(this.createMarker());
+            }
+        },
+
+        /**
+         * @private
+         * @return {}
+         */
+        getMarker: function () {
+            return this.getCompanyViewModel().get('mapMarker');
+        },
+
+        /**
+         * @private
+         * @param {} value
+         * @return {}
+         */
+        setMarker: function (value) {
+            return this.getCompanyViewModel().set('mapMarker', value);
+        },
+
+        /**
+         * @private
+         * @returns {google.maps.Marker}
+         */
+        createMarker: function () {
+            return new google.maps.Marker({
+                map: this.getGoogleMapObject()
+            });
+        },
+
+        /**
+         * @private
+         */
+        setMarkerToCurrent: function () {
+            this.getMarker().setPosition(this.getPosition());
         }
-    },
-
-    getMarker: function () {
-        return this.getCompanyViewModel().get('mapMarker');
-    },
-
-    setMarker: function (value) {
-        return this.getCompanyViewModel().set('mapMarker', value);
-    },
-
-    createMarker: function () {
-        return new google.maps.Marker({
-            map: this.getMap().getMap()
-        });
-    },
-
-    setMarkerToCurrent: function () {
-        this.getMarker().setPosition(this.getPosition());
     }
 });

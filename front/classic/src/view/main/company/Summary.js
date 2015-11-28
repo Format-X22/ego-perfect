@@ -1,11 +1,11 @@
 /**
  *
  */
-Ext.define('A.view.main.company.tablet.Summary', {
+Ext.define('A.view.main.company.Summary', {
     extend: 'Ext.Container',
-    xtype: 'companySummaryTablet',
+    xtype: 'companySummary',
 
-    cls: 'company-summary company-summary-tablet',
+    cls: 'company-summary',
     layout: 'hbox',
     scrollable: 'vertical',
     padding: 15,
@@ -16,7 +16,7 @@ Ext.define('A.view.main.company.tablet.Summary', {
             width: 330,
             items: [
                 {
-                    xtype: 'img',
+                    xtype: 'image',
                     width: 300,
                     height: 300,
                     src: 'http://www.wilsoninfo.com/300x300.gif'
@@ -39,7 +39,8 @@ Ext.define('A.view.main.company.tablet.Summary', {
         {
             xtype: 'component',
             cls: 'separator-vertical',
-            padding: '0 5 20 20',
+            padding: '0 15 25 25',
+            margin: '0 0 0 31',
             flex: 1,
             bind: {
                 html: '{summary}'

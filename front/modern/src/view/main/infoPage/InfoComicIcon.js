@@ -1,3 +1,6 @@
+/**
+ *
+ */
 Ext.define('A.view.main.infoPage.InfoComicIcon', {
     extend: 'Ext.dataview.component.DataItem',
     xtype: 'infoComicIcon',
@@ -15,24 +18,27 @@ Ext.define('A.view.main.infoPage.InfoComicIcon', {
 
     items: [
         {
+            itemId: 'img',
             xtype: 'img',
             width: 180,
             height: 180,
             src: 'http://img2.wikia.nocookie.net/__cb20130207074041/adventuretime/ru/images/5/55/180x180_profile_adventuretime_jake_01.jpg'
         },
         {
+            itemId: 'header',
             xtype: 'component',
-            padding: 7,
-            cls: 'header',
-            html: 'Заголовок'
+            padding: 15,
+            cls: 'header'
         },
         {
-            xtype: 'component',
-            html: 'Описание чего-то<br>в целых три-четыре вот таких<br>строки разнообразного текста.'
+            itemId: 'description',
+            xtype: 'component'
         }
     ],
 
     updateRecord: function (record) {
-        //
+        //this.down('#img').setSrc();
+        this.down('#header').setHtml(record.get('header'));
+        this.down('#description').setHtml(record.get('description'));
     }
 });

@@ -1,7 +1,10 @@
+/**
+ *
+ */
 Ext.define('A.view.main.search.SearchContainer', {
     extend: 'Ext.Container',
     xtype: 'searchContainer',
-    controller: 'allSearchController',
+    controller: 'allSearch',
 
     requires: [
         'A.view.main.search.StartDesktopSearch',
@@ -19,5 +22,9 @@ Ext.define('A.view.main.search.SearchContainer', {
             xtype: 'searchResult',
             hidden: true
         }
-    ]
+    ],
+
+    listeners: {
+        activate: 'focusSearchInput'
+    }
 });
