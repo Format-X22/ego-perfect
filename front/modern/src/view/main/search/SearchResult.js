@@ -4,7 +4,7 @@
 Ext.define('A.view.main.search.SearchResult', {
     extend: 'Ext.Container',
     xtype: 'searchResult',
-    controller: 'searchResultController',
+    controller: 'searchResult',
 
     requires: [
         'Ext.plugin.Responsive',
@@ -24,10 +24,19 @@ Ext.define('A.view.main.search.SearchResult', {
             items: [
                 {
                     itemId: 'searchInput',
-                    xtype: 'textfield',
+                    xtype: 'searchfield',
+                    ui: 'text',
                     cls: 'result-search',
-                    placeHolder: 'Введите запрос',
-                    flex: 1
+                    placeHolder: 'Что ищем?',
+                    flex: 1,
+                    component: {
+                        autoComplete: false,
+                        autoCapitalize: false,
+                        autoCorrect: false
+                    },
+                    listeners: {
+                        action: 'search'
+                    }
                 },
                 {
                     itemId: 'searchButton',

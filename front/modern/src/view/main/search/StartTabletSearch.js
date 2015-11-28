@@ -17,12 +17,14 @@ Ext.define('A.view.main.search.StartTabletSearch', {
             flex: 1
         },
         {
+            itemId: 'img',
             xtype: 'image',
             width: 240,
             height: 150,
             src: '/resources/logo.svg'
         },
         {
+            itemId: 'description',
             xtype: 'component',
             padding: '0 0 10 0',
             html: 'Все фирмы на одном сайте'
@@ -35,11 +37,22 @@ Ext.define('A.view.main.search.StartTabletSearch', {
             items: [
                 {
                     itemId: 'searchInput',
-                    xtype: 'textfield',
+                    xtype: 'searchfield',
+                    ui: 'text',
                     cls: 'tablet-search',
                     border: 1,
                     placeHolder: 'Что ищем? Например - кафе в Москве',
-                    flex: 1
+                    flex: 1,
+                    component: {
+                        autoComplete: false,
+                        autoCapitalize: false,
+                        autoCorrect: false
+                    },
+                    listeners: {
+                        focus: 'switchTabletInitToSimple',
+                        blur: 'switchTabletInitToFull',
+                        action: 'search'
+                    }
                 },
                 {
                     itemId: 'searchButton',

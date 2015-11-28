@@ -4,7 +4,7 @@
 Ext.define('A.view.main.company.Map', {
     extend: 'Ext.Container',
     xtype: 'companyMap',
-    controller: 'companyMapController',
+    controller: 'companyMap',
 
     requires: [
         'A.view.main.company.MapController',

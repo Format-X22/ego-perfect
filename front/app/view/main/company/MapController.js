@@ -3,7 +3,7 @@
  */
 Ext.define('A.view.main.company.MapController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.companyMapController',
+    alias: 'controller.companyMap',
 
     control: {
         'companyMap': {

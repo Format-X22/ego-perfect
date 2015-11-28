@@ -29,10 +29,19 @@ Ext.define('A.view.main.search.StartMobileSearch', {
         },
         {
             itemId: 'searchInput',
-            xtype: 'textfield',
+            xtype: 'searchfield',
+            ui: 'text',
             cls: 'mobile-search',
             placeHolder: 'Что ищем?',
-            width: '100%'
+            width: '100%',
+            component: {
+                autoComplete: false,
+                autoCapitalize: false,
+                autoCorrect: false
+            },
+            listeners: {
+                action: 'search'
+            }
         },
         {
             itemId: 'searchButton',

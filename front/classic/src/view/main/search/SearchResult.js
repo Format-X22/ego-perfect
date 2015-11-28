@@ -4,7 +4,7 @@
 Ext.define('A.view.main.search.SearchResult', {
     extend: 'Ext.container.Container',
     xtype: 'searchResult',
-    controller: 'searchResultController',
+    controller: 'searchResult',
 
     requires: [
         'Ext.plugin.Responsive',
@@ -28,7 +28,8 @@ Ext.define('A.view.main.search.SearchResult', {
                 {
                     itemId: 'searchInput',
                     xtype: 'textfield',
-                    emptyText: 'Введите запрос',
+                    inputType: 'search',
+                    emptyText: 'Что ищем?',
                     submitEmptyText: false,
                     flex: 1,
                     maxWidth: 500
@@ -39,7 +40,10 @@ Ext.define('A.view.main.search.SearchResult', {
                     iconCls: 'x-fa fa-search',
                     text: 'Искать'
                 }
-            ]
+            ],
+            listeners: {
+                show: 'focusSearchInput'
+            }
         },
         {
             itemId: 'resultCard',
@@ -95,5 +99,9 @@ Ext.define('A.view.main.search.SearchResult', {
                 }
             ]
         }
-    ]
+    ],
+
+    listeners: {
+        show: 'focusSearchInput'
+    }
 });
