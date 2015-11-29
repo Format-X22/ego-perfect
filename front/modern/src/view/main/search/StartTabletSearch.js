@@ -1,5 +1,5 @@
 /**
- * Стартовый скрин поиска для мобильных устройств с большим экраном.
+ * Стартовый виджет поиска для планшетов.
  */
 Ext.define('A.view.main.search.StartTabletSearch', {
     extend: 'Ext.Container',

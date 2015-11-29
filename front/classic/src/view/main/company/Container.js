@@ -1,5 +1,5 @@
 /**
- *
+ * Контейнер деталей компании.
  */
 Ext.define('A.view.main.company.Container', {
     extend: 'Ext.panel.Panel',

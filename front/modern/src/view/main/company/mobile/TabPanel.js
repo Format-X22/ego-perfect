@@ -1,5 +1,5 @@
 /**
- *
+ * Таб-панель деталей компании для мобильников.
  */
 Ext.define('A.view.main.company.mobile.TabPanel', {
     extend: 'A.view.main.company.AbstractTabPanel',

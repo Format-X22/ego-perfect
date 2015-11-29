@@ -1,5 +1,5 @@
 /**
- *
+ * Главный виджет приложения для ПК.
  */
 Ext.define('A.view.main.Main', {
     extend: 'Ext.container.Viewport',

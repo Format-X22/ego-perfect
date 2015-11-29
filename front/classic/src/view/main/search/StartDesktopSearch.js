@@ -1,5 +1,5 @@
 /**
- *
+ * Стартовый виджет поиска для ПК.
  */
 Ext.define('A.view.main.search.StartDesktopSearch', {
     extend: 'Ext.container.Container',
@@ -42,7 +42,8 @@ Ext.define('A.view.main.search.StartDesktopSearch', {
                     submitEmptyText: false,
                     flex: 1,
                     listeners: {
-                        render: 'focusSearchInput'
+                        render: 'focusSearchInput',
+                        specialkey: 'searchIfEnter'
                     }
                 },
                 {

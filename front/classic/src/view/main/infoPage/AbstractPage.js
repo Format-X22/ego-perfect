@@ -1,5 +1,5 @@
 /**
- *
+ * Абстрактная страница информации.
  */
 Ext.define('A.view.main.infoPage.AbstractPage', {
     extend: 'Ext.Container',
@@ -15,6 +15,10 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
     },
 
     config: {
+
+        /**
+         * @cfg {String} store Имя стора с информацией для страницы.
+         */
         store: null
     },
 
@@ -48,6 +52,9 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
         }
     ],
 
+    /**
+     * @inheritdoc
+     */
     initComponent: function () {
         this.callParent(arguments);
 

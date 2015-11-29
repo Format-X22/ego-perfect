@@ -1,5 +1,5 @@
 /**
- *
+ * Карта для деталей компании.
  */
 Ext.define('A.view.main.company.Map', {
     extend: 'Ext.Container',
@@ -36,23 +36,26 @@ Ext.define('A.view.main.company.Map', {
         }
     },
 
-    /**
-     *
-     */
-    initMapComponent: function () {
-        if (this.down('gmappanel')) {
-            return;
-        }
+    privates: {
 
-        this.down('#mapContainer').add({
-            xtype: 'gmappanel',
-            mapOptions: {
-                zoom: 17,
-                center: {
-                    lat: 0,
-                    lng: 0
-                }
+        /**
+         * @private
+         */
+        initMapComponent: function () {
+            if (this.down('gmappanel')) {
+                return;
             }
-        });
+
+            this.down('#mapContainer').add({
+                xtype: 'gmappanel',
+                mapOptions: {
+                    zoom: 17,
+                    center: {
+                        lat: 0,
+                        lng: 0
+                    }
+                }
+            });
+        }
     }
 });

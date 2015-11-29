@@ -1,5 +1,5 @@
 /**
- *
+ * Стартовый виджет поиска для мобильников.
  */
 Ext.define('A.view.main.search.StartMobileSearch', {
     extend: 'Ext.Container',

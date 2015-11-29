@@ -1,11 +1,13 @@
 /**
- * Единый контроллер всех виджетов поиска.
- * Един по причине полной схожести действий для мобильных и планшетных устройств.
+ * Контроллер всего что относится к поиску.
  */
 Ext.define('A.view.main.search.AllSearchController', {
     extend: 'A.view.main.company.AbstractAllSearchController',
     alias: 'controller.allSearch',
 
+    /**
+     * @inheritdoc
+     */
     toggleInitView: function () {
         this.getMobileSearch().hide();
         this.getTabletSearch().hide();
@@ -13,7 +15,8 @@ Ext.define('A.view.main.search.AllSearchController', {
     },
 
     /**
-     *
+     * Переключает стартовый планшетный вид к простому виду только с полем ввода,
+     * для удобства ввода текста.
      */
     switchTabletInitToSimple: function () {
         this.getView().down('startTabletSearch #img').hide();
@@ -21,34 +24,38 @@ Ext.define('A.view.main.search.AllSearchController', {
     },
 
     /**
-     *
+     * Переключает стартовый планшетный вид к полному, возможно в случае если пользователь
+     * почему-то решил больше не вводить текст и сбросить фокус.
      */
     switchTabletInitToFull: function () {
         this.getView().down('startTabletSearch #img').show();
         this.getView().down('startTabletSearch #description').show();
     },
 
-    /**
-     *
-     * @returns {*}
-     */
-    getMobileSearch: function () {
-        return this.getCmp('startMobileSearch');
-    },
+    privates: {
 
-    /**
-     *
-     * @returns {*}
-     */
-    getTabletSearch: function () {
-        return this.getCmp('startTabletSearch');
-    },
+        /**
+         * @private
+         * @return {Ext.Component} Компонент стартового мобильного поиска.
+         */
+        getMobileSearch: function () {
+            return this.getCmp('startMobileSearch');
+        },
 
-    /**
-     *
-     * @returns {*}
-     */
-    getSearchResult: function () {
-        return this.getCmp('searchResult');
+        /**
+         * @private
+         * @return {Ext.Component} Компонент стартового планшетного поиска.
+         */
+        getTabletSearch: function () {
+            return this.getCmp('startTabletSearch');
+        },
+
+        /**
+         * @private
+         * @return {Ext.Component} Компонент результатов поиска.
+         */
+        getSearchResult: function () {
+            return this.getCmp('searchResult');
+        }
     }
 });

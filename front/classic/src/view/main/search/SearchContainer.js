@@ -1,5 +1,5 @@
 /**
- *
+ * Контейнер вкладки поиска.
  */
 Ext.define('A.view.main.search.SearchContainer', {
     extend: 'Ext.Container',

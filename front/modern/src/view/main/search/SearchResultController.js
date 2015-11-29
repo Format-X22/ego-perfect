@@ -1,39 +1,48 @@
 /**
- *
+ * Контроллер результатов поиска.
  */
 Ext.define('A.view.main.search.SearchResultController', {
     extend: 'A.view.main.company.AbstractSearchResultController',
     alias: 'controller.searchResult',
 
+    /**
+     * @inheritdoc
+     */
     showCompany: function () {
         this.callParent(arguments);
         this.showMobileBackButton();
     },
 
+    /**
+     * @inheritdoc
+     */
     backToSearch: function () {
         this.callParent(arguments);
         this.hideMobileBackButton();
     },
 
-    /**
-     *
-     */
-    showMobileBackButton: function () {
-        this.getMobileBackButton().show();
-    },
+    privates: {
 
-    /**
-     *
-     */
-    hideMobileBackButton: function () {
-        this.getMobileBackButton().hide();
-    },
+        /**
+         * @private
+         */
+        showMobileBackButton: function () {
+            this.getMobileBackButton().show();
+        },
 
-    /**
-     *
-     * @returns {*}
-     */
-    getMobileBackButton: function () {
-        return Ext.ComponentQuery.query('#backToSearchMobile')[0];
+        /**
+         * @private
+         */
+        hideMobileBackButton: function () {
+            this.getMobileBackButton().hide();
+        },
+
+        /**
+         * @private
+         * @return {Ext.Button} Кнопка.
+         */
+        getMobileBackButton: function () {
+            return Ext.ComponentQuery.query('#backToSearchMobile')[0];
+        }
     }
 });

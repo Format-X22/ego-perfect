@@ -18,10 +18,16 @@ Ext.define('A.model.field.Store', {
      */
     model: null,
 
+    /**
+     * @inheritdoc
+     */
     getType: function () {
         return 'store';
     },
 
+    /**
+     * @inheritdoc
+     */
     convert: function (value) {
         return Ext.create('A.store.FieldStore', {
             model: this.model,

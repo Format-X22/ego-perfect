@@ -113,7 +113,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
 
         /**
          * @private
-         * @param {} view Вью.
+         * @param {Ext.view.View} view Вью.
          * @param {Ext.data.Model} record Рекорд.
          */
         openCompanyFromClassic: function (view, record) {
@@ -122,9 +122,9 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
 
         /**
          * @private
-         * @param {} view Вью.
+         * @param {Ext.dataview.DataView} view Вью.
          * @param {Number} index Индекс.
-         * @param {} target Цель.
+         * @param {Ext.dataview.component.DataItem} target Цель.
          * @param {Ext.data.Model} record Рекорд.
          */
         openCompanyFromModern: function (view, index, target, record) {

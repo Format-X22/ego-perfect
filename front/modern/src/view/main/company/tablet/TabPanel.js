@@ -1,5 +1,5 @@
 /**
- *
+ * Таб-панель деталей компании для планшетов.
  */
 Ext.define('A.view.main.company.tablet.TabPanel', {
     extend: 'A.view.main.company.AbstractTabPanel',

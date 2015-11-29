@@ -13,8 +13,9 @@ Ext.define('A.view.main.MobileMenuToolbarController', {
     },
 
     /**
-     *
-     * @param button
+     * Возвращает к результатам поиска,
+     * делегирую действие контроллеру поиска.
+     * @param {Ext.Button} button Кнопка.
      */
     backToSearch: function (button) {
         Ext.ComponentQuery.query('searchResult')[0].getController().backToSearch();
