@@ -13,6 +13,7 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
         type: 'hbox',
         pack: 'center'
     },
+    scrollable: 'vertical',
 
     config: {
 
@@ -28,7 +29,7 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
             useComponents: true,
             inline: true,
             defaultType: 'infoComicIcon',
-            scrollable: 'vertical',
+            scrollable: false,
             plugins: 'responsive',
             responsiveConfig: {
                 'width < 270': {
