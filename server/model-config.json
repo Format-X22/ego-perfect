@@ -31,5 +31,35 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "search": {
+    "dataSource": "mongo",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "company": {
+    "dataSource": "mongo",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "gallery": {
+    "dataSource": "mongo",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "review": {
+    "dataSource": "mongo",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "map": {
+    "dataSource": "mongo",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
   }
 }
