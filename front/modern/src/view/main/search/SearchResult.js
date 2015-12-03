@@ -109,6 +109,7 @@ Ext.define('A.view.main.search.SearchResult', {
                     ]
                 },
                 {
+                    itemId: 'company',
                     xtype: 'companyContainer',
                     hidden: true
                 }

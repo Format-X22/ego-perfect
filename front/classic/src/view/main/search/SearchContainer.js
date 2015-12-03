@@ -19,6 +19,7 @@ Ext.define('A.view.main.search.SearchContainer', {
             xtype: 'startDesktopSearch'
         },
         {
+            itemId: 'searchResult',
             xtype: 'searchResult',
             hidden: true
         }

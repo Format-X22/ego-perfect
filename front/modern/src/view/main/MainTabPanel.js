@@ -28,19 +28,22 @@ Ext.define('A.view.main.MainTabPanel', {
 
     items: [
         {
+            itemId: 'search',
+            xtype: 'searchContainer',
             title: 'Поиск',
-            iconCls: 'x-fa fa-search',
-            xtype: 'searchContainer'
+            iconCls: 'x-fa fa-search'
         },
         {
+            itemId: 'clients',
+            xtype: 'pageForClients',
             title: 'Клиентам',
-            iconCls: 'x-fa fa-user',
-            xtype: 'pageForClients'
+            iconCls: 'x-fa fa-user'
         },
         {
+            itemId: 'partners',
+            xtype: 'pageForPartners',
             title: 'Партнерам',
-            iconCls: 'x-fa fa-money',
-            xtype: 'pageForPartners'
+            iconCls: 'x-fa fa-money'
         }
     ]
 });

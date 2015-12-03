@@ -5,6 +5,11 @@ Ext.define('A.view.main.search.StartTabletSearch', {
     extend: 'Ext.Container',
     xtype: 'startTabletSearch',
 
+    /**
+     * @property {Boolean} isStartSearchContainer Является ли контейнер стартовым контейнером поиска.
+     */
+    isStartSearchContainer: true,
+
     height: '100%',
     padding: 10,
     layout: {

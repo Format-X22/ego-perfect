@@ -21,20 +21,20 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
 
     /**
      * @protected
-     * Открывает компанию, соответствующую данным рекорда.
-     * @param {Ext.data.Model} record Рекорд.
+     * Открывает компанию, соответствующую данным рекорда или по ID.
+     * @param {Ext.data.Model/Number} recordOrId Рекорд.
      */
-    openCompany: function (record) {
-        this.loadCompany(record);
+    openCompany: function (recordOrId) {
+        this.loadCompany(recordOrId);
         this.showCompany();
     },
 
     /**
      * @protected
-     * Загружает данные компании на основании указанного рекорда.
-     * @param {Ext.data.Model} record Рекорд.
+     * Открывает компанию, соответствующую данным рекорда или по ID.
+     * @param {Ext.data.Model/Number} recordOrId Рекорд.
      */
-    loadCompany: function (record) {
+    loadCompany: function (recordOrId) {
         /*A.store.Company.load({
             params: {
                 id: record.get('id')
@@ -48,6 +48,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
      */
     showCompany: function () {
         this.hideSearch();
+        this.resetCompanyInnerTabs();
         this.switchToCompany();
     },
 
@@ -74,6 +75,20 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
      */
     hideSearch: function () {
         this.getSearchToolbar().hide();
+    },
+
+    /**
+     * @protected
+     * Сбрасывает вкладки деталей компании на первую.
+     */
+    resetCompanyInnerTabs: function () {
+        Ext.each(this.getCompanyDetailsTabPanels(), function (tabPanel) {
+            if (Ext.isClassic) {
+                tabPanel.setActiveTab(0);
+            } else {
+                tabPanel.setActiveItem(0);
+            }
+        }, this);
     },
 
     /**
@@ -107,6 +122,14 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
      */
     getResultCard: function () {
         return this.getView().down('#resultCard');
+    },
+
+    /**
+     * @protected
+     * @return {Ext.tab.Panel[]} Все панели вкладок с деталями компании.
+     */
+    getCompanyDetailsTabPanels: function () {
+        return Ext.ComponentQuery.query('[companyDetailsTabPanel]');
     },
 
     privates: {

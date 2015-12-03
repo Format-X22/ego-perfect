@@ -5,6 +5,11 @@ Ext.define('A.view.main.search.StartDesktopSearch', {
     extend: 'Ext.container.Container',
     xtype: 'startDesktopSearch',
 
+    /**
+     * @property {Boolean} isStartSearchContainer Является ли контейнер стартовым контейнером поиска.
+     */
+    isStartSearchContainer: true,
+
     flex: 1,
     padding: 10,
     layout: {

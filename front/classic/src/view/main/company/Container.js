@@ -32,6 +32,7 @@ Ext.define('A.view.main.company.Container', {
 
     items: [
         {
+            companyDetailsTabPanel: true,
             xtype: 'tabpanel',
             tabBarPosition: 'top',
             flex: 1,
