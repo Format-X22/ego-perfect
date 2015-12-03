@@ -15,7 +15,9 @@ Ext.define('A.controller.Router', {
 
     control: {
         '#mainTabPanel': {
-            tabchange: 'mainTabPanelRedirect',
+            tabchange: 'mainTabPanelRedirect'
+        },
+        'mainTabPanel': {
             activeitemchange: 'mainTabPanelRedirect'
         },
         '#resultCard #company': {
@@ -124,7 +126,11 @@ Ext.define('A.controller.Router', {
          * @return {Ext.Component} Компонент.
          */
         getMainTabPanel: function () {
-            return this.getCmp('#mainTabPanel');
+            if (Ext.isClassic) {
+                return this.getCmp('#mainTabPanel');
+            } else {
+                return this.getCmp('mainTabPanel');
+            }
         },
 
         /**

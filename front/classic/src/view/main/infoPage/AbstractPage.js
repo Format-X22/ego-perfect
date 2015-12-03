@@ -28,7 +28,7 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
             tpl:
                 '<tpl for=".">' +
                     '<div class="item info-comic-icon">' +
-                        '<img src="http://img2.wikia.nocookie.net/__cb20130207074041/adventuretime/ru/images/5/55/180x180_profile_adventuretime_jake_01.jpg">' +
+                        '<img src="{url}">' +
                         '<div class="header">{header}</div>' +
                         '<div class="description">{description}</div>' +
                     '</div>' +

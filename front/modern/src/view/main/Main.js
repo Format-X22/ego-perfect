@@ -28,7 +28,6 @@ Ext.define('A.view.main.Main', {
             }
         },
         {
-            itemId: 'mainTabPanel',
             xtype: 'mainTabPanel',
             plugins: 'responsive',
             responsiveConfig: {
