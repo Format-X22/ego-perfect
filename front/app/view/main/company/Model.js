@@ -45,7 +45,7 @@ Ext.define('A.view.main.company.Model', {
 
                 if (value !== '-') {
                     return Ext.String.format(
-                        '<a href="{0}" target="_blank">{0}</a>',
+                        '<a class="link" href="{0}" target="_blank">{0}</a>',
                         value
                     );
                 }

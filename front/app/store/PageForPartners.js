@@ -15,33 +15,21 @@ Ext.define('A.store.PageForPartners', {
     data: [
         {
             id: 1,
-            header: 'text',
-            description: 'anotherText'
+            url: '/resources/partner1.svg',
+            header: 'Больше клиентов',
+            description: 'Помогите клиенту зарегистрироваться у нас, вручив ему свой персональный ключ партнера.'
         },
         {
             id: 2,
-            header: 'text',
-            description: 'anotherText'
+            url: '/resources/partner2.svg',
+            header: 'Больше процентов',
+            description: 'Получайте 25% от всех платежей клиента в течении целого года.'
         },
         {
             id: 3,
-            header: 'text',
-            description: 'anotherText'
-        },
-        {
-            id: 4,
-            header: 'text',
-            description: 'anotherText'
-        },
-        {
-            id: 5,
-            header: 'text',
-            description: 'anotherText'
-        },
-        {
-            id: 6,
-            header: 'text',
-            description: 'anotherText'
+            url: '/resources/partner3.svg',
+            header: 'Мы договоримся',
+            description: 'Просто напишите на эту почту - <a class="link" href="mailto:part@фирмы.онлайн">part@фирмы.онлайн</a>'
         }
     ]
 });
