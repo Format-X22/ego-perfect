@@ -15,5 +15,8 @@ Ext.define('A.Application', {
         Ext.Loader.loadScript({
             url: '//maps.google.com/maps/api/js'
         });
+        Ext.Loader.loadScript({
+            url: '/resources/gallery/photoswipe.js'
+        });
     }
 });

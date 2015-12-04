@@ -7,6 +7,7 @@ Ext.define('A.view.main.company.tablet.TabPanel', {
 
     requires: [
         'A.view.main.company.tablet.Summary',
+        'A.view.main.company.Gallery',
         'A.view.main.company.Map'
     ],
 
@@ -16,6 +17,7 @@ Ext.define('A.view.main.company.tablet.TabPanel', {
             iconCls: 'x-fa fa-file-text-o'
         },
         {
+            xtype: 'companyGallery',
             iconCls: 'x-fa fa-image'
         },
         {
