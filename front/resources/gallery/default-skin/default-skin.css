@@ -253,7 +253,9 @@ a.pswp__share--download:hover {
   font-size: 13px;
   line-height: 44px;
   color: #FFF;
-  opacity: 0.75;
+  opacity: 1;
+  z-index: 1;
+  font-weight: bold;
   padding: 0 10px; }
 
 /*
