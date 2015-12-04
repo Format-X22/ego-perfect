@@ -129,7 +129,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
      * @return {Ext.tab.Panel[]} Все панели вкладок с деталями компании.
      */
     getCompanyDetailsTabPanels: function () {
-        return Ext.ComponentQuery.query('[companyDetailsTabPanel]');
+        return A.getAllCmp('[companyDetailsTabPanel]');
     },
 
     privates: {

@@ -127,9 +127,9 @@ Ext.define('A.controller.Router', {
          */
         getMainTabPanel: function () {
             if (Ext.isClassic) {
-                return this.getCmp('#mainTabPanel');
+                return A.getCmp('#mainTabPanel');
             } else {
-                return this.getCmp('mainTabPanel');
+                return A.getCmp('mainTabPanel');
             }
         },
 
@@ -138,16 +138,7 @@ Ext.define('A.controller.Router', {
          * @return {Ext.Component} Компонент.
          */
         getResultCardTabPanel: function () {
-            return this.getCmp('#resultCard');
-        },
-
-        /**
-         * @private
-         * @param {String} selector Селектор.
-         * @return {Ext.Component} Компонент.
-         */
-        getCmp: function (selector) {
-            return Ext.ComponentQuery.query(selector)[0];
+            return A.getCmp('#resultCard');
         }
     }
 });

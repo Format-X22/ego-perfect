@@ -15,14 +15,14 @@ Ext.define('A.store.PageForClients', {
     data: [
         {
             id: 3,
-            url: '/resources/client3.svg',
+            url: '/resources/img/client3.svg',
             header: 'Люди хотят',
             description: 'Человек обычно заходит на наш сайт специально чтобы найти одну из компаний, ' +
             'он уже готов к предложениям, готов к заказам. Это лучше чем надоевшая всем реклама.'
         },
         {
             id: 5,
-            url: '/resources/client5.svg',
+            url: '/resources/img/client5.svg',
             header: 'Телефоны и планшеты',
             description: 'Наш сайт специально оптимизирован под мобильные устройства, ' +
             'а значит и каждая компания сразу получает возможность быть доступной ' +
@@ -30,14 +30,14 @@ Ext.define('A.store.PageForClients', {
         },
         {
             id: 6,
-            url: '/resources/client6.svg',
+            url: '/resources/img/client6.svg',
             header: 'Enterprise',
             description: 'Сайт использует промышленные стандарты технологий, ' +
             'используемые в банковской среде.'
         },
         {
             id: 2,
-            url: '/resources/client2.svg',
+            url: '/resources/img/client2.svg',
             header: 'Информация важнее',
             description: 'Человек ищет что-то чтобы решить свою проблему, ему нужна информация. ' +
             'Устройство и дизайн нашего сайта единообразен, что позволяет сразу получать ' +
@@ -45,14 +45,14 @@ Ext.define('A.store.PageForClients', {
         },
         {
             id: 1,
-            url: '/resources/client1.svg',
+            url: '/resources/img/client1.svg',
             header: 'Интерактив',
             description: 'Человек лучше воспринимает изображения, инфографику, ' +
                          'именно по этому наш поиск показывает изображения вместо обычного текста.'
         },
         {
             id: 4,
-            url: '/resources/client4.svg',
+            url: '/resources/img/client4.svg',
             header: 'Коротко и по делу',
             description: 'Описание компаний содержит только те вещи, что важнее при знакомстве ' +
                          'с компанией, никакой перегрузки новостями, статьями и прочей второстепенной информацией.'
