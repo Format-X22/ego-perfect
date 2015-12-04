@@ -2,7 +2,7 @@
  * Абстрактная страница информации.
  */
 Ext.define('A.view.main.infoPage.AbstractPage', {
-    extend: 'Ext.Container',
+    extend: 'Ext.panel.Panel',
 
     requires: [
         'Ext.plugin.Responsive'
@@ -21,6 +21,16 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
          */
         store: null
     },
+
+    dockedItems: [
+        {
+            xtype: 'toolbar',
+            height: 0,
+            padding: 0,
+            cls: 'shadow-toolbar',
+            dock: 'top'
+        }
+    ],
 
     items: [
         {
