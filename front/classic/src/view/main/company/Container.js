@@ -39,20 +39,24 @@ Ext.define('A.view.main.company.Container', {
             flex: 1,
             items: [
                 {
+                    itemId: 'summary',
                     xtype: 'companySummary',
                     iconCls: 'x-fa fa-file-text-o',
                     title: 'Описание'
                 },
                 {
+                    itemId: 'gallery',
                     xtype: 'companyGallery',
                     iconCls: 'x-fa fa-image',
                     title: 'Фотографии'
                 },
                 {
+                    itemId: 'reviews',
                     iconCls: 'x-fa fa-eye',
                     title: 'Отзывы'
                 },
                 {
+                    itemId: 'map',
                     xtype: 'companyMap',
                     iconCls: 'x-fa fa-map-o',
                     title: 'На карте'

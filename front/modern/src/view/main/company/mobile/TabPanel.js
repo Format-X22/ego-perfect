@@ -13,17 +13,21 @@ Ext.define('A.view.main.company.mobile.TabPanel', {
 
     items: [
         {
+            itemId: 'summary',
             xtype: 'companySummaryMobile',
             iconCls: 'x-fa fa-file-text-o'
         },
         {
+            itemId: 'gallery',
             xtype: 'companyGallery',
             iconCls: 'x-fa fa-image'
         },
         {
+            itemId: 'reviews',
             iconCls: 'x-fa fa-eye'
         },
         {
+            itemId: 'map',
             xtype: 'companyMap',
             iconCls: 'x-fa fa-map-o'
         }

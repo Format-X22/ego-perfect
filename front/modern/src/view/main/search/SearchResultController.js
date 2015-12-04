@@ -42,7 +42,7 @@ Ext.define('A.view.main.search.SearchResultController', {
          * @return {Ext.Button} Кнопка.
          */
         getMobileBackButton: function () {
-            return Ext.ComponentQuery.query('#backToSearchMobile')[0];
+            return A.getCmp('#backToSearchMobile');
         }
     }
 });

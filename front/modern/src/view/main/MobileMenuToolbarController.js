@@ -18,7 +18,7 @@ Ext.define('A.view.main.MobileMenuToolbarController', {
      * @param {Ext.Button} button Кнопка.
      */
     backToSearch: function (button) {
-        Ext.ComponentQuery.query('searchResult')[0].getController().backToSearch();
+        A.getCmp('searchResult').getController().backToSearch();
         button.hide();
     }
 });

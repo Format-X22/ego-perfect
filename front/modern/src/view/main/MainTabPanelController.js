@@ -17,7 +17,7 @@ Ext.define('A.view.main.MainTabPanelController', {
      * @param {Ext.tab.Panel} tabPanel Выбранная вкладка.
      */
     updateMobileTitle: function (tabPanel) {
-        var toolbar = Ext.ComponentQuery.query('app-main mobileMenuToolbar')[0];
+        var toolbar = A.getCmp('app-main mobileMenuToolbar');
         var title = tabPanel.getActiveItem().title;
 
         toolbar.getViewModel().set('currentPageName', title);

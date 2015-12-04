@@ -13,6 +13,18 @@ Ext.define('A.view.main.company.Gallery', {
         galleryId: 0
     },
 
+    config: {
+
+        /**
+         * @cfg {PhotoSwipe} galleryObject Объект галереи.
+         */
+        galleryObject: null
+    },
+
+    style: {
+        backgroundColor: 'black'
+    },
+
     tpl:
         '<div class="pswp-{galleryId}" role="dialog" aria-hidden="true">' +
             '<div class="pswp__bg"></div>' +
@@ -137,10 +149,36 @@ Ext.define('A.view.main.company.Gallery', {
 
             gallery.init();
 
+            this.setGalleryObject(gallery);
+            this.refreshGalleryLayout();
+            this.makeOnShowRefresher();
+        }, this, {single: true});
+    },
+
+    /**
+     * Обновляет лейаут галереи.
+     */
+    refreshGalleryLayout: function () {
+        var gallery = this.getGalleryObject();
+
+        if (gallery) {
             Ext.defer(function () {
                 gallery.invalidateCurrItems();
                 gallery.updateSize(true);
-            }, 50)
-        }, this, {single: true});
+                gallery.goTo(0);
+            }, 1);
+        }
+    },
+
+    privates: {
+
+        /**
+         * @private
+         */
+        makeOnShowRefresher: function () {
+            this.on('show', function () {
+                this.refreshGalleryLayout();
+            }, this);
+        }
     }
 });

@@ -39,7 +39,7 @@ Ext.define('A.view.main.search.AllSearchController', {
          * @return {Ext.Component} Компонент стартового мобильного поиска.
          */
         getMobileSearch: function () {
-            return this.getCmp('startMobileSearch');
+            return A.getCmp('startMobileSearch');
         },
 
         /**
@@ -47,7 +47,7 @@ Ext.define('A.view.main.search.AllSearchController', {
          * @return {Ext.Component} Компонент стартового планшетного поиска.
          */
         getTabletSearch: function () {
-            return this.getCmp('startTabletSearch');
+            return A.getCmp('startTabletSearch');
         },
 
         /**
@@ -55,7 +55,7 @@ Ext.define('A.view.main.search.AllSearchController', {
          * @return {Ext.Component} Компонент результатов поиска.
          */
         getSearchResult: function () {
-            return this.getCmp('searchResult');
+            return A.getCmp('searchResult');
         }
     }
 });
