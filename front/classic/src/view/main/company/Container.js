@@ -9,6 +9,7 @@ Ext.define('A.view.main.company.Container', {
     requires: [
         'A.view.main.company.Summary',
         'A.view.main.company.Gallery',
+        'A.view.main.company.reviews.Container',
         'A.view.main.company.Map'
     ],
 
@@ -52,6 +53,7 @@ Ext.define('A.view.main.company.Container', {
                 },
                 {
                     itemId: 'reviews',
+                    xtype: 'companyReviewsContainer',
                     iconCls: 'x-fa fa-eye',
                     title: 'Отзывы'
                 },

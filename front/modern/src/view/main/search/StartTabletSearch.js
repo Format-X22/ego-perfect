@@ -26,7 +26,7 @@ Ext.define('A.view.main.search.StartTabletSearch', {
             xtype: 'image',
             width: 240,
             height: 150,
-            src: '/resources/logo.svg'
+            src: '/resources/img/logo.svg'
         },
         {
             itemId: 'description',
