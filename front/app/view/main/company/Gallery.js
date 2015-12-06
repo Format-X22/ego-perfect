@@ -64,7 +64,6 @@ Ext.define('A.view.main.company.Gallery', {
      * @inheritdoc
      */
     initComponent: function () {
-        this.callParent(arguments);
         this.initialize();
     },
 

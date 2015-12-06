@@ -33,31 +33,31 @@
     "public": false
   },
   "search": {
-    "dataSource": "mongo",
+    "dataSource": "db",
     "public": true,
     "$promise": {},
     "$resolved": true
   },
   "company": {
-    "dataSource": "mongo",
+    "dataSource": "db",
     "public": true,
     "$promise": {},
     "$resolved": true
   },
   "gallery": {
-    "dataSource": "mongo",
+    "dataSource": "db",
     "public": true,
     "$promise": {},
     "$resolved": true
   },
   "review": {
-    "dataSource": "mongo",
+    "dataSource": "db",
     "public": true,
     "$promise": {},
     "$resolved": true
   },
   "map": {
-    "dataSource": "mongo",
+    "dataSource": "db",
     "public": true,
     "$promise": {},
     "$resolved": true

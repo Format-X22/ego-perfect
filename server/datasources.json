@@ -2,11 +2,5 @@
   "db": {
     "name": "db",
     "connector": "memory"
-  },
-  "mongo": {
-    "host": "localhost",
-    "port": 3001,
-    "name": "mongo",
-    "connector": "mongodb"
   }
 }
