@@ -59,7 +59,11 @@ Ext.define('A.view.main.company.reviews.SendController', {
      * @return {Boolean} Результат.
      */
     isValid: function () {
-        return this.viewDown('#reviewForm').isValid();
+        if (Ext.isClassic) {
+            return this.isValidClassic();
+        } else {
+            return this.isValidModern();
+        }
     },
 
     /**
@@ -144,6 +148,37 @@ Ext.define('A.view.main.company.reviews.SendController', {
                 title: 'Ошибка',
                 message: message,
                 icon: Ext.MessageBox.ERROR
+            });
+        },
+
+        isValidClassic: function () {
+            return this.viewDown('#reviewForm').isValid();
+        },
+
+        isValidModern: function () {
+            var captcha = this.viewDown('[name=captcha]');
+            var captchaEnabled = !captcha.isDisabled();
+            var noError =
+                this.viewDown('[name=name]').getValue() &&
+                this.viewDown('[name=header]').getValue() &&
+                this.viewDown('[name=description]').getValue();
+
+            if (captchaEnabled) {
+                noError = noError && captcha.getValue();
+            }
+
+            if (noError) {
+                return true;
+            } else {
+                this.showModernValidationError();
+                return false;
+            }
+        },
+
+        showModernValidationError: function () {
+            Ext.Msg.show({
+                title: 'Оопс...',
+                message: 'Не все поля заполнены.'
             });
         },
 

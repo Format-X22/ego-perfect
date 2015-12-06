@@ -7,9 +7,12 @@ Ext.define('A.view.main.company.tablet.TabPanel', {
 
     requires: [
         'A.view.main.company.tablet.Summary',
+        'A.view.main.company.tablet.reviews.Container',
         'A.view.main.company.Gallery',
         'A.view.main.company.Map'
     ],
+
+    height: '100%',
 
     items: [
         {
@@ -24,6 +27,7 @@ Ext.define('A.view.main.company.tablet.TabPanel', {
         },
         {
             itemId: 'reviews',
+            xtype: 'companyTabletReviewsContainer',
             iconCls: 'x-fa fa-eye'
         },
         {

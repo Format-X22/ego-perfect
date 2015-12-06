@@ -29,7 +29,9 @@ Ext.define('A.store.PageForPartners', {
             id: 3,
             url: '/resources/img/partner3.svg',
             header: 'Мы договоримся',
-            description: 'Просто напишите на эту почту - <a class="link" href="mailto:part@фирмы.онлайн">part@фирмы.онлайн</a>'
+            description: 'Просто напишите на эту почту - ' +
+                         '<a class="link" href="mailto:part@фирмы.онлайн">part@фирмы.онлайн</a><br>' +
+                         'или позвоните на номер<br>8 (925) 154-68-79'
         }
     ]
 });
