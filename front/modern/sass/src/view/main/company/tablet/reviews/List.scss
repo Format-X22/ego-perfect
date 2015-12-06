@@ -1,0 +1,27 @@
+.company-reviews-list {
+
+	.review-item {
+		padding: 15px 112px;
+
+		.star {
+			display: inline-block;
+			padding: 5px 0;
+		}
+
+		.name,
+		.header,
+		.description,
+		.id {
+			padding: 4px 0;
+		}
+
+		.name,
+		.header {
+			font-weight: bold;
+		}
+
+		.id {
+			opacity: .5;
+		}
+	}
+}

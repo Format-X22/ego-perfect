@@ -48,15 +48,6 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
      */
     toggleInitView: Ext.emptyFn,
 
-    /**
-     * @protected
-     * @param {String} selector Селектор.
-     * @return {Ext.Component} Компонент по селектору.
-     */
-    getCmp: function (selector) {
-        return Ext.ComponentQuery.query(selector)[0];
-    },
-
     privates: {
 
         /**
@@ -64,7 +55,7 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
          * @return {Ext.form.field.Text[]} Поля поиска.
          */
         getSearchInputs: function () {
-            return Ext.ComponentQuery.query('#searchInput');
+            return A.getAllCmp('#searchInput');
         },
 
         /**

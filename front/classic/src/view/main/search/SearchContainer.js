@@ -1,5 +1,5 @@
 /**
- *
+ * Контейнер вкладки поиска.
  */
 Ext.define('A.view.main.search.SearchContainer', {
     extend: 'Ext.Container',
@@ -19,6 +19,7 @@ Ext.define('A.view.main.search.SearchContainer', {
             xtype: 'startDesktopSearch'
         },
         {
+            itemId: 'searchResult',
             xtype: 'searchResult',
             hidden: true
         }

@@ -26,7 +26,7 @@ Ext.define('A.view.main.company.MapController', {
 
         /**
          * @private
-         * @param {} callback
+         * @param {Function} callback Следующий шаг.
          */
         waitForAnimation: function (callback) {
             var time = 300;
@@ -47,7 +47,7 @@ Ext.define('A.view.main.company.MapController', {
 
         /**
          * @private
-         * @return {}
+         * @return {google.maps.Map} Объект карты Google.
          */
         getGoogleMapObject: function () {
             var map = this.getMap();
@@ -61,7 +61,7 @@ Ext.define('A.view.main.company.MapController', {
 
         /**
          * @private
-         * @return {}
+         * @return {Ext.ux.GMapPanel/Ext.Map} Компонент карты.
          */
         getMap: function () {
             var selector = 'map';
@@ -75,7 +75,7 @@ Ext.define('A.view.main.company.MapController', {
 
         /**
          * @private
-         * @return {}
+         * @return {Object} Объект с lat и lng.
          */
         getPosition: function () {
             return {
@@ -86,7 +86,7 @@ Ext.define('A.view.main.company.MapController', {
 
         /**
          * @private
-         * @return {}
+         * @return {Number} Координата lat.
          */
         getLat: function () {
             return this.getMapModel().get('lat');
@@ -94,7 +94,7 @@ Ext.define('A.view.main.company.MapController', {
 
         /**
          * @private
-         * @return {}
+         * @return {Number} Координата lng.
          */
         getLng: function () {
             return this.getMapModel().get('lng');
@@ -102,7 +102,7 @@ Ext.define('A.view.main.company.MapController', {
 
         /**
          * @private
-         * @return {}
+         * @return {Ext.data.Model} Рекорд карты.
          */
         getMapModel: function () {
             return this.getCompanyViewModel().get('map').first();
@@ -110,7 +110,7 @@ Ext.define('A.view.main.company.MapController', {
 
         /**
          * @private
-         * @return {Ext.app.ViewModel}
+         * @return {Ext.app.ViewModel} Вью-модель компании.
          */
         getCompanyViewModel: function () {
             return this.getView().up('companyContainer').getViewModel();
@@ -127,7 +127,7 @@ Ext.define('A.view.main.company.MapController', {
 
         /**
          * @private
-         * @return {}
+         * @return {google.maps.Marker} Объект маркера карты Google.
          */
         getMarker: function () {
             return this.getCompanyViewModel().get('mapMarker');
@@ -135,16 +135,15 @@ Ext.define('A.view.main.company.MapController', {
 
         /**
          * @private
-         * @param {} value
-         * @return {}
+         * @param {google.maps.Marker} value Объект маркера карты Google.
          */
         setMarker: function (value) {
-            return this.getCompanyViewModel().set('mapMarker', value);
+            this.getCompanyViewModel().set('mapMarker', value);
         },
 
         /**
          * @private
-         * @returns {google.maps.Marker}
+         * @return {google.maps.Marker} Объект маркера карты Google.
          */
         createMarker: function () {
             return new google.maps.Marker({

@@ -1,5 +1,5 @@
 /**
- *
+ * Вкладка описания в деталях компании, для планшетов.
  */
 Ext.define('A.view.main.company.tablet.Summary', {
     extend: 'Ext.Container',

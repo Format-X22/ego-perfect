@@ -62,6 +62,7 @@ Ext.define('A.view.main.search.SearchResult', {
                         type: 'hbox',
                         pack: 'center'
                     },
+                    scrollable: 'vertical',
                     items: [
                         {
                             itemId: 'searchResult',
@@ -70,7 +71,7 @@ Ext.define('A.view.main.search.SearchResult', {
                             defaultType: 'searchResultItem',
                             useComponents: true,
                             inline: true,
-                            scrollable: 'vertical',
+                            scrollable: false,
                             plugins: 'responsive',
                             responsiveConfig: {
                                 'width < 320 || width >= 3220': {
@@ -108,6 +109,7 @@ Ext.define('A.view.main.search.SearchResult', {
                     ]
                 },
                 {
+                    itemId: 'company',
                     xtype: 'companyContainer',
                     hidden: true
                 }

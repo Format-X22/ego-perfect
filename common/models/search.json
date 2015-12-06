@@ -1,0 +1,32 @@
+{
+  "name": "search",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "required": true,
+      "comments": "ID"
+    },
+    "active": {
+      "type": "boolean",
+      "comments": "Активна ли компания"
+    },
+    "tags": {
+      "type": [
+        "string"
+      ],
+      "index": true,
+      "comments": "Массив тегов"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

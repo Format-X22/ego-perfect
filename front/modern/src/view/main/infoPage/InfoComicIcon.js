@@ -1,5 +1,5 @@
 /**
- *
+ * Иконка с заголовком и информацией как итем для страницы информации.
  */
 Ext.define('A.view.main.infoPage.InfoComicIcon', {
     extend: 'Ext.dataview.component.DataItem',
@@ -36,8 +36,11 @@ Ext.define('A.view.main.infoPage.InfoComicIcon', {
         }
     ],
 
+    /**
+     * @inheritdoc
+     */
     updateRecord: function (record) {
-        //this.down('#img').setSrc();
+        this.down('#img').setSrc(record.get('url'));
         this.down('#header').setHtml(record.get('header'));
         this.down('#description').setHtml(record.get('description'));
     }

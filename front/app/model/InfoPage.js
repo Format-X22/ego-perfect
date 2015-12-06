@@ -6,6 +6,7 @@ Ext.define('A.model.InfoPage', {
 
     fields: [
         {name: 'id',          type: 'int'   },
+        {name: 'url',         type: 'string'},
         {name: 'header',      type: 'string'},
         {name: 'description', type: 'string'}
     ]

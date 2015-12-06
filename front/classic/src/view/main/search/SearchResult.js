@@ -1,5 +1,5 @@
 /**
- *
+ * Виджет результатов поиска.
  */
 Ext.define('A.view.main.search.SearchResult', {
     extend: 'Ext.container.Container',
@@ -32,7 +32,10 @@ Ext.define('A.view.main.search.SearchResult', {
                     emptyText: 'Что ищем?',
                     submitEmptyText: false,
                     flex: 1,
-                    maxWidth: 500
+                    maxWidth: 500,
+                    listeners: {
+                        specialkey: 'searchIfEnter'
+                    }
                 },
                 {
                     itemId: 'searchButton',
@@ -94,6 +97,7 @@ Ext.define('A.view.main.search.SearchResult', {
                     ]
                 },
                 {
+                    itemId: 'company',
                     xtype: 'companyContainer',
                     hidden: true
                 }

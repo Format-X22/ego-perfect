@@ -1,5 +1,5 @@
 /**
- *
+ * Абстрактная панель вкладок деталей информации о компании.
  */
 Ext.define('A.view.main.company.AbstractTabPanel', {
     extend: 'Ext.tab.Panel',

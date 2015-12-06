@@ -1,1 +1,6 @@
 $base-color: #47A3F5;
+
+.link {
+	text-decoration: none;
+	color: darken($base-color, 30%);
+}

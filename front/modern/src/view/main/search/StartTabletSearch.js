@@ -1,9 +1,14 @@
 /**
- * Стартовый скрин поиска для мобильных устройств с большим экраном.
+ * Стартовый виджет поиска для планшетов.
  */
 Ext.define('A.view.main.search.StartTabletSearch', {
     extend: 'Ext.Container',
     xtype: 'startTabletSearch',
+
+    /**
+     * @property {Boolean} isStartSearchContainer Является ли контейнер стартовым контейнером поиска.
+     */
+    isStartSearchContainer: true,
 
     height: '100%',
     padding: 10,
@@ -21,7 +26,7 @@ Ext.define('A.view.main.search.StartTabletSearch', {
             xtype: 'image',
             width: 240,
             height: 150,
-            src: '/resources/logo.svg'
+            src: '/resources/img/logo.svg'
         },
         {
             itemId: 'description',

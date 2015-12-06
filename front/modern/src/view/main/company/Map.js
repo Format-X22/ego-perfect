@@ -1,5 +1,5 @@
 /**
- *
+ * Виджет карты для деталей компании.
  */
 Ext.define('A.view.main.company.Map', {
     extend: 'Ext.Container',
@@ -43,19 +43,22 @@ Ext.define('A.view.main.company.Map', {
         }
     },
 
-    /**
-     *
-     */
-    initMapComponent: function () {
-        if (this.down('map')) {
-            return;
-        }
+    privates: {
 
-        this.down('#mapContainer').add({
-            xtype: 'map',
-            mapOptions: {
-                zoom: 17
+        /**
+         * @private
+         */
+        initMapComponent: function () {
+            if (this.down('map')) {
+                return;
             }
-        });
+
+            this.down('#mapContainer').add({
+                xtype: 'map',
+                mapOptions: {
+                    zoom: 17
+                }
+            });
+        }
     }
 });

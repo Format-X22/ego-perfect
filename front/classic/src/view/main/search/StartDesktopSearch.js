@@ -1,9 +1,14 @@
 /**
- *
+ * Стартовый виджет поиска для ПК.
  */
 Ext.define('A.view.main.search.StartDesktopSearch', {
     extend: 'Ext.container.Container',
     xtype: 'startDesktopSearch',
+
+    /**
+     * @property {Boolean} isStartSearchContainer Является ли контейнер стартовым контейнером поиска.
+     */
+    isStartSearchContainer: true,
 
     flex: 1,
     padding: 10,
@@ -20,7 +25,7 @@ Ext.define('A.view.main.search.StartDesktopSearch', {
             xtype: 'image',
             width: 240,
             height: 150,
-            src: '/resources/logo.svg'
+            src: '/resources/img/logo.svg'
         },
         {
             xtype: 'component',
@@ -42,7 +47,8 @@ Ext.define('A.view.main.search.StartDesktopSearch', {
                     submitEmptyText: false,
                     flex: 1,
                     listeners: {
-                        render: 'focusSearchInput'
+                        render: 'focusSearchInput',
+                        specialkey: 'searchIfEnter'
                     }
                 },
                 {

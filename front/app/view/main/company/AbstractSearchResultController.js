@@ -21,20 +21,20 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
 
     /**
      * @protected
-     * Открывает компанию, соответствующую данным рекорда.
-     * @param {Ext.data.Model} record Рекорд.
+     * Открывает компанию, соответствующую данным рекорда или по ID.
+     * @param {Ext.data.Model/Number} recordOrId Рекорд.
      */
-    openCompany: function (record) {
-        this.loadCompany(record);
+    openCompany: function (recordOrId) {
+        this.loadCompany(recordOrId);
         this.showCompany();
     },
 
     /**
      * @protected
-     * Загружает данные компании на основании указанного рекорда.
-     * @param {Ext.data.Model} record Рекорд.
+     * Открывает компанию, соответствующую данным рекорда или по ID.
+     * @param {Ext.data.Model/Number} recordOrId Рекорд.
      */
-    loadCompany: function (record) {
+    loadCompany: function (recordOrId) {
         /*A.store.Company.load({
             params: {
                 id: record.get('id')
@@ -48,7 +48,9 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
      */
     showCompany: function () {
         this.hideSearch();
+        this.resetCompanyTabPanel();
         this.switchToCompany();
+        this.loadReviews();
     },
 
     /**
@@ -78,6 +80,18 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
 
     /**
      * @protected
+     * Сбрасывает вкладки деталей компании на первую.
+     */
+    resetCompanyTabPanel: function () {
+        Ext.each(this.getCompanyDetailsTabPanels(), function (tabPanel) {
+            this.resetCompanyActiveTabNum(tabPanel);
+            this.resetCompanyTabsScroll(tabPanel);
+            this.resetCompanyTabsGallery(tabPanel);
+        }, this);
+    },
+
+    /**
+     * @protected
      * Переключает отображение на показ виджета компании.
      */
     switchToCompany: function () {
@@ -90,6 +104,17 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
      */
     switchToSearch: function () {
         this.getResultCard().setActiveItem(0);
+    },
+
+    /**
+     * @protected
+     * Загружает отзывы в список отзывов.
+     */
+    loadReviews: function () {
+        var list = this.getView().down('#reviewsList');
+        var companyContainer = list.up('companyContainer');
+
+        list.setStore(companyContainer.getViewModel().get('reviews'));
     },
 
     /**
@@ -109,11 +134,19 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         return this.getView().down('#resultCard');
     },
 
+    /**
+     * @protected
+     * @return {Ext.tab.Panel[]} Все панели вкладок с деталями компании.
+     */
+    getCompanyDetailsTabPanels: function () {
+        return A.getAllCmp('[companyDetailsTabPanel]');
+    },
+
     privates: {
 
         /**
          * @private
-         * @param {} view Вью.
+         * @param {Ext.view.View} view Вью.
          * @param {Ext.data.Model} record Рекорд.
          */
         openCompanyFromClassic: function (view, record) {
@@ -122,13 +155,70 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
 
         /**
          * @private
-         * @param {} view Вью.
+         * @param {Ext.dataview.DataView} view Вью.
          * @param {Number} index Индекс.
-         * @param {} target Цель.
+         * @param {Ext.dataview.component.DataItem} target Цель.
          * @param {Ext.data.Model} record Рекорд.
          */
         openCompanyFromModern: function (view, index, target, record) {
             this.openCompany(record);
+        },
+
+        /**
+         * @private
+         * @param {Ext.tab.Panel} tabPanel Панель вкладок компании.
+         */
+        resetCompanyActiveTabNum: function (tabPanel) {
+            if (Ext.isClassic) {
+                tabPanel.setActiveTab(0);
+            } else {
+                tabPanel.setActiveItem(0);
+            }
+        },
+
+        /**
+         * @private
+         * @param {Ext.tab.Panel} tabPanel Панель вкладок компании.
+         */
+        resetCompanyTabsScroll: function (tabPanel) {
+            Ext.each([
+                tabPanel.down('#summary'),
+                tabPanel.down('#reviews')
+            ], function (component) {
+                if (Ext.isClassic) {
+                    this.resetClassicScroll(component);
+                } else {
+                    this.resetModernScroll(component);
+                }
+            }, this);
+        },
+
+        /**
+         * @private
+         * @param {Ext.Component} component Компонент.
+         */
+        resetClassicScroll: function (component) {
+            component.scrollTo(0, 0);
+        },
+
+        /**
+         * @private
+         * @param {Ext.Component} component Компонент.
+         */
+        resetModernScroll: function (component) {
+            var scroller = component.getScrollable();
+
+            if (scroller) {
+                scroller.scrollTo({x: 0, y: 0});
+            }
+        },
+
+        /**
+         * @private
+         * @param {Ext.tab.Panel} tabPanel Панель вкладок компании.
+         */
+        resetCompanyTabsGallery: function (tabPanel) {
+            tabPanel.down('#gallery').refreshGalleryLayout();
         }
     }
 });

@@ -1,5 +1,5 @@
 /**
- *
+ * Контейнер виджета деталей компании.
  */
 Ext.define('A.view.main.company.Container', {
     extend: 'Ext.Container',
@@ -40,6 +40,7 @@ Ext.define('A.view.main.company.Container', {
             ]
         },
         {
+            companyDetailsTabPanel: true,
             xtype: 'companyTabPanelMobile',
             flex: 1,
             plugins: 'responsive',
@@ -53,6 +54,7 @@ Ext.define('A.view.main.company.Container', {
             }
         },
         {
+            companyDetailsTabPanel: true,
             xtype: 'companyTabPanelTablet',
             flex: 1,
             plugins: 'responsive',

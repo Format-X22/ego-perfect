@@ -1,5 +1,5 @@
 /**
- *
+ * Вкладка описания в деталях компании.
  */
 Ext.define('A.view.main.company.Summary', {
     extend: 'Ext.Container',

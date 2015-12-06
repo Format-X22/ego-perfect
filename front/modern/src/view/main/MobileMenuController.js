@@ -10,26 +10,29 @@ Ext.define('A.view.main.MobileMenuController', {
      * @param {Number} pageNum Номер страницы.
      */
     goToPage: function (pageNum) {
-        Ext.ComponentQuery.query('app-main mainTabPanel')[0].setActiveItem(pageNum);
+        A.getCmp('app-main mainTabPanel').setActiveItem(pageNum);
         Ext.Viewport.toggleMenu('right');
 
         this.toggleBackToSearchMobileButton(pageNum);
     },
 
-    /**
-     *
-     * @param pageNum
-     */
-    toggleBackToSearchMobileButton: function (pageNum) {
-        var backButton = Ext.ComponentQuery.query('#backToSearchMobile')[0];
-        var companyContainer = Ext.ComponentQuery.query('companyContainer')[0];
-        var searchPage = (pageNum === 0);
-        var companyDetailsOpen = !companyContainer.isHidden();
+    privates: {
 
-        if (searchPage && companyDetailsOpen) {
-            backButton.show();
-        } else {
-            backButton.hide();
+        /**
+         * @private
+         * @param {Number} pageNum Номер страницы.
+         */
+        toggleBackToSearchMobileButton: function (pageNum) {
+            var backButton = A.getCmp('#backToSearchMobile');
+            var companyContainer = A.getCmp('companyContainer');
+            var searchPage = (pageNum === 0);
+            var companyDetailsOpen = !companyContainer.isHidden();
+
+            if (searchPage && companyDetailsOpen) {
+                backButton.show();
+            } else {
+                backButton.hide();
+            }
         }
     }
 });

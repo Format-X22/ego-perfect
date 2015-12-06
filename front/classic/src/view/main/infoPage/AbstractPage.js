@@ -1,8 +1,8 @@
 /**
- *
+ * Абстрактная страница информации.
  */
 Ext.define('A.view.main.infoPage.AbstractPage', {
-    extend: 'Ext.Container',
+    extend: 'Ext.panel.Panel',
 
     requires: [
         'Ext.plugin.Responsive'
@@ -15,8 +15,22 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
     },
 
     config: {
+
+        /**
+         * @cfg {String} store Имя стора с информацией для страницы.
+         */
         store: null
     },
+
+    dockedItems: [
+        {
+            xtype: 'toolbar',
+            height: 0,
+            padding: 0,
+            cls: 'shadow-toolbar',
+            dock: 'top'
+        }
+    ],
 
     items: [
         {
@@ -24,7 +38,7 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
             tpl:
                 '<tpl for=".">' +
                     '<div class="item info-comic-icon">' +
-                        '<img src="http://img2.wikia.nocookie.net/__cb20130207074041/adventuretime/ru/images/5/55/180x180_profile_adventuretime_jake_01.jpg">' +
+                        '<img src="{url}">' +
                         '<div class="header">{header}</div>' +
                         '<div class="description">{description}</div>' +
                     '</div>' +
@@ -48,6 +62,9 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
         }
     ],
 
+    /**
+     * @inheritdoc
+     */
     initComponent: function () {
         this.callParent(arguments);
 

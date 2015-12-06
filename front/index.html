@@ -43,7 +43,32 @@
             //};
         };
     </script>
-    
+    <style>
+        .start-preloader {
+            width: 240px;
+            height: 150px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto auto;
+            animation: start-preloader-animation 2s infinite;
+        }
+
+        @keyframes start-preloader-animation {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+    <img id="start-preloader" class="start-preloader" src="/resources/img/logo.svg">
     
     <!-- The line below must be kept intact for Sencha Cmd to build your application -->
     <script id="microloader" data-app="a74a1d35-aabf-46df-9701-54f99dcd1e24" type="text/javascript" src="bootstrap.js"></script>

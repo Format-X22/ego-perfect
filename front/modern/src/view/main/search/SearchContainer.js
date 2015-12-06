@@ -50,6 +50,7 @@ Ext.define('A.view.main.search.SearchContainer', {
             }
         },
         {
+            itemId: 'searchResult',
             xtype: 'searchResult',
             hidden: true
         }

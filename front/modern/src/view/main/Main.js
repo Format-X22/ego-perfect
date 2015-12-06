@@ -1,8 +1,8 @@
 /**
- * Главный виджет.
+ * Главный виджет сайта для мобильников и планшетов.
  */
 Ext.define('A.view.main.Main', {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.container.Container',
     xtype: 'app-main',
 
     requires: [
