@@ -15,10 +15,13 @@ Ext.define('A.view.main.company.reviews.Container', {
         pack: 'center'
     },
 
+    height: '100%',
+
     items: [
         {
             xtype: 'tabpanel',
             width: 900,
+            height: '100%',
             padding: '15 0',
             items: [
                 {

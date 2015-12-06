@@ -29,7 +29,6 @@ Ext.define('A.view.main.company.Model', {
             address: getter('address'),
             summary: getter('summary'),
             gallery: getter('gallery'),
-            reviews: getter('reviews'),
             map:     getter('map'),
 
             rating: function () {
@@ -50,6 +49,13 @@ Ext.define('A.view.main.company.Model', {
                     );
                 }
                 return '';
+            },
+            reviews: function () {
+                var value = getter('reviews')();
+
+                value.sort('id', 'DESC');
+
+                return value;
             }
         }
     })()

@@ -50,6 +50,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         this.hideSearch();
         this.resetCompanyTabPanel();
         this.switchToCompany();
+        this.loadReviews();
     },
 
     /**
@@ -103,6 +104,17 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
      */
     switchToSearch: function () {
         this.getResultCard().setActiveItem(0);
+    },
+
+    /**
+     * @protected
+     * Загружает отзывы в список отзывов.
+     */
+    loadReviews: function () {
+        var list = this.getView().down('#reviewsList');
+        var companyContainer = list.up('companyContainer');
+
+        list.setStore(companyContainer.getViewModel().get('reviews'));
     },
 
     /**
