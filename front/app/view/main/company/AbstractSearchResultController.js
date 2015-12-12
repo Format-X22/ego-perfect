@@ -60,6 +60,8 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
     backToSearch: function () {
         this.showSearch();
         this.switchToSearch();
+        this.fixAndroidAutoFocus();
+        this.fixScrollFreeze();
     },
 
     /**
@@ -219,6 +221,29 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
          */
         resetCompanyTabsGallery: function (tabPanel) {
             tabPanel.down('#gallery').refreshGalleryLayout();
+        },
+
+        /**
+         * @private
+         */
+        fixScrollFreeze: function () {
+            var result = this.getResultCard();
+
+            Ext.defer(function () {
+                result.hide();
+                Ext.defer(function () {
+                    result.show();
+                }, 100);
+            }, 550);
+        },
+
+        /**
+         * @private
+         */
+        fixAndroidAutoFocus: function () {
+            Ext.defer(function () {
+                this.getSearchToolbar().down('#searchInput').blur();
+            }, 10, this);
         }
     }
 });
