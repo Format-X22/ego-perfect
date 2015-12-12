@@ -31,13 +31,23 @@ Ext.define('A.view.main.company.tablet.reviews.Send', {
                     name: 'name',
                     xtype: 'textfield',
                     placeHolder: 'Имя',
-                    maxLength: 100
+                    maxLength: 100,
+                    component: {
+                        autoComplete: false,
+                        autoCapitalize: false,
+                        autoCorrect: false
+                    }
                 },
                 {
                     name: 'header',
                     xtype: 'textfield',
                     placeHolder: 'Заголовок',
-                    maxLength: 100
+                    maxLength: 100,
+                    component: {
+                        autoComplete: false,
+                        autoCapitalize: false,
+                        autoCorrect: false
+                    }
                 },
                 {
                     name: 'description',
@@ -46,7 +56,12 @@ Ext.define('A.view.main.company.tablet.reviews.Send', {
                     placeHolder: 'Отзыв',
                     height: 120,
                     maxLength: 1000,
-                    border: 1
+                    border: 1,
+                    component: {
+                        autoComplete: false,
+                        autoCapitalize: false,
+                        autoCorrect: false
+                    }
                 },
                 {
                     itemId: 'rating',
@@ -128,9 +143,13 @@ Ext.define('A.view.main.company.tablet.reviews.Send', {
                             xtype: 'textfield',
                             disabled: true,
                             placeHolder: 'Вы точно не робот?',
-                            labelWidth: 130,
-                            width: 225,
-                            maxLength: 10
+                            width: 150,
+                            maxLength: 10,
+                            component: {
+                                autoComplete: false,
+                                autoCapitalize: false,
+                                autoCorrect: false
+                            }
                         }
                     ]
                 },

@@ -3,4 +3,8 @@
 	.review-textarea textarea {
 		width: 568px !important;
 	}
+
+	.x-field:last-child {
+		border-bottom: 1px solid $base-color;
+	}
 }
