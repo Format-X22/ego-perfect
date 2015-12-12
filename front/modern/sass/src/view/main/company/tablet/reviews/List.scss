@@ -3,6 +3,10 @@
 	.review-item {
 		padding: 15px 112px;
 
+		&-mobile {
+			padding: 15px;
+		}
+
 		.star {
 			display: inline-block;
 			padding: 5px 0;

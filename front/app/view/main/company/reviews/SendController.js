@@ -16,6 +16,7 @@ Ext.define('A.view.main.company.reviews.SendController', {
             this.viewDown('#captchaImageContainer').show();
             this.viewDown('#sendWithCaptchaContainer').show();
             this.viewDown('#captchaInput').enable();
+            this.scrollToBottomIfModern();
         }
     },
 
@@ -27,6 +28,7 @@ Ext.define('A.view.main.company.reviews.SendController', {
         this.viewDown('#captchaImageContainer').hide();
         this.viewDown('#sendWithCaptchaContainer').hide();
         this.viewDown('#captchaInput').disable();
+        this.scrollToTopIfModern();
     },
 
     /**
@@ -134,6 +136,35 @@ Ext.define('A.view.main.company.reviews.SendController', {
     },
 
     privates: {
+
+        /**
+         * @private
+         */
+        scrollToTopIfModern: function () {
+            this.scrollToIfModern(0);
+        },
+
+        /**
+         * @private
+         */
+        scrollToBottomIfModern: function () {
+            this.scrollToIfModern(Infinity);
+        },
+
+        /**
+         * @private
+         */
+        scrollToIfModern: function (value) {
+            if (Ext.isClassic) {
+                return;
+            }
+
+            var scroller = this.viewDown('formpanel').getScrollable();
+
+            Ext.defer(function () {
+                scroller.scrollTo(null, value);
+            }, 100, this);
+        },
 
         /**
          * @private
