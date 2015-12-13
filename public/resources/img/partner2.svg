@@ -8,7 +8,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="180"
@@ -21,30 +20,6 @@
   <defs
      id="defs4">
     <linearGradient
-       inkscape:collect="always"
-       id="linearGradient4178">
-      <stop
-         style="stop-color:#47a3f5;stop-opacity:1;"
-         offset="0"
-         id="stop4180" />
-      <stop
-         style="stop-color:#47a3f5;stop-opacity:0;"
-         offset="1"
-         id="stop4182" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient4170">
-      <stop
-         style="stop-color:#47a3f5;stop-opacity:1;"
-         offset="0"
-         id="stop4172" />
-      <stop
-         style="stop-color:#47a3f5;stop-opacity:0;"
-         offset="1"
-         id="stop4174" />
-    </linearGradient>
-    <linearGradient
        id="linearGradient5639"
        osb:paint="solid">
       <stop
@@ -52,28 +27,6 @@
          offset="0"
          id="stop5641" />
     </linearGradient>
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4170"
-       id="radialGradient4176"
-       cx="95.545197"
-       cy="962.047"
-       fx="95.545197"
-       fy="962.047"
-       r="53.636567"
-       gradientTransform="matrix(2.3657396,0.01594912,-0.01473616,2.1858235,-114.81297,-1144.8418)"
-       gradientUnits="userSpaceOnUse" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4178"
-       id="radialGradient4184"
-       cx="25.63262"
-       cy="1001.9809"
-       fx="25.63262"
-       fy="1001.9809"
-       r="6.6407376"
-       gradientTransform="matrix(2.9954034,-0.02368638,0.02440325,3.0860652,-75.094388,-2089.8832)"
-       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -83,8 +36,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2"
-     inkscape:cx="73.392628"
-     inkscape:cy="81.962642"
+     inkscape:cx="-17.607372"
+     inkscape:cy="80.962642"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -148,7 +101,7 @@
            x="-103.23759"
            y="83.126373" /></flowRegion><flowPara
          id="flowPara4361" /></flowRoot>    <ellipse
-       style="opacity:1;fill:url(#radialGradient4176);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.631;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#47a3f5;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.631;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path4156"
        cx="97.045197"
        cy="959.547"
@@ -170,7 +123,7 @@
        y="883.83136"
        transform="matrix(0.87589542,-0.482501,0.50952837,0.86045386,0,0)" />
     <ellipse
-       style="opacity:1;fill:url(#radialGradient4184);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#47a3f5;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path4160"
        cx="26.137247"
        cy="1001.688"
