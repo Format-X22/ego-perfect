@@ -11,7 +11,8 @@ Ext.define('A.view.main.search.SearchContainer', {
         'A.view.main.search.StartMobileSearch',
         'A.view.main.search.StartTabletSearch',
         'A.view.main.search.SearchResult',
-        'A.view.main.search.AllSearchController'
+        'A.view.main.search.AllSearchController',
+        'A.view.main.search.HelpWindow'
     ],
 
     items: [

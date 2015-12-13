@@ -57,6 +57,7 @@ Ext.define('A.view.main.search.SearchResult', {
             padding: '0 10',
             items: [
                 {
+                    itemId: 'searchResultContainer',
                     xtype: 'container',
                     layout: {
                         type: 'hbox',

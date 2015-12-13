@@ -37,13 +37,26 @@ Ext.define('A.view.main.search.HelpWindowController', {
         var storage = Ext.util.LocalStorage.get('helpWindowState');
         var hidden = view.isHidden();
 
-        if (hidden) {
+        if (Ext.isClassic && hidden) {
             return;
         }
 
         storage.setItem('showed', true);
         storage.release();
 
-        this.getView().close();
+        if (Ext.isClassic) {
+            this.getView().close();
+        }
+    },
+
+    /**
+     * Для модерна, показывает окно подсказки.
+     */
+    modernShow: function () {
+        if (this.checkNoShowed()) {
+            this.getView().show({
+                fn: this.closeWindowHandler.bind(this)
+            });
+        }
     }
 });
