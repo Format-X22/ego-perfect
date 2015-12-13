@@ -9,12 +9,50 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
     ],
 
     control: {
+        '#searchResult': {
+            show: 'showHelpClassic'
+        },
+        '#resultCard': {
+            activeitemchange: 'showHelpModernFromCompanyTab'
+        },
         '#searchInput': {
             change: 'syncAllSearchInputs'
         },
         '#searchButton': {
             tap: 'search',
             click: 'search'
+        }
+    },
+
+    /**
+     * Показывает окно подсказки о том что нужно нажимать
+     * на квадраты, для десктопа.
+     */
+    showHelpClassic: function () {
+        if (Ext.isClassic) {
+            Ext.widget('searchHelpWindow').showAt(10, 100);
+        }
+    },
+
+    /**
+     * Показывает окно подсказки о том что нужно нажимать
+     * на квадраты, для модерна.
+     */
+    showHelpModern: function () {
+        Ext.widget('searchHelpWindow').tryShow();
+    },
+
+    /**
+     * Показывает окно подсказки о том что нужно нажимать
+     * на квадраты, для модерна.
+     * Отрабатывает в случае если пользователь пришел
+     * со страницы деталей компании, но на сайте впервые.
+     */
+    showHelpModernFromCompanyTab: function (cardContainer, card) {
+        if (!Ext.isClassic) {
+            if (card.getItemId() === 'searchResultContainer') {
+                this.showHelpModern();
+            }
         }
     },
 
@@ -37,6 +75,10 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
     search: function () {
         this.toggleInitView();
         this.sendQuery();
+
+        if (!Ext.isClassic) {
+            this.showHelpModern();
+        }
     },
 
     /**

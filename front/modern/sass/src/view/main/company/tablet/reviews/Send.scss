@@ -4,3 +4,10 @@
 		width: 568px !important;
 	}
 }
+
+.company-tablet-reviews-send,
+.company-mobile-reviews-send {
+	.x-field:last-child {
+		border-bottom: 1px solid $base-color;
+	}
+}

@@ -62,7 +62,8 @@
      */
     "requires": [
         "font-awesome",
-        "ux"
+        "ux",
+        "ext-locale"
     ],
 
     /**
@@ -590,6 +591,8 @@
             }
         }
     },
+
+    "locale": "ru",
     
 
     /**

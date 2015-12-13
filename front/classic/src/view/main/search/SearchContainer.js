@@ -9,7 +9,8 @@ Ext.define('A.view.main.search.SearchContainer', {
     requires: [
         'A.view.main.search.StartDesktopSearch',
         'A.view.main.search.SearchResult',
-        'A.view.main.search.AllSearchController'
+        'A.view.main.search.AllSearchController',
+        'A.view.main.search.HelpWindow'
     ],
 
     layout: 'fit',

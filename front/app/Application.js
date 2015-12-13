@@ -21,6 +21,10 @@ Ext.define('A.Application', {
 
         A.getCmp = this.getCmp;
         A.getAllCmp = this.getAllCmp;
+
+        Ext.override(Ext.panel.Panel, {
+            closeToolText: 'Закрыть'
+        });
     },
 
     /**

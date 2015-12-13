@@ -24,6 +24,7 @@ Ext.define('A.view.main.company.mobile.TabPanel', {
         },
         {
             itemId: 'reviews',
+            xtype: 'companyMobileReviewsContainer',
             iconCls: 'x-fa fa-eye'
         },
         {
