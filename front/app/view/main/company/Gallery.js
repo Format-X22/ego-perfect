@@ -142,7 +142,7 @@ Ext.define('A.view.main.company.Gallery', {
                     escKey: false,
                     history: false,
                     modal: false,
-                    preload: [10, 10]
+                    preload: [3, 3]
                 }
             );
 
@@ -177,6 +177,8 @@ Ext.define('A.view.main.company.Gallery', {
         makeOnShowRefresher: function () {
             this.on('show', function () {
                 this.refreshGalleryLayout();
+
+                Ext.defer(this.refreshGalleryLayout, 100, this);
             }, this);
         }
     }

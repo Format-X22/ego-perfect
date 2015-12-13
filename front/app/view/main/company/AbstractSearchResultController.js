@@ -227,6 +227,10 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
          * @private
          */
         fixScrollFreeze: function () {
+            if (Ext.isClassic) {
+                return;
+            }
+
             var result = this.getResultCard();
 
             Ext.defer(function () {
@@ -241,6 +245,10 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
          * @private
          */
         fixAndroidAutoFocus: function () {
+            if (Ext.isClassic) {
+                return;
+            }
+
             Ext.defer(function () {
                 this.getSearchToolbar().down('#searchInput').blur();
             }, 10, this);

@@ -9,12 +9,25 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
     ],
 
     control: {
+        '#searchResult': {
+            show: 'showHelp'
+        },
         '#searchInput': {
             change: 'syncAllSearchInputs'
         },
         '#searchButton': {
             tap: 'search',
             click: 'search'
+        }
+    },
+
+    /**
+     * Показывает окно подсказки о том что нужно нажимать
+     * на квадраты.
+     */
+    showHelp: function () {
+        if (Ext.isClassic) {
+            Ext.widget('searchHelpWindow').showAt(10, 100);
         }
     },
 
