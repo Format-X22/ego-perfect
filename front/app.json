@@ -478,10 +478,7 @@
          * List of items in the CACHE MANIFEST section
          */
         "cache": [
-            "index.html",
-            "classic/*",
-            "modern/*",
-            "resources/*"
+            "index.html"
         ],
         /**
          * List of items in the NETWORK section
