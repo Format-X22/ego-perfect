@@ -10,7 +10,7 @@ Ext.define('A.view.public.MobileMenuController', {
      * @param {Number} pageNum Номер страницы.
      */
     goToPage: function (pageNum) {
-        A.getCmp('app-main mainTabPanel').setActiveItem(pageNum);
+        A.getCmp('appMainPublic mainTabPanel').setActiveItem(pageNum);
         Ext.Viewport.toggleMenu('right');
 
         this.toggleBackToSearchMobileButton(pageNum);

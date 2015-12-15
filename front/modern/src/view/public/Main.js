@@ -1,9 +1,9 @@
 /**
- * Главный виджет сайта для мобильников и планшетов.
+ * Главный виджет публичной части приложения для мобильников и планшетов.
  */
 Ext.define('A.view.public.Main', {
     extend: 'Ext.container.Container',
-    xtype: 'app-main',
+    xtype: 'appMainPublic',
 
     requires: [
         'Ext.plugin.Responsive',
