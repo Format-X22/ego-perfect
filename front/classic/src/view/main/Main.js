@@ -1,9 +1,9 @@
 /**
- * Главный виджет приложения для ПК.
+ * Главный виджет публичной части приложения для ПК.
  */
 Ext.define('A.view.main.Main', {
-    extend: 'Ext.container.Viewport',
-    xtype: 'app-main',
+    extend: 'Ext.container.Container',
+    xtype: 'appMainPublic',
 
     requires: [
         'A.view.main.search.SearchContainer',
