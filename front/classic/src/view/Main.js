@@ -6,7 +6,7 @@ Ext.define('A.view.Main', {
     xtype: 'appMain',
 
     requires: [
-        'A.view.public.Main'
+        'A.view.main.Main'
     ],
 
     layout: 'card',
