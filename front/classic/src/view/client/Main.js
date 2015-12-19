@@ -9,6 +9,7 @@ Ext.define('A.view.client.Main', {
         'A.view.client.editor.Basic',
         'A.view.client.editor.Summary',
         'A.view.client.editor.Photo',
+        'A.view.client.TopToolbar',
         'A.view.client.SaveToolbar'
     ],
 
@@ -19,45 +20,7 @@ Ext.define('A.view.client.Main', {
 
     items: [
         {
-            xtype: 'toolbar',
-            height: 70,
-            items: [
-                {
-                    itemId: 'toSearch',
-                    xtype: 'button',
-                    text: 'На страницу поиска',
-                    iconCls: 'x-fa fa-search'
-                },
-                {
-                    itemId: 'toDetails',
-                    xtype: 'button',
-                    text: 'На страницу вашей компании',
-                    iconCls: 'x-fa fa-file-text-o'
-                },
-                {
-                    itemId: 'release',
-                    xtype: 'button',
-                    text: 'Разместить!',
-                    iconCls: 'x-fa fa-cloud-upload'
-                },
-                {
-                    xtype: 'button',
-                    text: 'Выйти',
-                    iconCls: 'x-fa fa-lock'
-                },
-                {
-                    xtype: 'container',
-                    flex: 1
-                },
-                {
-                    xtype: 'tbtext',
-                    html: 'Панель управления'
-                },
-                {
-                    xtype: 'container',
-                    flex: 2
-                }
-            ]
+            xtype: 'clientTopToolbar'
         },
         {
             xtype: 'tabpanel',
