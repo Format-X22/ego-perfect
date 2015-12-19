@@ -4,6 +4,11 @@
 Ext.define('A.view.client.editor.Basic', {
     extend: 'Ext.form.Panel',
     xtype: 'clientEditorBasic',
+    controller: 'clientEditorBasic',
+
+    requires: [
+        'A.view.client.editor.BasicController'
+    ],
 
     layout: 'vbox',
 
@@ -29,37 +34,45 @@ Ext.define('A.view.client.editor.Basic', {
                         {
                             name: 'name',
                             xtype: 'textfield',
-                            fieldLabel: 'Имя компании'
+                            fieldLabel: 'Имя компании',
+                            maxLength: 100,
+                            allowBlank: false
                         },
                         {
                             name: 'phone',
                             xtype: 'textfield',
-                            fieldLabel: 'Телефон'
+                            fieldLabel: 'Телефон',
+                            maxLength: 100
                         },
                         {
                             name: 'site',
                             xtype: 'textfield',
-                            fieldLabel: 'Сайт'
+                            fieldLabel: 'Сайт',
+                            maxLength: 100
                         },
                         {
                             name: 'mail',
                             xtype: 'textfield',
-                            fieldLabel: 'Электронная почта'
+                            fieldLabel: 'Электронная почта',
+                            maxLength: 100
                         },
                         {
                             name: 'time',
                             xtype: 'textfield',
-                            fieldLabel: 'Время работы'
+                            fieldLabel: 'Время работы',
+                            maxLength: 100
                         },
                         {
                             name: 'address',
                             xtype: 'textfield',
-                            fieldLabel: 'Адрес'
+                            fieldLabel: 'Адрес',
+                            maxLength: 200
                         },
                         {
                             name: 'map',
                             xtype: 'textfield',
-                            fieldLabel: 'Координаты на карте'
+                            fieldLabel: 'Координаты на карте',
+                            maxLength: 100
                         },
                         {
                             xtype: 'container',
@@ -71,7 +84,7 @@ Ext.define('A.view.client.editor.Basic', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    text: 'Где можно получить свои координаты?'
+                                    text: 'Где получить свои координаты?'
                                 }
                             ]
                         }

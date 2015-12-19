@@ -1,5 +1,6 @@
 /**
  * Тулбар сохранения каких-либо данных.
+ * Необходим контроллер с методами save и reset.
  */
 Ext.define('A.view.client.SaveToolbar', {
     extend: 'Ext.toolbar.Toolbar',
@@ -13,12 +14,14 @@ Ext.define('A.view.client.SaveToolbar', {
         {
             itemId: 'save',
             text: 'Сохранить',
-            iconCls: 'x-fa fa-save'
+            iconCls: 'x-fa fa-save',
+            handler: 'save'
         },
         {
             itemId: 'reset',
             text: 'Сбросить',
-            iconCls: 'x-fa fa-undo'
+            iconCls: 'x-fa fa-undo',
+            handler: 'reset'
         }
     ]
 });

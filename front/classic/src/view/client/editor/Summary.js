@@ -4,6 +4,11 @@
 Ext.define('A.view.client.editor.Summary', {
     extend: 'Ext.form.Panel',
     xtype: 'clientEditorSummary',
+    controller: 'clientEditorSummary',
+
+    requires: [
+        'A.view.client.editor.SummaryController'
+    ],
 
     items: [
         {
