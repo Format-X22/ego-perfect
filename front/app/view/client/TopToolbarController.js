@@ -16,7 +16,7 @@ Ext.define('A.view.client.TopToolbarController', {
      * Перейти на страницу деталей этой компании.
      */
     toDetails: function () {
-        console.log('to details');
+        console.log('to details'); // @TODO
     },
 
     /**
@@ -25,14 +25,113 @@ Ext.define('A.view.client.TopToolbarController', {
      * на тот факт что услуга пока ещё не оплачена.
      */
     release: function () {
-        console.log('release');
+        if (this.isPayed()) {
+            this.toggleReleaseButton();
+            this.showSuccessPayedMessage(
+                this.ifOkButton(
+                    this.toDetails.bind(this)
+                )
+            );
+        } else {
+            this.showNotPayedMessage(
+                this.ifOkButton(
+                    this.goToPayPage.bind(this)
+                )
+            );
+        }
     },
 
     /**
      * Выйти из панели управления.
      */
     exit: function () {
-        console.log('exit');
+        console.log('exit'); // @TODO
         this.toSearch();
+    },
+
+    /**
+     * Завершает подготовку вью к показу.
+     */
+    onShow: function () {
+        if (this.isNewClient()) {
+            this.getView().down('#release').show();
+        } else {
+            this.getView().down('#toDetails').show();
+        }
+    },
+
+    privates: {
+
+        /**
+         * @private
+         * @return {Boolean} Новый ли клиент.
+         */
+        isNewClient: function () {
+            return true;
+        },
+
+        /**
+         * @private
+         * @return {Boolean} Оплатил ли клиент.
+         */
+        isPayed: function () {
+            return false;
+        },
+
+        /**
+         * @private
+         * @param {Function} callback Обработчик действия пользователя.
+         */
+        showNotPayedMessage: function (callback) {
+            Ext.MessageBox.show({
+                title: 'Оопс...',
+                message: 'Похоже вы ещё не оплатили размещение.<br>Вы можете сделать это сейчас.',
+                icon: Ext.MessageBox.INFO,
+                buttons: Ext.MessageBox.OKCANCEL,
+                fn: callback
+            });
+        },
+
+        /**
+         * @private
+         * @param {Function} callback Обработчик действия пользователя.
+         */
+        showSuccessPayedMessage: function (callback) {
+            Ext.MessageBox.show({
+                title: 'Успешно',
+                message: 'Ваша компания успешно размещена.<br>Хотите посмотреть как она выглядит в живую?',
+                icon: Ext.MessageBox.INFO,
+                buttons: Ext.MessageBox.OKCANCEL,
+                fn: callback
+            });
+        },
+
+        /**
+         * @private
+         * @param {Function} callback Следующий шаг в случае если кнопка ОК.
+         * @return {Function} Обертка для вызова диалоговым окном.
+         */
+        ifOkButton: function (callback) {
+            return function (button) {
+                if (button === 'ok') {
+                    callback();
+                }
+            }
+        },
+
+        /**
+         * @private
+         */
+        toggleReleaseButton: function () {
+            this.getView().down('#release').hide();
+            this.getView().down('#toDetails').show();
+        },
+
+        /**
+         * @private
+         */
+        goToPayPage: function () {
+            console.log('go to pay page'); // @TODO
+        }
     }
 });
