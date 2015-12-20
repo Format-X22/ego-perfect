@@ -45,19 +45,22 @@ Ext.define('A.view.client.editor.AbstractController', {
      * @param {Ext.form.action.Action} action Объект действия формы.
      */
     onSaveFailure: function (form, action) {
-        var actionTypes = Ext.form.action.Action;
+        var types = Ext.form.action.Action;
         var defaultMessage = 'Проверьте подключение или попробуйте позже.';
+        var serverMessage = action.result && action.result.message;
+        var client = types.CLIENT_INVALID;
+        var server = types.SERVER_INVALID && serverMessage;
+        var connect = types.CONNECT_FAILURE || types.LOAD_FAILURE;
 
         switch (action.failureType) {
-            case actionTypes.CLIENT_INVALID:
+            case client:
                 return;
 
-            case actionTypes.SERVER_INVALID:
-                this.showErrorMessage(action.result.message);
+            case server:
+                this.showErrorMessage(serverMessage);
                 return;
 
-            case actionTypes.CONNECT_FAILURE:
-            case actionTypes.LOAD_FAILURE:
+            case connect:
             default:
                 this.showErrorMessage(defaultMessage);
         }
