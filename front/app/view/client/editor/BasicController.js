@@ -7,6 +7,11 @@ Ext.define('A.view.client.editor.BasicController', {
 
     url: '/api/saveBasic',
 
+    /**
+     * Валидатор для поля ввода координат.
+     * @param {String} value Строка с координатами.
+     * @return {Boolean/String} True если всё ок или строка с текстом ошибки.
+     */
     mapValidator: function (value) {
         var allOk = true;
         var errorMessage = 'Не верный формат';
