@@ -68,15 +68,69 @@ class Search {
      * @return {Object} Запрос для базы.
      */
     makeDBQuery (query) {
-        if (query) {
-            return {
-                tags: {
-                    $regex: '^' + query
-                }
-            };
-        } else {
+        if (!query) {
             return {};
         }
+
+        var tokens = this.getQueryTokens(query);
+        var tokensSearch = tokens.map(this.getSingleTokenSearch);
+
+        return {
+            tags: {
+                $in: tokensSearch
+            }
+        };
+    }
+
+    /**
+     * @private
+     * @param {String} query Строка запроса.
+     * @return {String[]} Массив токенов.
+     */
+    getQueryTokens (query) {
+        return query
+            .trim()                         // Обрезаем всякие пробелы по краям
+            .replace(/ +/g, ' ')            // Заменяем повторяющиеся пробелы на 1 пробел
+            .replace(/ - /g, '-')           // Схлопываем тире в дефис
+            .replace(/ -|- /g, '-')         // И по краям
+            .replace(/[,]|[.]|[_]/g, ' ')   // Заменяем точки, запятые и подчеркивания на пробелы
+            .replace(/ +/g, ' ')            // Заменяем повторяющиеся пробелы на 1 пробел
+            .replace(/ . /g, ' ')           // Убираем однобуквенные слова
+            .replace(/^. | .$/g, '')        // И по краям
+            .split(' ')                     // Режем на части по пробелу
+            .map(this.removeTokenEnds);     // Убираем окончания
+    }
+
+    /**
+     * @private
+     * @param {String} token Токен запроса.
+     * @return {String} Токен без окончания.
+     */
+    removeTokenEnds (token) {
+        token = token.trim();                 // Убираем пробельные символы у токена, есть кейсы
+
+        if (token.length < 3) {               // 2 буквы, не бывает окончаний
+            return token;
+        }
+
+        if (token.length < 6) {              // 3-5 букв, режем однобуквенные окончания
+            return token.slice(0, -1);
+        }
+
+        if (token.length < 8) {              // 6-7 букв, режем двухбуквенные окончания
+            return token.slice(0, -2);
+        }
+
+        return token.slice(0, -3);           // 8 и более букв, режем трехбуквенные окончания
+    }
+
+    /**
+     * @private
+     * @param {String} token Токен запроса.
+     * @return {RegExp} Регэксп поиска.
+     */
+    getSingleTokenSearch (token) {
+        return new RegExp('^' + token, 'i');
     }
 
     /**
@@ -112,7 +166,7 @@ class Search {
      * @return {Boolean} Результат проверки.
      */
     isRequestInvalid (query, start, limit) {
-        if (query.length > 300) {
+        if (query && query.length > 300) {
             return true;
         }
 
