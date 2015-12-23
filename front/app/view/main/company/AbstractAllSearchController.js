@@ -106,11 +106,11 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
         sendQuery: function () {
             var value = this.getSearchInputs()[0].getValue();
 
-            /*A.store.Search.load({
-             params: {
-             query: value || ''
-             }
-             });*/
+            A.store.Search.load({
+                params: {
+                    query: value || ''
+                }
+            });
         }
     }
 });
