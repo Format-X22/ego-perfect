@@ -22,6 +22,10 @@
     "logo": {
       "type": "string",
       "comments": "ID картинки"
+    },
+    "rating": {
+      "type": "number",
+      "comments": "Рейтинг"
     }
   },
   "validations": [],

@@ -57,6 +57,7 @@ class Search {
             )
             .skip(start)
             .limit(limit)
+            .sort({rating: -1})
             .toArray(
                 this.getSearchResultHandler(callback)
             );
