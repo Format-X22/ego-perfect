@@ -27,7 +27,8 @@ Ext.define('A.view.client.editor.Summary', {
             enableFont: false,
             enableFontSize: false,
             enableSourceEdit: false,
-            enableLinks: false
+            enableLinks: false,
+            value: 'А мы самые <b>лучшие!</b>'
         }
     ]
 });

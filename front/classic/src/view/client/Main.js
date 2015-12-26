@@ -72,6 +72,11 @@ Ext.define('A.view.client.Main', {
                             xtype: 'clientEditorPhoto',
                             title: 'Фото',
                             iconCls: 'x-fa fa-picture-o'
+                        },
+                        {
+                            xtype: 'clientEditorKeyWords',
+                            title: 'Ключевые слова',
+                            iconCls: 'x-fa fa-font'
                         }
                     ]
                 },

@@ -24,14 +24,16 @@ Ext.define('A.view.client.TopToolbar', {
             xtype: 'button',
             text: 'На страницу вашей компании',
             iconCls: 'x-fa fa-file-text-o',
-            handler: 'toDetails'
+            handler: 'toDetails',
+            hidden: true
         },
         {
             itemId: 'release',
             xtype: 'button',
             text: 'Разместить!',
             iconCls: 'x-fa fa-cloud-upload',
-            handler: 'release'
+            handler: 'release',
+            hidden: true
         },
         {
             itemId: 'exit',
@@ -52,5 +54,9 @@ Ext.define('A.view.client.TopToolbar', {
             xtype: 'component',
             flex: 2
         }
-    ]
+    ],
+
+    listeners: {
+        render: 'onShow'
+    }
 });

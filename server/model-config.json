@@ -33,7 +33,7 @@
     "public": false
   },
   "search": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": true,
     "$promise": {},
     "$resolved": true
@@ -57,7 +57,7 @@
     "$resolved": true
   },
   "map": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": true,
     "$promise": {},
     "$resolved": true

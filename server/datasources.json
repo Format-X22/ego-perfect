@@ -2,5 +2,12 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "mongo": {
+    "url": "mongodb://admin:114430fK@ds031551.mongolab.com:31551/heroku_hfxkwqsw",
+    "password": "114430fK",
+    "name": "mongo",
+    "connector": "mongodb",
+    "user": "admin"
   }
 }

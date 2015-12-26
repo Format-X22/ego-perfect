@@ -4,25 +4,28 @@
   "strict": false,
   "idInjection": false,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": true,
+    "persistent": true
   },
   "properties": {
-    "id": {
-      "type": "number",
-      "id": true,
-      "required": true,
-      "comments": "ID"
-    },
-    "active": {
-      "type": "boolean",
-      "comments": "Активна ли компания"
-    },
     "tags": {
       "type": [
         "string"
       ],
-      "index": true,
+      "index": false,
       "comments": "Массив тегов"
+    },
+    "coords": {
+      "type": "map",
+      "comments": "Для геопоиска"
+    },
+    "logo": {
+      "type": "string",
+      "comments": "ID картинки"
+    },
+    "rating": {
+      "type": "number",
+      "comments": "Рейтинг"
     }
   },
   "validations": [],
