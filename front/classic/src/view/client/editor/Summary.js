@@ -15,20 +15,30 @@ Ext.define('A.view.client.editor.Summary', {
             xtype: 'clientEditorSaveToolbar'
         },
         {
-            name: 'summary',
-            xtype: 'htmleditor',
-            padding: '20 20 20 50',
-            width: '100%',
-            height: 350,
-            resizable: {
-                handles: 's'
+            xtype: 'container',
+            layout: {
+                type: 'vbox',
+                align: 'center',
+                pack: 'center'
             },
-            enableColors: false,
-            enableFont: false,
-            enableFontSize: false,
-            enableSourceEdit: false,
-            enableLinks: false,
-            value: 'А мы самые <b>лучшие!</b>'
+            items: [
+                {
+                    name: 'summary',
+                    xtype: 'htmleditor',
+                    padding: '20 0 0 0',
+                    width: 600,
+                    height: 350,
+                    resizable: {
+                        handles: 'w e s se sw'
+                    },
+                    enableColors: false,
+                    enableFont: false,
+                    enableFontSize: false,
+                    enableSourceEdit: false,
+                    enableLinks: false,
+                    value: 'А мы самые <b>лучшие!</b>'
+                }
+            ]
         }
     ]
 });

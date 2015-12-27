@@ -25,7 +25,12 @@ Ext.define('A.view.client.editor.Basic', {
             items: [
                 {
                     xtype: 'container',
-                    layout: 'vbox',
+                    width: '100%',
+                    layout: {
+                        type: 'vbox',
+                        align: 'center',
+                        pack: 'center'
+                    },
                     defaults: {
                         width: 600,
                         margin: '7 0',
