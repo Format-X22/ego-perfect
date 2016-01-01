@@ -89,16 +89,6 @@ Ext.define('A.view.client.editor.Photo', {
                             name: 'photo10',
                             xtype: 'filefield',
                             fieldLabel: 'Фото №10'
-                        },
-                        {
-                            name: 'photo11',
-                            xtype: 'filefield',
-                            fieldLabel: 'Фото №11'
-                        },
-                        {
-                            name: 'photo12',
-                            xtype: 'filefield',
-                            fieldLabel: 'Фото №12'
                         }
                     ]
                 }

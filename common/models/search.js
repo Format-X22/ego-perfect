@@ -42,25 +42,122 @@ class Search {
      * @param {Function} callback Колбэк для возврата результата.
      */
     searchQueryMethod (query, start, limit, callback) {
-        var collection = this.getSearchCollection();
-        var fields = {_id: 1};
+        if (this.isRequestValid(query, start, limit)) {
+            var tokens = this.getQueryTokens(query);
 
-        if (this.isRequestInvalid(query, start, limit)) {
+            this.doDBQuery({
+                dbQuery: this.makeDBQuery(query, tokens),
+                fields: {_id: 1, tags: 1, rating: 1},
+                start: start,
+                limit: limit,
+                tokens: tokens,
+                callback: this.getSearchResultHandler(callback)
+            });
+        } else {
             this.sendError(callback);
-            return;
+        }
+    }
+
+    /**
+     * @private
+     * @param {String} query Строка запроса.
+     * @param {Number} start С какого документа начинать.
+     * @param {Number} limit Сколько документов вернуть.
+     * @return {Boolean} Результат проверки.
+     */
+    isRequestValid (query, start, limit) {
+        if (query && query.length > 300) {
+            return false;
         }
 
-        collection
-            .find(
-                this.makeDBQuery(query),
-                fields
-            )
-            .skip(start)
-            .limit(limit)
-            .sort({rating: -1})
+        if (start > 1000000) {
+            return false;
+        }
+
+        if (limit > 100) {
+            return false;
+        }
+
+        return true;
+    }
+
+    doDBQuery (cfg) {
+        this.getSearchCollection()
+            .find(cfg.dbQuery, cfg.fields)
+            .skip(cfg.start)
+            .limit(cfg.limit)
             .toArray(
-                this.getSearchResultHandler(callback)
+                this.sortOnResult(cfg.tokens, cfg.callback)
             );
+    }
+
+    sortOnResult (tokens, callback) {
+        return function (error, data) {
+            var notNeedSort = this.isEmptyTokens(tokens);
+
+            if (error || notNeedSort) {
+                callback(error, data);
+            } else {
+                callback(false, this.sortResult(data, tokens));
+            }
+        }.bind(this);
+    }
+
+    isEmptyTokens (tokens) {
+        return tokens[0] === '';
+    }
+
+    sortResult (data, tokens) {
+        return data.sort(function (itemA, itemB) {
+            this.applyTokenEqualsCount(itemA, itemB, tokens);
+
+            return this.compareResultItems(itemA, itemB);
+        }.bind(this));
+    }
+
+    compareResultItems (itemA, itemB) {
+        var aCount = itemA.equalsCount;
+        var bCount = itemB.equalsCount;
+        var aRating = itemA.rating;
+        var bRating = itemB.rating;
+
+        if (aCount < bCount) {
+            return 1;
+        }
+
+        if (aCount > bCount) {
+            return -1;
+        }
+
+        if (aRating < bRating) {
+            return 1;
+        }
+
+        if (aRating > bRating) {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    applyTokenEqualsCount (itemA, itemB, tokens) {
+        if (!itemA.equalsCount) {
+            this.setTokenEqualsCount(itemA, tokens);
+        }
+
+        if (!itemB.equalsCount) {
+            this.setTokenEqualsCount(itemB, tokens);
+        }
+    }
+
+    setTokenEqualsCount (item, tokens) {
+        item.equalsCount = 0;
+
+        tokens.forEach(function (token) {
+            if (~item.tags.indexOf(token)) {
+                item.equalsCount++;
+            }
+        });
     }
 
     /**
@@ -68,17 +165,14 @@ class Search {
      * @param {String} query Строка запроса.
      * @return {Object} Запрос для базы.
      */
-    makeDBQuery (query) {
+    makeDBQuery (query, tokens) {
         if (!query) {
             return {};
         }
 
-        var tokens = this.getQueryTokens(query);
-        var tokensSearch = tokens.map(this.getSingleTokenSearch);
-
         return {
             tags: {
-                $in: tokensSearch
+                $in: tokens
             }
         };
     }
@@ -127,15 +221,6 @@ class Search {
 
     /**
      * @private
-     * @param {String} token Токен запроса.
-     * @return {RegExp} Регэксп поиска.
-     */
-    getSingleTokenSearch (token) {
-        return new RegExp('^' + token, 'i');
-    }
-
-    /**
-     * @private
      * @return {Object} Объект доступа к коллекции.
      */
     getSearchCollection () {
@@ -157,27 +242,6 @@ class Search {
                 this.sendData(callback, data);
             }
         }.bind(this)
-    }
-
-    /**
-     * @private
-     * @param {String} query Строка запроса.
-     * @param {Number} start С какого документа начинать.
-     * @param {Number} limit Сколько документов вернуть.
-     * @return {Boolean} Результат проверки.
-     */
-    isRequestInvalid (query, start, limit) {
-        if (query && query.length > 300) {
-            return true;
-        }
-
-        if (start > 1000000) {
-            return true;
-        }
-
-        if (limit > 100) {
-            return true;
-        }
     }
 
     /**
