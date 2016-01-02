@@ -56,7 +56,7 @@ Ext.define('A.view.main.company.reviews.SendController', {
      */
     resetForm: function () {
         this.hideCaptchaBlock();
-        this.set5star();
+        this.set3star();
 
         if (Ext.isClassic) {
             this.viewDown('#reviewForm').reset();

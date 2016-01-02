@@ -9,6 +9,7 @@ Ext.define('A.view.client.Main', {
         'A.view.client.editor.Basic',
         'A.view.client.editor.Summary',
         'A.view.client.editor.Photo',
+        'A.view.client.profile.Main',
         'A.view.client.TopToolbar',
         'A.view.client.SaveToolbar'
     ],
@@ -81,7 +82,7 @@ Ext.define('A.view.client.Main', {
                     ]
                 },
                 {
-                    xtype: 'container',
+                    xtype: 'clientProfile',
                     title: 'Профиль',
                     iconCls: 'x-fa fa-user'
                 },

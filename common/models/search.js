@@ -28,8 +28,9 @@ class Search {
             ],
             http: {path: '/query', verb: 'get'},
             returns: [
-                {arg: 'data',    type: 'array'},
-                {arg: 'success', type: 'boolean'}
+                {arg: 'data',    type: 'array'  },
+                {arg: 'success', type: 'boolean'},
+                {arg: 'error',   type: 'string' }
             ]
         });
     }
@@ -42,45 +43,20 @@ class Search {
      * @param {Function} callback Колбэк для возврата результата.
      */
     searchQueryMethod (query, start, limit, callback) {
-        var collection = this.getSearchCollection();
-        var fields = {_id: 1};
+        if (this.isRequestValid(query, start, limit)) {
+            var tokens = this.getQueryTokens(query);
 
-        if (this.isRequestInvalid(query, start, limit)) {
-            this.sendError(callback);
-            return;
+            this.doDBQuery({
+                dbQuery: this.makeDBQuery(query, tokens),
+                fields: {_id: 1, tags: 1, rating: 1},
+                start: start,
+                limit: limit,
+                tokens: tokens,
+                callback: this.getSearchResultHandler(callback)
+            });
+        } else {
+            this.sendError(callback, 'Не валидные параметры запроса!');
         }
-
-        collection
-            .find(
-                this.makeDBQuery(query),
-                fields
-            )
-            .skip(start)
-            .limit(limit)
-            .sort({rating: -1})
-            .toArray(
-                this.getSearchResultHandler(callback)
-            );
-    }
-
-    /**
-     * @private
-     * @param {String} query Строка запроса.
-     * @return {Object} Запрос для базы.
-     */
-    makeDBQuery (query) {
-        if (!query) {
-            return {};
-        }
-
-        var tokens = this.getQueryTokens(query);
-        var tokensSearch = tokens.map(this.getSingleTokenSearch);
-
-        return {
-            tags: {
-                $in: tokensSearch
-            }
-        };
     }
 
     /**
@@ -90,6 +66,7 @@ class Search {
      */
     getQueryTokens (query) {
         return query
+            .toLowerCase()                  // Приводим к строчным буквам
             .trim()                         // Обрезаем всякие пробелы по краям
             .replace(/ +/g, ' ')            // Заменяем повторяющиеся пробелы на 1 пробел
             .replace(/ - /g, '-')           // Схлопываем тире в дефис
@@ -98,6 +75,7 @@ class Search {
             .replace(/ +/g, ' ')            // Заменяем повторяющиеся пробелы на 1 пробел
             .replace(/ . /g, ' ')           // Убираем однобуквенные слова
             .replace(/^. | .$/g, '')        // И по краям
+            .replace(/ё/g, 'е')             // Меняем "ё" на "е" для фикса вариантов написания
             .split(' ')                     // Режем на части по пробелу
             .map(this.removeTokenEnds);     // Убираем окончания
     }
@@ -127,11 +105,168 @@ class Search {
 
     /**
      * @private
-     * @param {String} token Токен запроса.
-     * @return {RegExp} Регэксп поиска.
+     * @param {String} query Строка запроса.
+     * @param {Number} start С какого документа начинать.
+     * @param {Number} limit Сколько документов вернуть.
+     * @return {Boolean} Результат проверки.
      */
-    getSingleTokenSearch (token) {
-        return new RegExp('^' + token, 'i');
+    isRequestValid (query, start, limit) {
+        if (query && query.length > 300) {
+            return false;
+        }
+
+        if (start > 1000000) {
+            return false;
+        }
+
+        if (limit > 100) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @private
+     * @param {Object} cfg Конфиг.
+     * @param {Object} cfg.dbQuery Объект запроса для базы.
+     * @param {Object} cfg.fields Необходимые поля.
+     * @param {Number} cfg.start Стартовый документ.
+     * @param {Number} cfg.limit Количество документов.
+     * @param {String[]} cfg.tokens Список токенов запроса пользователя.
+     * @param {Function} cfg.callback Следующий шаг.
+     */
+    doDBQuery (cfg) {
+        this.getSearchCollection()
+            .find(cfg.dbQuery, cfg.fields)
+            .skip(cfg.start)
+            .limit(cfg.limit)
+            .toArray(
+                this.sortOnResult(cfg.tokens, cfg.callback)
+            );
+    }
+
+    /**
+     * @private
+     * @param {String[]} tokens Список токенов запроса пользователя.
+     * @param {Function} callback Следующий шаг.
+     * @return {Function}
+     * Функция, принимающая ошибку и массив данных,
+     * сортирующая данные для возврата пользователю.
+     */
+    sortOnResult (tokens, callback) {
+        return function (error, data) {
+            var notNeedSort = this.isEmptyTokens(tokens);
+
+            if (error || notNeedSort) {
+                callback(error, data);
+            } else {
+                callback(false, this.sortResult(data, tokens));
+            }
+        }.bind(this);
+    }
+
+    /**
+     * @private
+     * @param {String[]} tokens Список токенов запроса пользователя.
+     * @return {Boolean} Пустой ли набор токенов.
+     */
+    isEmptyTokens (tokens) {
+        return tokens[0] === '';
+    }
+
+    /**
+     * @private
+     * @param {Object[]} data Массив результата запроса для сортировки.
+     * @param {String[]} tokens Список токенов запроса пользователя.
+     * @return {Object[]} Массив отсортированных данных.
+     */
+    sortResult (data, tokens) {
+        return data.sort(function (itemA, itemB) {
+            this.applyTokenEqualsCount(itemA, itemB, tokens);
+
+            return this.compareResultItems(itemA, itemB);
+        }.bind(this));
+    }
+
+    /**
+     * @private
+     * @param {Object} itemA Первый документ.
+     * @param {Object} itemB Второй документ.
+     * @return {Number} Предикат сортировки.
+     */
+    compareResultItems (itemA, itemB) {
+        var aCount = itemA.equalsCount;
+        var bCount = itemB.equalsCount;
+        var aRating = itemA.rating;
+        var bRating = itemB.rating;
+
+        if (aCount < bCount) {
+            return 1;
+        }
+
+        if (aCount > bCount) {
+            return -1;
+        }
+
+        if (aRating < bRating) {
+            return 1;
+        }
+
+        if (aRating > bRating) {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    /**
+     * @private
+     * @param {Object} itemA Первый документ.
+     * @param {Object} itemB Второй документ.
+     * @param {String[]} tokens Список токенов запроса пользователя.
+     */
+    applyTokenEqualsCount (itemA, itemB, tokens) {
+        if (!itemA.equalsCount) {
+            this.setTokenEqualsCount(itemA, tokens);
+        }
+
+        if (!itemB.equalsCount) {
+            this.setTokenEqualsCount(itemB, tokens);
+        }
+    }
+
+    /**
+     * @private
+     * @param {Object} item Один документ результата запроса.
+     * @param {String[]} tokens Список токенов запроса пользователя.
+     */
+    setTokenEqualsCount (item, tokens) {
+        item.equalsCount = 0;
+
+        tokens.forEach(function (token) {
+            if (~item.tags.indexOf(token)) {
+                item.equalsCount++;
+            }
+        });
+    }
+
+    /**
+     * @private
+     * @param {String} query Строка запроса.
+     * @param {String[]} tokens Список токенов запроса пользователя.
+     * @return {Object} Запрос для базы.
+     */
+    makeDBQuery (query, tokens) {
+        if (query) {
+            return {
+                tags: {
+                    $in: tokens
+                }
+            };
+        } else {
+            return {};
+        }
     }
 
     /**
@@ -152,7 +287,7 @@ class Search {
     getSearchResultHandler (callback) {
         return function (error, data) {
             if (error) {
-                this.sendError(callback);
+                this.sendError(callback, 'Ошибка обработки запроса базой данных!');
             } else {
                 this.sendData(callback, data);
             }
@@ -161,31 +296,11 @@ class Search {
 
     /**
      * @private
-     * @param {String} query Строка запроса.
-     * @param {Number} start С какого документа начинать.
-     * @param {Number} limit Сколько документов вернуть.
-     * @return {Boolean} Результат проверки.
-     */
-    isRequestInvalid (query, start, limit) {
-        if (query && query.length > 300) {
-            return true;
-        }
-
-        if (start > 1000000) {
-            return true;
-        }
-
-        if (limit > 100) {
-            return true;
-        }
-    }
-
-    /**
-     * @private
      * @param {Function} callback Колбэк для возврата результата.
+     * @param {String} error Текст ошибки.
      */
-    sendError (callback) {
-        callback(null, [], false);
+    sendError (callback, error) {
+        callback(null, [], false, error);
     }
 
     /**
@@ -194,7 +309,7 @@ class Search {
      * @param {Array} data Массив результата поиска.
      */
     sendData (callback, data) {
-        callback(null, data, true);
+        callback(null, data, true, '');
     }
 }
 new Search();

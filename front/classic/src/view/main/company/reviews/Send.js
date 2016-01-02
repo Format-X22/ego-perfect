@@ -63,7 +63,7 @@ Ext.define('A.view.main.company.reviews.Send', {
                             labelWidth: 50,
                             margin: '2 5 0 0',
                             width: 65,
-                            value: 5
+                            value: 3
                         },
                         {
                             xtype: 'container',
@@ -94,13 +94,13 @@ Ext.define('A.view.main.company.reviews.Send', {
                                 {
                                     itemId: 'star4',
                                     xtype: 'button',
-                                    iconCls: 'x-fa fa-star',
+                                    iconCls: 'x-fa fa-star-o',
                                     handler: 'set4star'
                                 },
                                 {
                                     itemId: 'star5',
                                     xtype: 'button',
-                                    iconCls: 'x-fa fa-star',
+                                    iconCls: 'x-fa fa-star-o',
                                     handler: 'set5star'
                                 }
                             ]

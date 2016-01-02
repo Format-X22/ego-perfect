@@ -25,7 +25,11 @@ Ext.define('A.view.client.editor.KeyWords', {
             items: [
                 {
                     xtype: 'container',
-                    layout: 'vbox',
+                    layout: {
+                        type: 'vbox',
+                        align: 'center',
+                        pack: 'center'
+                    },
                     defaults: {
                         width: 600,
                         msgTarget: 'under',

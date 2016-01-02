@@ -25,7 +25,11 @@ Ext.define('A.view.client.editor.Photo', {
             items: [
                 {
                     xtype: 'container',
-                    layout: 'vbox',
+                    layout: {
+                        type: 'vbox',
+                        align: 'center',
+                        pack: 'center'
+                    },
                     defaults: {
                         width: 600,
                         msgTarget: 'under',
@@ -85,16 +89,6 @@ Ext.define('A.view.client.editor.Photo', {
                             name: 'photo10',
                             xtype: 'filefield',
                             fieldLabel: 'Фото №10'
-                        },
-                        {
-                            name: 'photo11',
-                            xtype: 'filefield',
-                            fieldLabel: 'Фото №11'
-                        },
-                        {
-                            name: 'photo12',
-                            xtype: 'filefield',
-                            fieldLabel: 'Фото №12'
                         }
                     ]
                 }

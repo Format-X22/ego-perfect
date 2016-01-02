@@ -220,7 +220,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
          * @param {Ext.tab.Panel} tabPanel Панель вкладок компании.
          */
         resetCompanyTabsGallery: function (tabPanel) {
-            tabPanel.down('#gallery').refreshGalleryLayout();
+            tabPanel.down('#gallery').setActiveItem(0);
         },
 
         /**
