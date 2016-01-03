@@ -1,8 +1,6 @@
-/**
- * Абстрактный контроллер вкладок редактора.
- */
-Ext.define('A.view.client.editor.AbstractController', {
+Ext.define('A.view.widget.AbstractSaveToolbarController', {
     extend: 'Ext.app.ViewController',
+    alias: 'controller.widgetSaveToolbar',
 
     /**
      * @cfg {String} url Ссылка отправки формы при сохранении.

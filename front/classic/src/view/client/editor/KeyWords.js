@@ -14,7 +14,7 @@ Ext.define('A.view.client.editor.KeyWords', {
 
     items: [
         {
-            xtype: 'clientEditorSaveToolbar'
+            xtype: 'widgetSaveToolbar'
         },
         {
             xtype: 'container',

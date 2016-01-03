@@ -1,10 +1,10 @@
 /**
  * Тулбар сохранения каких-либо данных.
- * Необходим контроллер с методами save и reset.
+ * Необходимо явно указать контроллер с методами save и reset.
  */
-Ext.define('A.view.client.SaveToolbar', {
+Ext.define('A.view.widget.SaveToolbar', {
     extend: 'Ext.toolbar.Toolbar',
-    xtype: 'clientEditorSaveToolbar',
+    xtype: 'widgetSaveToolbar',
 
     width: '100%',
     height: 60,

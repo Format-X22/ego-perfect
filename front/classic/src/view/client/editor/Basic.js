@@ -14,7 +14,7 @@ Ext.define('A.view.client.editor.Basic', {
 
     items: [
         {
-            xtype: 'clientEditorSaveToolbar'
+            xtype: 'widgetSaveToolbar'
         },
         {
             xtype: 'container',

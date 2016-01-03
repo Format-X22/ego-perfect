@@ -6,7 +6,7 @@ Ext.define('A.view.client.profile.Main', {
 
     items: [
         {
-            xtype: 'clientEditorSaveToolbar'
+            xtype: 'widgetSaveToolbar'
         }
     ]
 });
