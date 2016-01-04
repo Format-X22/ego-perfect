@@ -7,6 +7,7 @@ Ext.define('A.model.Partner', {
     requires: [
         'A.model.field.Store',
         'A.model.Stats',
+        'A.model.PartnerTotalStats',
         'A.store.reader.Standard'
     ],
 
@@ -14,7 +15,10 @@ Ext.define('A.model.Partner', {
         {name: 'id',    type: 'string'},
         {name: 'email', type: 'string'},
         {name: 'key',   type: 'string'},
-        {name: 'stats', type: 'store', model: 'A.model.Stats'}
+        {name: 'totalStats',    type: 'store', model: 'A.model.PartnerTotalStats'},
+        {name: 'clientsStats',  type: 'store', model: 'A.model.Stats'},
+        {name: 'partnersStats', type: 'store', model: 'A.model.Stats'},
+        {name: 'incomeStats',   type: 'store', model: 'A.model.Stats'}
     ],
 
     proxy: {

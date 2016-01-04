@@ -63,7 +63,8 @@
     "requires": [
         "font-awesome",
         "ux",
-        "ext-locale"
+        "ext-locale",
+        "charts"
     ],
 
     /**
