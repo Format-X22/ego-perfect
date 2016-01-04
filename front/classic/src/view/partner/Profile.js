@@ -2,8 +2,9 @@
  * Профиль партнера.
  */
 Ext.define('A.view.partner.Profile', {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.container.Container',
     xtype: 'partnerProfile',
+    controller: 'partnerProfile',
 
     layout: {
         type: 'vbox',
@@ -11,9 +12,6 @@ Ext.define('A.view.partner.Profile', {
     },
 
     items: [
-        {
-            xtype: 'widgetSaveToolbar'
-        },
         {
             flex: 1
         },
@@ -24,8 +22,27 @@ Ext.define('A.view.partner.Profile', {
             width: 600,
             regex: /^.*@.*\..*$/,
             regexText: Ext.form.field.VTypes.emailText,
+            allowBlank: false,
+            msgTarget: 'under',
             validateOnBlur: false,
             validateOnChange: false
+        },
+        {
+            xtype: 'container',
+            layout: {
+                type: 'vbox',
+                align: 'right'
+            },
+            width: 600,
+            margin: '0 0 40 0',
+            items: [
+                {
+                    xtype: 'button',
+                    text: 'Сменить почту',
+                    handler: 'changeEmail',
+                    width: 200
+                }
+            ]
         },
         {
             xtype: 'textfield',
