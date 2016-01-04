@@ -1,9 +1,9 @@
 /**
- * Контроллер верхнего тулбара для клиентов.
+ * Контроллер верхнего тулбара для админок.
  */
-Ext.define('A.view.client.TopToolbarController', {
+Ext.define('A.view.admin.TopToolbarController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.clientTopToolbar',
+    alias: 'controller.adminTopToolbar',
 
     /**
      * Перейти на страницу поиска, главную страницу сайта.

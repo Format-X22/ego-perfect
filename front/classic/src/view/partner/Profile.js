@@ -18,6 +18,7 @@ Ext.define('A.view.partner.Profile', {
             flex: 1
         },
         {
+            name: 'email',
             xtype: 'textfield',
             fieldLabel: 'Ваша почта',
             width: 600,
