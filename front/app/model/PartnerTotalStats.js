@@ -6,6 +6,7 @@ Ext.define('A.model.PartnerTotalStats', {
 
     fields: [
         {name: 'name',  type: 'string'},
-        {name: 'value', type: 'int'   }
+        {name: 'count', type: 'int'   },
+        {name: 'money', type: 'int'   }
     ]
 });

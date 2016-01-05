@@ -9,7 +9,7 @@ Ext.define('A.view.partner.Main', {
     requires: [
         'A.view.partner.MainController',
         'A.view.partner.TopToolbar',
-        'A.view.partner.Statistic',
+        'A.view.partner.statistic.Main',
         'A.view.partner.Profile',
         'A.view.partner.Key'
     ],
