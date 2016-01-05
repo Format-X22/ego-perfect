@@ -9,7 +9,13 @@ Ext.define('A.view.partner.statistic.Partners', {
 
     items: [
         {
+            itemId: 'placeholder',
+            xtype: 'partnerStatisticEmptyPlaceholder'
+        },
+        {
+            itemId: 'chart',
             xtype: 'cartesian',
+            hidden: true,
             store: {
                 model: 'A.model.Stats',
                 data: [

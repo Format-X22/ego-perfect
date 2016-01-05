@@ -42,6 +42,7 @@ Ext.define('A.view.partner.MainController', {
          */
         applyLoadedData: function () {
             this.getView().loadRecord(this.getRecord());
+            // @TODO Загружать данные в графики, прятать заменители места.
         }
     }
 });

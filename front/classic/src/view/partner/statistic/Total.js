@@ -9,7 +9,13 @@ Ext.define('A.view.partner.statistic.Total', {
 
     items: [
         {
+            itemId: 'placeholder',
+            xtype: 'partnerStatisticEmptyPlaceholder'
+        },
+        {
+            itemId: 'chart',
             xtype: 'polar',
+            hidden: true,
             flex: 1,
             height: '100%',
             store: {
