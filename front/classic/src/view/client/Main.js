@@ -6,6 +6,17 @@ Ext.define('A.view.client.Main', {
     xtype: 'appMainClient',
 
     requires: [
+        'Ext.chart.CartesianChart',
+        'Ext.chart.theme.Sky',
+        'Ext.chart.axis.Numeric',
+        'Ext.chart.axis.Category',
+        'Ext.chart.series.Area',
+        'Ext.chart.interactions.ItemHighlight',
+        'A.view.client.statistic.Rating',
+        'A.view.client.statistic.Views',
+        'A.view.client.statistic.Reviews',
+        'A.view.client.statistic.Stars',
+        'A.view.client.statistic.EmptyPlaceholder',
         'A.view.client.editor.Basic',
         'A.view.client.editor.Summary',
         'A.view.client.editor.Photo',
@@ -31,24 +42,28 @@ Ext.define('A.view.client.Main', {
                     xtype: 'tabpanel',
                     title: 'Статистика',
                     iconCls: 'x-fa fa-line-chart',
+                    height: '100%',
+                    defaults: {
+                        padding: 30
+                    },
                     items: [
                         {
-                            xtype: 'container',
+                            xtype: 'clientStatisticRating',
                             title: 'Рейтинг',
                             iconCls: 'x-fa fa-diamond'
                         },
                         {
-                            xtype: 'container',
+                            xtype: 'clientStatisticViews',
                             title: 'Просмотры',
                             iconCls: 'x-fa fa-eye'
                         },
                         {
-                            xtype: 'container',
+                            xtype: 'clientStatisticReviews',
                             title: 'Отзывы',
                             iconCls: 'x-fa fa-commenting'
                         },
                         {
-                            xtype: 'container',
+                            xtype: 'clientStatisticStars',
                             title: 'Звездность',
                             iconCls: 'x-fa fa-star'
                         }
