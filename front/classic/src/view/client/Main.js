@@ -2,7 +2,7 @@
  * Главный виджет части приложения для клиентов для ПК.
  */
 Ext.define('A.view.client.Main', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.form.Panel',
     xtype: 'appMainClient',
 
     requires: [
@@ -20,7 +20,7 @@ Ext.define('A.view.client.Main', {
         'A.view.client.editor.Basic',
         'A.view.client.editor.Summary',
         'A.view.client.editor.Photo',
-        'A.view.client.profile.Main',
+        'A.view.client.Profile',
         'A.view.client.TopToolbar',
         'A.view.widget.SaveToolbar'
     ],
