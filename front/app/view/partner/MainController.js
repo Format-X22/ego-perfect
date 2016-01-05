@@ -1,48 +1,19 @@
 /**
- * Контроллер вью партнера.
+ * Контроллер админки партнера.
  */
 Ext.define('A.view.partner.MainController', {
-    extend: 'Ext.app.ViewController',
+    extend: 'A.view.admin.MainController',
     alias: 'controller.partnerMain',
 
     requires: [
         'A.model.Partner'
     ],
 
-    config: {
-        record: null
+    getId: function () {
+        return 'AAA'; // @TODO
     },
 
-    /**
-     * Загружает данные партнера.
-     */
-    loadData: function () {
-        this.applyRecordIfNeed();
-
-        this.getRecord().set('id', 'AAA'); // @TODO Partner ID
-        this.getRecord().load({
-            success: this.applyLoadedData,
-            scope: this
-        });
-    },
-
-    privates: {
-
-        /**
-         * @private
-         */
-        applyRecordIfNeed: function () {
-            if (!this.getRecord()) {
-                this.setRecord(Ext.create('A.model.Partner'));
-            }
-        },
-
-        /**
-         * @private
-         */
-        applyLoadedData: function () {
-            this.getView().loadRecord(this.getRecord());
-            // @TODO Загружать данные в графики, прятать заменители места.
-        }
+    getModelClassName: function () {
+        return 'A.model.Partner';
     }
 });

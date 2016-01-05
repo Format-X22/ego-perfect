@@ -4,6 +4,7 @@
 Ext.define('A.view.client.Main', {
     extend: 'Ext.form.Panel',
     xtype: 'appMainClient',
+    controller: 'clientMain',
 
     requires: [
         'Ext.chart.CartesianChart',
@@ -12,6 +13,7 @@ Ext.define('A.view.client.Main', {
         'Ext.chart.axis.Category',
         'Ext.chart.series.Area',
         'Ext.chart.interactions.ItemHighlight',
+        'A.view.client.MainController',
         'A.view.client.statistic.Rating',
         'A.view.client.statistic.Views',
         'A.view.client.statistic.Reviews',
@@ -26,6 +28,7 @@ Ext.define('A.view.client.Main', {
     ],
 
     layout: 'vbox',
+
     defaults: {
         width: '100%'
     },

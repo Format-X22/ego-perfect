@@ -1,7 +1,8 @@
 /**
  * Абстрактный контроллер профиля.
+ * Требует имплементации метода {@link #getId}.
  */
-Ext.define('A.view.partner.AbstractProfileController', {
+Ext.define('A.view.admin.AbstractProfileController', {
     extend: 'Ext.app.ViewController',
 
     mixins: [

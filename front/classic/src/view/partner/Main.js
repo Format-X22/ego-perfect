@@ -44,9 +44,5 @@ Ext.define('A.view.partner.Main', {
                 }
             ]
         }
-    ],
-
-    listeners: {
-        afterrender: 'loadData'
-    }
+    ]
 });
