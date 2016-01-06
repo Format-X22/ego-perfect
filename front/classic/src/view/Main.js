@@ -10,7 +10,7 @@ Ext.define('A.view.Main', {
     ],
 
     layout: 'card',
-    activeItem: 1, // @TODO
+    activeItem: 2, // @TODO
 
     items: [
         {

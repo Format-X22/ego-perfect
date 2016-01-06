@@ -31,19 +31,25 @@ Ext.define('A.Application', {
      * Возвращает компонент по указанному селектору, либо null.
      * Также этот метод доступен по короткой ссылке A.getCmp.
      * @param {String} selector Селектор.
+     * @param {Ext.Component} [root] Корневой виджет.
      * @return {Ext.Component/Null} Компонент либо null.
      */
-    getCmp: function (selector) {
-        return this.getAllCmp(selector)[0];
+    getCmp: function (selector, root) {
+        return this.getAllCmp(selector, root)[0];
     },
 
     /**
      * Возвращает массив компонентов по указанному селектору, либо null.
      * Также этот метод доступен по короткой ссылке A.getAllCmp.
      * @param {String} selector Селектор.
+     * @param {Ext.Component} [root] Корневой виджет.
      * @return {Ext.Component[]/Null} Массив компонентов либо null.
      */
-    getAllCmp: function (selector) {
-        return Ext.ComponentQuery.query(selector);
+    getAllCmp: function (selector, root) {
+        if (root) {
+            return Ext.ComponentQuery.query(selector, root);
+        } else {
+            return Ext.ComponentQuery.query(selector);
+        }
     }
 });

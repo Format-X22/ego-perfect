@@ -1,7 +1,10 @@
 /**
  * Абстрактный контроллер админки.
- * Требует имплементации метода {@link #getId}
- * и метода {@link #getModelClassName}.
+ * Требует имплементации методов
+ * {@link #getId},
+ * {@link #getModelClassName},
+ * {@link #isStatsExits},
+ * {@link #applyDataToCharts}.
  */
 Ext.define('A.view.admin.MainController', {
     extend: 'Ext.app.ViewController',
@@ -45,6 +48,23 @@ Ext.define('A.view.admin.MainController', {
      */
     getId: Ext.emptyFn,
 
+    /**
+     * @protected
+     * @method isStatsExits
+     * @required
+     * @template
+     * @return {Boolean} Имеется ли какая-либо статистика.
+     */
+    isStatsExits: Ext.emptyFn,
+
+    /**
+     * @protected
+     * @method applyDataToCharts
+     * @required
+     * @template
+     */
+    applyDataToCharts: Ext.emptyFn,
+
     privates: {
 
         /**
@@ -61,7 +81,28 @@ Ext.define('A.view.admin.MainController', {
          */
         applyLoadedData: function () {
             this.getView().loadRecord(this.getRecord());
-            // @TODO Загружать данные в графики, прятать заменители места.
+
+            if (this.isStatsExits()) {
+                this.applyDataToCharts();
+                this.showCharts();
+            }
+        },
+
+        /**
+         * @private
+         */
+        showCharts: function () {
+            var root = this.getView();
+            var placeholders = A.getAllCmp('#placeholder', root);
+            var charts = A.getAllCmp('#chart', root);
+
+            Ext.each(placeholders, function (placeholder) {
+                placeholder.hide();
+            });
+
+            Ext.each(charts, function (chart) {
+                chart.show();
+            });
         }
     }
 });
