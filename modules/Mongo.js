@@ -5,6 +5,7 @@
 
 var Protocol = require('./Protocol');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 var DB_PATH = 'mongodb://admin:114430fK@ds031551.mongolab.com:31551/heroku_hfxkwqsw';
 var dbObject = null;
 
@@ -34,3 +35,10 @@ exports.connect = function () {
         }
     });
 };
+
+/**
+ * Прелоставляет возможность поиска по _id документа,
+ * необходимо отправить в метод нужный id,
+ * полученный результат станет пригоден для поиска.
+ */
+exports.objectID = ObjectID;
