@@ -1,7 +1,7 @@
 'use strict';
 
-var Mongo = require('/modules/Mongo');
-var Protocol = require('/modules/Protocol');
+var Mongo = require('./Mongo');
+var Protocol = require('./Protocol');
 
 /**
  * Модуль проверки доступа к данным.

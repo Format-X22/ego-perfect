@@ -1,6 +1,6 @@
 'use strict';
 
-var Protocol = require('/modules/Protocol');
+var Protocol = require('./Protocol');
 
 /**
  * Модуль доступа к базе данных.

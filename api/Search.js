@@ -1,13 +1,15 @@
-'use strict';
-
-var Mongo = require('/modules/Mongo');
-var Protocol = require('/modules/Protocol');
-
 /**
  * Обеспечивает поисковый механизм для пользователей.
  */
-class Search {
-    //
-}
+'use strict';
 
-module.exports = Search;
+var express = require('express');
+var router = express.Router();
+var Mongo = require('../modules/Mongo');
+var Protocol = require('../modules/Protocol');
+
+router.get('/', function(request, response) {
+    response.send('Search');
+});
+
+module.exports = router;
