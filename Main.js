@@ -4,6 +4,7 @@
 'use strict';
 
 var Fn = require('./util/Fn');
+var Mongo = require('./modules/Mongo');
 var express = require('express');
 var expressApp = express();
 var pathModule = require('path');
@@ -21,7 +22,9 @@ Fn.queue([
  * @param {Function} next Следующий шаг.
  */
 function initDataBase (next) {
-    console.log('Init DB');
+    console.log('Init Mongo');
+
+    Mongo.connect();
     next();
 }
 
