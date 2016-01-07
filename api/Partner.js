@@ -8,28 +8,16 @@ var router = express.Router();
 var Access = require('../modules/Access');
 var Mongo = require('../modules/Mongo');
 var Protocol = require('../modules/Protocol');
+var Prototype = require('./Prototype');
 
 /**
  * Получение данных по конкретному партнеру.
  */
-router.get('/', function(request, response) {
-    var id = request.query.id;
-
-    Mongo
-        .collection('partner')
-        .find(
-            {
-                _id: Mongo.objectID(id)
-            }
-        )
-        .toArray(function (error, data) {
-            if (error) {
-                Protocol.sendError(response, 'Невозможно получить данные!');
-            } else {
-                Protocol.sendData(response, data);
-            }
-        });
-});
+router.get('/', Prototype.getById('partner', function () {
+    return new Promise(function (resolve) {
+        resolve();
+    });
+}));
 
 /**
  * Запрос на смену почты.

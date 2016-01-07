@@ -7,9 +7,15 @@ var express = require('express');
 var router = express.Router();
 var Mongo = require('../modules/Mongo');
 var Protocol = require('../modules/Protocol');
+var Prototype = require('./Prototype');
 
-router.get('/', function(request, response) {
-    response.send('Company');
-});
+/**
+ * Получение данных по конкретной компании.
+ */
+router.get('/', Prototype.getById('company', function () {
+    return new Promise(function (resolve) {
+        resolve();
+    });
+}));
 
 module.exports = router;

@@ -14,7 +14,7 @@ Fn.queue([
     initDataBase,
     initExpress,
     initRouter,
-    lunchServer
+    launchServer
 ]);
 
 /**
@@ -69,8 +69,8 @@ function initRouter (next) {
 /**
  * Запуск приложения.
  */
-function lunchServer () {
-    console.log('Lunch');
+function launchServer () {
+    console.log('Launch');
 
     var port = normalizePort(process.env.PORT) || 3000;
 

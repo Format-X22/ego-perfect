@@ -22,6 +22,14 @@ exports.sendError = function (response, error) {
 };
 
 /**
+ * Отправляет сообщение об ошибке.
+ * @param {Object} response Объект ответа сервера.
+ */
+exports.sendAccessDenied = function (response) {
+    send(response, [], false, 'Доступ запрещен!');
+};
+
+/**
  * @private
  * @param {Object} response Объект ответа сервера.
  * @param {Array} data Массив данных.
