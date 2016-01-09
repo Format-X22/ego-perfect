@@ -12,7 +12,7 @@ Ext.define('A.view.client.editor.Summary', {
 
     items: [
         {
-            xtype: 'clientEditorSaveToolbar'
+            xtype: 'widgetSaveToolbar'
         },
         {
             xtype: 'container',

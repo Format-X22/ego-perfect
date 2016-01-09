@@ -14,7 +14,7 @@ Ext.define('A.view.client.editor.Photo', {
 
     items: [
         {
-            xtype: 'clientEditorSaveToolbar'
+            xtype: 'widgetSaveToolbar'
         },
         {
             xtype: 'container',
