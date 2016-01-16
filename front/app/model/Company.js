@@ -12,17 +12,23 @@ Ext.define('A.model.Company', {
     ],
 
     fields: [
-        {name: 'id',           type: 'int'                             },
+        {name: '_id',          type: 'string'                          },
         {name: 'name',         type: 'string'                          },
         {name: 'rating',       type: 'int'                             },
-        {name: 'phone',        type: 'string', defaultValue: '-'       },
-        {name: 'site',         type: 'string', defaultValue: '-'       },
-        {name: 'mail',         type: 'string', defaultValue: '-'       },
-        {name: 'time',         type: 'string', defaultValue: '-'       },
-        {name: 'address',      type: 'string', defaultValue: '-'       },
+        {name: 'phone',        type: 'string'                          },
+        {name: 'site',         type: 'string'                          },
+        {name: 'mail',         type: 'string'                          },
+        {name: 'time',         type: 'string'                          },
+        {name: 'address',      type: 'string'                          },
         {name: 'summary',      type: 'string'                          },
         {name: 'gallery',      type: 'store',  model: 'A.model.Gallery'},
         {name: 'reviews',      type: 'store',  model: 'A.model.Review' },
         {name: 'map',          type: 'store',  model: 'A.model.Map'    }
-    ]
+    ],
+
+    proxy: {
+        type: 'ajax',
+        url: '/api/company',
+        reader: 'standard'
+    }
 });
