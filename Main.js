@@ -24,8 +24,7 @@ Fn.queue([
 function initDataBase (next) {
     console.log('Init Mongo');
 
-    Mongo.connect();
-    next();
+    Mongo.connect(next);
 }
 
 /**
@@ -57,11 +56,11 @@ function initRouter (next) {
     console.log('Init Router');
 
     expressApp.use('/api/search',   require('./api/Search'));
-    expressApp.use('/api/company',  require('./api/Company'));
-    expressApp.use('/api/auth',     require('./api/Auth'));
-    expressApp.use('/api/register', require('./api/Register'));
-    expressApp.use('/api/client',   require('./api/Client'));
-    expressApp.use('/api/partner',  require('./api/Partner'));
+    //expressApp.use('/api/company',  require('./api/Company'));
+    //expressApp.use('/api/auth',     require('./api/Auth'));
+    //expressApp.use('/api/register', require('./api/Register'));
+    //expressApp.use('/api/client',   require('./api/Client'));
+    //expressApp.use('/api/partner',  require('./api/Partner'));
 
     next();
 }

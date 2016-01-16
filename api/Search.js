@@ -8,6 +8,13 @@ var router = express.Router();
 var Mongo = require('../modules/Mongo');
 var Protocol = require('../modules/Protocol');
 
+const MAX_QUERY_LENGTH = 300;
+const MAX_START_POSITION = 100 * 1000;
+const MAX_LIMIT = 100;
+
+const INVALID_PRAMS = 'Не валидные параметры запроса!';
+const SEARCH_DB_ERROR = 'Ошибка запроса к базе данных при поиске!';
+
 router.get('/', function(request, response) {
     var params = request.query;
     var query = params.query;
@@ -20,14 +27,14 @@ router.get('/', function(request, response) {
 
         doDBQuery({
             dbQuery: makeDBQuery(query, tokens),
-            fields: {_id: 1, tags: 1, rating: 1},
+            fields: {_id: 1, tags: 1, rating: 1, logo: 1},
             start: start,
             limit: limit,
             tokens: tokens,
             response: response
         });
     } else {
-        Protocol.sendError(response, 'Не валидные параметры запроса!');
+        Protocol.sendError(response, INVALID_PRAMS);
     }
 });
 
@@ -83,15 +90,15 @@ function removeTokenEnds (token) {
  * @return {Boolean} Результат проверки.
  */
 function isRequestValid (query, start, limit) {
-    if (query && query.length > 300) {
+    if (query && query.length > MAX_QUERY_LENGTH) {
         return false;
     }
 
-    if (typeof start !== 'number' || start > 1000000) {
+    if (typeof start !== 'number' || start > MAX_START_POSITION) {
         return false;
     }
 
-    if (typeof limit !== 'number' || limit > 100) {
+    if (typeof limit !== 'number' || limit > MAX_LIMIT) {
         return false;
     }
 
@@ -111,37 +118,57 @@ function isRequestValid (query, start, limit) {
 function doDBQuery (cfg) {
     getSearchCollection()
         .find(cfg.dbQuery, cfg.fields)
-        .sort({rating: -1})
-        .skip(cfg.start)
-        .limit(cfg.limit)
         .toArray(
-            sortOnResult(cfg.tokens, cfg.response)
+            getSearchResultSender(cfg)
         );
 }
 
 /**
  * @private
- * @param {String[]} tokens Список токенов запроса пользователя.
- * @param {Object} response Объект ответа сервера.
- * @return {Function}
- * Функция, принимающая ошибку и массив данных,
- * сортирующая данные для возврата пользователю.
+ * @param {Object} cfg Конфиг.
+ * @param {Object} cfg.dbQuery Объект запроса для базы.
+ * @param {Object} cfg.fields Необходимые поля.
+ * @param {Number} cfg.start Стартовый документ.
+ * @param {Number} cfg.limit Количество документов.
+ * @param {String[]} cfg.tokens Список токенов запроса пользователя.
+ * @param {Object} cfg.response Объект ответа сервера.
+ * @return {Function} Отправлятель результата поиска.
  */
-function sortOnResult (tokens, response) {
+function getSearchResultSender (cfg) {
     return function (error, data) {
-        var notNeedSort = isEmptyTokens(tokens);
-
         if (error) {
-            Protocol.sendError(response, 'Ошибка запроса к базе данных при поиске!');
+            sendSearchError(cfg.response);
             return;
         }
 
-        if (notNeedSort) {
-            Protocol.sendData(response, data);
-        } else {
-            Protocol.sendData(response, sortResult(data, tokens));
-        }
-    };
+        data = data.splice(cfg.start, cfg.limit);
+
+        sortAndSend(data, cfg.tokens, cfg.response);
+    }
+}
+
+/**
+ * @private
+ * @param {Object} response Объект ответа сервера.
+ */
+function sendSearchError (response) {
+    Protocol.sendError(response, SEARCH_DB_ERROR);
+}
+
+/**
+ * @private
+ * @param {Object[]} data Массив найденных данных.
+ * @param {String[]} tokens Список токенов запроса пользователя.
+ * @param {Object} response Объект ответа сервера.
+ */
+function sortAndSend (data, tokens, response) {
+    var notNeedSort = isEmptyTokens(tokens);
+
+    if (notNeedSort) {
+        Protocol.sendData(response, data);
+    } else {
+        Protocol.sendData(response, sortResult(data, tokens));
+    }
 }
 
 /**
