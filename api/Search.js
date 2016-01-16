@@ -27,7 +27,7 @@ router.get('/', function(request, response) {
 
         doDBQuery({
             dbQuery: makeDBQuery(query, tokens),
-            fields: {_id: 1, tags: 1, rating: 1, logo: 1},
+            fields: {_id: 1, tags: 1, rating: 1},
             start: start,
             limit: limit,
             tokens: tokens,
@@ -116,11 +116,21 @@ function isRequestValid (query, start, limit) {
  * @param {Function} cfg.response Объект ответа сервера.
  */
 function doDBQuery (cfg) {
-    getSearchCollection()
-        .find(cfg.dbQuery, cfg.fields)
-        .toArray(
-            getSearchResultSender(cfg)
-        );
+    if (isEmptyTokens(cfg.tokens)) {
+        getSearchCollection()
+            .find(cfg.dbQuery, cfg.fields)
+            .skip(cfg.start)
+            .limit(cfg.limit)
+            .toArray(
+                getSearchResultSender(cfg)
+            );
+    } else {
+        getSearchCollection()
+            .find(cfg.dbQuery, cfg.fields)
+            .toArray(
+                getSearchResultSender(cfg)
+            );
+    }
 }
 
 /**
@@ -141,7 +151,9 @@ function getSearchResultSender (cfg) {
             return;
         }
 
-        data = data.splice(cfg.start, cfg.limit);
+        if (!isEmptyTokens(cfg.tokens)) {
+            data = data.splice(cfg.start, cfg.limit);
+        }
 
         sortAndSend(data, cfg.tokens, cfg.response);
     }
@@ -162,13 +174,19 @@ function sendSearchError (response) {
  * @param {Object} response Объект ответа сервера.
  */
 function sortAndSend (data, tokens, response) {
-    var notNeedSort = isEmptyTokens(tokens);
+    var needSort = isEmptyTokens(tokens);
 
-    if (notNeedSort) {
-        Protocol.sendData(response, data);
-    } else {
-        Protocol.sendData(response, sortResult(data, tokens));
+    if (needSort) {
+        data = sortResult(data, tokens);
     }
+
+    data = data.map(function (item) {
+        return {
+            id: item._id
+        }
+    });
+
+    Protocol.sendData(response, data);
 }
 
 /**

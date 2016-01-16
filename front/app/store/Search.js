@@ -10,7 +10,7 @@ Ext.define('A.store.Search', {
 
     proxy: {
         type: 'ajax',
-        url: '/api/searches/query',
+        url: '/api/search/',
         reader: 'standard'
     }
 });

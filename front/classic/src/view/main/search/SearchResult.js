@@ -70,11 +70,11 @@ Ext.define('A.view.main.search.SearchResult', {
                             store: 'search',
                             plugins: 'responsive',
                             tpl:
-                            '<tpl for=".">' +
-                            '<div class="item">' +
-                            '<img src="http://www.wilsoninfo.com/300x300.gif">' +
-                            '</div>' +
-                            '</tpl>',
+                                '<tpl for=".">' +
+                                    '<div class="item">' +
+                                    '<img src="http://res.cloudinary.com/hdfwhiiko/image/upload/{id}.jpg">' +
+                                    '</div>' +
+                                '</tpl>',
                             itemSelector: '.item',
                             responsiveConfig: {
                                 'width < 730': {
