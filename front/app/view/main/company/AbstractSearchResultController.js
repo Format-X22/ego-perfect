@@ -144,6 +144,25 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         return A.getAllCmp('[companyDetailsTabPanel]');
     },
 
+    /**
+     * @protected
+     * Отлипает скролл результатов поиска.
+     */
+    fixScrollFreeze: function () {
+        if (Ext.isClassic) {
+            return;
+        }
+
+        var result = this.getResultCard();
+
+        Ext.defer(function () {
+            result.hide();
+            Ext.defer(function () {
+                result.show();
+            }, 100);
+        }, 550);
+    },
+
     privates: {
 
         /**
@@ -221,24 +240,6 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
          */
         resetCompanyTabsGallery: function (tabPanel) {
             tabPanel.down('#gallery').setActiveItem(0);
-        },
-
-        /**
-         * @private
-         */
-        fixScrollFreeze: function () {
-            if (Ext.isClassic) {
-                return;
-            }
-
-            var result = this.getResultCard();
-
-            Ext.defer(function () {
-                result.hide();
-                Ext.defer(function () {
-                    result.show();
-                }, 100);
-            }, 550);
         },
 
         /**
