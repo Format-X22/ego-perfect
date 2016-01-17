@@ -69,6 +69,7 @@ Ext.define('A.view.main.search.SearchResult', {
                             xtype: 'dataview',
                             store: 'search',
                             plugins: 'responsive',
+                            emptyText: '<div class="search-result-empty">Ничего не найдено</div>',
                             tpl:
                                 '<tpl for=".">' +
                                     '<div class="item">' +

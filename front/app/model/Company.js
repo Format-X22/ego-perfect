@@ -22,7 +22,6 @@ Ext.define('A.model.Company', {
         {name: 'time',         type: 'string'                          },
         {name: 'address',      type: 'string'                          },
         {name: 'summary',      type: 'string'                          },
-        {name: 'gallery',      type: 'store',  model: 'A.model.Gallery'},
         {name: 'reviews',      type: 'store',  model: 'A.model.Review' },
         {name: 'map',          type: 'store',  model: 'A.model.Map'    }
     ],

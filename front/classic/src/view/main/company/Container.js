@@ -8,7 +8,7 @@ Ext.define('A.view.main.company.Container', {
 
     requires: [
         'A.view.main.company.Summary',
-        'A.view.main.company.Gallery',
+        //'A.view.main.company.Gallery',
         'A.view.main.company.reviews.Container',
         'A.view.main.company.Map'
     ],
@@ -47,7 +47,7 @@ Ext.define('A.view.main.company.Container', {
                 },
                 {
                     itemId: 'gallery',
-                    xtype: 'companyGallery',
+                    xtype: 'container',
                     iconCls: 'x-fa fa-image',
                     title: 'Фотографии'
                 },
