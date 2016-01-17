@@ -69,12 +69,13 @@ Ext.define('A.view.main.search.SearchResult', {
                             xtype: 'dataview',
                             store: 'search',
                             plugins: 'responsive',
+                            emptyText: '<div class="search-result-empty">Ничего не найдено</div>',
                             tpl:
-                            '<tpl for=".">' +
-                            '<div class="item">' +
-                            '<img src="http://www.wilsoninfo.com/300x300.gif">' +
-                            '</div>' +
-                            '</tpl>',
+                                '<tpl for=".">' +
+                                    '<div class="item">' +
+                                    '<img src="http://res.cloudinary.com/hdfwhiiko/image/upload/{id}.jpg">' +
+                                    '</div>' +
+                                '</tpl>',
                             itemSelector: '.item',
                             responsiveConfig: {
                                 'width < 730': {

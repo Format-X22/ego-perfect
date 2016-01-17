@@ -40,7 +40,7 @@ Ext.define('A.view.main.company.mobile.Summary', {
                     '<div class="property"><div class="title">Рейтинг</div> <div class="value">{rating}</div></div>' +
                     '<div class="property"><div class="title">Телефон</div> <div class="value">{phone}</div></div>' +
                     '<div class="property"><div class="title">Сайт</div> <div class="value">{site}</div></div>' +
-                    '<div class="property"><div class="title">Почта</div> <div class="value">{mail}</div></div>' +
+                    '<div class="property"><div class="title">Почта</div> <div class="value">{email}</div></div>' +
                     '<div class="property"><div class="title">Время работы</div> <div class="value">{time}</div></div>' +
                     '<div class="property"><div class="title">Адрес</div> <div class="value">{address}</div></div>'
             }
@@ -74,7 +74,9 @@ Ext.define('A.view.main.company.mobile.Summary', {
                     xtype: 'img',
                     width: 300,
                     height: 300,
-                    src: 'http://www.wilsoninfo.com/300x300.gif'
+                    bind: {
+                        src: 'http://res.cloudinary.com/hdfwhiiko/image/upload/{search_id}.jpg'
+                    }
                 }
             ]
         },

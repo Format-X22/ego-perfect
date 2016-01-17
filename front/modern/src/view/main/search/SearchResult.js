@@ -74,6 +74,7 @@ Ext.define('A.view.main.search.SearchResult', {
                             inline: true,
                             scrollable: false,
                             plugins: 'responsive',
+                            emptyText: '<div class="search-result-empty">Ничего не найдено</div>',
                             responsiveConfig: {
                                 'width < 320 || width >= 3220': {
                                     width: '100%'

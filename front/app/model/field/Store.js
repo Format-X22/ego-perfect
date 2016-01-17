@@ -31,7 +31,7 @@ Ext.define('A.model.field.Store', {
     convert: function (value) {
         return Ext.create('A.store.FieldStore', {
             model: this.model,
-            data: value || [],
+            data: Ext.Array.from(value),
             parentStore: this.store
         });
     }

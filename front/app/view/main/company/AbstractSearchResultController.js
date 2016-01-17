@@ -5,7 +5,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
     extend: 'Ext.app.ViewController',
 
     requires: [
-        'A.store.Company'
+        'A.model.Company'
     ],
 
     control: {
@@ -22,24 +22,39 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
     /**
      * @protected
      * Открывает компанию, соответствующую данным рекорда или по ID.
-     * @param {Ext.data.Model/Number} recordOrId Рекорд.
+     * @param {Ext.data.Model/Number} recordOrId Рекорд или ID.
      */
     openCompany: function (recordOrId) {
-        this.loadCompany(recordOrId);
-        this.showCompany();
+        var id = recordOrId;
+
+        if (recordOrId instanceof Ext.data.Model) {
+            id = recordOrId.get('id');
+        }
+
+        this.loadCompany(id, this.showCompany);
     },
 
     /**
      * @protected
-     * Открывает компанию, соответствующую данным рекорда или по ID.
-     * @param {Ext.data.Model/Number} recordOrId Рекорд.
+     * Открывает компанию, соответствующую ID.
+     * @param {Number} id ID.
+     * @param {Function} callback Следующий шаг.
      */
-    loadCompany: function (recordOrId) {
-        /*A.store.Company.load({
+    loadCompany: function (id, callback) {
+        var container = this.getView().down('companyContainer');
+        var viewModel = container.getViewModel();
+        var record = viewModel.getCompanyModel();
+
+        viewModel.set('_id', id);
+        record.load({
             params: {
-                id: record.get('id')
-            }
-        });*/
+                id: id
+            },
+            callback: function () {
+                viewModel.applyDataFromModel();
+                callback.call(this);
+            }.bind(this)
+        });
     },
 
     /**
@@ -144,6 +159,25 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         return A.getAllCmp('[companyDetailsTabPanel]');
     },
 
+    /**
+     * @protected
+     * Отлипает скролл результатов поиска.
+     */
+    fixScrollFreeze: function () {
+        if (Ext.isClassic) {
+            return;
+        }
+
+        var result = this.getResultCard();
+
+        Ext.defer(function () {
+            result.hide();
+            Ext.defer(function () {
+                result.show();
+            }, 100);
+        }, 550);
+    },
+
     privates: {
 
         /**
@@ -220,25 +254,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
          * @param {Ext.tab.Panel} tabPanel Панель вкладок компании.
          */
         resetCompanyTabsGallery: function (tabPanel) {
-            tabPanel.down('#gallery').setActiveItem(0);
-        },
-
-        /**
-         * @private
-         */
-        fixScrollFreeze: function () {
-            if (Ext.isClassic) {
-                return;
-            }
-
-            var result = this.getResultCard();
-
-            Ext.defer(function () {
-                result.hide();
-                Ext.defer(function () {
-                    result.show();
-                }, 100);
-            }, 550);
+            // @TODO
         },
 
         /**

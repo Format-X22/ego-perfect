@@ -32,8 +32,8 @@ Ext.define('A.view.main.search.SearchResultItem', {
      * @inheritdoc
      */
     updateRecord: function (record) {
-        //var link = '/logo' + record.get('id');
-        var link = 'http://www.wilsoninfo.com/300x300.gif';
+        var linkTpl = 'http://res.cloudinary.com/hdfwhiiko/image/upload/{0}.jpg';
+        var link = Ext.String.format(linkTpl, record.get('id'));
 
         this.down('img').setSrc(link);
     }

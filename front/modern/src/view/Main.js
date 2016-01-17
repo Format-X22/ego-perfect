@@ -15,12 +15,6 @@ Ext.define('A.view.Main', {
     items: [
         {
             xtype: 'appMainPublic'
-        },
-        {
-            xtype: 'appMainClient'
-        },
-        {
-            xtype: 'appMainPartner'
         }
     ]
 });

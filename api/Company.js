@@ -7,15 +7,47 @@ var express = require('express');
 var router = express.Router();
 var Mongo = require('../modules/Mongo');
 var Protocol = require('../modules/Protocol');
-var Prototype = require('./Prototype');
+
+const SEARCH_DB_ERROR = 'Ошибка запроса к базе данных при поиске!';
+const INVALID_ID = 'Не верный формат ID!';
+
+router.get('/', function(request, response) {
+    var id = request.query.id;
+    var objectId;
+
+    try {
+        objectId = Mongo.objectID(id)
+    } catch (error) {
+        Protocol.sendError(response, INVALID_ID);
+        return;
+    }
+
+    Mongo
+        .collection('company')
+        .find({
+            search_id: objectId
+        })
+        .toArray(
+            getEntitySender(response)
+        );
+});
 
 /**
- * Получение данных по конкретной компании.
+ * @private
+ * @param {Object} response Объект ответа сервера.
+ * @return {Function}
+ * Функция, принимающая ошибку или набор данных
+ * и отправляющая всё это на сервер.
  */
-router.get('/', Prototype.getById('company', function () {
-    return new Promise(function (resolve) {
-        resolve();
-    });
-}));
+function getEntitySender (response) {
+    return function (error, data) {
+        if (error) {
+            Protocol.sendError(response, SEARCH_DB_ERROR);
+            return;
+        }
+
+        Protocol.sendData(response, data);
+    }
+}
 
 module.exports = router;

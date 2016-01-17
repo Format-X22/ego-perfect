@@ -6,6 +6,10 @@ Ext.define('A.Application', {
     
     name: 'A',
 
+    requires: [
+        'A.store.reader.Standard'
+    ],
+
     controllers: [
         'Router'
     ],
@@ -14,9 +18,6 @@ Ext.define('A.Application', {
         Ext.get('start-preloader').destroy();
         Ext.Loader.loadScript({
             url: '//maps.google.com/maps/api/js'
-        });
-        Ext.Loader.loadScript({
-            url: '/resources/gallery/photoswipe.js'
         });
 
         A.getCmp = this.getCmp;

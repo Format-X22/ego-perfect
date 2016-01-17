@@ -9,7 +9,11 @@
  * @param {Array} data Массив данных.
  */
 exports.sendData = function (response, data) {
-    send(response, data, true, '');
+    response.json({
+        data: data,
+        success: true,
+        error: ''
+    });
 };
 
 /**
@@ -18,7 +22,11 @@ exports.sendData = function (response, data) {
  * @param {String} error Текст ошибки.
  */
 exports.sendError = function (response, error) {
-    send(response, [], false, error);
+    response.json({
+        data: [],
+        success: false,
+        error: error
+    });
 };
 
 /**
@@ -26,20 +34,5 @@ exports.sendError = function (response, error) {
  * @param {Object} response Объект ответа сервера.
  */
 exports.sendAccessDenied = function (response) {
-    send(response, [], false, 'Доступ запрещен!');
+    exports.sendError(response, 'Доступ запрещен!');
 };
-
-/**
- * @private
- * @param {Object} response Объект ответа сервера.
- * @param {Array} data Массив данных.
- * @param {Boolean} success успешен ли запрос.
- * @param {String} error Текст ошибки.
- */
-function send (response, data, success, error) {
-    response.json({
-        data: data,
-        success: success,
-        error: error
-    });
-}

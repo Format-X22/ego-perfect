@@ -40,7 +40,7 @@ Ext.define('A.view.main.company.reviews.List', {
                                 '<div class="name">{name}</div>' +
                                 '<div class="header">{header}</div>' +
                                 '<div class="description">{description}</div>' +
-                                '<div class="id">{date:date("d.m.Y")} (id {id})</div>' +
+                                '<div class="id">{date:date("d.m.Y")}</div>' +
                             '</div>' +
                         '</tpl>'
                 }
