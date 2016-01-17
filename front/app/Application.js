@@ -6,6 +6,10 @@ Ext.define('A.Application', {
     
     name: 'A',
 
+    requires: [
+        'A.store.reader.Standard'
+    ],
+
     controllers: [
         'Router'
     ],
