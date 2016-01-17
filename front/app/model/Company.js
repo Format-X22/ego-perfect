@@ -13,6 +13,7 @@ Ext.define('A.model.Company', {
 
     fields: [
         {name: '_id',          type: 'string'                          },
+        {name: 'search_id',    type: 'string'                          },
         {name: 'name',         type: 'string'                          },
         {name: 'rating',       type: 'int'                             },
         {name: 'phone',        type: 'string'                          },

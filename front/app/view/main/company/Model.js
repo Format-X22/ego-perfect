@@ -6,42 +6,36 @@ Ext.define('A.view.main.company.Model', {
     alias: 'viewmodel.companyContainer',
 
     data: {
-        mapMarker: null
+        mapMarker: null,
+        _id:       '',
+        search_id: 'sample',
+        name:      '',
+        phone:     '',
+        email:      '',
+        time:      '',
+        address:   '',
+        summary:   '',
+        gallery:   null,
+        reviews:   null,
+        map:       null,
+        rating:    0,
+        site:      ''
     },
 
-    formulas: (function () {
-        var getCompany = function () {
-            return A.store.Company.getAt(0);
-        };
-        var getter = function (name) {
-            return function () {
-                return getCompany().get(name);
-            }
-        };
+    formulas: {
+        formatRating: {
+            get: function (getter) {
+                var value = getter('rating');
 
-        return {
-            company: getCompany,
-            id:      getter('id'),
-            name:    getter('name'),
-            phone:   getter('phone'),
-            mail:    getter('mail'),
-            time:    getter('time'),
-            address: getter('address'),
-            summary: getter('summary'),
-            gallery: getter('gallery'),
-            reviews: getter('reviews'),
-            map:     getter('map'),
-
-            rating: function () {
-                var value = getter('rating')();
-
-                if (value < 100) {
+                if (value === '-' || value < 100) {
                     return '<i>новая</i>';
                 }
                 return value;
-            },
-            site: function () {
-                var value = getter('site')();
+            }
+        },
+        formatSite: {
+            get: function (getter) {
+                var value = getter('site');
 
                 if (value !== '-') {
                     return Ext.String.format(
@@ -52,5 +46,53 @@ Ext.define('A.view.main.company.Model', {
                 return '';
             }
         }
-    })()
+    },
+
+    /**
+     * @return {A.model.Company} Модель компании.
+     */
+    getCompanyModel: function () {
+        if (this.model) {
+            return this.model;
+        }
+        return this.model = Ext.create('A.model.Company');
+    },
+
+    /**
+     * Переносит данные из модели компании в эту вью модель.
+     */
+    applyDataFromModel: function () {
+        var model = this.getCompanyModel();
+        var value;
+
+        Ext.each([
+            '_id',
+            'search_id',
+            'name',
+            'phone',
+            'email',
+            'time',
+            'address',
+            'summary',
+            'gallery',
+            'reviews',
+            'map',
+            'rating',
+            'site'
+        ], function (key) {
+            value = model.get(key) || '-';
+            this.set(key, value);
+        }, this);
+
+        this.notify();
+    },
+
+    privates: {
+
+        /**
+         * @private
+         * @property {Ext.data.Model} Модель.
+         */
+        model: null
+    }
 });
