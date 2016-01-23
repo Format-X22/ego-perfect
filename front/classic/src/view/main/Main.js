@@ -8,7 +8,9 @@ Ext.define('A.view.main.Main', {
     requires: [
         'A.view.main.search.SearchContainer',
         'A.view.main.infoPage.ForClients',
-        'A.view.main.infoPage.ForPartners'
+        'A.view.main.infoPage.ForPartners',
+        'A.view.main.auth.LoginPage',
+        'A.view.main.auth.RegisterPage'
     ],
 
     layout: 'fit',
@@ -36,6 +38,18 @@ Ext.define('A.view.main.Main', {
                     xtype: 'pageForPartners',
                     title: 'Партнерам',
                     iconCls: 'x-fa fa-money'
+                },
+                {
+                    itemId: 'login',
+                    xtype: 'loginPage',
+                    title: 'Вход',
+                    iconCls: 'x-fa fa-key'
+                },
+                {
+                    itemId: 'register',
+                    xtype: 'registerPage',
+                    title: 'Регистрация',
+                    iconCls: 'x-fa fa-user-plus'
                 }
             ]
         }
