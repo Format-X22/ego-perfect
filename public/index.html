@@ -68,8 +68,7 @@
             }
         }
     </style>
-    <img id="start-preloader" class="start-preloader" src="/resources/img/logo.svg">
-    
+
     <!-- The line below must be kept intact for Sencha Cmd to build your application -->
     <script id="microloader" data-app="a74a1d35-aabf-46df-9701-54f99dcd1e24" type="text/javascript">var Ext=Ext||{};Ext.manifest=Ext.manifest||"modern.json";Ext=Ext||{};
 Ext.Boot=Ext.Boot||function(e){function l(a){if(a.$isRequest)return a;a=a.url?a:{url:a};var m=a.url;w(a,{urls:m.charAt?[m]:m,charset:a.charset||b.config.charset});w(this,a)}function t(a){if(a.$isEntry)return a;var m=a.charset||b.config.charset,d=Ext.manifest,d=d&&d.loader,h=void 0!==a.cache?a.cache:d&&d.cache,c;b.config.disableCaching&&(void 0===h&&(h=!b.config.disableCaching),!1===h?c=+new Date:!0!==h&&(c=h),c&&(d=d&&d.cacheParam||b.config.disableCachingParam,c=d+"\x3d"+c));w(a,{charset:m,buster:c,
@@ -126,5 +125,7 @@ b.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){if("checking"!==c.
 1);"/"==e?b.substring(2,d+2)!==a&&(c=!1):"f"==e?b.substring(10,d+10)!==a&&(c=!1):"."==e&&b.substring(1,d+1)!==a&&(c=!1);return c},parseResult:function(b){var a={};(b.exception||0===b.status)&&!e.env.phantom?a.error=!0:200<=b.status&&300>b.status||304===b.status||e.env.phantom||0===b.status&&0<b.content.length?a.content=b.content:a.error=!0;return a}};return c}();Ext.manifest=Ext.manifest||"bootstrap";Ext.Microloader.run();</script>
 
 </head>
-<body></body>
+<body>
+    <img id="start-preloader" class="start-preloader" src="/resources/img/logo.svg">
+</body>
 </html>
