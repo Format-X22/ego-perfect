@@ -17,7 +17,7 @@ const SEARCH_DB_ERROR = 'Ошибка запроса к базе данных п
 
 router.get('/', function(request, response) {
     var params = request.query;
-    var query = params.query;
+    var query = params.query.trim();
     var start = Number(params.start);
     var limit = Number(params.limit);
     var tokens;
@@ -46,7 +46,6 @@ router.get('/', function(request, response) {
 function getQueryTokens (query) {
     return query
         .toLowerCase()                  // Приводим к строчным буквам
-        .trim()                         // Обрезаем всякие пробелы по краям
         .replace(/ +/g, ' ')            // Заменяем повторяющиеся пробелы на 1 пробел
         .replace(/ - /g, '-')           // Схлопываем тире в дефис
         .replace(/ -|- /g, '-')         // И по краям
@@ -119,14 +118,15 @@ function doDBQuery (cfg) {
     if (isEmptyTokens(cfg.tokens)) {
         getSearchCollection()
             .find(cfg.dbQuery, cfg.fields)
-            .skip(cfg.start)
-            .limit(cfg.limit)
+            .sort({rating: -1})
             .toArray(
                 getSearchResultSender(cfg)
             );
     } else {
         getSearchCollection()
             .find(cfg.dbQuery, cfg.fields)
+            .skip(cfg.start)
+            .limit(cfg.limit)
             .toArray(
                 getSearchResultSender(cfg)
             );
