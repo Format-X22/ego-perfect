@@ -13,7 +13,8 @@ Ext.define('A.view.main.auth.LoginPage', {
     },
 
     defaults: {
-        width: 500
+        width: 500,
+        labelWidth: 70
     },
 
     items: [

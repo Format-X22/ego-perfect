@@ -14,7 +14,7 @@ Ext.define('A.view.main.auth.RegisterPage', {
 
     defaults: {
         width: 500,
-        labelWidth: 140
+        labelWidth: 120
     },
 
     items: [
