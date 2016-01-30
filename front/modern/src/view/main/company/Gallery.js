@@ -4,16 +4,17 @@
 Ext.define('A.view.main.company.Gallery', {
     extend: 'Ext.carousel.Carousel',
     xtype: 'companyGallery',
+    controller: 'companyGallery',
 
     width: 0,
 
     items: (function () {
         var config = [];
 
-        for (var i = 0; i < 8; i++) { // @TODO 10
+        for (var i = 0; i < 10; i++) {
             config.push({
                 xtype: 'image',
-                src: '/resources/gallery/tmp/' + (i + 1) + '.JPG' // @TODO bind
+                src: ''
             });
         }
 
@@ -29,6 +30,11 @@ Ext.define('A.view.main.company.Gallery', {
             show: this.fixSlideOnShow,
             hide: this.fixSlideOnHide
         });
+    },
+
+    listeners: {
+        show: 'refresh',
+        resize: 'refresh'
     },
 
     privates: {
