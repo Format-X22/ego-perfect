@@ -21,21 +21,9 @@ Ext.define('A.view.main.company.GalleryController', {
 
         /**
          * @private
-         * @cfg {Number} widgetSize Размер виджета.
-         */
-        widgetSize: 0,
-
-        /**
-         * @private
          * @cfg {Object[]} imagesData Данные картинок.
          */
-        imagesData: null,
-
-        /**
-         * @private
-         * @cfg {Object[]} imagesSize Размеры картинок.
-         */
-        imagesSize: null
+        imagesData: null
     },
 
     /**
@@ -43,6 +31,7 @@ Ext.define('A.view.main.company.GalleryController', {
      * @param {Object[]} images Массив объектов данных картинок.
      */
     setImages: function (images) {
+        this.setImageIndex(0);
         this.setImagesData(images);
 
         this.clearImageView();
@@ -68,26 +57,55 @@ Ext.define('A.view.main.company.GalleryController', {
      * Показ предыдущей картинки.
      */
     prevImage: function () {
-        var index = this.getImageIndex() - 1;
+        var oldIndex = this.getImageIndex();
+        var index = oldIndex - 1;
 
         if (index < 0) {
             index = this.getMaxImageIndex();
         }
 
-        this.updateImageViewUseIndex(index);
+        this.getImageView(oldIndex).hide();
+        this.setImageIndex(index);
+        this.getImageView(index).show();
     },
 
     /**
      * Показ следующей картинки.
      */
     nextImage: function () {
-        var index = this.getImageIndex() + 1;
+        var oldIndex = this.getImageIndex();
+        var index = oldIndex + 1;
 
         if (index > this.getMaxImageIndex()) {
             index = 0;
         }
 
-        this.updateImageViewUseIndex(index);
+        this.getImageView(oldIndex).hide();
+        this.setImageIndex(index);
+        this.getImageView(index).show();
+    },
+
+    /**
+     * Обновляет вью, наполняя данными.
+     */
+    refresh: function () {
+        var view = this.getView();
+        var id = this.getViewModel().get('_id');
+        var images = [];
+        var tplString = 'http://res.cloudinary.com/hdfwhiiko/image/upload/q_60,c_pad,w_{width},h_{height}/{name}.jpg';
+        var tpl = new Ext.Template(tplString);
+
+        for (var i = 0; i <= this.getMaxImageIndex(); i++) {
+            images.push({
+                src: tpl.apply({
+                    name: id + '_' + (i + 1),
+                    width: view.getWidth() - 240,
+                    height: view.up().getHeight() - 84
+                })
+            });
+        }
+
+        this.setImages(images);
     },
 
     privates: {
@@ -96,95 +114,41 @@ Ext.define('A.view.main.company.GalleryController', {
          * @private
          */
         updateImages: function () {
-            this.calculateWidgetSize();
-            this.calculateImagesSize();
-            this.updateImageView();
+            this.updateImagesView();
         },
 
         /**
          * @private
          */
         clearImageView: function () {
-            this.getImageView().setSrc('');
-        },
+            var view;
 
-        /**
-         * @private
-         */
-        calculateWidgetSize: function () {
-            var dom = this.getImageView().getEl().dom;
+            for (var i = 0; i <= this.getMaxImageIndex(); i++) {
+                view = this.getImageView(i);
 
-            this.setWidgetSize({
-                width: dom.width,
-                height: dom.height
-            });
-        },
-
-        /**
-         * @private
-         */
-        calculateImagesSize: function () {
-            this.resetImagesSize();
-            Ext.each(this.getImagesData(), this.calculateOneImageSize, this);
-        },
-
-        /**
-         * @private
-         */
-        resetImagesSize: function () {
-            this.setImagesSize([]);
-        },
-
-        /**
-         * @private
-         * @param {Object} image Объект данных картинки.
-         * @param {Number} index Индекс картинки.
-         */
-        calculateOneImageSize: function (image, index) {
-            // @TODO
-
-            this.getImagesSize().push({
-                width: 100, // @TODO
-                height: 100 // @TODO
-            });
-        },
-
-        /**
-         * @private
-         * @param {Number} index Индекс картинки.
-         */
-        updateImageViewUseIndex: function (index) {
-            this.updateImageView(Ext.apply(
-                {},
-                this.getImagesData()[index],
-                this.getImagesSize()[index]
-            ));
-        },
-
-        /**
-         * @private
-         * @param {Object} image Объект данных картинки.
-         */
-        updateImageView: function (image) {
-            if (!image) {
-                image = Ext.apply(
-                    {},
-                    this.getImagesData()[0],
-                    this.getImagesSize()[0]
-                );
+                view.setSrc('');
+                view.hide();
             }
 
-            this.getImageView().setWidth(image.width);
-            this.getImageView().setHeight(image.height);
-            this.getImageView().setSrc(image.src);
+            this.getImageView(0).show();
         },
 
         /**
          * @private
+         */
+        updateImagesView: function () {
+            for (var i = 0; i <= this.getMaxImageIndex(); i++) {
+                this.getImageView(i).setSrc(this.getImagesData()[i].src);
+            }
+        },
+
+        /**
+         * @private
+         * @param {Number} index Индекс вью.
          * @return {Ext.Img} Виджет картинки.
          */
-        getImageView: function () {
-            return this.getView().down('image');
+        getImageView: function (index) {
+            return this.getView().down('#image' + index);
         }
     }
 });
