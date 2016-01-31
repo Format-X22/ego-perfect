@@ -16,6 +16,7 @@ Ext.define('A.view.main.company.mobile.reviews.List', {
             cls: 'company-reviews-list',
             itemSelector: '.review-item',
             width: '100%',
+            emptyText: '<div class="empty-reviews">Пока ещё ни одного отзыва.<br>Оставьте первый!</div>',
             itemTpl:
                 '<div class="review-item review-item-mobile">' +
                     '<div class="star x-fa fa-star"></div>' +
@@ -26,7 +27,7 @@ Ext.define('A.view.main.company.mobile.reviews.List', {
                     '<div class="name">{name}</div>' +
                     '<div class="header">{header}</div>' +
                     '<div class="description">{description}</div>' +
-                    '<div class="id">{date:date("d.m.Y")} (id {id})</div>' +
+                    '<div class="id">{date:date("d.m.Y")}</div>' +
                 '</div>'
         }
     ],

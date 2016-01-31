@@ -38,7 +38,8 @@ Ext.define('A.view.main.company.reviews.SendController', {
         var form = this.viewDown('#reviewForm');
 
         if (this.isValid()) {
-            form.setLoading(true);
+            Ext.isClassic && form.setLoading(true);
+
             form.submit({                         // scope как параметр ломает отправку на модерне
                 url: this.SEND_URL,
                 params: {
@@ -48,12 +49,14 @@ Ext.define('A.view.main.company.reviews.SendController', {
                 success: function () {
                     this.showSendSuccessMessage();
                     this.resetForm();
-                    form.setLoading(false);
+
+                    Ext.isClassic && form.setLoading(false);
                 }.bind(this),
 
                 failure: function () {
                     this.showSendErrorMessage.apply(this, arguments);
-                    form.setLoading(false);
+
+                    Ext.isClassic && form.setLoading(false);
                 }.bind(this)
             });
         }
