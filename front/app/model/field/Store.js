@@ -14,6 +14,13 @@ Ext.define('A.model.field.Store', {
     ],
 
     /**
+     * @cfg {Boolean} reverseData
+     * При включении этого флага массив входных данных переворачивается наоборот,
+     * используя метод reverse для массивов.
+     */
+    reverseData: false,
+
+    /**
      * @cfg {String} model Имя модели для стора.
      */
     model: null,
@@ -29,9 +36,15 @@ Ext.define('A.model.field.Store', {
      * @inheritdoc
      */
     convert: function (value) {
+        value = Ext.Array.from(value);
+
+        if (this.reverseData) {
+            value.reverse();
+        }
+
         return Ext.create('A.store.FieldStore', {
             model: this.model,
-            data: Ext.Array.from(value),
+            data: value,
             parentStore: this.store
         });
     }

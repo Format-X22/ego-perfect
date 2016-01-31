@@ -58,6 +58,7 @@ Ext.define('A.view.main.company.reviews.Send', {
                         {
                             itemId: 'rating',
                             name: 'rating',
+                            submitValue: true,
                             xtype: 'displayfield',
                             fieldLabel: 'Оценка',
                             labelWidth: 50,
