@@ -38,15 +38,26 @@ Ext.define('A.view.main.company.reviews.SendController', {
         var form = this.viewDown('#reviewForm');
 
         if (this.isValid()) {
+            Ext.isClassic && form.setLoading(true);
+
             form.submit({                         // scope как параметр ломает отправку на модерне
                 url: this.SEND_URL,
+                params: {
+                    id: this.getViewModel().get('_id')
+                },
 
                 success: function () {
                     this.showSendSuccessMessage();
                     this.resetForm();
+
+                    Ext.isClassic && form.setLoading(false);
                 }.bind(this),
 
-                failure: this.showSendErrorMessage.bind(this)
+                failure: function () {
+                    this.showSendErrorMessage.apply(this, arguments);
+
+                    Ext.isClassic && form.setLoading(false);
+                }.bind(this)
             });
         }
     },
@@ -199,7 +210,7 @@ Ext.define('A.view.main.company.reviews.SendController', {
 
             switch (action.failureType) {
                 case actionTypes.SERVER_INVALID:
-                    return action.result.message;
+                    return action.result.error;
 
                 case actionTypes.CONNECT_FAILURE:
                 case actionTypes.LOAD_FAILURE:
@@ -270,27 +281,27 @@ Ext.define('A.view.main.company.reviews.SendController', {
          */
         viewDown: function (selector) {
             return this.getView().down(selector);
-        }
-    },
+        },
 
-    /**
-     * @private
-     * @param {String} title Заголовок.
-     * @param {String} message Сообщение.
-     * @param {String} icon Текстовое имя иконки для классика.
-     */
-    showMessage: function (title, message, icon) {
-        if (Ext.isClassic) {
-            Ext.MessageBox.show({
-                title: title,
-                message: message,
-                icon: Ext.MessageBox[icon]
-            });
-        } else {
-            Ext.Msg.show({
-                title: title,
-                message: message
-            });
+        /**
+         * @private
+         * @param {String} title Заголовок.
+         * @param {String} message Сообщение.
+         * @param {String} icon Текстовое имя иконки для классика.
+         */
+        showMessage: function (title, message, icon) {
+            if (Ext.isClassic) {
+                Ext.MessageBox.show({
+                    title: title,
+                    message: message,
+                    icon: Ext.MessageBox[icon]
+                });
+            } else {
+                Ext.Msg.show({
+                    title: title,
+                    message: message
+                });
+            }
         }
     }
 });

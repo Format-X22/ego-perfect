@@ -29,6 +29,7 @@ Ext.define('A.view.main.company.reviews.List', {
                     cls: 'company-reviews-list',
                     itemSelector: '.review-item',
                     width: '100%',
+                    emptyText: '<div class="empty-reviews">Пока ещё ни одного отзыва.<br>Оставьте первый!</div>',
                     tpl:
                         '<tpl for=".">' +
                             '<div class="review-item">' +

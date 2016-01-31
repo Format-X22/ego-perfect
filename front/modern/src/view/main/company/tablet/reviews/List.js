@@ -16,6 +16,7 @@ Ext.define('A.view.main.company.tablet.reviews.List', {
             cls: 'company-reviews-list',
             itemSelector: '.review-item',
             width: '100%',
+            emptyText: '<div class="empty-reviews">Пока ещё ни одного отзыва.<br>Оставьте первый!</div>',
             itemTpl:
                 '<div class="review-item">' +
                     '<div class="star x-fa fa-star"></div>' +
@@ -26,7 +27,7 @@ Ext.define('A.view.main.company.tablet.reviews.List', {
                     '<div class="name">{name}</div>' +
                     '<div class="header">{header}</div>' +
                     '<div class="description">{description}</div>' +
-                    '<div class="id">{date:date("d.m.Y")} (id {id})</div>' +
+                    '<div class="id">{date:date("d.m.Y")}</div>' +
                 '</div>'
         }
     ],
@@ -37,7 +38,7 @@ Ext.define('A.view.main.company.tablet.reviews.List', {
     initialize: function () {
         this.callParent(arguments);
 
-        this.on('show', this.setStoreIfDirectLink, this, {single: true});
+        this.on('painted', this.setStoreIfDirectLink, this);
     },
 
     privates: {
@@ -57,10 +58,6 @@ Ext.define('A.view.main.company.tablet.reviews.List', {
         setStoreIfDirectLink: function () {
             var list = this.down('#reviewsList');
             var container = list.up('companyContainer');
-
-            if (list.getStore()) {
-                return;
-            }
 
             if (container) {
                 list.setStore(container.getViewModel().get('reviews'));

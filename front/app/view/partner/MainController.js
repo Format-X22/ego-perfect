@@ -9,18 +9,30 @@ Ext.define('A.view.partner.MainController', {
         'A.model.Partner'
     ],
 
+    /**
+     * @inheritdoc
+     */
     getId: function () {
         return '568d7033afba7c850caaad19'; // @TODO
     },
 
+    /**
+     * @inheritdoc
+     */
     getModelClassName: function () {
         return 'A.model.Partner';
     },
 
+    /**
+     * @inheritdoc
+     */
     isStatsExits: function () {
         return Boolean(this.getRecord().get('totalStats').count());
     },
 
+    /**
+     * @inheritdoc
+     */
     applyDataToCharts: function () {
         var view = this.getView();
         var record = this.getRecord();

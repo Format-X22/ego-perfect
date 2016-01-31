@@ -6,24 +6,24 @@ Ext.define('A.model.Company', {
 
     requires: [
         'A.model.field.Store',
-        'A.model.Gallery',
         'A.model.Review',
         'A.model.Map'
     ],
 
     fields: [
-        {name: '_id',          type: 'string'                          },
-        {name: 'search_id',    type: 'string'                          },
-        {name: 'name',         type: 'string'                          },
-        {name: 'rating',       type: 'int'                             },
-        {name: 'phone',        type: 'string'                          },
-        {name: 'site',         type: 'string'                          },
-        {name: 'mail',         type: 'string'                          },
-        {name: 'time',         type: 'string'                          },
-        {name: 'address',      type: 'string'                          },
-        {name: 'summary',      type: 'string'                          },
-        {name: 'reviews',      type: 'store',  model: 'A.model.Review' },
-        {name: 'map',          type: 'store',  model: 'A.model.Map'    }
+        {name: '_id',          type: 'string'},
+        {name: 'search_id',    type: 'string'},
+        {name: 'name',         type: 'string'},
+        {name: 'rating',       type: 'int'   },
+        {name: 'phone',        type: 'string'},
+        {name: 'site',         type: 'string'},
+        {name: 'mail',         type: 'string'},
+        {name: 'time',         type: 'string'},
+        {name: 'address',      type: 'string'},
+        {name: 'summary',      type: 'string'},
+
+        {name: 'reviews',      type: 'store',  model: 'A.model.Review', reverseData: true },
+        {name: 'map',          type: 'store',  model: 'A.model.Map'                       }
     ],
 
     proxy: {
