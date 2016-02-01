@@ -3,20 +3,11 @@
  * статистики ещё не откуда взять.
  */
 Ext.define('A.view.client.statistic.EmptyPlaceholder', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.Component',
     xtype: 'clientStatisticEmptyPlaceholder',
 
-    layout: {
-        type: 'hbox',
-        align: 'center',
-        pack: 'center'
-    },
-    items: [
-        {
-            xtype: 'component',
-            html:
-                'Слишком мало данных для статистики,' +
-                ' первые данные будут доступны в первых числах ближайшего месяца.'
-        }
-    ]
+    padding: 40,
+    html:
+        'Примерно так может выглядеть ваша статистика.<br>' +
+        'Реальная статистика будет сформирована спустя месяц после размещения.'
 });

@@ -33,8 +33,8 @@ Ext.define('A.view.client.editor.Photo', {
                     defaults: {
                         width: 600,
                         msgTarget: 'under',
-                        regex: /.(png|jpg|jpeg|svg)$/i,
-                        regexText: 'Разрешены только файлы png, jpg, jpeg и svg.'
+                        regex: /.(png|jpg|jpeg)$/i,
+                        regexText: 'Разрешены только файлы jpg и png.'
                     },
                     items: [
                         {
