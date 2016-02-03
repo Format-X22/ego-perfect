@@ -5,7 +5,7 @@
 
 /**
  * Отправляет сообщение с данными.
- * @param {Object} response Объект ответа сервера
+ * @param {Object} response Объект ответа сервера.
  * @param {Array} data Массив данных.
  */
 exports.sendData = function (response, data) {
@@ -14,6 +14,14 @@ exports.sendData = function (response, data) {
         success: true,
         error: ''
     });
+};
+
+/**
+ * Отправляет сообщение об успешном выполнении действия.
+ * @param {Object} response Объект ответа сервера.
+ */
+exports.sendSuccess = function (response) {
+    exports.sendData(response, []);
 };
 
 /**

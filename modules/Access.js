@@ -4,42 +4,96 @@
 'use strict';
 
 var Mongo = require('./Mongo');
-var Protocol = require('./Protocol');
-
-var accessMap = {
-    client: {
-        client: true
-    },
-    partner: {
-        partner: true
-    }
-};
 
 /**
- * Проверка возможности доступа в указанной точке по запросу.
- * @param {String} point Точка доступа.
- * @param {Object} config Объект конфигурации.
- * @param {Function} config.callback Следующий шаг.
- * @param {Object} config.request Объект запроса сервера.
- * @param {Object} config.response Объект ответа сервера.
- */
-exports.check = function (point, config) {
-    getUserGroup(config.request, function (group) {
-        var accessGranted = accessMap[point][group];
-
-        if (accessGranted) {
-            config.callback();
-        } else {
-            Protocol.sendAccessDenied(config.response);
-        }
-    });
-};
-
-/**
- * @private
- * @param {Object} request Объект запроса сервера.
+ * Обработка входа в систему.
+ * @param {Object} config Набор параметов.
+ * @param {String} config.type Тип аккаунта.
+ * @param {String} config.login Логин.
+ * @param {String} config.pass Пароль.
  * @param {Function} callback Следующий шаг.
  */
-function getUserGroup (request, callback) {
-    callback('partner');
-}
+exports.login = function (config, callback) {
+    if (
+        !config.type ||
+        !config.login ||
+        !config.pass
+    ) {
+        callback(false);
+    }
+
+    // @TODO
+};
+
+/**
+ * Обработка выхода из системы.
+ * @param {String} key Ключ сессии.
+ * @param {Function} callback Следующий шаг.
+ */
+exports.logout = function (key, callback) {
+    if (!key) {
+        callback(false);
+    }
+
+    // @TODO
+};
+
+/**
+ * Обработка регистрации.
+ * @param {Object} config Набор параметров.
+ * @param {String} config.type Тип аккаунта.
+ * @param {String} config.login Логин.
+ * @param {String/Undefined} config.partner Ключ партнера.
+ * @param {String} config.captcha Ключ капчи.
+ * @param {Function} callback Следующий шаг.
+ */
+exports.register = function (config, callback) {
+    if (
+        !config.type ||
+        !config.login ||
+        !config.captcha
+    ) {
+        callback(false);
+    }
+
+    // @TODO
+};
+
+/**
+ * Обработка смены пароля.
+ * @param {String} key Ключ сессии.
+ * @param {Function} callback Следующий шаг.
+ */
+exports.changePass = function (key, callback) {
+    if (!key) {
+        callback(false);
+    }
+
+    // @TODO
+};
+
+/**
+ * Обработка смены почты.
+ * @param {String} key Ключ сессии.
+ * @param {Function} callback Следующий шаг.
+ */
+exports.changeEmail = function (key, callback) {
+    if (!key) {
+        callback(false);
+    }
+
+    // @TODO
+};
+
+/**
+ * Обработка восстановления пароля.
+ * @param {String} login Логин.
+ * @param {Function} callback Следующий шаг.
+ */
+exports.restorePass = function (login, callback) {
+    if (!login) {
+        callback(false);
+    }
+
+    // @TODO
+};
