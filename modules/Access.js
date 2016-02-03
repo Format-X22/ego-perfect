@@ -5,6 +5,7 @@
 
 var Mongo = require('./Mongo');
 var bcrypt = require('bcrypt');
+var emailSender = require('sendgrid')('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');
 
 const PASS_SALT_PREFIX = 'J';
 const PASS_SALT_POSTFIX = 'ucanhackit';
@@ -118,11 +119,11 @@ exports.register = function (config, callback) {
 
         checkLogin(login, type, backFalse(function () {
 
-            makePass(login, function (pass) {
+            makePass(login, function (pass, passHash) {
 
                 insertNewCompany({
                     login: login,
-                    pass: pass,
+                    pass: passHash,
                     type: type
                 }, backFalse(function () {
 
@@ -448,14 +449,25 @@ function checkLogin (login, type, callback) {
 /**
  * @private
  * @param {String} login Логин.
- * @param {Function} callback Следующий шаг, куда передается пароль.
+ * @param {Function} callback Следующий шаг, куда передается пароль и его хэш.
  */
 function makePass (login, callback) {
-    bcrypt.hash(login + NEW_PASS_SALT + login, 3, function(error, hash) {
-        if (error || !hash) {
+    var pass;
+    var passTplSeed = login + NEW_PASS_SALT + login;
+
+    bcrypt.hash(passTplSeed, 3, function(error, passTpl) {
+        if (error || !passTpl) {
             callback(false);
         } else {
-            callback(hash.slice(7, 15));
+            pass = passTpl.slice(7, 15);
+
+            bcrypt.hash(getPassSalt(pass), 9, function(error, hash) {
+                if (error || !hash) {
+                    callback(false);
+                } else {
+                    callback(pass, hash);
+                }
+            });
         }
     });
 }
@@ -467,9 +479,18 @@ function makePass (login, callback) {
  * @param {Function} callback Следующий шаг.
  */
 function sendRegisterMail (login, pass, callback) {
-    // @TODO
-
-    callback(true);
+    emailSender.send({
+        from: 'robot@xn--h1ailo2b.xn--80asehdb',
+        to: login,
+        subject: 'Пароль для Фирмы Онлайн',
+        text:
+            'Данные для входа на сайт фирмы.онлайн\n\r' +
+            'Ваш логин: ' + login + '\n\r' +
+            'Ваш пароль: ' + pass + '\n\r' +
+            'Не сообщайте пароль никому, даже сотруднику Фирмы Онлайн.\n\r'
+    }, function (error) {
+        callback(!error);
+    });
 }
 
 /**
