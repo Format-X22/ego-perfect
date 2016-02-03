@@ -10,6 +10,7 @@ const PASS_SALT_PREFIX = 'J';
 const PASS_SALT_POSTFIX = 'ucanhackit';
 const SESSION_SALT_PREFIX = 'K';
 const SESSION_SALT_POSTFIX = 'uCaNhaCkUt';
+const NEW_PASS_SALT = 'rDdasPf';
 
 /**
  * Обработка входа в систему.
@@ -104,16 +105,80 @@ exports.logout = function (key, callback) {
  * @param {Function} callback Следующий шаг.
  */
 exports.register = function (config, callback) {
-    if (
-        !config.type ||
-        !config.login ||
-        !config.captcha
-    ) {
+    var login = config.login;
+    var type = config.type;
+    var captcha = config.captcha;
+    var backFalse = getStoredBackFalse(callback);
+
+    if (invalidRegisterParams(config)) {
         callback(false);
     }
 
-    // @TODO
+    checkCaptcha(captcha, backFalse(function () {
+
+        checkLogin(login, type, backFalse(function () {
+
+            makePass(login, function (pass) {
+
+                insertNewCompany({
+                    login: login,
+                    pass: pass,
+                    type: type
+                }, backFalse(function () {
+
+                    sendRegisterMail(login, pass, callback);
+                }));
+            });
+        }));
+    }));
 };
+
+/**
+ * @private
+ * @param {Object} config Объект параметров.
+ * @param {String} config.type Тип аккаунта.
+ * @param {String} config.login Логин.
+ * @param {String} config.captcha Капча.
+ * @return {Boolean} Результат проверки.
+ */
+function invalidRegisterParams (config) {
+    return (
+        !config.type ||
+        !config.login ||
+        !config.captcha ||
+        (
+            config.type !== 'company' &&
+            config.type !== 'partner'
+        )
+    )
+}
+
+/**
+ * @private
+ * @param {Object} config Объект параметров.
+ * @param {String} config.login Логин.
+ * @param {String} config.pass Пароль.
+ * @param {String} config.type Тип аккаунта.
+ * @param {Function} callback Следующий шаг.
+ */
+function insertNewCompany (config, callback) {
+    var login = config.login;
+    var pass = config.pass;
+    var type = config.type;
+
+    Mongo
+        .collection(type)
+        .insertOne(
+            {
+                login: login,
+                pass: pass
+            },
+            {},
+            function (error) {
+                callback(!error);
+            }
+        );
+}
 
 /**
  * Обработка смены пароля.
@@ -345,6 +410,66 @@ function removeSession (key, type, callback) {
                 }
             }
         )
+}
+
+/**
+ * @private
+ * @param {String} captcha Капча.
+ * @param {Function} callback Следующий шаг.
+ */
+function checkCaptcha (captcha, callback) {
+    // @TODO
+
+    callback(true);
+}
+
+/**
+ * @private
+ * @param {String} login Логин.
+ * @param {String} type Тип аккаунта.
+ * @param {Function} callback Следующий шаг.
+ */
+function checkLogin (login, type, callback) {
+    Mongo
+        .collection(type)
+        .find({
+            login: login
+        })
+        .limit(1)
+        .next(function (error, account) {
+            if (error || account) {
+                callback(false);
+            } else {
+                callback(true);
+            }
+        });
+}
+
+/**
+ * @private
+ * @param {String} login Логин.
+ * @param {Function} callback Следующий шаг, куда передается пароль.
+ */
+function makePass (login, callback) {
+    bcrypt.hash(login + NEW_PASS_SALT + login, 3, function(error, hash) {
+        if (error || !hash) {
+            callback(false);
+        } else {
+            callback(hash.slice(7, 15));
+        }
+    });
+}
+
+/**
+ * @private
+ * @param {String} login Логин.
+ * @param {String} pass Пароль.
+ * @param {Function} callback Следующий шаг.
+ */
+function sendRegisterMail (login, pass, callback) {
+    // @TODO
+
+    callback(true);
 }
 
 /**
