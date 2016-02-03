@@ -15,8 +15,11 @@ router.post('/login', function(request, response) {
         pass: request.body.pass
     };
 
-    Access.login(config, function (success) {
-        if (success) {
+    Access.login(config, function (session) {
+        if (session) {
+            response.cookie('key', session, {
+                httpOnly: true
+            });
             Protocol.sendSuccess(response);
         } else {
             Protocol.sendError(response, 'Не верный логин или пароль!');

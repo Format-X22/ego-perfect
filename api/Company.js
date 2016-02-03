@@ -14,6 +14,12 @@ const INVALID_ID = 'Не верный формат ID!';
 router.get('/', function(request, response) {
     var id = request.query.id;
     var objectId;
+    var excludeKeys = {
+        login: -1,
+        pass: -1,
+        key: -1,
+        partner: -1
+    };
 
     try {
         objectId = Mongo.objectID(id)
@@ -26,7 +32,7 @@ router.get('/', function(request, response) {
         .collection('company')
         .find({
             search_id: objectId
-        })
+        }, excludeKeys)
         .toArray(
             getEntitySender(response)
         );

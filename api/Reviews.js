@@ -42,7 +42,7 @@ router.post('/', function(request, response) {
                 if (error) {
                     Protocol.sendError(response, DB_ERROR);
                 } else {
-                    Protocol.sendData(response, []);
+                    Protocol.sendSuccess(response);
                 }
             }
         );
