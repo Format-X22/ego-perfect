@@ -34,9 +34,9 @@ exports.login = function (config, callback) {
 
         checkPass(pass, account.pass, backFalse(function () {
 
-            makeSession(login, backFalse(function (session) {
+            makeSession(login, backFalse(function (session, randomSalt) {
 
-                saveSession(login, type, session, backFalse(function () {
+                saveSession(login, type, session, randomSalt, backFalse(function () {
 
                     callback(session);
                 }));
@@ -147,9 +147,17 @@ exports.restorePass = function (login, callback) {
 function getAccountByLogin(login, type, callback) {
     Mongo
         .collection(type)
-        .find({
-            login: login
-        })
+        .find(
+            {
+                login: login
+            },
+            {
+                login: 1,
+                pass: 1,
+                session: 1,
+                randomSalt: 1
+            }
+        )
         .limit(1)
         .next(function (error, account) {
             if (error || !account) {
@@ -181,16 +189,18 @@ function checkPass (userPass, realPassHash, callback) {
 /**
  * @private
  * @param {String} login Логин.
- * @param {Function} callback Следующий шаг, в который передается сессия.
+ * @param {Function} callback Следующий шаг, в который передается сессия и случайная соль.
  */
 function makeSession (login, callback) {
     var loginSalt = getSessionSalt(login);
+    var randomSalt = String(Math.random() * Math.random());
+    var resultSalt = injectRandomSalt(loginSalt, randomSalt);
 
-    bcrypt.hash(loginSalt, 9, function(error, hash) {
+    bcrypt.hash(resultSalt, 9, function(error, hash) {
         if (error || !hash) {
             callback(false);
         } else {
-            callback(hash);
+            callback(hash, randomSalt);
         }
     });
 }
@@ -200,9 +210,10 @@ function makeSession (login, callback) {
  * @param {String} login Логин.
  * @param {String} type Тип аккаунта.
  * @param {String} session Сессия.
+ * @param {String} randomSalt Случайная соль.
  * @param {Function} callback Следующий шаг.
  */
-function saveSession (login, type, session, callback) {
+function saveSession (login, type, session, randomSalt, callback) {
     Mongo
         .collection(type)
         .findOneAndUpdate(
@@ -211,7 +222,8 @@ function saveSession (login, type, session, callback) {
             },
             {
                 $set: {
-                    session: session
+                    session: session,
+                    randomSalt: randomSalt
                 }
             },
             {},
@@ -239,6 +251,14 @@ function getSessionSalt (string) {
     return SESSION_SALT_PREFIX + string + SESSION_SALT_POSTFIX;
 }
 
+function injectRandomSalt (salt, random) {
+    var arraySalt = salt.split('');
+
+    arraySalt.splice(5, 0, random);
+
+    return arraySalt.join('') + random;
+}
+
 /**
  * @private
  * @param {Function} falseCallback Колбек неудачи.
@@ -259,7 +279,7 @@ function getStoredBackFalse (falseCallback) {
 function backFalse (falseCallback, trueCallback) {
     return function (result) {
         if (result) {
-            trueCallback(result);
+            trueCallback.apply(null, arguments);
         } else {
             falseCallback(false);
         }
