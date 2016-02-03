@@ -75,7 +75,23 @@ exports.logout = function (key, callback) {
         callback(false);
     }
 
-    // @TODO
+    removeSession(key, 'company', function (result) {
+        if (result === false) {
+            return callback(false);
+        }
+
+        if (result === true) {
+            return callback(true);
+        }
+
+        removeSession(key, 'partner', function (result) {
+            if (result === false || result === null) {
+                return callback(false);
+            } else {
+                return callback(true);
+            }
+        });
+    });
 };
 
 /**
@@ -145,12 +161,47 @@ exports.restorePass = function (login, callback) {
  * @param {Function} callback Следующий шаг.
  */
 function getAccountByLogin(login, type, callback) {
+    getAccountByProperties(
+        {
+            login: login
+        },
+        type,
+        callback
+    );
+}
+
+/**
+ * @private
+ * @param {String} key Ключ сессии.
+ * @param {Function} callback Следующий шаг, куда передается аккаунт и его тип.
+ */
+function getAccountByKey (key, callback) {
+    var properties = {
+        session: key
+    };
+
+    getAccountByProperties(properties, 'company', function (account) {
+        if (account) {
+            callback(account, 'company');
+        } else {
+            getAccountByProperties(properties, 'partner', function () {
+                callback(account, 'partner');
+            });
+        }
+    });
+}
+
+/**
+ * @private
+ * @param {Object} properties Объект свойств для запроса.
+ * @param {String} type Тип аккаунта.
+ * @param {Function} callback Следующий шаг, куда передается аккаунт.
+ */
+function getAccountByProperties (properties, type, callback) {
     Mongo
         .collection(type)
         .find(
-            {
-                login: login
-            },
+            properties,
             {
                 login: 1,
                 pass: 1,
@@ -257,6 +308,43 @@ function injectRandomSalt (salt, random) {
     arraySalt.splice(5, 0, random);
 
     return arraySalt.join('') + random;
+}
+
+/**
+ * @private
+ * @param {String} key Ключ сессии.
+ * @param {String} type Тип аккаунта.
+ * @param {Function} callback
+ * Следующий шаг, куда в случае если всё плохо передается false,
+ * если всё успешно выполнено передается true,
+ * а если документ не был наден - null.
+ */
+function removeSession (key, type, callback) {
+    Mongo
+        .collection(type)
+        .findOneAndUpdate(
+            {
+                session: key
+            },
+            {
+                $set: {
+                    session: '',
+                    randomSalt: ''
+                }
+            },
+            {},
+            function (error, document) {
+                if (error) {
+                    return callback(false);
+                }
+
+                if (document.value) {
+                    return callback(true);
+                } else {
+                    return callback(null);
+                }
+            }
+        )
 }
 
 /**
