@@ -95,7 +95,7 @@ exports.makeSession = function (login, callback) {
  * @param {Function} callback Следующий шаг.
  */
 exports.checkPass = function (userPass, realPassHash, callback) {
-    var userPassSalt = Salt.getPassSalt(userPass);
+    var userPassSalt = exports.getPassSalt(userPass);
 
     Bcrypt.compare(userPassSalt, realPassHash, function (error, result) {
         if (error || !result) {

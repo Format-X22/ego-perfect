@@ -3,6 +3,8 @@
  */
 'use strict';
 
+var Mongo = require('./Mongo');
+
 /**
  * Получает аккаунт по логину.
  * @param {String} login Логин.
@@ -34,8 +36,12 @@ exports.getAccountByKey = function (key, callback) {
         if (account) {
             callback(account, 'company');
         } else {
-            getAccountByProperties(properties, 'partner', function () {
-                callback(account, 'partner');
+            getAccountByProperties(properties, 'partner', function (account) {
+                if (account) {
+                    callback(account, 'partner');
+                } else {
+                    callback(false);
+                }
             });
         }
     });

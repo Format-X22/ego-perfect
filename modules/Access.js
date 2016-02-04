@@ -186,12 +186,52 @@ function insertNewCompany (config, callback) {
  * @param {Function} callback Следующий шаг.
  */
 exports.changePass = function (key, callback) {
+    var backFalse = getStoredBackFalse(callback);
+
     if (!key) {
         callback(false);
+        return;
     }
 
-    // @TODO
+    Account.getAccountByKey(key, backFalse(function (account, type) {
+        Salt.makePass(account.login, backFalse(function (pass, passHash) {
+            setNewPass({
+                type: type,
+                session: key,
+                pass: passHash
+            }, backFalse(function () {
+                Mail.sendChangePassMail(account.login, pass, callback);
+            }));
+        }));
+    }));
 };
+
+/**
+ * @private
+ * @param {Object} config Объект параметров.
+ * @param {Object} config.type Тип аккаунта.
+ * @param {Object} config.session Ключ сессии.
+ * @param {Object} config.pass Пароль в виде хэша.
+ * @param {Function} callback Следующий шаг.
+ */
+function setNewPass (config, callback) {
+    Mongo
+        .collection(config.type)
+        .findOneAndUpdate(
+            {
+                session: config.session
+            },
+            {
+                $set: {
+                    pass: config.pass
+                }
+            },
+            {},
+            function (error) {
+                callback(!error);
+            }
+        )
+}
 
 /**
  * Обработка смены почты.
@@ -201,6 +241,7 @@ exports.changePass = function (key, callback) {
 exports.changeEmail = function (key, callback) {
     if (!key) {
         callback(false);
+        return;
     }
 
     // @TODO
@@ -214,6 +255,7 @@ exports.changeEmail = function (key, callback) {
 exports.restorePass = function (login, callback) {
     if (!login) {
         callback(false);
+        return;
     }
 
     // @TODO
