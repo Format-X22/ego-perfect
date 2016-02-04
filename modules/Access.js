@@ -4,14 +4,13 @@
 'use strict';
 
 var Mongo = require('./Mongo');
-var bcrypt = require('bcrypt');
-var emailSender = require('sendgrid')('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');
-
-const PASS_SALT_PREFIX = 'J';
-const PASS_SALT_POSTFIX = 'ucanhackit';
-const SESSION_SALT_PREFIX = 'K';
-const SESSION_SALT_POSTFIX = 'uCaNhaCkUt';
-const NEW_PASS_SALT = 'rDdasPf';
+var Bcrypt = require('bcrypt');
+var Utils = require('./Utils');
+var backFalse = Utils.backFalse;
+var getStoredBackFalse = Utils.getStoredBackFalse;
+var Mail = require('./Mail');
+var Salt = require('./Salt');
+var Account = require('./Account');
 
 /**
  * Обработка входа в систему.
@@ -32,11 +31,11 @@ exports.login = function (config, callback) {
         return;
     }
 
-    getAccountByLogin(login, type, backFalse(function (account) {
+    Account.getAccountByLogin(login, type, backFalse(function (account) {
 
-        checkPass(pass, account.pass, backFalse(function () {
+        Salt.checkPass(pass, account.pass, backFalse(function () {
 
-            makeSession(login, backFalse(function (session, randomSalt) {
+            Salt.makeSession(login, backFalse(function (session, randomSalt) {
 
                 saveSession(login, type, session, randomSalt, backFalse(function () {
 
@@ -119,7 +118,7 @@ exports.register = function (config, callback) {
 
         checkLogin(login, type, backFalse(function () {
 
-            makePass(login, function (pass, passHash) {
+            Salt.makePass(login, function (pass, passHash) {
 
                 insertNewCompany({
                     login: login,
@@ -127,7 +126,7 @@ exports.register = function (config, callback) {
                     type: type
                 }, backFalse(function () {
 
-                    sendRegisterMail(login, pass, callback);
+                    Mail.sendRegisterMail(login, pass, callback);
                 }));
             });
         }));
@@ -224,108 +223,6 @@ exports.restorePass = function (login, callback) {
  * @private
  * @param {String} login Логин.
  * @param {String} type Тип аккаунта.
- * @param {Function} callback Следующий шаг.
- */
-function getAccountByLogin(login, type, callback) {
-    getAccountByProperties(
-        {
-            login: login
-        },
-        type,
-        callback
-    );
-}
-
-/**
- * @private
- * @param {String} key Ключ сессии.
- * @param {Function} callback Следующий шаг, куда передается аккаунт и его тип.
- */
-function getAccountByKey (key, callback) {
-    var properties = {
-        session: key
-    };
-
-    getAccountByProperties(properties, 'company', function (account) {
-        if (account) {
-            callback(account, 'company');
-        } else {
-            getAccountByProperties(properties, 'partner', function () {
-                callback(account, 'partner');
-            });
-        }
-    });
-}
-
-/**
- * @private
- * @param {Object} properties Объект свойств для запроса.
- * @param {String} type Тип аккаунта.
- * @param {Function} callback Следующий шаг, куда передается аккаунт.
- */
-function getAccountByProperties (properties, type, callback) {
-    Mongo
-        .collection(type)
-        .find(
-            properties,
-            {
-                login: 1,
-                pass: 1,
-                session: 1,
-                randomSalt: 1
-            }
-        )
-        .limit(1)
-        .next(function (error, account) {
-            if (error || !account) {
-                callback(false);
-            } else {
-                callback(account);
-            }
-        });
-}
-
-/**
- * @private
- * @param {String} userPass Пароль пользователя.
- * @param {String} realPassHash Реальный хэш пароля.
- * @param {Function} callback Следующий шаг.
- */
-function checkPass (userPass, realPassHash, callback) {
-    var userPassSalt = getPassSalt(userPass);
-
-    bcrypt.compare(userPassSalt, realPassHash, function (error, result) {
-        if (error || !result) {
-            callback(false);
-        } else {
-            callback(true);
-        }
-    });
-}
-
-/**
- * @private
- * @param {String} login Логин.
- * @param {Function} callback Следующий шаг, в который передается сессия и случайная соль.
- */
-function makeSession (login, callback) {
-    var loginSalt = getSessionSalt(login);
-    var randomSalt = String(Math.random() * Math.random());
-    var resultSalt = injectRandomSalt(loginSalt, randomSalt);
-
-    bcrypt.hash(resultSalt, 9, function(error, hash) {
-        if (error || !hash) {
-            callback(false);
-        } else {
-            callback(hash, randomSalt);
-        }
-    });
-}
-
-/**
- * @private
- * @param {String} login Логин.
- * @param {String} type Тип аккаунта.
  * @param {String} session Сессия.
  * @param {String} randomSalt Случайная соль.
  * @param {Function} callback Следующий шаг.
@@ -348,32 +245,6 @@ function saveSession (login, type, session, randomSalt, callback) {
                 callback(!error);
             }
         );
-}
-
-/**
- * @private
- * @param {String} string Некая строка.
- * @return {String} Посоленная строка.
- */
-function getPassSalt (string) {
-    return PASS_SALT_PREFIX + string + PASS_SALT_POSTFIX;
-}
-
-/**
- * @private
- * @param {String} string Некая строка.
- * @return {String} Посоленная строка.
- */
-function getSessionSalt (string) {
-    return SESSION_SALT_PREFIX + string + SESSION_SALT_POSTFIX;
-}
-
-function injectRandomSalt (salt, random) {
-    var arraySalt = salt.split('');
-
-    arraySalt.splice(5, 0, random);
-
-    return arraySalt.join('') + random;
 }
 
 /**
@@ -444,78 +315,4 @@ function checkLogin (login, type, callback) {
                 callback(true);
             }
         });
-}
-
-/**
- * @private
- * @param {String} login Логин.
- * @param {Function} callback Следующий шаг, куда передается пароль и его хэш.
- */
-function makePass (login, callback) {
-    var pass;
-    var passTplSeed = login + NEW_PASS_SALT + login;
-
-    bcrypt.hash(passTplSeed, 3, function(error, passTpl) {
-        if (error || !passTpl) {
-            callback(false);
-        } else {
-            pass = passTpl.slice(7, 15);
-
-            bcrypt.hash(getPassSalt(pass), 9, function(error, hash) {
-                if (error || !hash) {
-                    callback(false);
-                } else {
-                    callback(pass, hash);
-                }
-            });
-        }
-    });
-}
-
-/**
- * @private
- * @param {String} login Логин.
- * @param {String} pass Пароль.
- * @param {Function} callback Следующий шаг.
- */
-function sendRegisterMail (login, pass, callback) {
-    emailSender.send({
-        from: 'robot@xn--h1ailo2b.xn--80asehdb',
-        to: login,
-        subject: 'Пароль для Фирмы Онлайн',
-        text:
-            'Данные для входа на сайт фирмы.онлайн\n\r' +
-            'Ваш логин: ' + login + '\n\r' +
-            'Ваш пароль: ' + pass + '\n\r' +
-            'Не сообщайте пароль никому, даже сотруднику Фирмы Онлайн.\n\r'
-    }, function (error) {
-        callback(!error);
-    });
-}
-
-/**
- * @private
- * @param {Function} falseCallback Колбек неудачи.
- * @return {Function} Функция, принимаюшая колбек удачи и возвращающая вызов backFalse.
- */
-function getStoredBackFalse (falseCallback) {
-    return function (trueCallback) {
-        return backFalse(falseCallback, trueCallback);
-    }
-}
-
-/**
- * @private
- * @param {Function} falseCallback Колбек неудачи.
- * @param {Function} trueCallback Колбек удачи со значением.
- * @return {Function} Обертка, принимающая результат.
- */
-function backFalse (falseCallback, trueCallback) {
-    return function (result) {
-        if (result) {
-            trueCallback.apply(null, arguments);
-        } else {
-            falseCallback(false);
-        }
-    }
 }
