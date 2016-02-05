@@ -126,7 +126,7 @@ exports.register = function (config, callback) {
                     type: type
                 }, backFalse(function () {
 
-                    Mail.sendRegisterMail(login, pass, callback);
+                    Mail.sendAuthMail(login, pass, callback);
                 }));
             });
         }));
@@ -195,56 +195,51 @@ exports.changePass = function (key, callback) {
 
     Account.getAccountByKey(key, backFalse(function (account, type) {
         Salt.makePass(account.login, backFalse(function (pass, passHash) {
-            setNewPass({
-                type: type,
-                session: key,
-                pass: passHash
-            }, backFalse(function () {
-                Mail.sendChangePassMail(account.login, pass, callback);
+            Mail.sendAuthMail(account.login, pass, backFalse(function () {
+                setAuthData({
+                    type: type,
+                    session: key,
+                    set: {
+                        pass: passHash
+                    }
+                }, backFalse(function () {
+                    removeSession(key, type, callback);
+                }));
             }));
         }));
     }));
 };
 
 /**
- * @private
- * @param {Object} config Объект параметров.
- * @param {Object} config.type Тип аккаунта.
- * @param {Object} config.session Ключ сессии.
- * @param {Object} config.pass Пароль в виде хэша.
- * @param {Function} callback Следующий шаг.
- */
-function setNewPass (config, callback) {
-    Mongo
-        .collection(config.type)
-        .findOneAndUpdate(
-            {
-                session: config.session
-            },
-            {
-                $set: {
-                    pass: config.pass
-                }
-            },
-            {},
-            function (error) {
-                callback(!error);
-            }
-        )
-}
-
-/**
  * Обработка смены почты.
  * @param {String} key Ключ сессии.
+ * @param {String} login Логин.
  * @param {Function} callback Следующий шаг.
  */
-exports.changeEmail = function (key, callback) {
+exports.changeEmail = function (key, login, callback) {
+    var backFalse = getStoredBackFalse(callback);
+
     if (!key) {
         callback(false);
         return;
     }
 
-    // @TODO
+    Account.getAccountByKey(key, backFalse(function (account, type) {
+        Salt.makePass(login, backFalse(function (pass, passHash) {
+            Mail.sendAuthMail(login, pass, function () {
+                setAuthData({
+                    type: type,
+                    session: key,
+                    set: {
+                        login: login,
+                        pass: passHash
+                    }
+                }, backFalse(function () {
+                    removeSession(key, type, callback);
+                }));
+            });
+        }));
+    }));
 };
 
 /**
@@ -357,4 +352,29 @@ function checkLogin (login, type, callback) {
                 callback(true);
             }
         });
+}
+
+/**
+ * @private
+ * @param {Object} config Объект параметров.
+ * @param {Object} config.type Тип аккаунта.
+ * @param {Object} config.session Ключ сессии.
+ * @param {Object} config.set Набор данных для установки.
+ * @param {Function} callback Следующий шаг.
+ */
+function setAuthData (config, callback) {
+    Mongo
+        .collection(config.type)
+        .findOneAndUpdate(
+            {
+                session: config.session
+            },
+            {
+                $set: config.set
+            },
+            {},
+            function (error) {
+                callback(!error);
+            }
+        )
 }

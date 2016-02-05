@@ -66,7 +66,7 @@ router.post('/changePass', function(request, response) {
 });
 
 router.post('/changeEmail', function(request, response) {
-    Access.changeEmail(request.cookies.key, function (success) {
+    Access.changeEmail(request.cookies.key, request.body.login, function (success) {
         if (success) {
             Protocol.sendSuccess(response);
         } else {
