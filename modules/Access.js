@@ -4,9 +4,7 @@
 'use strict';
 
 var Mongo = require('./Mongo');
-var Bcrypt = require('bcrypt');
 var Utils = require('./Utils');
-var backFalse = Utils.backFalse;
 var getStoredBackFalse = Utils.getStoredBackFalse;
 var Mail = require('./Mail');
 var Salt = require('./Salt');
@@ -120,17 +118,9 @@ exports.register = function (config, callback) {
 
             Salt.makePass(login, function (pass, passHash) {
 
-                insertNewCompany({
-                    login: login,
-                    pass: passHash,
-                    type: type
-                }, backFalse(function () {
+                insertNewCompany(acc(type, login, passHash), backFalse(function () {
 
-                    Mail.sendAuthMail({
-                        type: type,
-                        login: login,
-                        pass: pass
-                    }, callback);
+                    Mail.sendAuthMail(acc(type, login, pass), callback);
                 }));
             });
         }));
@@ -193,17 +183,15 @@ exports.changePass = function (key, callback) {
     var backFalse = getStoredBackFalse(callback);
 
     if (!key) {
-        callback(false);
-        return;
+        return callback(false);
     }
 
     Account.getAccountByKey(key, backFalse(function (account, type) {
+
         Salt.makePass(account.login, backFalse(function (pass, passHash) {
-            Mail.sendAuthMail({
-                type: type,
-                login: account.login,
-                pass: pass
-            }, backFalse(function () {
+
+            Mail.sendAuthMail(acc(type, account.login, pass), backFalse(function () {
+
                 setAuthData({
                     type: type,
                     session: key,
@@ -211,6 +199,7 @@ exports.changePass = function (key, callback) {
                         pass: passHash
                     }
                 }, backFalse(function () {
+
                     removeSession(key, type, callback);
                 }));
             }));
@@ -233,12 +222,11 @@ exports.changeEmail = function (key, login, callback) {
     }
 
     Account.getAccountByKey(key, backFalse(function (account, type) {
+
         Salt.makePass(login, backFalse(function (pass, passHash) {
-            Mail.sendAuthMail({
-                type: type,
-                login: login,
-                pass: pass
-            }, function () {
+
+            Mail.sendAuthMail(acc(type, login, pass), function () {
+
                 setAuthData({
                     type: type,
                     session: key,
@@ -247,6 +235,7 @@ exports.changeEmail = function (key, login, callback) {
                         pass: passHash
                     }
                 }, backFalse(function () {
+
                     removeSession(key, type, callback);
                 }));
             })
@@ -394,4 +383,19 @@ function setAuthData (config, callback) {
                 callback(!error);
             }
         )
+}
+
+/**
+ * @private
+ * @param {String} type Тип аккаунта.
+ * @param {String} login Логин.
+ * @param {String} pass Пароль.
+ * @return {Object} Сгруппированные в объект параметры.
+ */
+function acc (type, login, pass) {
+    return {
+        type: type,
+        login: login,
+        pass: pass
+    }
 }
