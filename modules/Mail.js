@@ -35,6 +35,6 @@ exports.sendAuthMail = function (config, callback) {
             'Ваш пароль: ' + pass + '\n\r' +
             'Не сообщайте пароль никому, даже сотруднику Фирмы Онлайн.\n\r'
     }, function (error) {
-        callback(!error);
+        return callback(!error);
     });
 };

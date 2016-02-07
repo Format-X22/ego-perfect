@@ -20,9 +20,9 @@ router.post('/login', function(request, response) {
             response.cookie('key', session, {
                 httpOnly: true
             });
-            Protocol.sendSuccess(response);
+            return Protocol.sendSuccess(response);
         } else {
-            Protocol.sendError(response, 'Не верный логин или пароль!');
+            return Protocol.sendError(response, 'Не верный логин или пароль!');
         }
     });
 });
@@ -31,9 +31,9 @@ router.post('/logout', function(request, response) {
     Access.logout(request.cookies.key, function (success) {
         if (success) {
             response.clearCookie('key');
-            Protocol.sendSuccess(response);
+            return Protocol.sendSuccess(response);
         } else {
-            Protocol.sendAccessDenied(response);
+            return Protocol.sendAccessDenied(response);
         }
     });
 });
@@ -49,9 +49,9 @@ router.post('/register', function(request, response) {
 
     Access.register(config, function (success) {
         if (success) {
-            Protocol.sendSuccess(response);
+            return Protocol.sendSuccess(response);
         } else {
-            Protocol.sendError(response, 'Похоже что-то введено не верно...');
+            return Protocol.sendError(response, 'Похоже что-то введено не верно...');
         }
     });
 });
@@ -59,9 +59,9 @@ router.post('/register', function(request, response) {
 router.post('/changePass', function(request, response) {
     Access.changePass(request.cookies.key, function (success) {
         if (success) {
-            Protocol.sendSuccess(response);
+            return Protocol.sendSuccess(response);
         } else {
-            Protocol.sendAccessDenied(response);
+            return Protocol.sendAccessDenied(response);
         }
     });
 });
@@ -69,9 +69,9 @@ router.post('/changePass', function(request, response) {
 router.post('/changeEmail', function(request, response) {
     Access.changeEmail(request.cookies.key, request.body.login, function (success) {
         if (success) {
-            Protocol.sendSuccess(response);
+            return Protocol.sendSuccess(response);
         } else {
-            Protocol.sendAccessDenied(response);
+            return Protocol.sendAccessDenied(response);
         }
     });
 });
@@ -79,9 +79,9 @@ router.post('/changeEmail', function(request, response) {
 router.post('/restorePass', function(request, response) {
     Access.restorePass(request.body.login, request.body.type, function (success) {
         if (success) {
-            Protocol.sendSuccess(response);
+            return Protocol.sendSuccess(response);
         } else {
-            Protocol.sendError(response, 'Что-то пошло не так...');
+            return Protocol.sendError(response, 'Что-то пошло не так...');
         }
     });
 });

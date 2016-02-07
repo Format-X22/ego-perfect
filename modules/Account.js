@@ -34,13 +34,13 @@ exports.getAccountByKey = function (key, callback) {
 
     getAccountByProperties(properties, 'company', function (account) {
         if (account) {
-            callback(account, 'company');
+            return callback(account, 'company');
         } else {
             getAccountByProperties(properties, 'partner', function (account) {
                 if (account) {
-                    callback(account, 'partner');
+                    return callback(account, 'partner');
                 } else {
-                    callback(false);
+                    return callback(false);
                 }
             });
         }
@@ -62,9 +62,9 @@ function getAccountByProperties (properties, type, callback) {
         .limit(1)
         .next(function (error, account) {
             if (error || !account) {
-                callback(false);
+                return callback(false);
             } else {
-                callback(account);
+                return callback(account);
             }
         });
 }

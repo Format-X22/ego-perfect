@@ -54,15 +54,15 @@ exports.makePass = function (login, callback) {
 
     Bcrypt.hash(passTplSeed, 3, function(error, passTpl) {
         if (error || !passTpl) {
-            callback(false);
+            return callback(false);
         } else {
             pass = passTpl.slice(7, 15);
 
             Bcrypt.hash(exports.getPassSalt(pass), 9, function(error, hash) {
                 if (error || !hash) {
-                    callback(false);
+                    return callback(false);
                 } else {
-                    callback(pass, hash);
+                    return callback(pass, hash);
                 }
             });
         }
@@ -81,9 +81,9 @@ exports.makeSession = function (login, callback) {
 
     Bcrypt.hash(resultSalt, 9, function(error, hash) {
         if (error || !hash) {
-            callback(false);
+            return callback(false);
         } else {
-            callback(hash, randomSalt);
+            return callback(hash, randomSalt);
         }
     });
 };
@@ -99,9 +99,9 @@ exports.checkPass = function (userPass, realPassHash, callback) {
 
     Bcrypt.compare(userPassSalt, realPassHash, function (error, result) {
         if (error || !result) {
-            callback(false);
+            return callback(false);
         } else {
-            callback(true);
+            return callback(true);
         }
     });
 };

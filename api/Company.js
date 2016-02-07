@@ -24,8 +24,7 @@ router.get('/', function(request, response) {
     try {
         objectId = Mongo.objectID(id)
     } catch (error) {
-        Protocol.sendError(response, INVALID_ID);
-        return;
+        return Protocol.sendError(response, INVALID_ID);
     }
 
     Mongo
@@ -48,11 +47,10 @@ router.get('/', function(request, response) {
 function getEntitySender (response) {
     return function (error, data) {
         if (error) {
-            Protocol.sendError(response, SEARCH_DB_ERROR);
-            return;
+            return Protocol.sendError(response, SEARCH_DB_ERROR);
         }
 
-        Protocol.sendData(response, data);
+        return Protocol.sendData(response, data);
     }
 }
 
