@@ -112,6 +112,9 @@ Ext.define('A.view.partner.statistic.Clients', {
                             opacity: 1,
                             scaling: 1.5
                         },
+                        subStyle: {
+                            fill: '#6AE0FB'
+                        },
                         tooltip: {
                             trackMouse: true,
                             renderer: function (tooltip, record) {

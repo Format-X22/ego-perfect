@@ -30,6 +30,7 @@ router.post('/login', function(request, response) {
 router.post('/logout', function(request, response) {
     Access.logout(request.cookies.key, function (success) {
         if (success) {
+            response.clearCookie('key');
             Protocol.sendSuccess(response);
         } else {
             Protocol.sendAccessDenied(response);
@@ -76,7 +77,7 @@ router.post('/changeEmail', function(request, response) {
 });
 
 router.post('/restorePass', function(request, response) {
-    Access.restorePass(request.body.login, function (success) {
+    Access.restorePass(request.body.login, request.body.type, function (success) {
         if (success) {
             Protocol.sendSuccess(response);
         } else {

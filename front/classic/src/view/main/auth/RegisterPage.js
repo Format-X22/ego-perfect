@@ -60,13 +60,6 @@ Ext.define('A.view.main.auth.RegisterPage', {
             regex: /.*@.*\.*/
         },
         {
-            name: 'password',
-            xtype: 'textfield',
-            fieldLabel: 'Пароль',
-            validateOnChange: false,
-            allowBlank: false
-        },
-        {
             name: 'partnerCode',
             xtype: 'textfield',
             fieldLabel: 'Код партнера',

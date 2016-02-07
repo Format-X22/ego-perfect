@@ -73,7 +73,7 @@ function invalidLoginParams (config) {
  */
 exports.logout = function (key, callback) {
     if (!key) {
-        callback(false);
+        return callback(false);
     }
 
     removeSession(key, 'company', function (result) {
@@ -126,7 +126,11 @@ exports.register = function (config, callback) {
                     type: type
                 }, backFalse(function () {
 
-                    Mail.sendAuthMail(login, pass, callback);
+                    Mail.sendAuthMail({
+                        type: type,
+                        login: login,
+                        pass: pass
+                    }, callback);
                 }));
             });
         }));
@@ -195,7 +199,11 @@ exports.changePass = function (key, callback) {
 
     Account.getAccountByKey(key, backFalse(function (account, type) {
         Salt.makePass(account.login, backFalse(function (pass, passHash) {
-            Mail.sendAuthMail(account.login, pass, backFalse(function () {
+            Mail.sendAuthMail({
+                type: type,
+                login: account.login,
+                pass: pass
+            }, backFalse(function () {
                 setAuthData({
                     type: type,
                     session: key,
@@ -226,7 +234,11 @@ exports.changeEmail = function (key, login, callback) {
 
     Account.getAccountByKey(key, backFalse(function (account, type) {
         Salt.makePass(login, backFalse(function (pass, passHash) {
-            Mail.sendAuthMail(login, pass, function () {
+            Mail.sendAuthMail({
+                type: type,
+                login: login,
+                pass: pass
+            }, function () {
                 setAuthData({
                     type: type,
                     session: key,
@@ -237,7 +249,7 @@ exports.changeEmail = function (key, login, callback) {
                 }, backFalse(function () {
                     removeSession(key, type, callback);
                 }));
-            });
+            })
         }));
     }));
 };
@@ -245,15 +257,20 @@ exports.changeEmail = function (key, login, callback) {
 /**
  * Обработка восстановления пароля.
  * @param {String} login Логин.
+ * @param {String} type Тип аккаунта.
  * @param {Function} callback Следующий шаг.
  */
-exports.restorePass = function (login, callback) {
+exports.restorePass = function (login, type, callback) {
+    var backFalse = getStoredBackFalse(callback);
+
     if (!login) {
         callback(false);
         return;
     }
 
-    // @TODO
+    Account.getAccountByLogin(login, type, backFalse(function (account) {
+        // @TODO
+    }));
 };
 
 /**

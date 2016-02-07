@@ -38,29 +38,28 @@ Ext.define('A.view.main.auth.LoginPage', {
             layout: 'hbox',
             items: [
                 {
-                    boxLabel  : 'Клиент',
-                    name      : 'accType',
-                    inputValue: 'client',
+                    boxLabel: 'Клиент',
+                    name: 'type',
+                    inputValue: 'company',
                     checked: true
                 },
                 {
-                    boxLabel  : 'Партнер',
-                    name      : 'accType',
+                    boxLabel: 'Партнер',
+                    name: 'type',
                     inputValue: 'partner'
                 }
             ]
         },
         {
-            name: 'email',
+            name: 'login',
             xtype: 'textfield',
             inputType: 'email',
             fieldLabel: 'Почта',
             allowBlank: false,
-            validateOnChange: false,
-            regex: /.*@.*\.*/
+            validateOnChange: false
         },
         {
-            name: 'password',
+            name: 'pass',
             xtype: 'textfield',
             inputType: 'password',
             fieldLabel: 'Пароль',
@@ -79,7 +78,15 @@ Ext.define('A.view.main.auth.LoginPage', {
                     iconCls: 'x-fa fa-key',
                     text: 'Войти',
                     width: 150,
-                    handler: 'trySend'
+                    handler: 'trySend',
+                    margin: '0 15 0 0'
+                },
+                {
+                    xtype: 'button',
+                    iconCls: 'x-fa fa-question',
+                    text: 'Забыл пароль',
+                    width: 150,
+                    disabled: true
                 }
             ]
         },

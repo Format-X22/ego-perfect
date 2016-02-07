@@ -30,12 +30,12 @@ Ext.define('A.view.partner.statistic.Total', {
                             {
                                 name: 'Клиенты',
                                 count: 25,
-                                money: 22726
+                                money: 220726
                             },
                             {
                                 name: 'Партнеры',
                                 count: 5,
-                                money: 24502
+                                money: 240502
                             }
                         ]
                     },
@@ -63,7 +63,13 @@ Ext.define('A.view.partner.statistic.Total', {
                                     ].join('\n\n');
                                 }
                             },
-                            donut: 30
+                            donut: 30,
+                            subStyle: {
+                                fill: [
+                                    '#6AE0FB',
+                                    '#009FE8'
+                                ]
+                            }
                         }
                     ]
                 }

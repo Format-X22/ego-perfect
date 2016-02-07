@@ -113,7 +113,7 @@ Ext.define('A.view.partner.statistic.Partners', {
                             scaling: 1.5
                         },
                         subStyle: {
-                            fill: '#1BC3CB'
+                            fill: '#009FE8'
                         },
                         tooltip: {
                             trackMouse: true,
