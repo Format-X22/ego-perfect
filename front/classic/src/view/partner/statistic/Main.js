@@ -28,20 +28,24 @@ Ext.define('A.view.partner.statistic.Main', {
     items: [
         {
             title: 'Сводка',
-            xtype: 'partnerStatisticTotal'
+            xtype: 'partnerStatisticTotal',
+            iconCls: 'x-fa fa-circle-o'
 
         },
         {
             title: 'Регистрации клиентов',
-            xtype: 'partnerStatisticClients'
+            xtype: 'partnerStatisticClients',
+            iconCls: 'x-fa fa-user-plus'
         },
         {
             title: 'Регистрации партнеров',
-            xtype: 'partnerStatisticPartners'
+            xtype: 'partnerStatisticPartners',
+            iconCls: 'x-fa fa-bank'
         },
         {
             title: 'Доходность',
-            xtype: 'partnerStatisticIncome'
+            xtype: 'partnerStatisticIncome',
+            iconCls: 'x-fa fa-money'
         }
     ]
 });

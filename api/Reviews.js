@@ -40,9 +40,9 @@ router.post('/', function(request, response) {
             {},
             function (error) {
                 if (error) {
-                    Protocol.sendError(response, DB_ERROR);
+                    return Protocol.sendError(response, DB_ERROR);
                 } else {
-                    Protocol.sendData(response, []);
+                    return Protocol.sendSuccess(response);
                 }
             }
         );

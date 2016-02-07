@@ -20,7 +20,6 @@ Ext.define('A.model.Client', {
         {name: 'companyEmail', type: 'string'},
         {name: 'time',         type: 'string'},
         {name: 'address',      type: 'string'},
-        {name: 'map',          type: 'string'},
         {name: 'summary',      type: 'string'},
         {name: 'photo1',       type: 'string'},
         {name: 'photo2',       type: 'string'},
@@ -46,13 +45,23 @@ Ext.define('A.model.Client', {
         {name: 'rating',  type: 'store', model: 'A.model.Stats'},
         {name: 'views',   type: 'store', model: 'A.model.Stats'},
         {name: 'reviews', type: 'store', model: 'A.model.Stats'},
-        {name: 'stars',   type: 'store', model: 'A.model.Stats'}
+        {name: 'stars',   type: 'store', model: 'A.model.Stats'},
+
+        {
+            name: 'map',
+            convert: function (value) {
+                if (value) {
+                    return value.lat + ', ' + value.lng;
+                }
+
+                return '';
+            }
+        }
     ],
 
     proxy: {
-        type: 'rest',
-        url: '/api/clients',
-        appendId: true,
+        type: 'ajax',
+        url: '/api/client',
         reader: 'standard'
     }
 });

@@ -10,7 +10,7 @@ Ext.define('A.view.admin.TopToolbarController', {
      */
     toSearch: function () {
         if (Ext.isClassic) {
-            return A.getCmp('#mainTabPanel').setActiveTab(0);
+            return A.getCmp('appMain').setActiveItem(0);
         } else {
             return A.getCmp('mainTabPanel').setActiveItem(0);
         }
@@ -49,8 +49,18 @@ Ext.define('A.view.admin.TopToolbarController', {
      * Выйти из панели управления.
      */
     exit: function () {
-        console.log('exit'); // @TODO
-        this.toSearch();
+        var form = this.getView().up('form');
+
+        form.mask();
+
+        Ext.Ajax.request({
+            method: 'POST',
+            url: '/api/auth/logout',
+            callback: function () {
+                form.unmask();
+                this.toSearch();
+            }.bind(this)
+        });
     },
 
     /**

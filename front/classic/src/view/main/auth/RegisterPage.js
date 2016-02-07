@@ -39,19 +39,19 @@ Ext.define('A.view.main.auth.RegisterPage', {
             items: [
                 {
                     boxLabel  : 'Клиент',
-                    name      : 'accType',
-                    inputValue: 'client',
+                    name      : 'type',
+                    inputValue: 'company',
                     checked: true
                 },
                 {
                     boxLabel  : 'Партнер',
-                    name      : 'accType',
+                    name      : 'type',
                     inputValue: 'partner'
                 }
             ]
         },
         {
-            name: 'email',
+            name: 'login',
             xtype: 'textfield',
             inputType: 'email',
             fieldLabel: 'Почта',
@@ -60,14 +60,7 @@ Ext.define('A.view.main.auth.RegisterPage', {
             regex: /.*@.*\.*/
         },
         {
-            name: 'password',
-            xtype: 'textfield',
-            fieldLabel: 'Пароль',
-            validateOnChange: false,
-            allowBlank: false
-        },
-        {
-            name: 'partnerCode',
+            name: 'partner',
             xtype: 'textfield',
             fieldLabel: 'Код партнера',
             emptyText: 'могли дать наши партнеры, не обязателен',

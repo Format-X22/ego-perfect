@@ -14,19 +14,24 @@ const INVALID_ID = 'Не верный формат ID!';
 router.get('/', function(request, response) {
     var id = request.query.id;
     var objectId;
+    var excludeKeys = {
+        login: 0,
+        pass: 0,
+        key: 0,
+        partner: 0
+    };
 
     try {
         objectId = Mongo.objectID(id)
     } catch (error) {
-        Protocol.sendError(response, INVALID_ID);
-        return;
+        return Protocol.sendError(response, INVALID_ID);
     }
 
     Mongo
         .collection('company')
         .find({
             search_id: objectId
-        })
+        }, excludeKeys)
         .toArray(
             getEntitySender(response)
         );
@@ -42,11 +47,10 @@ router.get('/', function(request, response) {
 function getEntitySender (response) {
     return function (error, data) {
         if (error) {
-            Protocol.sendError(response, SEARCH_DB_ERROR);
-            return;
+            return Protocol.sendError(response, SEARCH_DB_ERROR);
         }
 
-        Protocol.sendData(response, data);
+        return Protocol.sendData(response, data);
     }
 }
 

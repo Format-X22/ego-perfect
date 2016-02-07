@@ -34,7 +34,7 @@ router.get('/', function(request, response) {
             response: response
         });
     } else {
-        Protocol.sendError(response, INVALID_PRAMS);
+        return Protocol.sendError(response, INVALID_PRAMS);
     }
 });
 
@@ -147,8 +147,7 @@ function doDBQuery (cfg) {
 function getSearchResultSender (cfg) {
     return function (error, data) {
         if (error) {
-            sendSearchError(cfg.response);
-            return;
+            return sendSearchError(cfg.response);
         }
 
         if (!isEmptyTokens(cfg.tokens)) {

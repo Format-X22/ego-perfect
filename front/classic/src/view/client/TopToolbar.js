@@ -5,6 +5,7 @@ Ext.define('A.view.client.TopToolbar', {
     extend: 'Ext.toolbar.Toolbar',
     xtype: 'clientTopToolbar',
     controller: 'adminTopToolbar',
+    itemId: 'topToolbar',
 
     requires: [
         'A.view.admin.TopToolbarController'

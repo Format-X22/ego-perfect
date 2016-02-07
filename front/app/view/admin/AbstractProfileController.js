@@ -21,7 +21,10 @@ Ext.define('A.view.admin.AbstractProfileController', {
         };
 
         if (emailField.isValid()) {
-            this.send('/api/users/changeEmail', this.showSuccessSendMessage, params);
+            this.send('/api/auth/changeEmail', function () {
+                this.showSuccessSendMessage();
+                this.toSearch();
+            }, params);
         }
     },
 
@@ -29,7 +32,10 @@ Ext.define('A.view.admin.AbstractProfileController', {
      * Запрашивает сброс пароля на почту.
      */
     resetPassword: function () {
-        this.send('/api/users/resetPassword', this.showSuccessResetPasswordMessage);
+        this.send('/api/auth/changePass', function () {
+            this.showSuccessResetPasswordMessage();
+            this.toSearch();
+        });
     },
 
     /**
@@ -47,7 +53,7 @@ Ext.define('A.view.admin.AbstractProfileController', {
          * @private
          */
         showSuccessResetPasswordMessage: function () {
-            this.showSuccessMessage('Пароль успешно сброшен, новый пароль отправлен на указанную почту.');
+            this.showSuccessMessage('Пароль успешно сброшен, новый пароль отправлен на вашу почту.');
         },
 
         /**
@@ -85,6 +91,13 @@ Ext.define('A.view.admin.AbstractProfileController', {
                 failure: this.showFailureSendMessage.bind(this),
                 params: params
             });
+        },
+
+        /**
+         * @private
+         */
+        toSearch: function () {
+            this.getView().up('form').down('#topToolbar').getController().toSearch();
         }
     }
 });

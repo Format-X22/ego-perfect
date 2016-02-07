@@ -41,7 +41,7 @@ exports.connect = function (callback) {
         } else {
             dbObject = db;
             console.log(CONNECT_ESTABLISHED);
-            callback();
+            return callback();
         }
     });
 };

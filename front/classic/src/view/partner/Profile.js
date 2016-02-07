@@ -40,7 +40,8 @@ Ext.define('A.view.partner.Profile', {
                     xtype: 'button',
                     text: 'Сменить почту',
                     handler: 'changeEmail',
-                    width: 200
+                    width: 200,
+                    disabled: true
                 }
             ]
         },

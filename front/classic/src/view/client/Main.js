@@ -111,5 +111,9 @@ Ext.define('A.view.client.Main', {
                 }
             ]
         }
-    ]
+    ],
+
+    listeners: {
+        show: 'loadData'
+    }
 });
