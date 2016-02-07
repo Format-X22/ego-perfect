@@ -25,8 +25,7 @@ exports.login = function (config, callback) {
     var backFalse = getStoredBackFalse(callback);
 
     if (invalidLoginParams(config)) {
-        callback(false);
-        return;
+        return callback(false);
     }
 
     Account.getAccountByLogin(login, type, backFalse(function (account) {
@@ -37,7 +36,7 @@ exports.login = function (config, callback) {
 
                 saveSession(login, type, session, randomSalt, backFalse(function () {
 
-                    callback(session);
+                    return callback(session);
                 }));
             }));
         }));
@@ -109,7 +108,7 @@ exports.register = function (config, callback) {
     var backFalse = getStoredBackFalse(callback);
 
     if (invalidRegisterParams(config)) {
-        callback(false);
+        return callback(false);
     }
 
     checkCaptcha(captcha, backFalse(function () {
@@ -169,7 +168,7 @@ function insertNewCompany (config, callback) {
             },
             {},
             function (error) {
-                callback(!error);
+                return callback(!error);
             }
         );
 }
@@ -217,8 +216,7 @@ exports.changeEmail = function (key, login, callback) {
     var backFalse = getStoredBackFalse(callback);
 
     if (!key) {
-        callback(false);
-        return;
+        return callback(false);
     }
 
     Account.getAccountByKey(key, backFalse(function (account, type) {
@@ -253,8 +251,7 @@ exports.restorePass = function (login, type, callback) {
     var backFalse = getStoredBackFalse(callback);
 
     if (!login) {
-        callback(false);
-        return;
+        return callback(false);
     }
 
     Account.getAccountByLogin(login, type, backFalse(function (account) {
@@ -285,7 +282,7 @@ function saveSession (login, type, session, randomSalt, callback) {
             },
             {},
             function (error) {
-                callback(!error);
+                return callback(!error);
             }
         );
 }
@@ -335,7 +332,7 @@ function removeSession (key, type, callback) {
 function checkCaptcha (captcha, callback) {
     // @TODO
 
-    callback(true);
+    return callback(true);
 }
 
 /**
@@ -353,9 +350,9 @@ function checkLogin (login, type, callback) {
         .limit(1)
         .next(function (error, account) {
             if (error || account) {
-                callback(false);
+                return callback(false);
             } else {
-                callback(true);
+                return callback(true);
             }
         });
 }
@@ -380,7 +377,7 @@ function setAuthData (config, callback) {
             },
             {},
             function (error) {
-                callback(!error);
+                return callback(!error);
             }
         )
 }
