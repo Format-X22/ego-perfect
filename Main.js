@@ -59,8 +59,7 @@ function initRouter (next) {
     expressApp.use('/api/company',  require('./api/Company'));
     expressApp.use('/api/reviews',  require('./api/Reviews'));
     expressApp.use('/api/auth',     require('./api/Auth'));
-    //expressApp.use('/api/register', require('./api/Register'));
-    //expressApp.use('/api/client',   require('./api/Client'));
+    expressApp.use('/api/client',   require('./api/Client'));
     //expressApp.use('/api/partner',  require('./api/Partner'));
 
     next();

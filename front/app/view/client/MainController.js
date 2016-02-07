@@ -9,10 +9,6 @@ Ext.define('A.view.client.MainController', {
         'A.model.Client'
     ],
 
-    getId: function () {
-        return 'BBB'; // @TODO
-    },
-
     getModelClassName: function () {
         return 'A.model.Client';
     }

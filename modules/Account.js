@@ -57,13 +57,7 @@ function getAccountByProperties (properties, type, callback) {
     Mongo
         .collection(type)
         .find(
-            properties,
-            {
-                login: 1,
-                pass: 1,
-                session: 1,
-                randomSalt: 1
-            }
+            properties
         )
         .limit(1)
         .next(function (error, account) {

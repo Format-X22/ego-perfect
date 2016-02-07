@@ -1,7 +1,6 @@
 /**
  * Абстрактный контроллер админки.
  * Требует имплементации методов
- * {@link #getId},
  * {@link #getModelClassName},
  * {@link #isStatsExits},
  * {@link #applyDataToCharts}.
@@ -23,7 +22,6 @@ Ext.define('A.view.admin.MainController', {
     loadData: function () {
         this.applyRecordIfNeed();
 
-        this.getRecord().set('id', this.getId());
         this.getRecord().load({
             success: this.applyLoadedData,
             scope: this
@@ -38,15 +36,6 @@ Ext.define('A.view.admin.MainController', {
      * @return {String} Имя модели данных админки.
      */
     getModelClassName: Ext.emptyFn,
-
-    /**
-     * @protected
-     * @method getId
-     * @required
-     * @template
-     * @return {String} ID профиля.
-     */
-    getId: Ext.emptyFn,
 
     /**
      * @protected

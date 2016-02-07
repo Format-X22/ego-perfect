@@ -15,10 +15,10 @@ router.get('/', function(request, response) {
     var id = request.query.id;
     var objectId;
     var excludeKeys = {
-        login: -1,
-        pass: -1,
-        key: -1,
-        partner: -1
+        login: 0,
+        pass: 0,
+        key: 0,
+        partner: 0
     };
 
     try {
