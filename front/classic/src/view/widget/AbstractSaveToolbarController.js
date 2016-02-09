@@ -23,6 +23,7 @@ Ext.define('A.view.widget.AbstractSaveToolbarController', {
     save: function (button) {
         button.up('form').submit({
             clientValidation: true,
+            submitEmptyText: false,
             url: this.url,
             success: this.showSuccessSaveMessage.bind(this),
             failure: this.showFailureSaveMessage.bind(this)

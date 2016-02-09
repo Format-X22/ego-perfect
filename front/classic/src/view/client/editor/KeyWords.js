@@ -42,12 +42,14 @@ Ext.define('A.view.client.editor.KeyWords', {
                         {
                             name: 'word1',
                             xtype: 'textfield',
-                            fieldLabel: 'Слово №1'
+                            fieldLabel: 'Слово №1',
+                            value: 'Москва'
                         },
                         {
                             name: 'word2',
                             xtype: 'textfield',
-                            fieldLabel: 'Слово №2'
+                            fieldLabel: 'Слово №2',
+                            value: 'двери'
                         },
                         {
                             name: 'word3',
