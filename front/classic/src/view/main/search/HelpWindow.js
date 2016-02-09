@@ -12,7 +12,7 @@ Ext.define('A.view.main.search.HelpWindow', {
     ],
 
     width: 200,
-    height: 350,
+    height: 380,
     resizable: false,
 
     items: [
