@@ -68,3 +68,14 @@ function getAccountByProperties (properties, type, callback) {
             }
         });
 }
+
+/**
+ * Удаляет из объекта данных аккаунта приватные данные.
+ * @param {Object} account Объект данных аккаунта.
+ */
+exports.sanitiseAccountData = function (account) {
+    delete account.login;
+    delete account.pass;
+    delete account.session;
+    delete account.randomSalt;
+};

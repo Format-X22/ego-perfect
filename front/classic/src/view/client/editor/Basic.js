@@ -60,7 +60,7 @@ Ext.define('A.view.client.editor.Basic', {
                             maxLength: 100
                         },
                         {
-                            name: 'companyEmail',
+                            name: 'email',
                             xtype: 'textfield',
                             fieldLabel: 'Электронная почта',
                             emptyText: 'boss@mysite.com',

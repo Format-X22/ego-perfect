@@ -44,3 +44,25 @@ exports.sendError = function (response, error) {
 exports.sendAccessDenied = function (response) {
     exports.sendError(response, 'Доступ запрещен!');
 };
+
+/**
+ * Каррированая версия модуля, хранящая в замыкании объект ответа серверу.
+ * @param {Object} response Объект ответа серверу.
+ */
+exports.curryResponse = function (response) {
+    return {
+        sendData: function (data) {
+            exports.sendData(response, data);
+        },
+
+        sendSuccess: function () {
+            exports.sendSuccess(response);
+        },
+        sendError: function (error) {
+            exports.sendError(response, error);
+        },
+        sendAccessDenied: function () {
+            exports.sendAccessDenied(response);
+        }
+    };
+};

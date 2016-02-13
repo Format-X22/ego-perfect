@@ -11,13 +11,11 @@ Ext.define('A.model.Client', {
     ],
 
     fields: [
-        {name: 'id',    type: 'string'},
-        {name: 'email', type: 'string'},
-
+        {name: 'id',           type: 'string'},
         {name: 'name',         type: 'string'},
         {name: 'phone',        type: 'string'},
         {name: 'site',         type: 'string'},
-        {name: 'companyEmail', type: 'string'},
+        {name: 'email',        type: 'string'},
         {name: 'time',         type: 'string'},
         {name: 'address',      type: 'string'},
         {name: 'summary',      type: 'string'},

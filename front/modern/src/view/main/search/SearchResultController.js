@@ -7,7 +7,8 @@ Ext.define('A.view.main.search.SearchResultController', {
 
     control: {
         '#searchResult': {
-            show: 'fixScrollFreeze'
+            show: 'fixScrollFreeze',
+            refresh: 'fixScrollFreeze'
         }
     },
 

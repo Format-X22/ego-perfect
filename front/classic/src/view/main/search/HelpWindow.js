@@ -12,7 +12,7 @@ Ext.define('A.view.main.search.HelpWindow', {
     ],
 
     width: 200,
-    height: 350,
+    height: 380,
     resizable: false,
 
     items: [
@@ -23,7 +23,7 @@ Ext.define('A.view.main.search.HelpWindow', {
         {
             xtype: 'component',
             padding: 15,
-            html: 'Нажмайте на любой квадрат для получения информации о компании.'
+            html: 'Нажимайте на любой квадрат для получения информации о компании.'
         }
     ],
 
