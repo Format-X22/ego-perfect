@@ -24,7 +24,7 @@ router.get('/', function (request, response) {
     });
 });
 
-router.post('/:name', getAccountOrDenyGetter(function (account, request, response) {
+/*router.post('/:name', getAccountOrDenyGetter(function (account, request, response) {
     var sender = Protocol.curryResponse(response);
     var query;
     var queryMethod = getQueryMakerMethod(request.params.name);
@@ -41,7 +41,7 @@ router.post('/:name', getAccountOrDenyGetter(function (account, request, respons
     }
 
     saveClientData(query, account.session, saveHandler);
-}));
+}));*/
 
 /**
  * @private
