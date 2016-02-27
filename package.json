@@ -2,7 +2,7 @@
   "name": "egoPerfect",
   "version": "1.0.0",
   "private": true,
-  "main": "Main.js",
+  "main": "index.js",
   "scripts": {
     "start": "node ."
   },

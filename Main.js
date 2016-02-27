@@ -1,93 +1,126 @@
 /**
- * Основной модуль приложения.
+ * Основной класс приложения.
  */
-'use strict';
+Ext.define('B.Main', {
+    singleton: true,
 
-var Fn = require('./util/Fn');
-var Mongo = require('./modules/Mongo');
-var express = require('express');
-var expressApp = express();
-var pathModule = require('path');
-var http = require('http');
+    requires: [
+        'B.Mongo',
+        'B.MainRouter',
+        'B.util.Function'
+    ],
 
-Fn.queue([
-    initDataBase,
-    initExpress,
-    initRouter,
-    launchServer
-]);
+    config: {
 
-/**
- * Инициализация базы.
- * @param {Function} next Следующий шаг.
- */
-function initDataBase (next) {
-    console.log('Init Mongo');
+        /**
+         * @cfg {Object} express Модуль Express.
+         */
+        express: require('express'),
 
-    Mongo.connect(next);
-}
+        /**
+         * @cfg {Object} expressApp Приложение Express.
+         */
+        expressApp: null
+    },
 
-/**
- * Инициализация Экспресса.
- * @param {Function} next Следующий шаг.
- */
-function initExpress (next) {
-    console.log('Init Express');
+    constructor: function () {
+        this.initConfig(this.config);
+        this.setExpressApp(this.getExpress()());
 
-    var bodyParser = require('body-parser');
-    var publicDir = pathModule.join(__dirname, 'public');
-    var extendedFlag = {
-        extended: false
-    };
+        B.util.Function.queue([
+            this.initDataBase,
+            this.initExpress,
+            this.initRouter,
+            this.launchServer
+        ], this);
+    },
 
-    expressApp.use(bodyParser.json());
-    expressApp.use(bodyParser.urlencoded(extendedFlag));
-    expressApp.use(require('cookie-parser')());
-    expressApp.use(express.static(publicDir));
+    /**
+     * Инициализация базы.
+     * @param {Function} next Следующий шаг.
+     */
+    initDataBase: function (next) {
+        this.log('Init Mongo');
 
-    next();
-}
+        B.Mongo.connect(next);
+    },
 
-/**
- * Инициализация роутера.
- * @param {Function} next Следующий шаг.
- */
-function initRouter (next) {
-    console.log('Init Router');
+    /**
+     * Инициализация Экспресса.
+     * @param {Function} next Следующий шаг.
+     */
+    initExpress: function (next) {
+        this.log('Init Express');
 
-    expressApp.use('/api/search',   require('./api/Search'));
-    expressApp.use('/api/company',  require('./api/Company'));
-    expressApp.use('/api/reviews',  require('./api/Reviews'));
-    expressApp.use('/api/auth',     require('./api/Auth'));
-    expressApp.use('/api/client',   require('./api/Client'));
-    //expressApp.use('/api/partner',  require('./api/Partner'));
+        var bodyParser = require('body-parser');
+        var jsonParser = bodyParser.json();
+        var urlParser = bodyParser.urlencoded({
+            extended: false
+        });
+        var cookieParser = require('cookie-parser')();
+        var publicDir = require('path').join(__dirname, 'public');
+        var staticDirSign = this.getExpress().static(publicDir);
+        var app = this.getExpressApp();
 
-    next();
-}
+        app.use(jsonParser);
+        app.use(urlParser);
+        app.use(cookieParser);
+        app.use(staticDirSign);
 
-/**
- * Запуск приложения.
- */
-function launchServer () {
-    console.log('Launch');
+        next();
+    },
 
-    var port = normalizePort(process.env.PORT) || 3000;
+    /**
+     * Инициализация роутера.
+     * @param {Function} next Следующий шаг.
+     */
+    initRouter: function (next) {
+        this.log('Init Router');
 
-    http.createServer(expressApp).listen(port);
-}
+        Ext.create('B.MainRouter', {
+            callback: next
+        });
+    },
 
-/**
- * @param value Значение порта.
- * @return {Number/Boolean} Номер порта числом, либо его алиас не числом, иначе false.
- */
-function normalizePort (value) {
-    var port = parseInt(value, 10);
+    /**
+     * Запуск приложения.
+     */
+    launchServer: function () {
+        this.log('Launch');
 
-    if (isNaN(port)) {
-        return value;
+        var port = this.normalizePort(process.env.PORT) || 3000;
+
+        require('http').createServer(this.getExpressApp()).listen(port);
+    },
+
+    privates: {
+
+        /**
+         * @private
+         * @param value Значение порта.
+         * @return {Number/Boolean} Номер порта числом, либо его алиас не числом, иначе false.
+         */
+        normalizePort: function (value) {
+            var port = parseInt(value, 10);
+
+            if (isNaN(port)) {
+                return value;
+            }
+            if (port >= 0) {
+                return port;
+            }
+            return false;
+        },
+
+        /**
+         * @private
+         * @param {String} msg Сообщение.
+         */
+        log: function (msg) {
+            Ext.log({
+                level: 'info',
+                msg: msg
+            });
+        }
     }
-    if (port >= 0) {
-        return port;
-    }
-    return false;
-}
+});
