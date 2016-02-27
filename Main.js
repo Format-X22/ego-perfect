@@ -20,7 +20,17 @@ Ext.define('B.Main', {
         /**
          * @cfg {Object} expressApp Приложение Express.
          */
-        expressApp: null
+        expressApp: null,
+
+        /**
+         * @cfg {Object} server Объект сервера.
+         */
+        server: null,
+
+        /**
+         * @cfg {Number} rerunTime Время до попытки перезапуска сервера.
+         */
+        rerunTime: 10 * 1000
     },
 
     constructor: function () {
@@ -31,6 +41,7 @@ Ext.define('B.Main', {
             this.initDataBase,
             this.initExpress,
             this.initRouter,
+            this.createServer,
             this.launchServer
         ], this);
     },
@@ -40,7 +51,7 @@ Ext.define('B.Main', {
      * @param {Function} next Следующий шаг.
      */
     initDataBase: function (next) {
-        this.log('Init Mongo');
+        this.log('Инициализация Mongo.');
 
         B.Mongo.connect(next);
     },
@@ -50,7 +61,7 @@ Ext.define('B.Main', {
      * @param {Function} next Следующий шаг.
      */
     initExpress: function (next) {
-        this.log('Init Express');
+        this.log('Инициализация Express.');
 
         var bodyParser = require('body-parser');
         var jsonParser = bodyParser.json();
@@ -75,7 +86,7 @@ Ext.define('B.Main', {
      * @param {Function} next Следующий шаг.
      */
     initRouter: function (next) {
-        this.log('Init Router');
+        this.log('Инициализация главного роутера.');
 
         Ext.create('B.MainRouter', {
             callback: next
@@ -83,14 +94,32 @@ Ext.define('B.Main', {
     },
 
     /**
-     * Запуск приложения.
+     * Создание объекта сервера.
+     * @param {Function} [next] Следующий шаг.
+     */
+    createServer: function (next) {
+        this.log('Создание сервера.');
+
+        var http = require('http');
+        var app = this.getExpressApp();
+
+        this.setServer(http.createServer(app));
+        next && next();
+    },
+
+    /**
+     * Запуск сервера.
      */
     launchServer: function () {
-        this.log('Launch');
+        this.log('Запуск сервера.');
 
+        var server = this.getServer();
         var port = this.normalizePort(process.env.PORT) || 3000;
 
-        require('http').createServer(this.getExpressApp()).listen(port);
+        this.log('Порт запуска определен - ' + port);
+
+        server.on('error', this.handleServerError.bind(this));
+        server.listen(port, this.onServerStart.bind(this));
     },
 
     privates: {
@@ -114,11 +143,58 @@ Ext.define('B.Main', {
 
         /**
          * @private
+         * @param {Object} error Объект ошибки сервера.
+         */
+        handleServerError: function (error) {
+            this.error('Ошибка сервера!\n\n' + error);
+
+            this.log('Попытка перезапуска сервера...');
+            this.tryRunServerLate();
+        },
+
+        /**
+         * @private
+         * @param {Object} error Объект ошибки сервера.
+         */
+        onServerStart: function (error) {
+            if (error) {
+                this.error(error);
+                this.tryRunServerLate();
+            } else {
+                this.log('Сервер успешно запущен.');
+            }
+        },
+
+        /**
+         * @private
+         */
+        tryRunServerLate: function () {
+            this.getServer().close();
+
+            Ext.defer(function () {
+                this.createServer();
+                this.launchServer();
+            }, this.getRerunTime(), this);
+        },
+
+        /**
+         * @private
          * @param {String} msg Сообщение.
          */
         log: function (msg) {
             Ext.log({
                 level: 'info',
+                msg: msg
+            });
+        },
+
+        /**
+         * @private
+         * @param {String} msg Сообщение.
+         */
+        error: function (msg) {
+            Ext.log({
+                level: 'error',
                 msg: msg
             });
         }

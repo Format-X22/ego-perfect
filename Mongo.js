@@ -61,7 +61,7 @@ Ext.define('B.Mongo', {
                 this.logConnectEstablished();
                 callback();
             }
-        });
+        }.bind(this));
     },
 
     /**
@@ -77,6 +77,7 @@ Ext.define('B.Mongo', {
         } else {
             this.logDataBaseNotFound();
             this.connect();
+
             return null;
         }
     },
