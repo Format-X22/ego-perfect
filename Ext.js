@@ -14817,7 +14817,6 @@ Ext.Loader = (new function() {
                 // the above loop it will have called block again so the counter will be
                 // increased and this call will not reduce the block count to 0. This is
                 // done by loadScripts.
-                Ready.unblock();
             }
         },
         /**
@@ -27962,11 +27961,6 @@ Ext.define('Ext.util.Collection', {
         'Ext.util.Sorter',
         'Ext.util.Grouper'
     ],
-    uses: [
-        'Ext.util.SorterCollection',
-        'Ext.util.FilterCollection',
-        'Ext.util.GroupCollection'
-    ],
     /**
      * @property {Boolean} isCollection
      * `true` in this class to identify an object as an instantiated Collection, or subclass
@@ -31241,6 +31235,680 @@ Ext.define('Ext.util.Collection', {
             return this.aggregateByGroup(property, name);
         };
     });
+});
+
+/**
+ * @class Ext.util.Group
+ * Encapsulates a grouped collection of records within a {@link Ext.util.Collection}
+ */
+Ext.define('Ext.util.Group', {
+    extend: 'Ext.util.Collection',
+    config: {
+        groupKey: null
+    },
+    // Group collections must have a higher priority than normal collections.  This ensures
+    // that their endupdate handlers for filters and sorters run prior to the endupdate
+    // handler of the store's main collection, and so when the user handles events such
+    // as sort/datachanged, the groups have already been sorted and filtered.
+    $endUpdatePriority: 2001
+});
+
+/**
+ * @private
+ */
+Ext.define('Ext.util.SorterCollection', {
+    extend: 'Ext.util.Collection',
+    requires: [
+        'Ext.util.Sorter'
+    ],
+    isSorterCollection: true,
+    /**
+     * @property {Ext.util.Sortable} sortable
+     * The owning sortable instance. The sortable's configuration governs this
+     * collection.
+     * @private
+     * @readonly
+     */
+    $sortable: null,
+    /**
+     * @property sortFn
+     * This is the cached sorting function which is a generated function that calls all the
+     * configured sorters in the correct order.
+     * @readonly
+     */
+    sortFn: null,
+    config: {
+        /**
+         * @cfg {Function} applySorterOptionsFn
+         * A template method that can be used to apply options to a sorter during creation
+         * @private
+         */
+        sorterOptionsFn: null,
+        /**
+         * @cfg {Object} applySorterOptionsScope
+         * The scope to execute the {@link #applySorterOptionsFn}
+         * @private
+         */
+        sorterOptionsScope: null
+    },
+    constructor: function(config) {
+        var me = this;
+        me.sortFn = Ext.util.Sorter.createComparator(me);
+        me.callParent([
+            config
+        ]);
+        me.setDecoder(me.decodeSorter);
+    },
+    addSort: function(property, direction, mode) {
+        var me = this,
+            count, index, limit, options, primary, sorter, sorters;
+        if (!property) {
+            // nothing specified so just trigger a sort...
+            me.beginUpdate();
+            me.endUpdate();
+        } else {
+            options = me.getOptions();
+            if (property instanceof Array) {
+                sorters = property;
+                mode = direction;
+                direction = null;
+            } else if (Ext.isString(property)) {
+                if (!(sorter = me.get(property))) {
+                    sorters = [
+                        {
+                            property: property,
+                            direction: direction || options.getDefaultSortDirection()
+                        }
+                    ];
+                } else {
+                    sorters = [
+                        sorter
+                    ];
+                }
+            } else if (Ext.isFunction(property)) {
+                sorters = [
+                    {
+                        sorterFn: property,
+                        direction: direction || options.getDefaultSortDirection()
+                    }
+                ];
+            } else {
+                if (!Ext.isObject(property)) {
+                    Ext.raise('Invalid sort descriptor: ' + property);
+                }
+                sorters = [
+                    property
+                ];
+                mode = direction;
+                direction = null;
+            }
+            if (mode && !me._sortModes[mode]) {
+                Ext.raise('Sort mode should be "multi", "append", "prepend" or "replace", not "' + mode + '"');
+            }
+            mode = me._sortModes[mode || 'replace'];
+            primary = me.getAt(0);
+            count = me.length;
+            index = mode.append ? count : 0;
+            // We have multiple changes to make, so mark the sorters collection as updating
+            // before we start.
+            me.beginUpdate();
+            // Leverage the decode logic wired to the collection to up-convert sorters to
+            // real instances.
+            me.splice(index, mode.replace ? count : 0, sorters);
+            if (mode.multi) {
+                count = me.length;
+                limit = options.getMultiSortLimit();
+                if (count > limit) {
+                    me.removeAt(limit, count);
+                }
+            }
+            // count will be truncated
+            if (sorter && direction) {
+                sorter.setDirection(direction);
+            } else if (index === 0 && primary && primary === me.getAt(0)) {
+                // If we just adjusted the sorters at the front and the primary sorter is
+                // still the primary sorter, toggle its direction:
+                primary.toggle();
+            }
+            me.endUpdate();
+        }
+    },
+    clear: function() {
+        // The owning Collection needs to have its onSortersEndUpdate called on sorter clear so that
+        // it clears its sorted flag.
+        this.beginUpdate();
+        this.callParent();
+        this.endUpdate(this.items);
+    },
+    /**
+     * Returns an up to date sort function.
+     * @return {Function} The sort function.
+     */
+    getSortFn: function() {
+        return this.sortFn;
+    },
+    /**
+     * Get the first matching sorter with a matching property.
+     * @param {String} prop The property name
+     * @return {Ext.util.Sorter} The sorter. `null` if not found.
+     * @private
+     */
+    getByProperty: function(prop) {
+        var items = this.items,
+            len = items.length,
+            i, item;
+        for (i = 0; i < len; ++i) {
+            item = items[i];
+            if (item.getProperty() === prop) {
+                return item;
+            }
+        }
+        return null;
+    },
+    //-------------------------------------------------------------------------
+    // Private
+    _sortModes: {
+        append: {
+            append: 1
+        },
+        multi: {
+            multi: 1
+        },
+        prepend: {
+            prepend: 1
+        },
+        replace: {
+            replace: 1
+        }
+    },
+    decodeSorter: function(sorter, xclass) {
+        var me = this,
+            options = me.getOptions(),
+            root = options.getRootProperty(),
+            sorterOptionsFn = me.getSorterOptionsFn(),
+            currentSorter, sorterConfig, type;
+        if (sorter.isSorter) {
+            if (!sorter.getRoot()) {
+                sorter.setRoot(root);
+            }
+        } else {
+            sorterConfig = {
+                direction: options.getDefaultSortDirection(),
+                root: root
+            };
+            type = typeof sorter;
+            // If we are dealing with a string we assume it is a property they want to sort on.
+            if (type === 'string') {
+                currentSorter = me.get(sorter);
+                if (currentSorter) {
+                    return currentSorter;
+                }
+                sorterConfig.property = sorter;
+            }
+            // If it is a function, we assume its a sorting function.
+            else if (type === 'function') {
+                sorterConfig.sorterFn = sorter;
+            } else // If we are dealing with an object, we assume its a Sorter configuration. In
+            // this case we create an instance of Sorter passing this configuration.
+            {
+                // Finally we get to the point where it has to be invalid
+                if (!Ext.isObject(sorter)) {
+                    Ext.raise('Invalid sorter specified: ' + sorter);
+                }
+                sorterConfig = Ext.apply(sorterConfig, sorter);
+                if (sorterConfig.fn) {
+                    sorterConfig.sorterFn = sorterConfig.fn;
+                    delete sorterConfig.fn;
+                }
+            }
+            // If a sorter config was created, make it an instance
+            sorter = Ext.create(xclass || 'Ext.util.Sorter', sorterConfig);
+        }
+        if (sorterOptionsFn) {
+            sorterOptionsFn.call(me.getSorterOptionsScope() || me, sorter);
+        }
+        return sorter;
+    },
+    setSorterConfigure: function(fn, scope) {
+        this.setSorterOptionsFn(fn);
+        this.setSorterOptionsScope(scope);
+    },
+    decodeRemoveItems: function(args, index) {
+        var me = this,
+            ret = (index === undefined) ? args : args[index];
+        if (!ret || !ret.$cloned) {
+            if (args.length > index + 1 || !Ext.isIterable(ret)) {
+                ret = Ext.Array.slice(args, index);
+            }
+            var currentSorters = me.items,
+                ln = ret.length,
+                remove = [],
+                i, item, n, sorter, type;
+            for (i = 0; i < ln; i++) {
+                sorter = ret[i];
+                if (sorter && sorter.isSorter) {
+                    remove.push(sorter);
+                } else {
+                    type = typeof sorter;
+                    if (type === 'string') {
+                        sorter = me.get(sorter);
+                        if (sorter) {
+                            remove.push(sorter);
+                        }
+                    } else if (type === 'function') {
+                        for (n = currentSorters.length; n-- > 0; ) {
+                            item = currentSorters[n];
+                            if (item.getSorterFn() === sorter) {
+                                remove.push(item);
+                            }
+                        }
+                    } else {
+                        Ext.raise('Invalid sorter specification: ' + sorter);
+                    }
+                }
+            }
+            ret = remove;
+            ret.$cloned = true;
+        }
+        return ret;
+    },
+    getOptions: function() {
+        // Odd thing this. We need a Sortable to know how to manage our collection, but
+        // we may not have one. Of course as a Collection, we *are* one as well... just
+        // that is not really useful to sort the sorters themselves, but we do have the
+        // default options for Sortables baked in, so we'll do.
+        return this.$sortable || this;
+    }
+});
+
+/**
+ * @private
+ */
+Ext.define('Ext.util.FilterCollection', {
+    extend: 'Ext.util.Collection',
+    requires: [
+        'Ext.util.Filter'
+    ],
+    isFilterCollection: true,
+    /**
+     * @property {Ext.util.Collection} $filterable
+     * The owning filterable instance. The filterable's configuration governs this
+     * collection.
+     * @private
+     * @readonly
+     */
+    $filterable: null,
+    /**
+     * @property filterFn
+     * This is the cached filter function.
+     * @readonly
+     */
+    filterFn: null,
+    constructor: function(config) {
+        var me = this;
+        // Because this closure operates on the collection, we are able to use it for as
+        // long as we have the Collection instance.
+        me.filterFn = Ext.util.Filter.createFilterFn(me);
+        me.callParent([
+            config
+        ]);
+        me.setDecoder(me.decodeFilter);
+    },
+    /**
+     * This method will filter an array based on the currently configured `filters`.
+     * @param {Array} data The array you want to have filtered.
+     * @return {Array} The array you passed after it is filtered.
+     */
+    filterData: function(data) {
+        return this.filtered ? Ext.Array.filter(data, this.filterFn) : data;
+    },
+    /**
+     * Returns the filter function.
+     * @return {Function} The filter function.
+     */
+    getFilterFn: function() {
+        return this.filterFn;
+    },
+    isItemFiltered: function(item) {
+        return !this.filterFn(item);
+    },
+    //-------------------------------------------------------------------------
+    // Private
+    decodeFilter: function(filter) {
+        var options = this.getOptions(),
+            filterRoot = options.getRootProperty(),
+            filterConfig;
+        if (filter.isFilter) {
+            if (!filter.getRoot()) {
+                filter.setRoot(filterRoot);
+            }
+        } else {
+            filterConfig = {
+                root: filterRoot
+            };
+            if (Ext.isFunction(filter)) {
+                filterConfig.filterFn = filter;
+            } else // If we are dealing with an object, we assume its a Filter configuration. In
+            // this case we create an instance of Ext.util.Filter passing the config.
+            {
+                // Finally we get to the point where it has to be invalid
+                if (!Ext.isObject(filter)) {
+                    Ext.raise('Invalid filter specified: ' + filter);
+                }
+                filterConfig = Ext.apply(filterConfig, filter);
+                if (filterConfig.fn) {
+                    filterConfig.filterFn = filterConfig.fn;
+                    delete filterConfig.fn;
+                }
+                if (Ext.util.Filter.isInvalid(filterConfig)) {
+                    return false;
+                }
+            }
+            filter = new Ext.util.Filter(filterConfig);
+        }
+        return filter;
+    },
+    decodeRemoveItems: function(args, index) {
+        var me = this,
+            ret = (index === undefined) ? args : args[index];
+        if (!ret.$cloned) {
+            if (args.length > index + 1 || !Ext.isIterable(ret)) {
+                ret = Ext.Array.slice(args, index);
+            }
+            var currentFilters = me.items,
+                ln = ret.length,
+                remove = [],
+                filter, i, isFunction, isProp, isString, item, match, n, type;
+            for (i = 0; i < ln; i++) {
+                filter = ret[i];
+                if (filter && filter.isFilter) {
+                    remove.push(filter);
+                } else {
+                    type = typeof filter;
+                    isFunction = type === 'function';
+                    isProp = filter.property !== undefined && filter.value !== undefined;
+                    isString = type === 'string';
+                    if (!isFunction && !isProp && !isString) {
+                        Ext.raise('Invalid filter specification: ' + filter);
+                    }
+                    for (n = currentFilters.length; n-- > 0; ) {
+                        item = currentFilters[n];
+                        match = false;
+                        if (isString) {
+                            match = item.getProperty() === filter;
+                        } else if (isFunction) {
+                            match = item.getFilterFn() === filter;
+                        } else if (isProp) {
+                            match = item.getProperty() === filter.property && item.getValue() === filter.value;
+                        }
+                        if (match) {
+                            remove.push(item);
+                        }
+                    }
+                }
+            }
+            ret = remove;
+            ret.$cloned = true;
+        }
+        return ret;
+    },
+    getOptions: function() {
+        // Odd thing this. We need a Filterable to know how to manage our collection, but
+        // we may not have one. Of course as a Collection, we *are* one as well... just
+        // that is not really useful to filter the filters themselves, but we do have the
+        // default options for Filterable baked in, so we'll do.
+        return this.$filterable || this;
+    }
+});
+
+/**
+ * @private
+ * A collection containing the result of applying grouping to the records in the store.
+ */
+Ext.define('Ext.util.GroupCollection', {
+    extend: 'Ext.util.Collection',
+    isGroupCollection: true,
+    config: {
+        grouper: null,
+        itemRoot: null
+    },
+    observerPriority: -100,
+    //-------------------------------------------------------------------------
+    // Calls from the source Collection:
+    onCollectionAdd: function(source, details) {
+        this.addItemsToGroups(source, details.items);
+    },
+    onCollectionBeforeItemChange: function(source, details) {
+        this.changeDetails = details;
+    },
+    onCollectionBeginUpdate: function() {
+        this.beginUpdate();
+    },
+    onCollectionEndUpdate: function() {
+        this.endUpdate();
+    },
+    onCollectionItemChange: function(source, details) {
+        var item = details.item;
+        // Check if the change to the item caused the item to move. If it did, the group ordering
+        // will be handled by virtue of being removed/added to the collection. If not, check whether
+        // we're in the correct group and fix up if not.
+        if (!details.indexChanged) {
+            this.syncItemGrouping(source, item, source.getKey(item), details.oldKey, details.oldIndex);
+        }
+        this.changeDetails = null;
+    },
+    onCollectionRefresh: function(source) {
+        this.removeAll();
+        this.addItemsToGroups(source, source.items);
+    },
+    onCollectionRemove: function(source, details) {
+        var me = this,
+            changeDetails = me.changeDetails,
+            entries, entry, group, i, n, removeGroups, item;
+        if (changeDetails) {
+            // The item has changed, so the group key may be different, need
+            // to look it up
+            item = changeDetails.item;
+            group = me.findGroupForItem(item);
+            entries = [];
+            if (group) {
+                entries.push({
+                    group: group,
+                    items: [
+                        item
+                    ]
+                });
+            }
+        } else {
+            entries = me.groupItems(source, details.items, false);
+        }
+        for (i = 0 , n = entries.length; i < n; ++i) {
+            group = (entry = entries[i]).group;
+            if (group) {
+                group.remove(entry.items);
+                if (!group.length) {
+                    (removeGroups || (removeGroups = [])).push(group);
+                }
+            }
+        }
+        if (removeGroups) {
+            me.remove(removeGroups);
+        }
+    },
+    // If the SorterCollection instance is not changing, the Group will react to
+    // changes inside the SorterCollection, but if the instance changes we need
+    // to sync the Group to the new SorterCollection.
+    onCollectionSort: function(source) {
+        // sorting the collection effectively sorts the items in each group...
+        var me = this,
+            sorters = source.getSorters(false),
+            items, length, i, group;
+        if (sorters) {
+            items = me.items;
+            length = me.length;
+            for (i = 0; i < length; ++i) {
+                group = items[i];
+                if (group.getSorters() !== sorters) {
+                    group.setSorters(sorters);
+                }
+            }
+        }
+    },
+    onCollectionUpdateKey: function(source, details) {
+        var index = details.index,
+            item = details.item;
+        if (!details.indexChanged) {
+            index = source.indexOf(item);
+            this.syncItemGrouping(source, item, details.newKey, details.oldKey, index);
+        }
+    },
+    //-------------------------------------------------------------------------
+    // Private
+    addItemsToGroups: function(source, items) {
+        this.groupItems(source, items, true);
+    },
+    groupItems: function(source, items, adding) {
+        var me = this,
+            byGroup = {},
+            entries = [],
+            grouper = source.getGrouper(),
+            groupKeys = me.itemGroupKeys,
+            entry, group, groupKey, i, item, itemKey, len, newGroups;
+        for (i = 0 , len = items.length; i < len; ++i) {
+            groupKey = grouper.getGroupString(item = items[i]);
+            itemKey = source.getKey(item);
+            if (adding) {
+                (groupKeys || (me.itemGroupKeys = groupKeys = {}))[itemKey] = groupKey;
+            } else if (groupKeys) {
+                delete groupKeys[itemKey];
+            }
+            if (!(entry = byGroup[groupKey])) {
+                if (!(group = me.getByKey(groupKey)) && adding) {
+                    (newGroups || (newGroups = [])).push(group = me.createGroup(source, groupKey));
+                }
+                entries.push(byGroup[groupKey] = entry = {
+                    group: group,
+                    items: []
+                });
+            }
+            entry.items.push(item);
+        }
+        for (i = 0 , len = entries.length; i < len; ++i) {
+            entry = entries[i];
+            entry.group.add(entry.items);
+        }
+        if (newGroups) {
+            me.add(newGroups);
+        }
+        return entries;
+    },
+    syncItemGrouping: function(source, item, itemKey, oldKey, itemIndex) {
+        var me = this,
+            itemGroupKeys = me.itemGroupKeys || (me.itemGroupKeys = {}),
+            grouper = source.getGrouper(),
+            groupKey = grouper.getGroupString(item),
+            removeGroups = 0,
+            index = -1,
+            addGroups, group, oldGroup, oldGroupKey, firstIndex;
+        if (oldKey) {
+            oldGroupKey = itemGroupKeys[oldKey];
+            delete itemGroupKeys[oldKey];
+        } else {
+            oldGroupKey = itemGroupKeys[itemKey];
+        }
+        itemGroupKeys[itemKey] = groupKey;
+        if (!(group = me.get(groupKey))) {
+            group = me.createGroup(source, groupKey);
+            addGroups = [
+                group
+            ];
+        }
+        // This checks whether or not the item is in the collection.
+        // Short optimization instead of calling contains since we already have the key here.
+        if (group.get(itemKey) !== item) {
+            if (group.getCount() > 0 && source.getSorters().getCount() === 0) {
+                // We have items in the group & it's not sorted, so find the
+                // correct position in the group to insert.
+                firstIndex = source.indexOf(group.items[0]);
+                if (itemIndex < firstIndex) {
+                    index = 0;
+                } else {
+                    index = itemIndex - firstIndex;
+                }
+            }
+            if (index === -1) {
+                group.add(item);
+            } else {
+                group.insert(index, item);
+            }
+        } else {
+            group.itemChanged(item);
+        }
+        if (groupKey !== oldGroupKey && (oldGroupKey === 0 || oldGroupKey)) {
+            oldGroup = me.get(oldGroupKey);
+            if (oldGroup) {
+                oldGroup.remove(item);
+                if (!oldGroup.length) {
+                    removeGroups = [
+                        oldGroup
+                    ];
+                }
+            }
+        }
+        if (addGroups) {
+            me.splice(0, removeGroups, addGroups);
+        } else if (removeGroups) {
+            me.splice(0, removeGroups);
+        }
+    },
+    createGroup: function(source, key) {
+        var group = new Ext.util.Group({
+            groupKey: key,
+            rootProperty: this.getItemRoot(),
+            sorters: source.getSorters()
+        });
+        return group;
+    },
+    getKey: function(item) {
+        return item.getGroupKey();
+    },
+    createSortFn: function() {
+        var me = this,
+            grouper = me.getGrouper(),
+            sorterFn = me.getSorters().getSortFn();
+        if (!grouper) {
+            return sorterFn;
+        }
+        return function(lhs, rhs) {
+            // The grouper has come from the collection, so we pass the items in
+            // the group for comparison because the grouper is also used to
+            // sort the data in the collection
+            return grouper.sort(lhs.items[0], rhs.items[0]) || sorterFn(lhs, rhs);
+        };
+    },
+    updateGrouper: function(grouper) {
+        var me = this;
+        me.grouped = !!(grouper && me.$groupable.getAutoGroup());
+        me.onSorterChange();
+        me.onEndUpdateSorters(me.getSorters());
+    },
+    destroy: function() {
+        this.$groupable = null;
+        this.callParent();
+    },
+    privates: {
+        findGroupForItem: function(item) {
+            var items = this.items,
+                len = items.length,
+                i, group;
+            for (i = 0; i < len; ++i) {
+                group = items[i];
+                if (group.contains(item)) {
+                    return group;
+                }
+            }
+        }
+    }
 });
 
 /**
@@ -44521,4 +45189,4 @@ Ext.define('Ext.util.Memento', (function() {
             }
         }
     };
-}()));
+}()))

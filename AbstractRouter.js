@@ -9,12 +9,12 @@
  *
  *      map: {
  *          'urlPath': {
- *              'methodName': 'handlerAsString or linkToFunction'
+ *              'methodNameLowerCase': 'handlerAsString or linkToFunction'
  *          }
  *      }
  *
  *
- * Для задания карты переадресации необходимо заполнить
+ * Для задания карты переадресации запроса другим роутерам необходимо заполнить
  * объект конфигурации delegate в таком виде:
  *
  *      delegate: {
@@ -31,32 +31,63 @@ Ext.define('B.AbstractRouter', {
 
     config: {
 
+        /**
+         * @cfg {Object} Карта роутинга, смотри описание класса.
+         */
         map: null,
 
+        /**
+         * @cfg {Object} Схема делегирования,смотри описание класса.
+         */
         delegate: null,
 
+        /**
+         * @cfg {Object} Объект Express роутера.
+         */
         expressRouter: null
     },
 
     constructor: function (config) {
-        var express = A.Main.getExpress();
-
         Ext.apply(this.config, config);
         this.initConfig(this.config);
-        this.setExpressRouter(express.Router());
+        this.makeExpressRouter();
         this.initMap();
         this.initDelegate();
     },
 
+    /**
+     * Создает и сохраняет Express роутер.
+     */
+    makeExpressRouter: function () {
+        var express = B.Main.getExpress();
+
+        this.setExpressRouter(express.Router());
+    },
+
+    /**
+     * Инициализация карты роутинга.
+     */
     initMap: function () {
-        Ext.Object.each(this.getMap(), function (key, value) {
-            //
+        Ext.Object.each(this.getMap(), function (path, config) {
+            Ext.Object.each(config, function (method, handler) {
+                if (Ext.isString(handler)) {
+                    handler = this[handler];
+                }
+
+                this.getExpressRouter()[method](path, handler);
+            });
         }, this);
     },
 
+    /**
+     * Инициализация схемы делегирования.
+     */
     initDelegate: function () {
-        Ext.Object.each(this.getDelegate(), function (key, value) {
-            //
+        Ext.Object.each(this.getDelegate(), function (path, routerName) {
+            var routerImpl = Ext.create(routerName);
+            var target = routerImpl.getExpressRouter();
+
+            this.getExpressRouter().use(path, target);
         }, this);
     }
 });
