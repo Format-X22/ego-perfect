@@ -28,6 +28,7 @@ Ext.define('B.MainRouter', {
 
     constructor: function () {
         this.callParent(arguments);
+        B.Main.getExpressApp().use(this.getExpressRouter());
         this.getCallback()();
     }
 });

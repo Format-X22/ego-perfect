@@ -75,7 +75,7 @@ Ext.define('B.AbstractRouter', {
                 }
 
                 this.getExpressRouter()[method](path, handler);
-            });
+            }, this);
         }, this);
     },
 

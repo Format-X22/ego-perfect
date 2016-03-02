@@ -37441,6 +37441,400 @@ Ext.define('Ext.data.field.Field', {
 });
 
 /**
+ * @abstract
+ * A superclass for a validator that checks if a value is within a certain range.
+ */
+Ext.define('Ext.data.validator.Bound', {
+    extend: 'Ext.data.validator.Validator',
+    alias: 'data.validator.bound',
+    type: 'bound',
+    config: {
+        /**
+         * @cfg {Number} min
+         * The minimum length value.
+         */
+        min: undefined,
+        /**
+         * @cfg {Number} max
+         * The maximum length value.
+         */
+        max: undefined,
+        /**
+         * @cfg {String} emptyMessage
+         * The error message to return when the value is empty.
+         */
+        emptyMessage: 'Must be present',
+        /**
+         * @cfg {String} minOnlyMessage
+         * The error message to return when the value is less than the minimum
+         * and only a minimum is specified.
+         */
+        minOnlyMessage: null,
+        /**
+         * @cfg {String} maxOnlyMessage
+         * The error message to return when the value is more than the maximum
+         * and only a maximum is specified.
+         */
+        maxOnlyMessage: null,
+        /**
+         * @cfg {String} bothMessage
+         * The error message to return when the value is not in the specified range
+         * and both the minimum and maximum are specified.
+         */
+        bothOnlyMessage: null
+    },
+    constructor: function() {
+        var me = this;
+        me.preventConfigure = true;
+        me.callParent(arguments);
+        delete me.preventConfigure;
+        me.configure();
+    },
+    setConfig: function() {
+        var me = this;
+        me.preventConfigure = true;
+        me.callParent(arguments);
+        delete me.preventConfigure;
+        me.configure();
+    },
+    configure: function() {
+        var me = this,
+            hasMin, hasMax, min, max;
+        if (me.preventConfigure) {
+            return;
+        }
+        min = me.getMin();
+        max = me.getMax();
+        hasMin = me.hasMin = min !== undefined;
+        hasMax = me.hasMax = max !== undefined;
+        if (hasMin && hasMax) {
+            me._bothMsg = Ext.String.format(me.getBothMessage(), min, max);
+        } else if (hasMin) {
+            me._minMsg = Ext.String.format(me.getMinOnlyMessage(), min);
+        } else if (hasMax) {
+            me._maxMsg = Ext.String.format(me.getMaxOnlyMessage(), max);
+        }
+    },
+    updateMin: function() {
+        this.configure();
+    },
+    updateMax: function() {
+        this.configure();
+    },
+    updateMinOnlyMessage: function(v) {
+        this.configure();
+    },
+    updateMaxOnlyMessage: function() {
+        this.configure();
+    },
+    updateBothMessage: function() {
+        this.configure();
+    },
+    validate: function(value) {
+        var me = this,
+            hasMin = me.hasMin,
+            hasMax = me.hasMax,
+            min = me.getMin(),
+            max = me.getMax(),
+            msg = this.validateValue(value),
+            len;
+        if (msg !== true) {
+            return msg;
+        }
+        value = me.getValue(value);
+        if (hasMin && hasMax) {
+            if (value < min || value > max) {
+                msg = me._bothMsg;
+            }
+        } else if (hasMin) {
+            if (value < min) {
+                msg = me._minMsg;
+            }
+        } else if (hasMax) {
+            if (value > max) {
+                msg = me._maxMsg;
+            }
+        }
+        return msg;
+    },
+    validateValue: function(value) {
+        if (value === undefined || value === null) {
+            return this.getEmptyMessage();
+        }
+        return true;
+    },
+    getValue: Ext.identityFn
+});
+
+/**
+ * Validates that the passed value matches a specific format specified by a regex.
+ * The format is provided by the {@link #matcher} config.
+ */
+Ext.define('Ext.data.validator.Format', {
+    extend: 'Ext.data.validator.Validator',
+    alias: 'data.validator.format',
+    type: 'format',
+    config: {
+        /**
+         * @cfg {String} message
+         * The error message to return when the value does not match the format.
+         */
+        message: 'Is in the wrong format',
+        /**
+         * @cfg {RegExp} matcher (required) The matcher regex to test against the value.
+         */
+        matcher: undefined
+    },
+    constructor: function() {
+        this.callParent(arguments);
+        if (!this.getMatcher()) {
+            Ext.raise('validator.Format must be configured with a matcher');
+        }
+    },
+    validate: function(value) {
+        var matcher = this.getMatcher(),
+            result = matcher && matcher.test(value);
+        return result ? result : this.getMessage();
+    }
+});
+
+/**
+ * Validates that the value is a valid email.
+ */
+Ext.define('Ext.data.validator.Email', {
+    extend: 'Ext.data.validator.Format',
+    alias: 'data.validator.email',
+    type: 'email',
+    config: {
+        /**
+         * @cfg {String} message
+         * The error message to return when the value is not a valid email
+         */
+        message: 'Is not a valid email address',
+        // http://en.wikipedia.org/wiki/Email_address#Local_part
+        // http://stackoverflow.com/a/2049510
+        // http://isemail.info/
+        // http://blog.stevenlevithan.com/archives/capturing-vs-non-capturing-groups
+        //
+        // 1. Can begin with a double-quote ONLY IF the local part also ends in a double-quote.
+        // 2. Can NOT BEGIN with a period.
+        // 3. Can NOT END with a period.
+        // 4. Can not have MORE THAN ONE period in a row.
+        //
+        // Let's break this down:
+        //
+        // ^(")?
+        // The local part may begin with double-quotes, but only if it also ends with it.
+        // See the back-reference.  Capturing.
+        //
+        // (?:[^\."])
+        // Here we've defined that the local part cannot begin with a period or a double-quote.  Non-capturing.
+        //
+        // (?:(?:[\.])?(?:[\w\-!#$%&'*+/=?^_`{|}~]))*
+        // After the first character is matched, the regex ensures that there is not more than one period
+        // in a row.  Then, this nested grouping allows for zero or more of the accepted characters.
+        // NOTE that this also ensures that any character not defined in the character class
+        // is invalid as an ending character for the local part (such as the period).
+        //
+        // \1@
+        // The local part of the address is a backreference to the first (and only) capturing group that allows
+        // for a double-quote to wrap the local part of an email address.
+        /**
+         * @cfg {RegExp} matcher
+         * A matcher to check for simple emails. This may be overridden.
+         */
+        matcher: /^(")?(?:[^\."])(?:(?:[\.])?(?:[\w\-!#$%&'*+\/=?\^_`{|}~]))*\1@(\w[\-\w]*\.){1,5}([A-Za-z]){2,6}$/
+    }
+});
+
+/**
+ * A superclass for inclusion/exclusion validators.
+ * @private
+ */
+Ext.define('Ext.data.validator.List', {
+    extend: 'Ext.data.validator.Validator',
+    alias: 'data.validator.list',
+    type: 'list',
+    config: {
+        /**
+         * @cfg {Array} list (required)
+         * The list to check the passed value against.
+         */
+        list: null
+    },
+    inclusion: null,
+    validate: function(value) {
+        var contains = Ext.Array.contains(this.getList(), value),
+            inclusion = this.inclusion,
+            exclusion = !inclusion,
+            result;
+        result = (inclusion && contains) || (exclusion && !contains);
+        return result || this.getMessage();
+    }
+});
+
+/**
+ * Validates that the value does not exist in a {@link #list} of values.
+ */
+Ext.define('Ext.data.validator.Exclusion', {
+    extend: 'Ext.data.validator.List',
+    alias: 'data.validator.exclusion',
+    type: 'exclusion',
+    config: {
+        /**
+         * @cfg {String} message
+         * The error message to return when the passed value exists in the
+         * specified {@link #list}.
+         */
+        message: 'Is a value that has been excluded'
+    },
+    constructor: function() {
+        this.callParent(arguments);
+        if (!this.getList()) {
+            Ext.raise('validator.Exclusion requires a list');
+        }
+    },
+    inclusion: false
+});
+
+/**
+ * Validates that the value exists in a {@link #list} of values.
+ */
+Ext.define('Ext.data.validator.Inclusion', {
+    extend: 'Ext.data.validator.List',
+    alias: 'data.validator.inclusion',
+    type: 'inclusion',
+    config: {
+        /**
+         * @cfg {String} message
+         * The error message to return when the passed value does not exist
+         * in the specified {@link #list}.
+         */
+        message: 'Is not in the list of acceptable values'
+    },
+    constructor: function() {
+        this.callParent(arguments);
+        if (!this.getList()) {
+            Ext.raise('validator.Inclusion requires a list');
+        }
+    },
+    inclusion: true
+});
+
+/**
+ * Validates that the length of the value is between a {@link #min} and {@link #max}.
+ */
+Ext.define('Ext.data.validator.Length', {
+    extend: 'Ext.data.validator.Bound',
+    alias: 'data.validator.length',
+    type: 'length',
+    config: {
+        /**
+         * @cfg {Number} min
+         * The minimum length value.
+         */
+        /**
+         * @cfg {Number} max
+         * The maximum length value.
+         */
+        /**
+         * @cfg {String} minOnlyMessage
+         * The error message to return when the value is less than the minimum
+         * length and only a minimum is specified.
+         */
+        minOnlyMessage: 'Length must be at least {0}',
+        /**
+         * @cfg {String} maxOnlyMessage
+         * The error message to return when the value is more than the maximum
+         * length and only a maximum is specified.
+         */
+        maxOnlyMessage: 'Length must be no more than {0}',
+        /**
+         * @cfg {String} bothMessage
+         * The error message to return when the value length is not in the specified
+         * range and both the minimum and maximum are specified.
+         */
+        bothMessage: 'Length must be between {0} and {1}'
+    },
+    getValue: function(v) {
+        return String(v).length;
+    }
+});
+
+/**
+ * Validates that the passed value is not `null` or `undefined` or `''`.
+ */
+Ext.define('Ext.data.validator.Presence', {
+    extend: 'Ext.data.validator.Validator',
+    alias: 'data.validator.presence',
+    type: 'presence',
+    config: {
+        /**
+         * @cfg {String} message
+         * The error message to return when the value is not specified.
+         */
+        message: 'Must be present',
+        /**
+         * @cfg {Boolean} allowEmpty
+         * `true` to allow `''` as a valid value.
+         */
+        allowEmpty: false
+    },
+    validate: function(value) {
+        var valid = !(value === undefined || value === null);
+        if (valid && !this.getAllowEmpty()) {
+            valid = !(value === '');
+        }
+        return valid ? true : this.getMessage();
+    }
+});
+
+/**
+ * Validates that the the value is between a {@link #min} and {@link #max}.
+ */
+Ext.define('Ext.data.validator.Range', {
+    extend: 'Ext.data.validator.Bound',
+    alias: 'data.validator.range',
+    type: 'range',
+    config: {
+        /**
+         * @cfg {Number} min
+         * The minimum value.
+         */
+        /**
+         * @cfg {Number} max
+         * The maximum value.
+         */
+        /**
+         * @inheritdoc
+         */
+        minOnlyMessage: 'Must be must be at least {0}',
+        /**
+         * @inheritdoc
+         */
+        maxOnlyMessage: 'Must be no more than than {0}',
+        /**
+         * @inheritdoc
+         */
+        bothMessage: 'Must be between {0} and {1}',
+        /**
+         * @cfg {String} nanMessage
+         * The error message to return when the value is not numeric.
+         */
+        nanMessage: 'Must be numeric'
+    },
+    validateValue: function(value) {
+        var msg = this.callParent([
+            value
+        ]);
+        if (msg === true && isNaN(value)) {
+            msg = this.getNanMessage();
+        }
+        return msg;
+    }
+});
+
+/**
  */
 Ext.define('Ext.data.field.Boolean', {
     extend: 'Ext.data.field.Field',
