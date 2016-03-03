@@ -5,6 +5,10 @@
  */
 Ext.define('B.AbstractRequestHandler', {
 
+    requires: [
+        'B.Protocol'
+    ],
+
     config: {
 
         /**
@@ -13,12 +17,18 @@ Ext.define('B.AbstractRequestHandler', {
         expressRequest: null,
 
         /**
+         * @required
          * @cfg {Object} expressResponse Express объект ответа.
          */
         expressResponse: null,
 
         /**
-         * @cfg {B.Protocol} protocol Объект протокола.
+         * @cfg {Ext.data.Model} requestModel Модель данных запроса.
+         */
+        requestModel: null,
+
+        /**
+         * @cfg {B.Protocol} protocol Объект протокола, создается автоматически.
          */
         protocol: null
     },

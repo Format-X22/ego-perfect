@@ -89,5 +89,21 @@ Ext.define('B.AbstractRouter', {
 
             this.getExpressRouter().use(path, target);
         }, this);
+    },
+
+    /**
+     * Валидирует модель.
+     * В случае если модель не валидна - отправляет клиенту сообщение об ошибке.
+     * @param {Ext.data.Model} model Модель запроса.
+     * @param {Object} response Express объект ответа сервера.
+     * @return {Boolean} Результат валидации.
+     */
+    checkRequestModel: function (model, response) {
+        if (model.isValid()) {
+            return true;
+        } else {
+            B.Protocol.sendInvalidParams(response);
+            return false
+        }
     }
 });

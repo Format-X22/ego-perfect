@@ -15,6 +15,11 @@ Ext.define('B.biz.search.Router', {
         }
     },
 
+    /**
+     * Обработчик запроса поиска.
+     * @param {Object} request Express объект запроса сервера.
+     * @param {Object} response Express объект ответа сервера.
+     */
     search: function (request, response) {
         var model = Ext.create('B.biz.search.SearchModel');
         var params = request.query;
@@ -25,9 +30,12 @@ Ext.define('B.biz.search.Router', {
             limit: params.limit
         });
 
-        Ext.create('B.biz.search.Search', {
-            expressRequest: request,
-            expressResponse: response
-        });
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.search.Search', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
     }
 });

@@ -39,13 +39,23 @@ Ext.define('B.Protocol', {
         },
 
         /**
-         * Отправляет сообщение об ошибке.
+         * Отправляет сообщение об ошибке доступа.
          * @param {Object} response Объект ответа Express.
          */
         sendAccessDenied: function (response) {
             new this({
                 expressResponse: response
             }).sendAccessDenied();
+        },
+
+        /**
+         * Отправляет сообщение о неверных параметрах запроса.
+         * @param {Object} response Объект ответа Express.
+         */
+        sendInvalidParams: function (response) {
+            new this({
+                expressResponse: response
+            }).sendInvalidParams();
         }
     },
 
@@ -94,9 +104,16 @@ Ext.define('B.Protocol', {
     },
 
     /**
-     * Отправляет сообщение об ошибке.
+     * Отправляет сообщение об ошибке доступа.
      */
     sendAccessDenied: function () {
         this.sendError('Доступ запрещен!');
+    },
+
+    /**
+     * Отправляет сообщение о неверных параметрах запроса.
+     */
+    sendInvalidParams: function () {
+        this.sendError('Неверные параметры запроса!');
     }
 });
