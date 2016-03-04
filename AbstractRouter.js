@@ -74,7 +74,7 @@ Ext.define('B.AbstractRouter', {
                     handler = this[handler];
                 }
 
-                this.getExpressRouter()[method](path, handler);
+                this.getExpressRouter()[method](path, handler.bind(this));
             }, this);
         }, this);
     },
