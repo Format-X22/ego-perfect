@@ -36,7 +36,12 @@ Ext.define('B.Mongo', {
         /**
          * @cfg {Function} objectIdMaker Нативный генератор Mongo ObjectID для указанного значения.
          */
-        objectIdMaker: null
+        objectIdMaker: null,
+
+        /**
+         * @cfg {String} requestErrorText Текст ошибки запроса к базе данных.
+         */
+        requestErrorText: 'Ошибка запроса к базе данных!'
     },
 
     constructor: function () {
