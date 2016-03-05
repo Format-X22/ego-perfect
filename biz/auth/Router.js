@@ -4,6 +4,23 @@
 Ext.define('B.biz.auth.Router', {
     extend: 'B.AbstractRouter',
 
+    requires: [
+        'B.biz.auth.ChangeLogin',
+        'B.biz.auth.ChangePass',
+        'B.biz.auth.ConfirmChangeLogin',
+        'B.biz.auth.ConfirmRestorePass',
+        'B.biz.auth.Login',
+        'B.biz.auth.Logout',
+        'B.biz.auth.Register',
+        'B.biz.auth.RestorePass',
+        'B.biz.auth.model.Base',
+        'B.biz.auth.model.ChangeLogin',
+        'B.biz.auth.model.Key',
+        'B.biz.auth.model.Login',
+        'B.biz.auth.model.Register',
+        'B.biz.auth.model.RestorePass',
+    ],
+
     map: {
         '/login': {
             post: 'login'
@@ -27,7 +44,7 @@ Ext.define('B.biz.auth.Router', {
             post: 'restorePass'
         },
         '/confirmRestorePass': {
-            post: 'confirmRestorePass'
+            get: 'confirmRestorePass'
         }
     },
 
@@ -37,22 +54,27 @@ Ext.define('B.biz.auth.Router', {
      * @param {Object} response Express объект ответа сервера.
      */
     login: function (request, response) {
-        var config = {
-            type: request.body.type,
-            login: request.body.login,
-            pass: request.body.pass
-        };
+        var model = Ext.create('B.biz.auth.model.Login');
+        var params = request.body;
 
-        Access.login(config, function (session) {
-            if (session) {
-                response.cookie('key', session, {
-                    httpOnly: true
-                });
-                return Protocol.sendSuccess(response);
-            } else {
-                return Protocol.sendError(response, 'Не верный логин или пароль!');
-            }
+        model.set({
+            type: params.type,
+            login: params.login,
+            pass: params.pass
         });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.auth.Login', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
+
+        /*'Не верный логин или пароль!';
+        response.cookie('key', session, {
+            httpOnly: true
+        });*/
     },
 
     /**
@@ -61,14 +83,19 @@ Ext.define('B.biz.auth.Router', {
      * @param {Object} response Express объект ответа сервера.
      */
     logout: function (request, response) {
-        Access.logout(request.cookies.key, function (success) {
-            if (success) {
-                response.clearCookie('key');
-                return Protocol.sendSuccess(response);
-            } else {
-                return Protocol.sendAccessDenied(response);
-            }
+        var model = Ext.create('B.biz.auth.model.Key');
+
+        model.set({
+            key: request.cookies.key
         });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.auth.Logout', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
     },
 
     /**
@@ -77,21 +104,26 @@ Ext.define('B.biz.auth.Router', {
      * @param {Object} response Express объект ответа сервера.
      */
     register: function (request, response) {
+        var model = Ext.create('B.biz.auth.model.Register');
         var params = request.body;
-        var config = {
+
+        model.set({
             type: params.type,
             login: params.login,
             partner: params.partner,
             captcha: params.captcha
-        };
-
-        Access.register(config, function (success) {
-            if (success) {
-                return Protocol.sendSuccess(response);
-            } else {
-                return Protocol.sendError(response, 'Похоже что-то введено не верно...');
-            }
         });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.auth.Register', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
+
+        //'Похоже что-то введено не верно...';
+        //Сессия?
     },
 
     /**
@@ -100,13 +132,19 @@ Ext.define('B.biz.auth.Router', {
      * @param {Object} response Express объект ответа сервера.
      */
     changePass: function (request, response) {
-        Access.changePass(request.cookies.key, function (success) {
-            if (success) {
-                return Protocol.sendSuccess(response);
-            } else {
-                return Protocol.sendAccessDenied(response);
-            }
+        var model = Ext.create('B.biz.auth.model.Key');
+
+        model.set({
+            key: request.cookies.key
         });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.auth.ChangePass', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
     },
 
     /**
@@ -115,13 +153,20 @@ Ext.define('B.biz.auth.Router', {
      * @param {Object} response Express объект ответа сервера.
      */
     changeLogin: function (request, response) {
-        Access.changeEmail(request.cookies.key, request.body.login, function (success) {
-            if (success) {
-                return Protocol.sendSuccess(response);
-            } else {
-                return Protocol.sendAccessDenied(response);
-            }
+        var model = Ext.create('B.biz.auth.model.ChangeLogin');
+
+        model.set({
+            login: request.body.login,
+            key: request.cookies.key
         });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.auth.ChangeLogin', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
     },
 
     /**
@@ -130,7 +175,19 @@ Ext.define('B.biz.auth.Router', {
      * @param {Object} response Express объект ответа сервера.
      */
     confirmChangeLogin: function (request, response) {
-        B.Protocol.sendSuccess(response);
+        var model = Ext.create('B.biz.auth.model.Key');
+
+        model.set({
+            key: request.cookies.key
+        });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.auth.ConfirmChangeLogin', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
     },
 
     /**
@@ -139,13 +196,23 @@ Ext.define('B.biz.auth.Router', {
      * @param {Object} response Express объект ответа сервера.
      */
     restorePass: function (request, response) {
-        Access.restorePass(request.body.login, request.body.type, function (success) {
-            if (success) {
-                return Protocol.sendSuccess(response);
-            } else {
-                return Protocol.sendError(response, 'Что-то пошло не так...');
-            }
+        var model = Ext.create('B.biz.auth.model.RestorePass');
+        var params = request.body;
+
+        model.set({
+            login: params.login,
+            type: params.type
         });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.auth.RestorePass', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
+
+        //'Что-то пошло не так...';
     },
 
     /**
@@ -153,7 +220,19 @@ Ext.define('B.biz.auth.Router', {
      * @param {Object} request Express объект запроса сервера.
      * @param {Object} response Express объект ответа сервера.
      */
-    confirmRestorePass: function () {
-        //
+    confirmRestorePass: function (request, response) {
+        var model = Ext.create('B.biz.auth.model.Key');
+
+        model.set({
+            key: request.cookies.key
+        });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.auth.ConfirmRestorePass', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
     }
 });

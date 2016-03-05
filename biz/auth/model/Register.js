@@ -8,9 +8,6 @@ Ext.define('B.biz.auth.model.Register', {
         login: {
             type: 'presence'
         },
-        partner: {
-            type: 'presence'
-        },
         type: {
             type: 'presence'
         },
