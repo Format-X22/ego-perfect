@@ -6,38 +6,34 @@ Ext.define('B.biz.auth.Logout', {
 
     constructor: function () {
         this.callParent(arguments);
-        this.getProtocol().sendSuccess();
-    }
-});
 
-/**
- * Обработка выхода из системы.
- * @param {String} key Ключ сессии.
- * @param {Function} callback Следующий шаг.
- */
-exports.logout = function (key, callback) {
-    if (!key) {
-        return callback(false);
-    }
-
-    removeSession(key, 'company', function (result) {
-        if (result === false) {
-            return callback(false);
-        }
-
-        if (result === true) {
-            return callback(true);
-        }
-
-        removeSession(key, 'partner', function (result) {
-            if (result === false || result === null) {
+        removeSession(key, 'company', function (result) {
+            if (result === false) {
                 return callback(false);
-            } else {
+            }
+
+            if (result === true) {
                 return callback(true);
             }
+
+            removeSession(key, 'partner', function (result) {
+                if (result === false || result === null) {
+                    return callback(false);
+                } else {
+                    return callback(true);
+                }
+            });
         });
-    });
-};
+    },
+
+    sendSuccess: function () {
+        this.getProtocol().sendSuccess();
+    },
+
+    sendError: function () {
+        this.getProtocol().sendError('Сессии не существует.');
+    }
+});
 
 /**
  * Обработка регистрации.
@@ -72,26 +68,6 @@ exports.register = function (config, callback) {
         }));
     }));
 };
-
-/**
- * @private
- * @param {Object} config Объект параметров.
- * @param {String} config.type Тип аккаунта.
- * @param {String} config.login Логин.
- * @param {String} config.captcha Капча.
- * @return {Boolean} Результат проверки.
- */
-function invalidRegisterParams (config) {
-    return (
-        !config.type ||
-        !config.login ||
-        !config.captcha ||
-        (
-            config.type !== 'company' &&
-            config.type !== 'partner'
-        )
-    )
-}
 
 /**
  * @private
