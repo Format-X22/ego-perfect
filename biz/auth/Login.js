@@ -5,11 +5,13 @@ Ext.define('B.biz.auth.Login', {
     extend: 'B.AbstractRequestHandler',
 
     requires: [
-        'B.biz.auth.utils.Account'
+        'B.biz.auth.util.Account',
+        'B.biz.auth.util.Crypt'
     ],
 
     config: {
-        account: null
+        account: null,
+        crypt: null
     },
 
     constructor: function () {
@@ -17,7 +19,7 @@ Ext.define('B.biz.auth.Login', {
 
         var model = this.getRequestModel();
 
-        Ext.create('B.biz.auth.utils.Account', {
+        Ext.create('B.biz.auth.util.Account', {
             login: model.get('login'),
             type: model.get('type'),
             scope: this,
@@ -26,7 +28,7 @@ Ext.define('B.biz.auth.Login', {
 
         /*
 
-            Salt.checkPass(pass, account.pass, backFalse(function () {
+
 
                 Salt.makeSession(login, backFalse(function (session, randomSalt) {
 
@@ -35,7 +37,7 @@ Ext.define('B.biz.auth.Login', {
                         return callback(session);
                     }));
                 }));
-            }));
+
         */
     },
 
@@ -43,6 +45,7 @@ Ext.define('B.biz.auth.Login', {
         var account = util.getFullAccountData();
 
         if (account) {
+            this.setAccount(account);
             this.checkPass();
         } else {
             this.sendError();
@@ -50,11 +53,29 @@ Ext.define('B.biz.auth.Login', {
     },
 
     checkPass: function () {
-        this.getProtocol().sendSuccess();
+        var crypt = Ext.create('B.biz.auth.util.Crypt', {
+            pass: this.getRequestModel().get('pass'),
+            hash: this.getAccount().pass,
+            scope: this,
+            callback: this.handlePassCheck
+        });
+
+        this.setCrypt(crypt);
+        crypt.checkPass();
     },
 
-    setSession: function () {
-        //
+    handlePassCheck: function (crypt) {
+        if (crypt.getCheckPassResult()) {
+            this.makeSession();
+        } else {
+            this.sendError();
+        }
+    },
+
+    makeSession: function () {
+        var crypt = this.getCrypt();
+
+        this.getProtocol().sendSuccess();
     },
 
     sendResponse: function () {
