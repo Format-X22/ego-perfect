@@ -70,10 +70,6 @@ Ext.define('B.biz.auth.Router', {
                 requestModel: model
             });
         }
-
-        /*response.cookie('key', session, {
-            httpOnly: true
-        });*/
     },
 
     /**
