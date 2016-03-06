@@ -12,7 +12,8 @@ Ext.define('B.biz.auth.model.Login', {
             type: 'presence'
         },
         type: {
-            type: 'presence'
+            type: 'inclusion',
+            list: ['company', 'partner']
         }
     }
 });

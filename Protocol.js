@@ -78,7 +78,7 @@ Ext.define('B.Protocol', {
      */
     sendData: function (data) {
         this.getExpressResponse().json({
-            data: data,
+            data: data || [],
             success: true,
             error: ''
         });

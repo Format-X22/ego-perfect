@@ -71,8 +71,7 @@ Ext.define('B.biz.auth.Router', {
             });
         }
 
-        /*'Не верный логин или пароль!';
-        response.cookie('key', session, {
+        /*response.cookie('key', session, {
             httpOnly: true
         });*/
     },

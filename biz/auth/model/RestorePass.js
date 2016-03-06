@@ -9,7 +9,8 @@ Ext.define('B.biz.auth.model.RestorePass', {
             type: 'presence'
         },
         type: {
-            type: 'presence'
+            type: 'inclusion',
+            list: ['company', 'partner']
         }
     }
 });
