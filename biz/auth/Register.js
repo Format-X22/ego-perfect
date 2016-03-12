@@ -98,7 +98,8 @@ Ext.define('B.biz.auth.Register', {
             var collection = B.Mongo.getCollection(type);
             var companyObject = {
                 login: login,
-                pass: hash
+                pass: hash,
+                type: type
             };
 
             collection.insertOne(companyObject, function (error) {

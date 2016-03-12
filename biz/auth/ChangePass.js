@@ -4,138 +4,135 @@
 Ext.define('B.biz.auth.ChangePass', {
     extend: 'B.AbstractRequestHandler',
 
+	requires: [
+		'B.Mail',
+		'B.biz.auth.util.Account',
+		'B.biz.auth.util.Crypt',
+		'B.biz.auth.util.Session'
+	],
+
+	config: {
+
+		/**
+		 * @cfg {Object} account Данные аккаунта.
+		 */
+		account: null,
+
+		/**
+		 * @cfg {B.biz.auth.util.Crypt} crypt Объект криптографии.
+		 */
+		crypt: null
+	},
+
     constructor: function () {
         this.callParent(arguments);
-        this.getProtocol().sendSuccess();
-    }
+
+		B.util.Function.queue([
+			this.checkAccountExistStep,
+			this.makeNewPassStep,
+			this.sendMailStep,
+			this.updateAccountStep,
+			this.sendSuccess
+		], this);
+    },
+
+	privates: {
+
+		/**
+		 * @private
+		 * @param {Function} next Следующий шаг.
+		 */
+		checkAccountExistStep: function (next) {
+			var model = this.getRequestModel();
+
+			Ext.create('B.biz.auth.util.Account', {
+				key: model.get('key'),
+				scope: this,
+				callback: function (acc) {
+					var accData = acc.getFullAccountData();
+
+					this.setAccount(accData);
+
+					if (accData) {
+						next();
+					} else {
+						this.sendError('Такого аккаунта не существует!');
+					}
+				}
+			});
+		},
+
+		/**
+		 * @private
+		 * @param {Function} next Следующий шаг.
+		 */
+		makeNewPassStep: function (next) {
+			Ext.create('B.biz.auth.util.Crypt', {
+				login: this.getAccount().login,
+				scope: this,
+				callback: function (crypt) {
+					this.setCrypt(crypt);
+
+					if (crypt.getHash()) {
+						next();
+					} else {
+						this.sendError('Невозможно создать новый пароль!');
+					}
+				}
+			}).makePassAndHash();
+		},
+
+		/**
+		 * @private
+		 * @param {Function} next Следующий шаг.
+		 */
+		sendMailStep: function (next) {
+			var accData = this.getAccount();
+			var crypt = this.getCrypt();
+
+			Ext.create('B.Mail', {
+				login: accData.login,
+				pass: crypt.getPass(),
+				type: accData.type,
+				scope: this,
+				callback: function (mailer) {
+					if (mailer.getError()) {
+						this.sendError('Невозможно отправить письмо с паролем! Будет оставлен старый пароль.');
+					} else {
+						next();
+					}
+				}
+			}).sendAuthMail();
+		},
+
+		/**
+		 * @private
+		 * @param {Function} next Следующий шаг.
+		 */
+		updateAccountStep: function (next) {
+			var accData = this.getAccount();
+			var crypt = this.getCrypt();
+
+			B.Mongo
+				.getCollection(accData.type)
+				.findOneAndUpdate(
+					{
+						login: accData.login
+					},
+					{
+						$set: {
+							pass: crypt.getHash(),
+							session: ''
+						}
+					},
+					function (error) {
+						if (error) {
+							this.sendError('Ошибка записи пароля в базу данных!');
+						} else {
+							next();
+						}
+					}.bind(this)
+				);
+		}
+	}
 });
-
-
-return;
-
-/**
- * Обработка смены пароля.
- * @param {String} key Ключ сессии.
- * @param {Function} callback Следующий шаг.
- */
-exports.changePass = function (key, callback) {
-    var backFalse = getStoredBackFalse(callback);
-
-    if (!key) {
-        return callback(false);
-    }
-
-    Account.getAccountByKey(key, backFalse(function (account, type) {
-
-        Salt.makePass(account.login, backFalse(function (pass, passHash) {
-
-            Mail.sendAuthMail(acc(type, account.login, pass), backFalse(function () {
-
-                setAuthData({
-                    type: type,
-                    session: key,
-                    set: {
-                        pass: passHash
-                    }
-                }, backFalse(function () {
-
-                    removeSession(key, type, callback);
-                }));
-            }));
-        }));
-    }));
-};
-
-/**
- * Обработка смены почты.
- * @param {String} key Ключ сессии.
- * @param {String} login Логин.
- * @param {Function} callback Следующий шаг.
- */
-exports.changeEmail = function (key, login, callback) {
-    var backFalse = getStoredBackFalse(callback);
-
-    if (!key) {
-        return callback(false);
-    }
-
-    Account.getAccountByKey(key, backFalse(function (account, type) {
-
-        Salt.makePass(login, backFalse(function (pass, passHash) {
-
-            Mail.sendAuthMail(acc(type, login, pass), function () {
-
-                setAuthData({
-                    type: type,
-                    session: key,
-                    set: {
-                        login: login,
-                        pass: passHash
-                    }
-                }, backFalse(function () {
-
-                    removeSession(key, type, callback);
-                }));
-            })
-        }));
-    }));
-};
-
-/**
- * Обработка восстановления пароля.
- * @param {String} login Логин.
- * @param {String} type Тип аккаунта.
- * @param {Function} callback Следующий шаг.
- */
-exports.restorePass = function (login, type, callback) {
-    var backFalse = getStoredBackFalse(callback);
-
-    if (!login) {
-        return callback(false);
-    }
-
-    Account.getAccountByLogin(login, type, backFalse(function (account) {
-        // @TODO
-    }));
-};
-
-
-/**
- * @private
- * @param {Object} config Объект параметров.
- * @param {Object} config.type Тип аккаунта.
- * @param {Object} config.session Ключ сессии.
- * @param {Object} config.set Набор данных для установки.
- * @param {Function} callback Следующий шаг.
- */
-function setAuthData (config, callback) {
-    Mongo
-        .collection(config.type)
-        .findOneAndUpdate(
-            {
-                session: config.session
-            },
-            {
-                $set: config.set
-            },
-            {},
-            function (error) {
-                return callback(!error);
-            }
-        )
-}
-
-/**
- * @private
- * @param {String} type Тип аккаунта.
- * @param {String} login Логин.
- * @param {String} pass Пароль.
- * @return {Object} Сгруппированные в объект параметры.
- */
-function acc (type, login, pass) {
-    return {
-        type: type,
-        login: login,
-        pass: pass
-    }
-}
