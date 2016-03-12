@@ -4,265 +4,167 @@
 Ext.define('B.biz.auth.Register', {
     extend: 'B.AbstractRequestHandler',
 
+    requires: [
+        'B.Mail',
+        'B.biz.auth.util.Account',
+        'B.biz.auth.util.Crypt',
+        'B.biz.auth.util.Session'
+    ],
+
+    config: {
+
+		/**
+         * @private
+         * @cfg {B.biz.auth.util.Crypt} crypt Объект криптографии.
+         */
+        crypt: null,
+
+        /**
+         * @private
+         * @cfg {B.biz.auth.util.Session} sessionUtil Утилита сессий.
+         */
+        sessionUtil: null
+    },
+
     constructor: function () {
         this.callParent(arguments);
-        this.getProtocol().sendSuccess();
+
+        B.util.Function.queue([
+            this.checkDuplicateStep,
+            this.makePassAndHashStep,
+            this.createCompanyStep,
+            this.sendMailStep,
+            this.makeSessionStep,
+            this.setSessionCookie,
+            this.sendSuccess
+        ], this);
+    },
+
+    privates: {
+
+		/**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        checkDuplicateStep: function (next) {
+            var model = this.getRequestModel();
+
+            Ext.create('B.biz.auth.util.Account', {
+                login: model.get('login'),
+                type: model.get('type'),
+                scope: this,
+                callback: function (accUtil) {
+                    if (accUtil.getFullAccountData()) {
+                        this.sendError('Такой аккаунт уже существует!');
+                    } else {
+                        next();
+                    }
+                }
+            });
+        },
+
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        makePassAndHashStep: function (next) {
+            var model = this.getRequestModel();
+
+            var crypt = Ext.create('B.biz.auth.util.Crypt', {
+                login: model.get('login'),
+                scope: this,
+                callback: function () {
+                    if (!crypt.getPass()) {
+                        this.sendError('Ошибка генерации пароля!');
+                    } else {
+                        next();
+                    }
+                }
+            });
+
+            this.setCrypt(crypt);
+            crypt.makePassAndHash();
+        },
+
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        createCompanyStep: function (next) {
+            var model = this.getRequestModel();
+            var login = model.get('login');
+            var type = model.get('type');
+            var hash = this.getCrypt().getHash();
+            var collection = B.Mongo.getCollection(type);
+            var companyObject = {
+                login: login,
+                pass: hash
+            };
+
+            collection.insertOne(companyObject, function (error) {
+                if (error) {
+                    this.sendError('Ошибка создания аккаунта!');
+                } else {
+                    next();
+                }
+            }.bind(this));
+        },
+
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        sendMailStep: function (next) {
+            var model = this.getRequestModel();
+            var pass = this.getCrypt().getPass();
+
+            Ext.create('B.Mail', {
+                login: model.get('login'),
+                pass: pass,
+                type: model.get('type'),
+                scope: this,
+                callback: function (mailer) {
+                    if (mailer.getError()) {
+                        this.sendError('Ошибка отправки письма с паролем!');
+                    } else {
+                        next();
+                    }
+                }
+            }).sendAuthMail();
+        },
+
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        makeSessionStep: function (next) {
+            var model = this.getRequestModel();
+
+            Ext.create('B.biz.auth.util.Session', {
+                login: model.get('login'),
+                type: model.get('type'),
+                scope: this,
+                callback: function (util) {
+                    this.setSessionUtil(util);
+
+                    if (util.getError()) {
+                        this.sendError('Ошибка создания сессии!');
+                    } else {
+                        next();
+                    }
+                }
+            }).addSession();
+        },
+
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        setSessionCookie: function (next) {
+            this.getExpressResponse().cookie('key', this.getSessionUtil().getSession(), {
+                httpOnly: true
+            });
+            next();
+        }
     }
 });
-
-/**
- * Обработка регистрации.
- * @param {Object} config Набор параметров.
- * @param {String} config.type Тип аккаунта.
- * @param {String} config.login Логин.
- * @param {String/Undefined} config.partner Ключ партнера.
- * @param {String} config.captcha Ключ капчи.
- * @param {Function} callback Следующий шаг.
- */
-exports.register = function (config, callback) {
-    var login = config.login;
-    var type = config.type;
-    var captcha = config.captcha;
-    var backFalse = getStoredBackFalse(callback);
-
-    if (invalidRegisterParams(config)) {
-        return callback(false);
-    }
-
-    checkCaptcha(captcha, backFalse(function () {
-
-        checkLogin(login, type, backFalse(function () {
-
-            Salt.makePass(login, function (pass, passHash) {
-
-                insertNewCompany(acc(type, login, passHash), backFalse(function () {
-
-                    Mail.sendAuthMail(acc(type, login, pass), callback);
-                }));
-            });
-        }));
-    }));
-};
-
-/**
- * @private
- * @param {Object} config Объект параметров.
- * @param {String} config.login Логин.
- * @param {String} config.pass Пароль.
- * @param {String} config.type Тип аккаунта.
- * @param {Function} callback Следующий шаг.
- */
-function insertNewCompany (config, callback) {
-    var login = config.login;
-    var pass = config.pass;
-    var type = config.type;
-
-    Mongo
-        .collection(type)
-        .insertOne(
-            {
-                login: login,
-                pass: pass
-            },
-            {},
-            function (error) {
-                return callback(!error);
-            }
-        );
-}
-
-/**
- * Обработка смены пароля.
- * @param {String} key Ключ сессии.
- * @param {Function} callback Следующий шаг.
- */
-exports.changePass = function (key, callback) {
-    var backFalse = getStoredBackFalse(callback);
-
-    if (!key) {
-        return callback(false);
-    }
-
-    Account.getAccountByKey(key, backFalse(function (account, type) {
-
-        Salt.makePass(account.login, backFalse(function (pass, passHash) {
-
-            Mail.sendAuthMail(acc(type, account.login, pass), backFalse(function () {
-
-                setAuthData({
-                    type: type,
-                    session: key,
-                    set: {
-                        pass: passHash
-                    }
-                }, backFalse(function () {
-
-                    removeSession(key, type, callback);
-                }));
-            }));
-        }));
-    }));
-};
-
-/**
- * Обработка смены почты.
- * @param {String} key Ключ сессии.
- * @param {String} login Логин.
- * @param {Function} callback Следующий шаг.
- */
-exports.changeEmail = function (key, login, callback) {
-    var backFalse = getStoredBackFalse(callback);
-
-    if (!key) {
-        return callback(false);
-    }
-
-    Account.getAccountByKey(key, backFalse(function (account, type) {
-
-        Salt.makePass(login, backFalse(function (pass, passHash) {
-
-            Mail.sendAuthMail(acc(type, login, pass), function () {
-
-                setAuthData({
-                    type: type,
-                    session: key,
-                    set: {
-                        login: login,
-                        pass: passHash
-                    }
-                }, backFalse(function () {
-
-                    removeSession(key, type, callback);
-                }));
-            })
-        }));
-    }));
-};
-
-/**
- * Обработка восстановления пароля.
- * @param {String} login Логин.
- * @param {String} type Тип аккаунта.
- * @param {Function} callback Следующий шаг.
- */
-exports.restorePass = function (login, type, callback) {
-    var backFalse = getStoredBackFalse(callback);
-
-    if (!login) {
-        return callback(false);
-    }
-
-    Account.getAccountByLogin(login, type, backFalse(function (account) {
-        // @TODO
-    }));
-};
-
-/**
- * @private
- * @param {String} key Ключ сессии.
- * @param {String} type Тип аккаунта.
- * @param {Function} callback
- * Следующий шаг, куда в случае если всё плохо передается false,
- * если всё успешно выполнено передается true,
- * а если документ не был наден - null.
- */
-function removeSession (key, type, callback) {
-    Mongo
-        .collection(type)
-        .findOneAndUpdate(
-            {
-                session: key
-            },
-            {
-                $set: {
-                    session: '',
-                    randomSalt: ''
-                }
-            },
-            {},
-            function (error, document) {
-                if (error) {
-                    return callback(false);
-                }
-
-                if (document.value) {
-                    return callback(true);
-                } else {
-                    return callback(null);
-                }
-            }
-        )
-}
-
-/**
- * @private
- * @param {String} captcha Капча.
- * @param {Function} callback Следующий шаг.
- */
-function checkCaptcha (captcha, callback) {
-    // @TODO
-
-    return callback(true);
-}
-
-/**
- * @private
- * @param {String} login Логин.
- * @param {String} type Тип аккаунта.
- * @param {Function} callback Следующий шаг.
- */
-function checkLogin (login, type, callback) {
-    Mongo
-        .collection(type)
-        .find({
-            login: login
-        })
-        .limit(1)
-        .next(function (error, account) {
-            if (error || account) {
-                return callback(false);
-            } else {
-                return callback(true);
-            }
-        });
-}
-
-/**
- * @private
- * @param {Object} config Объект параметров.
- * @param {Object} config.type Тип аккаунта.
- * @param {Object} config.session Ключ сессии.
- * @param {Object} config.set Набор данных для установки.
- * @param {Function} callback Следующий шаг.
- */
-function setAuthData (config, callback) {
-    Mongo
-        .collection(config.type)
-        .findOneAndUpdate(
-            {
-                session: config.session
-            },
-            {
-                $set: config.set
-            },
-            {},
-            function (error) {
-                return callback(!error);
-            }
-        )
-}
-
-/**
- * @private
- * @param {String} type Тип аккаунта.
- * @param {String} login Логин.
- * @param {String} pass Пароль.
- * @return {Object} Сгруппированные в объект параметры.
- */
-function acc (type, login, pass) {
-    return {
-        type: type,
-        login: login,
-        pass: pass
-    }
-}

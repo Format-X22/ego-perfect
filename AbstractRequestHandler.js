@@ -40,5 +40,20 @@ Ext.define('B.AbstractRequestHandler', {
         this.setProtocol(Ext.create('B.Protocol', {
             expressResponse: this.getExpressResponse()
         }));
+    },
+
+	/**
+	 * Отправляет сообщение о том что всё прошло успешно.
+     */
+    sendSuccess: function () {
+        this.getProtocol().sendSuccess();
+    },
+
+	/**
+	 * Отправляет сообщение об ошибке.
+     * @param {String} [error] Текст сообщения.
+     */
+    sendError: function (error) {
+        this.getProtocol().sendError(error);
     }
 });

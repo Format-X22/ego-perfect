@@ -11,9 +11,6 @@ Ext.define('B.biz.auth.model.Register', {
         type: {
             type: 'inclusion',
             list: ['company', 'partner']
-        },
-        captcha: {
-            type: 'presence'
         }
     }
 });

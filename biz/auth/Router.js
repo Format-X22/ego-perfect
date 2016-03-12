@@ -116,9 +116,6 @@ Ext.define('B.biz.auth.Router', {
                 requestModel: model
             });
         }
-
-        //'Похоже что-то введено не верно...';
-        //Сессия?
     },
 
     /**

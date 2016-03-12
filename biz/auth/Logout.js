@@ -16,7 +16,7 @@ Ext.define('B.biz.auth.Logout', {
             scope: this,
             callback: function () {
                 if (sessionUtil.getError()) {
-                    this.sendError();
+                    this.sendError('Сессии не существует.');
                 } else {
                     this.sendSuccess();
                 }
@@ -24,22 +24,5 @@ Ext.define('B.biz.auth.Logout', {
         });
 
         sessionUtil.removeSession();
-    },
-
-	privates: {
-
-		/**
-		 * @private
-		 */
-		sendSuccess: function () {
-			this.getProtocol().sendSuccess();
-		},
-
-		/**
-		 * @private
-		 */
-		sendError: function () {
-			this.getProtocol().sendError('Сессии не существует.');
-		}
-	}
+    }
 });

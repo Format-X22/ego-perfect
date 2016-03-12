@@ -88,22 +88,22 @@ Ext.define('B.biz.auth.util.Crypt', {
      * Создает пароль и хеш для него.
      * Требуется указать логин в конфиге класса.
      */
-    makePassAndHash: function (login) {
+    makePassAndHash: function () {
         var originCallback = this.getCallback();
 
         this.setCallback(function () {
             this.setCallback(originCallback);
             this.makePassHash();
         }.bind(this));
-        this.makePass(login);
+        this.makePass();
     },
 
     /**
      * Создает пароль.
      * Требуется указать логин в конфиге класса.
      */
-    makePass: function (login) {
-        this.getBcrypt().hash(login, 3, function (error, passTpl) {
+    makePass: function () {
+        this.getBcrypt().hash(this.getLogin(), 3, function (error, passTpl) {
             if (!error && passTpl) {
                 this.setPass(passTpl.slice(7, 15));
             }

@@ -44,6 +44,13 @@ Ext.define('B.biz.auth.Login', {
         });
     },
 
+	/**
+     * @inheritdoc
+     */
+    sendError: function () {
+        this.callParent(['Не верный логин или пароль!']);
+    },
+
     privates: {
 
         /**
@@ -136,20 +143,6 @@ Ext.define('B.biz.auth.Login', {
             this.getExpressResponse().cookie('key', this.getSessionUtil().getSession(), {
                 httpOnly: true
             });
-        },
-
-        /**
-         * @private
-         */
-        sendSuccess: function () {
-            this.getProtocol().sendSuccess();
-        },
-
-        /**
-         * @private
-         */
-        sendError: function () {
-            this.getProtocol().sendError('Не верный логин или пароль!');
         }
     }
 });
