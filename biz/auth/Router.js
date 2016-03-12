@@ -203,8 +203,6 @@ Ext.define('B.biz.auth.Router', {
                 requestModel: model
             });
         }
-
-        //'Что-то пошло не так...';
     },
 
     /**
