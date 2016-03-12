@@ -4,13 +4,6 @@
 Ext.define('B.biz.auth.ChangePass', {
     extend: 'B.biz.auth.AbstractPassModify',
 
-	requires: [
-		'B.Mail',
-		'B.biz.auth.util.Account',
-		'B.biz.auth.util.Crypt',
-		'B.biz.auth.util.Session'
-	],
-
 	/**
 	 * @inheritdoc
 	 */
