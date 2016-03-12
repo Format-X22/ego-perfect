@@ -142,6 +142,7 @@ Ext.define('B.biz.auth.util.Account', {
                     this.search();
                 }
             });
+            this.search();
         },
 
         /**

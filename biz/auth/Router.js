@@ -18,7 +18,7 @@ Ext.define('B.biz.auth.Router', {
         'B.biz.auth.model.Key',
         'B.biz.auth.model.Login',
         'B.biz.auth.model.Register',
-        'B.biz.auth.model.RestorePass',
+        'B.biz.auth.model.RestorePass'
     ],
 
     map: {

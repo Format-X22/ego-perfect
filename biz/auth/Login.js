@@ -6,7 +6,8 @@ Ext.define('B.biz.auth.Login', {
 
     requires: [
         'B.biz.auth.util.Account',
-        'B.biz.auth.util.Crypt'
+        'B.biz.auth.util.Crypt',
+        'B.biz.auth.util.Session'
     ],
 
     config: {
@@ -21,7 +22,13 @@ Ext.define('B.biz.auth.Login', {
          * @private
          * @cfg {B.biz.auth.util.Crypt} crypt Утилита криптографии.
          */
-        crypt: null
+        crypt: null,
+
+		/**
+		 * @private
+         * @cfg {B.biz.auth.util.Session} sessionUtil Утилита сессий.
+         */
+        sessionUtil: null
     },
 
     constructor: function () {
@@ -86,7 +93,7 @@ Ext.define('B.biz.auth.Login', {
          */
         handlePassCheck: function (crypt) {
             if (crypt.getCheckPassResult()) {
-                this.makeSession();
+                this.addSession();
             } else {
                 this.sendError();
             }
@@ -95,53 +102,26 @@ Ext.define('B.biz.auth.Login', {
         /**
          * @private
          */
-        makeSession: function () {
-            var crypt = this.getCrypt();
-
-            crypt.setCallback(this.handleSessionMake);
-            crypt.makeSession();
-        },
-
-        /**
-         * @private
-         * @param {B.biz.auth.util.Crypt} crypt Утилита криптографии.
-         */
-        handleSessionMake: function (crypt) {
-            if (crypt.getSession()) {
-                this.saveSession();
-            } else {
-                this.sendError();
-            }
-        },
-
-        /**
-         * @private
-         */
-        saveSession: function () {
+        addSession: function () {
             var model = this.getRequestModel();
-            var crypt = this.getCrypt();
+            var util = Ext.create('B.biz.auth.util.Session', {
+                login: model.get('login'),
+                type: model.get('type'),
+                account: this.getAccount(),
+                scope: this,
+                callback: this.handleSessionAdd
+            });
 
-            B.Mongo
-                .getCollection(model.get('type'))
-                .findOneAndUpdate(
-                    {
-                        login: model.get('login')
-                    },
-                    {
-                        $set: {
-                            session: crypt.getSession()
-                        }
-                    },
-                    this.handleSessionSave.bind(this)
-                );
+            this.setSessionUtil(util);
+            util.addSession();
         },
 
         /**
          * @private
-         * @param {Object} error Объект ошибки.
+         * @param {B.biz.auth.util.Session} util Утилита сессий.
          */
-        handleSessionSave: function (error) {
-            if (error) {
+        handleSessionAdd: function (util) {
+            if (util.getError()) {
                 this.sendError();
             } else {
                 this.setSessionCookie();
@@ -153,7 +133,7 @@ Ext.define('B.biz.auth.Login', {
          * @private
          */
         setSessionCookie: function () {
-            this.getExpressResponse().cookie('key', this.getCrypt().getSession(), {
+            this.getExpressResponse().cookie('key', this.getSessionUtil().getSession(), {
                 httpOnly: true
             });
         },
