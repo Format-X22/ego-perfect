@@ -50,28 +50,28 @@ Ext.define('A.view.client.editor.Basic', {
                             xtype: 'textfield',
                             fieldLabel: 'Телефон',
                             emptyText: '+7 (999) 777-99-99, +7 (888) 555-44-22',
-                            maxLength: 100
+                            maxLength: 200
                         },
                         {
                             name: 'site',
                             xtype: 'textfield',
                             fieldLabel: 'Сайт',
                             emptyText: 'http://mysite.com',
-                            maxLength: 100
+                            maxLength: 200
                         },
                         {
                             name: 'email',
                             xtype: 'textfield',
                             fieldLabel: 'Электронная почта',
                             emptyText: 'boss@mysite.com',
-                            maxLength: 100
+                            maxLength: 200
                         },
                         {
                             name: 'time',
                             xtype: 'textfield',
                             fieldLabel: 'Время работы',
                             emptyText: 'пн-пт: 9-18, сб-вс: 10-14',
-                            maxLength: 100
+                            maxLength: 200
                         },
                         {
                             name: 'address',

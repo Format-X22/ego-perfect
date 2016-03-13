@@ -64,9 +64,16 @@ Ext.define('B.biz.client.Router', {
 	 */
 	saveBasic: function (request, response) {
 		var model = Ext.create('B.biz.client.model.BasicData');
+		var params = request.body;
 
 		model.set({
-			//
+			name:    params.name,
+			phone:   params.phone,
+			site:    params.site,
+			email:   params.email,
+			time:    params.time,
+			address: params.address,
+			map:     params.map
 		});
 
 		if (this.checkRequestModel(model, response)) {
@@ -87,7 +94,7 @@ Ext.define('B.biz.client.Router', {
 		var model = Ext.create('B.biz.client.model.Summary');
 
 		model.set({
-			//
+			summary: request.body.summary
 		});
 
 		if (this.checkRequestModel(model, response)) {
@@ -106,9 +113,20 @@ Ext.define('B.biz.client.Router', {
 	 */
 	savePhoto: function (request, response) {
 		var model = Ext.create('B.biz.client.model.Photo');
+		var params = request.body;
 
 		model.set({
-			//
+			logo:    params.logo,
+			photo1:  params.photo1,
+			photo2:  params.photo2,
+			photo3:  params.photo3,
+			photo4:  params.photo4,
+			photo5:  params.photo5,
+			photo6:  params.photo6,
+			photo7:  params.photo7,
+			photo8:  params.photo8,
+			photo9:  params.photo9,
+			photo10: params.photo10
 		});
 
 		if (this.checkRequestModel(model, response)) {
@@ -127,9 +145,19 @@ Ext.define('B.biz.client.Router', {
 	 */
 	saveWords: function (request, response) {
 		var model = Ext.create('B.biz.client.model.Words');
+		var params = request.body;
 
 		model.set({
-			//
+			word1:  params.word1,
+			word2:  params.word2,
+			word3:  params.word3,
+			word4:  params.word4,
+			word5:  params.word5,
+			word6:  params.word6,
+			word7:  params.word7,
+			word8:  params.word8,
+			word9:  params.word9,
+			word10: params.word10
 		});
 
 		if (this.checkRequestModel(model, response)) {
