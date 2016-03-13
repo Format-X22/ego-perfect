@@ -19,10 +19,24 @@ Ext.define('B.biz.auth.util.Account', {
             delete account.login;
             delete account.pass;
             delete account.session;
-            delete account.randomSalt;
 
             return account;
-        }
+		},
+
+		/**
+		 * Удаляет из объекта внутренние авторизациоонные данные аккаунта.
+		 * Оставляет такие данные как логин.
+		 * Этот вид санитизации можно использовать для авторизованных
+		 * пользователей админок.
+		 * @param {Object} account Объект данных.
+		 * @return {Object} Очищенный объект.
+		 */
+		softSanitiseAccountData: function (account) {
+			delete account.pass;
+			delete account.session;
+
+			return account;
+		}
     },
 
     config: {
@@ -108,6 +122,17 @@ Ext.define('B.biz.auth.util.Account', {
 
         return this.self.sanitiseAccountData(data);
     },
+
+	/**
+	 * Возвращает набор данных аккаунта без авторизационных не безопасных полей.
+	 * Подходит для выдачи пользователям админки.
+	 * @return {Object} Набор данных.
+	 */
+	getPrivateAccountData: function () {
+		var data = this.getFullAccountData();
+
+		return this.self.softSanitiseAccountData(data);
+	},
 
     privates: {
 
