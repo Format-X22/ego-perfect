@@ -8,6 +8,7 @@ Ext.define('B.Main', {
         'B.Mongo',
 		'B.Cloudinary',
         'B.MainRouter',
+		'B.service.MainLoop',
         'B.util.Function'
     ],
 
