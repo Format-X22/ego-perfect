@@ -1,93 +1,204 @@
 /**
- * Основной модуль приложения.
+ * Основной класс приложения.
  */
-'use strict';
+Ext.define('B.Main', {
+    singleton: true,
 
-var Fn = require('./util/Fn');
-var Mongo = require('./modules/Mongo');
-var express = require('express');
-var expressApp = express();
-var pathModule = require('path');
-var http = require('http');
+    requires: [
+        'B.Mongo',
+		'B.Cloudinary',
+        'B.MainRouter',
+		'B.service.MainLoop',
+        'B.util.Function'
+    ],
 
-Fn.queue([
-    initDataBase,
-    initExpress,
-    initRouter,
-    launchServer
-]);
+    config: {
 
-/**
- * Инициализация базы.
- * @param {Function} next Следующий шаг.
- */
-function initDataBase (next) {
-    console.log('Init Mongo');
+        /**
+         * @cfg {Object} express Модуль Express.
+         */
+        express: require('express'),
 
-    Mongo.connect(next);
-}
+        /**
+         * @cfg {Object} expressApp Приложение Express.
+         */
+        expressApp: null,
 
-/**
- * Инициализация Экспресса.
- * @param {Function} next Следующий шаг.
- */
-function initExpress (next) {
-    console.log('Init Express');
+        /**
+         * @cfg {Object} server Объект сервера.
+         */
+        server: null,
 
-    var bodyParser = require('body-parser');
-    var publicDir = pathModule.join(__dirname, 'public');
-    var extendedFlag = {
-        extended: false
-    };
+        /**
+         * @cfg {Number} rerunTime Время до попытки перезапуска сервера.
+         */
+        rerunTime: 10 * 1000
+    },
 
-    expressApp.use(bodyParser.json());
-    expressApp.use(bodyParser.urlencoded(extendedFlag));
-    expressApp.use(require('cookie-parser')());
-    expressApp.use(express.static(publicDir));
+    constructor: function () {
+        this.initConfig(this.config);
+        this.setExpressApp(this.getExpress()());
 
-    next();
-}
+        B.util.Function.queue([
+            this.initDataBase,
+            this.initExpress,
+            this.initRouter,
+            this.createServer,
+            this.launchServer
+        ], this);
+    },
 
-/**
- * Инициализация роутера.
- * @param {Function} next Следующий шаг.
- */
-function initRouter (next) {
-    console.log('Init Router');
+    /**
+     * Инициализация базы.
+     * @param {Function} next Следующий шаг.
+     */
+    initDataBase: function (next) {
+        this.log('Инициализация Mongo.');
 
-    expressApp.use('/api/search',   require('./api/Search'));
-    expressApp.use('/api/company',  require('./api/Company'));
-    expressApp.use('/api/reviews',  require('./api/Reviews'));
-    expressApp.use('/api/auth',     require('./api/Auth'));
-    expressApp.use('/api/client',   require('./api/Client'));
-    //expressApp.use('/api/partner',  require('./api/Partner'));
+        B.Mongo.connect(next);
+    },
 
-    next();
-}
+    /**
+     * Инициализация Экспресса.
+     * @param {Function} next Следующий шаг.
+     */
+    initExpress: function (next) {
+        this.log('Инициализация Express.');
 
-/**
- * Запуск приложения.
- */
-function launchServer () {
-    console.log('Launch');
+        var bodyParser = require('body-parser');
+        var jsonParser = bodyParser.json();
+        var urlParser = bodyParser.urlencoded({
+            extended: false
+        });
+        var cookieParser = require('cookie-parser')();
+        var publicDir = require('path').join(__dirname, 'public');
+        var staticDirSign = this.getExpress().static(publicDir);
+        var app = this.getExpressApp();
 
-    var port = normalizePort(process.env.PORT) || 3000;
+        app.use(jsonParser);
+        app.use(urlParser);
+        app.use(cookieParser);
+        app.use(staticDirSign);
 
-    http.createServer(expressApp).listen(port);
-}
+        next();
+    },
 
-/**
- * @param value Значение порта.
- * @return {Number/Boolean} Номер порта числом, либо его алиас не числом, иначе false.
- */
-function normalizePort (value) {
-    var port = parseInt(value, 10);
+    /**
+     * Инициализация роутера.
+     * @param {Function} next Следующий шаг.
+     */
+    initRouter: function (next) {
+        this.log('Инициализация главного роутера.');
 
-    if (isNaN(port)) {
-        return value;
+        Ext.create('B.MainRouter', {
+            callback: next
+        });
+    },
+
+    /**
+     * Создание объекта сервера.
+     * @param {Function} [next] Следующий шаг.
+     */
+    createServer: function (next) {
+        this.log('Создание сервера.');
+
+        var http = require('http');
+        var app = this.getExpressApp();
+
+        this.setServer(http.createServer(app));
+        next && next();
+    },
+
+    /**
+     * Запуск сервера.
+     */
+    launchServer: function () {
+        this.log('Запуск сервера.');
+
+        var server = this.getServer();
+        var port = this.normalizePort(process.env.PORT) || 3000;
+
+        this.log('Порт запуска определен - ' + port);
+
+        server.on('error', this.handleServerError.bind(this));
+        server.listen(port, this.onServerStart.bind(this));
+    },
+
+    privates: {
+
+        /**
+         * @private
+         * @param value Значение порта.
+         * @return {Number/Boolean} Номер порта числом, либо его алиас не числом, иначе false.
+         */
+        normalizePort: function (value) {
+            var port = parseInt(value, 10);
+
+            if (isNaN(port)) {
+                return value;
+            }
+            if (port >= 0) {
+                return port;
+            }
+            return false;
+        },
+
+        /**
+         * @private
+         * @param {Object} error Объект ошибки сервера.
+         */
+        handleServerError: function (error) {
+            this.error('Ошибка сервера!\n\n' + error);
+
+            this.log('Попытка перезапуска сервера...');
+            this.tryRunServerLate();
+        },
+
+        /**
+         * @private
+         * @param {Object} error Объект ошибки сервера.
+         */
+        onServerStart: function (error) {
+            if (error) {
+                this.error(error);
+                this.tryRunServerLate();
+            } else {
+                this.log('Сервер успешно запущен.');
+            }
+        },
+
+        /**
+         * @private
+         */
+        tryRunServerLate: function () {
+            this.getServer().close();
+
+            Ext.defer(function () {
+                this.createServer();
+                this.launchServer();
+            }, this.getRerunTime(), this);
+        },
+
+        /**
+         * @private
+         * @param {String} msg Сообщение.
+         */
+        log: function (msg) {
+            Ext.log({
+                level: 'info',
+                msg: msg
+            });
+        },
+
+        /**
+         * @private
+         * @param {String} msg Сообщение.
+         */
+        error: function (msg) {
+            Ext.log({
+                level: 'error',
+                msg: msg
+            });
+        }
     }
-    if (port >= 0) {
-        return port;
-    }
-    return false;
-}
+});
