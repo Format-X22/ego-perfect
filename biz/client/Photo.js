@@ -2,10 +2,12 @@
  * Логика сохранения фото клиента.
  */
 Ext.define('B.biz.client.Photo', {
-	extend: 'B.AbstractRequestHandler',
+	extend: 'B.biz.client.AbstractSave',
 
-	constructor: function () {
-		this.callParent(arguments);
-		this.getProtocol().sendSuccess();
+	/**
+	 * @inheritdoc
+	 */
+	updateDataStep: function (next) {
+		//
 	}
 });

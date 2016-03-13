@@ -10,6 +10,13 @@ Ext.define('B.biz.client.model.Words', {
 
 	fields: [
 		{
+			name: 'key',
+			type: 'string',
+			validators: {
+				type: 'presence'
+			}
+		},
+		{
 			name: 'word1',
 			type: 'keyword'
 		},

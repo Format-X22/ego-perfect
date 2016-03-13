@@ -6,6 +6,13 @@ Ext.define('B.biz.client.model.Photo', {
 
 	fields: [
 		{
+			name: 'key',
+			type: 'string',
+			validators: {
+				type: 'presence'
+			}
+		},
+		{
 			name: 'logo',
 			validators: {
 				type: 'presence'

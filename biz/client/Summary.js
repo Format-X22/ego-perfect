@@ -2,10 +2,14 @@
  * Логика сохранения саммори клиента.
  */
 Ext.define('B.biz.client.Summary', {
-	extend: 'B.AbstractRequestHandler',
+	extend: 'B.biz.client.AbstractSave',
 
-	constructor: function () {
-		this.callParent(arguments);
-		this.getProtocol().sendSuccess();
+	/**
+	 * @inheritdoc
+	 */
+	getUpdateData: function () {
+		return {
+			summary: this.getRequestModel().get('summary')
+		};
 	}
 });

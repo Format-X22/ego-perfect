@@ -16,6 +16,10 @@ Ext.define('B.biz.auth.util.Account', {
          * @return {Object} Очищенный объект.
          */
         sanitiseAccountData: function (account) {
+			if (!account) {
+				return null;
+			}
+
             delete account.login;
             delete account.pass;
             delete account.session;
@@ -32,6 +36,10 @@ Ext.define('B.biz.auth.util.Account', {
 		 * @return {Object} Очищенный объект.
 		 */
 		softSanitiseAccountData: function (account) {
+			if (!account) {
+				return null;
+			}
+
 			delete account.pass;
 			delete account.session;
 

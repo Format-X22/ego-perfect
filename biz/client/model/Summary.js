@@ -6,6 +6,13 @@ Ext.define('B.biz.client.model.Summary', {
 
 	fields: [
 		{
+			name: 'key',
+			type: 'string',
+			validators: {
+				type: 'presence'
+			}
+		},
+		{
 			name: 'summary',
 			type: 'string',
 			validators: {

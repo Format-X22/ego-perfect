@@ -1,13 +1,12 @@
 /**
  * Роутер логики данных партнеров.
- * Использует модели авторизации.
  */
 Ext.define('B.biz.partner.Router', {
     extend: 'B.AbstractRouter',
 
 	requires: [
-		'B.biz.auth.model.Key',
-		'B.biz.partner.AccountData'
+		'B.biz.partner.AccountData',
+		'B.biz.partner.AccountDataModel'
 	],
 
 	map: {
@@ -22,7 +21,7 @@ Ext.define('B.biz.partner.Router', {
 	 * @param {Object} response Express объект ответа сервера.
 	 */
 	getAccountData: function (request, response) {
-		var model = Ext.create('B.biz.auth.model.Key');
+		var model = Ext.create('B.biz.partner.AccountDataModel');
 
 		model.set({
 			key: request.cookies.key

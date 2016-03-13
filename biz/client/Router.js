@@ -1,17 +1,16 @@
 /**
  * Роутер логики данных клиентов.
- * Использует модели авторизации.
  */
 Ext.define('B.biz.client.Router', {
     extend: 'B.AbstractRouter',
 
 	requires: [
-		'B.biz.auth.model.Key',
 		'B.biz.client.AccountData',
 		'B.biz.client.BasicData',
 		'B.biz.client.Summary',
 		'B.biz.client.Photo',
 		'B.biz.client.Words',
+		'B.biz.client.model.AccountData',
 		'B.biz.client.model.BasicData',
 		'B.biz.client.model.Summary',
 		'B.biz.client.model.Photo',
@@ -42,7 +41,7 @@ Ext.define('B.biz.client.Router', {
 	 * @param {Object} response Express объект ответа сервера.
 	 */
 	getAccountData: function (request, response) {
-		var model = Ext.create('B.biz.auth.model.Key');
+		var model = Ext.create('B.biz.client.model.AccountData');
 
 		model.set({
 			key: request.cookies.key
@@ -67,6 +66,7 @@ Ext.define('B.biz.client.Router', {
 		var params = request.body;
 
 		model.set({
+			key:     request.cookies.key,
 			name:    params.name,
 			phone:   params.phone,
 			site:    params.site,
@@ -94,6 +94,7 @@ Ext.define('B.biz.client.Router', {
 		var model = Ext.create('B.biz.client.model.Summary');
 
 		model.set({
+			key:     request.cookies.key,
 			summary: request.body.summary
 		});
 
@@ -116,6 +117,7 @@ Ext.define('B.biz.client.Router', {
 		var params = request.body;
 
 		model.set({
+			key:     request.cookies.key,
 			logo:    params.logo,
 			photo1:  params.photo1,
 			photo2:  params.photo2,
@@ -148,6 +150,7 @@ Ext.define('B.biz.client.Router', {
 		var params = request.body;
 
 		model.set({
+			key:    request.cookies.key,
 			word1:  params.word1,
 			word2:  params.word2,
 			word3:  params.word3,
