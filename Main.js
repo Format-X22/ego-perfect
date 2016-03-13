@@ -6,6 +6,7 @@ Ext.define('B.Main', {
 
     requires: [
         'B.Mongo',
+		'B.Cloudinary',
         'B.MainRouter',
         'B.util.Function'
     ],
