@@ -11,19 +11,17 @@ Ext.define('B.biz.company.Company', {
 
         B.Mongo
             .getCollection('company')
-            .find(
+            .findOneAndUpdate(
                 {
                     search_id: id
                 },
                 {
-                    login: 0,
-                    pass: 0,
-                    key: 0,
-                    partner: 0
-                }
-            )
-            .toArray(
-                this.sendResponse.bind(this)
+                    $inc: {
+						views: 1,
+						rating: 1
+					}
+                },
+				this.sendResponse.bind(this)
             );
     },
 
@@ -32,15 +30,15 @@ Ext.define('B.biz.company.Company', {
         /**
          * @private
          * @param {Object} error Объект ошибки.
-         * @param {Object[]} data Набор данных.
+         * @param {Object[]} result Результат.
          */
-        sendResponse: function (error, data) {
+        sendResponse: function (error, result) {
             var errorText = B.Mongo.getRequestErrorText();
 
             if (error) {
                 this.getProtocol().sendError(errorText);
             } else {
-                this.getProtocol().sendData(data);
+                this.getProtocol().sendData(result.value);
             }
         }
     }

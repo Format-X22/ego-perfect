@@ -110,6 +110,12 @@ Ext.define('B.biz.auth.Register', {
 				registerDate: new Date()
             };
 
+			if (type === 'company') {
+				companyObject.rating = 0;
+				companyObject.views = 0;
+				companyObject.reviews = [];
+			}
+
             if (type === 'partner') {
                 companyObject.clients = [];
                 companyObject.partners = [];

@@ -41,13 +41,6 @@ Ext.define('B.biz.reviews.ReviewsModel', {
             }
         },
         {
-            name: 'captcha',
-            type: 'string',
-            validators: {
-                type: 'presence'
-            }
-        },
-        {
             name: 'rating',
             type: 'int',
             validators: {

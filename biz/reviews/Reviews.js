@@ -21,10 +21,12 @@ Ext.define('B.biz.reviews.Reviews', {
                             name:        model.get('name'),
                             header:      model.get('header'),
                             description: model.get('description'),
-                            captcha:     model.get('captcha'),
                             rating:      model.get('rating'),
                             date:        this.getDate()
                         }
+                    },
+                    $inc: {
+                        rating: model.get('rating') * 20
                     }
                 },
                 this.sendResponse.bind(this)
