@@ -23,7 +23,13 @@ Ext.define('B.biz.auth.Register', {
          * @private
          * @cfg {B.biz.auth.util.Session} sessionUtil Утилита сессий.
          */
-        sessionUtil: null
+        sessionUtil: null,
+
+		/**
+		 * @private
+         * @cfg {String} accountId Айди аккаунта клиента.
+         */
+        accountId: null
     },
 
     constructor: function () {
@@ -33,6 +39,7 @@ Ext.define('B.biz.auth.Register', {
             this.checkDuplicateStep,
             this.makePassAndHashStep,
             this.createCompanyStep,
+			this.registerPartnerKeyStep,
             this.sendMailStep,
             this.makeSessionStep,
             this.setSessionCookie,
@@ -99,17 +106,81 @@ Ext.define('B.biz.auth.Register', {
             var companyObject = {
                 login: login,
                 pass: hash,
-                type: type
+                type: type,
+				registerDate: new Date()
             };
 
-            collection.insertOne(companyObject, function (error) {
+            if (type === 'partner') {
+                companyObject.clients = [];
+                companyObject.partners = [];
+            }
+
+            collection.insertOne(companyObject, function (error, result) {
                 if (error) {
                     this.sendError('Ошибка создания аккаунта!');
                 } else {
+                    this.setAccountId(result.insertedId);
                     next();
                 }
             }.bind(this));
         },
+
+		/**
+		 * @private
+		 * @param {Function} next Следующий шаг.
+		 */
+		registerPartnerKeyStep: function (next) {
+			var key = this.getRequestModel().get('partner');
+
+			if (!key) {
+				next();
+				return;
+			}
+
+			B.Mongo
+				.getCollection('partner')
+				.findOneAndUpdate(
+					{
+						_id: B.Mongo.makeId(key)
+					},
+					{
+						$push: this.getPushPartnerKeyConfig()
+					},
+					function (error) {
+						if (error) {
+							this.sendError('Ошибка прикрепления аккаунта к партнеру!');
+						} else {
+							next();
+						}
+					}
+				);
+		},
+
+		/**
+		 * @private
+		 * @return {Object} Конфиг.
+		 */
+		getPushPartnerKeyConfig: function () {
+			var config = {};
+			var field = this.getPushPartnerKeyFieldName();
+
+			config[field] = this.getAccountId();
+
+			return config;
+		},
+
+		/**
+		 * @private
+		 * @return {String} Имя поля.
+		 */
+		getPushPartnerKeyFieldName: function () {
+			switch (this.getRequestModel().get('type')) {
+				case 'company':
+					return 'clients';
+				case 'partner':
+					return 'partners';
+			}
+		},
 
         /**
          * @private
