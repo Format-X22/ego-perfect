@@ -14,7 +14,7 @@ Ext.define('A.view.main.auth.LoginPage', {
 
     defaults: {
         width: 500,
-        labelWidth: 70
+		labelWidth: 120
     },
 
     items: [
@@ -35,16 +35,16 @@ Ext.define('A.view.main.auth.LoginPage', {
             defaults: {
                 flex: 1
             },
-            layout: 'hbox',
+            layout: 'vbox',
             items: [
                 {
-                    boxLabel: 'Клиент',
+                    boxLabel: 'Клиент, моя компания на сайте.',
                     name: 'type',
                     inputValue: 'company',
                     checked: true
                 },
                 {
-                    boxLabel: 'Партнер',
+                    boxLabel: 'Партнер, работаем вместе.',
                     name: 'type',
                     inputValue: 'partner'
                 }

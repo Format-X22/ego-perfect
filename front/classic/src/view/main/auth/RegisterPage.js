@@ -28,28 +28,28 @@ Ext.define('A.view.main.auth.RegisterPage', {
             src: '/resources/img/logo.svg',
             margin: '0 0 10 0'
         },
-        {
-            xtype      : 'fieldcontainer',
-            fieldLabel : 'Я',
-            defaultType: 'radiofield',
-            defaults: {
-                flex: 1
-            },
-            layout: 'hbox',
-            items: [
-                {
-                    boxLabel  : 'Клиент',
-                    name      : 'type',
-                    inputValue: 'company',
-                    checked: true
-                },
-                {
-                    boxLabel  : 'Партнер',
-                    name      : 'type',
-                    inputValue: 'partner'
-                }
-            ]
-        },
+		{
+			xtype      : 'fieldcontainer',
+			fieldLabel : 'Я',
+			defaultType: 'radiofield',
+			defaults: {
+				flex: 1
+			},
+			layout: 'vbox',
+			items: [
+				{
+					boxLabel  : 'Клиент, хочу разместить свою компанию.',
+					name      : 'type',
+					inputValue: 'company',
+					checked: true
+				},
+				{
+					boxLabel  : 'Партнер, хочу приглашать клиентов.',
+					name      : 'type',
+					inputValue: 'partner'
+				}
+			]
+		},
         {
             name: 'login',
             xtype: 'textfield',
@@ -65,13 +65,6 @@ Ext.define('A.view.main.auth.RegisterPage', {
             fieldLabel: 'Код партнера',
             emptyText: 'могли дать наши партнеры, не обязателен',
             validateOnChange: false
-        },
-        {
-            name: 'captcha',
-            xtype: 'textfield',
-            fieldLabel: 'Код с картинки',
-            validateOnChange: false,
-            allowBlank: false
         },
         {
             xtype: 'container',
