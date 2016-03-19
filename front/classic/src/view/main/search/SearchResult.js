@@ -31,8 +31,7 @@ Ext.define('A.view.main.search.SearchResult', {
                     inputType: 'search',
                     emptyText: 'Что ищем?',
                     submitEmptyText: false,
-                    flex: 1,
-                    maxWidth: 500,
+                    flex: 2,
                     listeners: {
                         specialkey: 'searchIfEnter'
                     }
@@ -42,6 +41,24 @@ Ext.define('A.view.main.search.SearchResult', {
                     xtype: 'button',
                     iconCls: 'x-fa fa-search',
                     text: 'Искать'
+                },
+                {
+                    xtype: 'tbspacer',
+                    plugins: 'responsive',
+                    responsiveConfig: {
+                        'width < 900': {
+                            flex: 1,
+                            hidden: true
+                        },
+                        'width < 1370 && width >= 900': {
+                            flex: 1,
+                            hidden: false
+                        },
+                        'width >= 1370': {
+                            flex: 3,
+                            hidden: false
+                        }
+                    }
                 }
             ],
             listeners: {

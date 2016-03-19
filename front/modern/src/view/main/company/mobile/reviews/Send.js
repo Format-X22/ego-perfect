@@ -67,7 +67,7 @@ Ext.define('A.view.main.company.mobile.reviews.Send', {
                     itemId: 'rating',
                     name: 'rating',
                     xtype: 'hiddenfield',
-                    value: 3
+                    value: 5
                 },
                 {
                     xtype: 'container',
@@ -102,13 +102,13 @@ Ext.define('A.view.main.company.mobile.reviews.Send', {
                         {
                             itemId: 'star4',
                             xtype: 'button',
-                            iconCls: 'x-fa fa-star-o',
+                            iconCls: 'x-fa fa-star',
                             handler: 'set4star'
                         },
                         {
                             itemId: 'star5',
                             xtype: 'button',
-                            iconCls: 'x-fa fa-star-o',
+                            iconCls: 'x-fa fa-star',
                             handler: 'set5star'
                         }
                     ]
@@ -117,57 +117,7 @@ Ext.define('A.view.main.company.mobile.reviews.Send', {
                     itemId: 'showCaptcha',
                     xtype: 'button',
                     text: 'Отправить',
-                    handler: 'showCaptchaBlock'
-                },
-                {
-                    itemId: 'captchaInputContainer',
-                    xtype: 'container',
-                    hidden: true,
-                    layout: 'hbox',
-                    items: [
-                        {
-                            itemId: 'captchaInput',
-                            name: 'captcha',
-                            xtype: 'textfield',
-                            disabled: true,
-                            placeHolder: 'Вы не робот?',
-                            width: '100%',
-                            margin: '20 0 0 0',
-                            maxLength: 10,
-                            component: {
-                                autoComplete: false,
-                                autoCapitalize: false,
-                                autoCorrect: false
-                            }
-                        }
-                    ]
-                },
-                {
-                    itemId: 'captchaImageContainer',
-                    xtype: 'container',
-                    hidden: true,
-                    layout: 'hbox',
-                    items: [
-                        {
-                            xtype: 'image',
-                            width: '100%'
-                        }
-                    ]
-                },
-                {
-                    itemId: 'sendWithCaptchaContainer',
-                    xtype: 'container',
-                    hidden: true,
-                    layout: 'hbox',
-                    items: [
-                        {
-                            itemId: 'send',
-                            xtype: 'button',
-                            text: 'Отправить',
-                            width: '100%',
-                            handler: 'send'
-                        }
-                    ]
+                    handler: 'send'
                 }
             ]
         }

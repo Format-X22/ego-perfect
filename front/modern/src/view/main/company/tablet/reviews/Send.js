@@ -21,9 +21,8 @@ Ext.define('A.view.main.company.tablet.reviews.Send', {
             itemId: 'reviewForm',
             xtype: 'formpanel',
             padding: 10,
-            maxWidth: 590,
+            width: 600,
             defaults: {
-                maxWidth: 570,
                 margin: 5
             },
             items: [
@@ -67,7 +66,7 @@ Ext.define('A.view.main.company.tablet.reviews.Send', {
                     itemId: 'rating',
                     name: 'rating',
                     xtype: 'hiddenfield',
-                    value: 3
+                    value: 5
                 },
                 {
                     xtype: 'container',
@@ -105,13 +104,13 @@ Ext.define('A.view.main.company.tablet.reviews.Send', {
                                 {
                                     itemId: 'star4',
                                     xtype: 'button',
-                                    iconCls: 'x-fa fa-star-o',
+                                    iconCls: 'x-fa fa-star',
                                     handler: 'set4star'
                                 },
                                 {
                                     itemId: 'star5',
                                     xtype: 'button',
-                                    iconCls: 'x-fa fa-star-o',
+                                    iconCls: 'x-fa fa-star',
                                     handler: 'set5star'
                                 }
                             ]
@@ -123,66 +122,6 @@ Ext.define('A.view.main.company.tablet.reviews.Send', {
                             itemId: 'showCaptcha',
                             xtype: 'button',
                             text: 'Отправить',
-                            handler: 'showCaptchaBlock',
-                            margin: '0 -5 0 0'
-                        }
-                    ]
-                },
-                {
-                    itemId: 'captchaInputContainer',
-                    xtype: 'container',
-                    hidden: true,
-                    layout: 'hbox',
-                    items: [
-                        {
-                            flex: 1
-                        },
-                        {
-                            itemId: 'captchaInput',
-                            name: 'captcha',
-                            xtype: 'textfield',
-                            disabled: true,
-                            placeHolder: 'Вы точно не робот?',
-                            width: 150,
-                            maxLength: 10,
-                            component: {
-                                autoComplete: false,
-                                autoCapitalize: false,
-                                autoCorrect: false
-                            }
-                        }
-                    ]
-                },
-                {
-                    itemId: 'captchaImageContainer',
-                    xtype: 'container',
-                    hidden: true,
-                    layout: 'hbox',
-                    width: 700,
-                    items: [
-                        {
-                            flex: 1
-                        },
-                        {
-                            xtype: 'image'
-                        }
-                    ]
-                },
-                {
-                    itemId: 'sendWithCaptchaContainer',
-                    xtype: 'container',
-                    hidden: true,
-                    layout: 'hbox',
-                    margin: '10 0',
-                    items: [
-                        {
-                            flex: 1
-                        },
-                        {
-                            itemId: 'send',
-                            xtype: 'button',
-                            text: 'Отправить',
-                            margin: '0 -5 0 0',
                             handler: 'send'
                         }
                     ]

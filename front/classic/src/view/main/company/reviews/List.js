@@ -29,6 +29,18 @@ Ext.define('A.view.main.company.reviews.List', {
                     cls: 'company-reviews-list',
                     itemSelector: '.review-item',
                     width: '100%',
+					plugins: 'responsive',
+					responsiveConfig: {
+						'width < 900': {
+							margin: '0 25'
+						},
+						'width < 1370 && width >= 900': {
+							margin: '0 300'
+						},
+						'width >= 1370': {
+							margin: '0 600'
+						}
+					},
                     emptyText: '<div class="empty-reviews">Пока ещё ни одного отзыва.<br>Оставьте первый!</div>',
                     tpl:
                         '<tpl for=".">' +
