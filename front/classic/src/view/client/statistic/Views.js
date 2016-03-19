@@ -10,6 +10,15 @@ Ext.define('A.view.client.statistic.Views', {
 
     items: [
         {
+			xtype: 'adminTopDescription',
+            html:
+                'Количество просмотров отображает интерес к вашей компании.<br>' +
+                'Просмотры также влияют и на ваш рейтинг.<br>' +
+                'Каждый просмотр - потенциальный клиент.<br>' +
+                'Чем лучше вы представете свою компанию, чем более интереснее будут ваши предложения и фото,<br>' +
+                'тем больше потенциальных клиентов станут вашими реальными клиентами.'
+        },
+        {
             itemId: 'placeholder',
             xtype: 'clientStatisticEmptyPlaceholder'
         },
@@ -17,6 +26,7 @@ Ext.define('A.view.client.statistic.Views', {
             xtype: 'container',
             layout: 'fit',
             width: '100%',
+			margin: '10 0 0 0',
             flex: 1,
             items: [
                 {

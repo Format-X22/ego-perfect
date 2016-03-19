@@ -10,6 +10,15 @@ Ext.define('A.view.client.statistic.Stars', {
 
     items: [
         {
+			xtype: 'adminTopDescription',
+            html:
+                'Звездность отзывов указывает на отношение ваших клиентов к вашим услугам.<br>' +
+                'Однако не стоит забывать о том что отзывы обычно оставляют только те клиенты,<br>' +
+                'которым что-то не понравилось, это классический паттерн поведения большей части людей.<br>' +
+                'Просите клиентов оставлять отзывы, особенно если им всё понравилось, это улучшит отношение к вам<br>' +
+				'ваших новых клинетов.'
+        },
+        {
             itemId: 'placeholder',
             xtype: 'clientStatisticEmptyPlaceholder'
         },
@@ -17,6 +26,7 @@ Ext.define('A.view.client.statistic.Stars', {
             xtype: 'container',
             layout: 'fit',
             width: '100%',
+			margin: '10 0 0 0',
             flex: 1,
             items: [
                 {

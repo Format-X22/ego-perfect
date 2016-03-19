@@ -10,6 +10,14 @@ Ext.define('A.view.client.statistic.Reviews', {
 
     items: [
         {
+			xtype: 'adminTopDescription',
+            html:
+                'Количество отзывов указывает на желание людей рассказывать о вашей компании другим людям.<br>' +
+                'Это также влияет и на ваш рейтинг.<br>' +
+                'При возможности просите ваших клиентов оставить о вас отзыв,<br>' +
+                'это благоприятно скажется на вашем бизнесе.'
+        },
+        {
             itemId: 'placeholder',
             xtype: 'clientStatisticEmptyPlaceholder'
         },
@@ -17,6 +25,7 @@ Ext.define('A.view.client.statistic.Reviews', {
             xtype: 'container',
             layout: 'fit',
             width: '100%',
+			margin: '10 0 0 0',
             flex: 1,
             items: [
                 {

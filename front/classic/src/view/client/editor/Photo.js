@@ -16,6 +16,14 @@ Ext.define('A.view.client.editor.Photo', {
         {
             xtype: 'widgetSaveToolbar'
         },
+		{
+			xtype: 'adminTopDescription',
+			border: '0 0 1 0',
+			html:
+				'Эти фотографии увидят ваши потенциальные клиенты.<br>' +
+				'Чем лучше будут фотографии и чем точнее они опишут ваш род деятельности,<br>' +
+				'тем больше вероятность того что потенциальный клиент станет реальным клиентом.'
+		},
         {
             xtype: 'container',
             padding: '20 20 20 50',
@@ -31,6 +39,7 @@ Ext.define('A.view.client.editor.Photo', {
                         pack: 'center'
                     },
                     defaults: {
+						margin: '4 0',
                         width: 600,
                         msgTarget: 'under',
                         regex: /.(png|jpg|jpeg)$/i,

@@ -16,6 +16,11 @@ Ext.define('A.view.client.editor.Basic', {
         {
             xtype: 'widgetSaveToolbar'
         },
+		{
+			xtype: 'adminTopDescription',
+			border: '0 0 1 0',
+			html: 'На этой вкладке вы можете указать основную информацию о вашей компании.'
+		},
         {
             xtype: 'container',
             padding: '20 20 20 50',

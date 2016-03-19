@@ -24,7 +24,8 @@ Ext.define('A.view.client.Main', {
         'A.view.client.editor.Photo',
         'A.view.client.Profile',
         'A.view.client.TopToolbar',
-        'A.view.widget.SaveToolbar'
+        'A.view.widget.SaveToolbar',
+        'A.view.widget.AdminTopDescription'
     ],
 
     layout: 'vbox',

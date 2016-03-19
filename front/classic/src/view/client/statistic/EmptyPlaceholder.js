@@ -6,8 +6,8 @@ Ext.define('A.view.client.statistic.EmptyPlaceholder', {
     extend: 'Ext.Component',
     xtype: 'clientStatisticEmptyPlaceholder',
 
-    padding: 40,
+    padding: '0 40 20 40',
     html:
-        'Примерно так может выглядеть ваша статистика.<br>' +
-        'Реальная статистика будет сформирована спустя месяц после размещения.'
+        'Примерно так будет выглядеть ваша статистика.<br>' +
+        'Реальная статистика будет сформирована второго числа ближайшего месяца.'
 });

@@ -14,6 +14,17 @@ Ext.define('A.view.client.editor.Summary', {
         {
             xtype: 'widgetSaveToolbar'
         },
+		{
+			xtype: 'adminTopDescription',
+			border: '0 0 1 0',
+			html:
+				'Опишите вашу компанию. Подробно.<br>' +
+				'Расскажите о том чем вы занимаетесь и что можете предложить.<br>' +
+				'Особенно хорошо если клиент, прочитав первые предложения,<br>' +
+				'сразу поймет что он может получить и на что рассчитывать.<br>' +
+				'На основе этого текста будет сформировано первое впечатление<br>' +
+				'о вас и вашей компании.'
+		},
         {
             xtype: 'container',
             layout: {
@@ -27,7 +38,7 @@ Ext.define('A.view.client.editor.Summary', {
                     xtype: 'htmleditor',
                     padding: '20 0 0 0',
                     width: 600,
-                    height: 350,
+                    height: 340,
                     resizable: {
                         handles: 'w e s se sw'
                     },

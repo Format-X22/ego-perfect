@@ -35,6 +35,7 @@ Ext.define('A.view.main.company.Gallery', {
                     items.push({
                         itemId: 'image' + i,
                         xtype: 'image',
+                        alt: 'Это место для фото пока пусто...',
                         hidden: true
                     });
                 }

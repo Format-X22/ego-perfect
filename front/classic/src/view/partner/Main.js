@@ -11,7 +11,8 @@ Ext.define('A.view.partner.Main', {
         'A.view.partner.TopToolbar',
         'A.view.partner.statistic.Main',
         'A.view.partner.Profile',
-        'A.view.partner.Key'
+        'A.view.partner.Key',
+        'A.view.widget.AdminTopDescription'
     ],
 
     layout: 'vbox',
