@@ -20,7 +20,7 @@ Ext.define('A.view.main.company.reviews.Send', {
         {
             itemId: 'reviewForm',
             xtype: 'form',
-            padding: 10,
+            padding: '100 10',
             defaults: {
                 width: 700
             },
@@ -29,6 +29,7 @@ Ext.define('A.view.main.company.reviews.Send', {
                     name: 'name',
                     xtype: 'textfield',
                     fieldLabel: 'Имя',
+                    minLength: 3,
                     maxLength: 100,
                     allowBlank: false
                 },
@@ -36,6 +37,7 @@ Ext.define('A.view.main.company.reviews.Send', {
                     name: 'header',
                     xtype: 'textfield',
                     fieldLabel: 'Заголовок',
+                    minLength: 3,
                     maxLength: 100,
                     allowBlank: false
                 },
@@ -44,6 +46,7 @@ Ext.define('A.view.main.company.reviews.Send', {
                     xtype: 'textarea',
                     fieldLabel: 'Отзыв',
                     height: 120,
+                    minLength: 3,
                     maxLength: 1000,
                     allowBlank: false
                 },
@@ -61,10 +64,10 @@ Ext.define('A.view.main.company.reviews.Send', {
                             submitValue: true,
                             xtype: 'displayfield',
                             fieldLabel: 'Оценка',
-                            labelWidth: 50,
-                            margin: '2 5 0 0',
+                            labelWidth: 60,
+                            margin: '2 15 0 0',
                             width: 65,
-                            value: 3
+                            value: 5
                         },
                         {
                             xtype: 'container',
@@ -95,13 +98,13 @@ Ext.define('A.view.main.company.reviews.Send', {
                                 {
                                     itemId: 'star4',
                                     xtype: 'button',
-                                    iconCls: 'x-fa fa-star-o',
+                                    iconCls: 'x-fa fa-star',
                                     handler: 'set4star'
                                 },
                                 {
                                     itemId: 'star5',
                                     xtype: 'button',
-                                    iconCls: 'x-fa fa-star-o',
+                                    iconCls: 'x-fa fa-star',
                                     handler: 'set5star'
                                 }
                             ]
@@ -111,61 +114,6 @@ Ext.define('A.view.main.company.reviews.Send', {
                         },
                         {
                             itemId: 'showCaptcha',
-                            xtype: 'button',
-                            text: 'Отправить',
-                            handler: 'showCaptchaBlock'
-                        }
-                    ]
-                },
-                {
-                    itemId: 'captchaInputContainer',
-                    xtype: 'container',
-                    hidden: true,
-                    layout: 'hbox',
-                    items: [
-                        {
-                            flex: 1
-                        },
-                        {
-                            itemId: 'captchaInput',
-                            name: 'captcha',
-                            xtype: 'textfield',
-                            disabled: true,
-                            fieldLabel: 'Вы точно не робот?',
-                            labelWidth: 130,
-                            width: 225,
-                            maxLength: 10,
-                            allowBlank: false
-                        }
-                    ]
-                },
-                {
-                    itemId: 'captchaImageContainer',
-                    xtype: 'container',
-                    hidden: true,
-                    layout: 'hbox',
-                    width: 700,
-                    items: [
-                        {
-                            flex: 1
-                        },
-                        {
-                            xtype: 'image'
-                        }
-                    ]
-                },
-                {
-                    itemId: 'sendWithCaptchaContainer',
-                    xtype: 'container',
-                    hidden: true,
-                    layout: 'hbox',
-                    margin: '10 0',
-                    items: [
-                        {
-                            flex: 1
-                        },
-                        {
-                            itemId: 'send',
                             xtype: 'button',
                             text: 'Отправить',
                             handler: 'send'

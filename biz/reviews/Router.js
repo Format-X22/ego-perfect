@@ -29,7 +29,6 @@ Ext.define('B.biz.reviews.Router', {
             name: params.name,
             header: params.header,
             description: params.description,
-            captcha: params.captcha,
             rating: params.rating
         });
 

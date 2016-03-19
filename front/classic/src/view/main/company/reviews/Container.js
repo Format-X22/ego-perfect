@@ -11,16 +11,16 @@ Ext.define('A.view.main.company.reviews.Container', {
     ],
 
     layout: {
-        type: 'hbox',
-        pack: 'center'
+        type: 'hbox'
     },
 
+    width: '100%',
     height: '100%',
 
     items: [
         {
             xtype: 'tabpanel',
-            width: 900,
+            width: '100%',
             height: '100%',
             padding: '15 0',
             items: [

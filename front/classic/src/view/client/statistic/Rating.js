@@ -10,6 +10,12 @@ Ext.define('A.view.client.statistic.Rating', {
 
     items: [
         {
+            xtype: 'adminTopDescription',
+            html:
+                'Рейтинг - главный показатель вашей популярности.<br>' +
+                'Чем выше рейтинг - тем первее бы будете показаны пользователю среди прочих компаний.'
+        },
+        {
             itemId: 'placeholder',
             xtype: 'clientStatisticEmptyPlaceholder'
         },
@@ -17,6 +23,7 @@ Ext.define('A.view.client.statistic.Rating', {
             xtype: 'container',
             layout: 'fit',
             width: '100%',
+			margin: '10 0 0 0',
             flex: 1,
             items: [
                 {

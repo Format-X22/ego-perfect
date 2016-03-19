@@ -12,6 +12,23 @@ Ext.define('B.service.MainLoop', {
 	],
 
 	constructor: function () {
-		//
+		setInterval(function () {
+			var date = new Date();
+			var hour = date.getUTCHours() + 3;
+			var dateNum = date.getUTCDate();
+
+			if (hour === 4) {
+				Ext.create('B.service.SearchCleaner', {});
+
+				if (dateNum === 1) {
+					Ext.create('B.service.ClientStat', {});
+				}
+
+				if (dateNum === 2) {
+					Ext.create('B.service.ClientStat', {});
+				}
+			}
+
+		}.bind(this), 1000 * 60 * 60);
 	}
 });

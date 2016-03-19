@@ -16,6 +16,15 @@ Ext.define('A.view.client.editor.KeyWords', {
         {
             xtype: 'widgetSaveToolbar'
         },
+		{
+			xtype: 'adminTopDescription',
+			border: '0 0 1 0',
+			html:
+				'Именно по этим словам и фразам вас и сможет найти клиент.<br>' +
+				'Укажите то, что максимально характеризует именно ваш род деятельности и то,<br>' +
+				'какие услуги или товары вы можете предоставить.<br>' +
+				'При необходимости укажите город.'
+		},
         {
             xtype: 'container',
             padding: '20 20 20 50',
@@ -31,6 +40,7 @@ Ext.define('A.view.client.editor.KeyWords', {
                         pack: 'center'
                     },
                     defaults: {
+						margin: '4 0',
                         width: 600,
                         msgTarget: 'under',
                         maskRe: /([A-z]|[А-я]|[0-9]|ё|Ё|-)/i,

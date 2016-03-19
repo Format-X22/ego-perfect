@@ -8,19 +8,6 @@ Ext.define('A.view.main.company.reviews.SendController', {
     SEND_URL: '/api/reviews',
 
     /**
-     * Показывает блок капчи.
-     */
-    showCaptchaBlock: function () {
-        if (this.isValid()) {
-            this.viewDown('#captchaInputContainer').show();
-            this.viewDown('#captchaImageContainer').show();
-            this.viewDown('#sendWithCaptchaContainer').show();
-            this.viewDown('#captchaInput').enable();
-            this.scrollToBottomIfModern();
-        }
-    },
-
-    /**
      * Прячет блок капчи.
      */
     hideCaptchaBlock: function () {
@@ -66,8 +53,7 @@ Ext.define('A.view.main.company.reviews.SendController', {
      * Сбрасывает форму в начальный вид.
      */
     resetForm: function () {
-        this.hideCaptchaBlock();
-        this.set3star();
+        this.set5star();
 
         if (Ext.isClassic) {
             this.viewDown('#reviewForm').reset();
@@ -75,7 +61,6 @@ Ext.define('A.view.main.company.reviews.SendController', {
             this.viewDown('[name=name]').setValue();
             this.viewDown('[name=header]').setValue();
             this.viewDown('[name=description]').setValue();
-            this.viewDown('[name=captcha]').setValue();
         }
     },
 
@@ -158,13 +143,6 @@ Ext.define('A.view.main.company.reviews.SendController', {
         /**
          * @private
          */
-        scrollToBottomIfModern: function () {
-            this.scrollToIfModern(Infinity);
-        },
-
-        /**
-         * @private
-         */
         scrollToIfModern: function (value) {
             if (Ext.isClassic) {
                 return;
@@ -232,21 +210,15 @@ Ext.define('A.view.main.company.reviews.SendController', {
          * @return {Boolean} Валидны ли поля.
          */
         isValidModern: function () {
-            var captcha = this.viewDown('[name=captcha]');
-            var captchaEnabled = !captcha.isDisabled();
             var noError =
                 this.viewDown('[name=name]').getValue() &&
                 this.viewDown('[name=header]').getValue() &&
                 this.viewDown('[name=description]').getValue();
 
-            if (captchaEnabled) {
-                noError = noError && captcha.getValue();
-            }
-
             if (noError) {
                 return true;
             } else {
-                this.showMessage('Оопс...', 'Не все поля заполнены.', 'ERROR');
+                this.showMessage('Ошибка', 'Не все поля заполнены.', 'ERROR');
                 return false;
             }
         },

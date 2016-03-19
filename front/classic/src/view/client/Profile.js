@@ -16,6 +16,10 @@ Ext.define('A.view.client.Profile', {
     },
 
     items: [
+		{
+			xtype: 'adminTopDescription',
+			html: 'Настройки вашего аккаунта на этой вкладке.'
+		},
         {
             flex: 1
         },

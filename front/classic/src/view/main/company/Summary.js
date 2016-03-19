@@ -41,11 +41,20 @@ Ext.define('A.view.main.company.Summary', {
         {
             xtype: 'component',
             cls: 'separator-vertical',
-            padding: '0 15 25 25',
-            margin: '0 0 0 31',
             flex: 1,
             bind: {
                 html: '{summary}'
+            },
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 1500': {
+                    padding: '0 15 25 25',
+                    margin: '0 0 0 31'
+                },
+                'width >= 1500': {
+                    padding: '30 100 50 50',
+                    margin: '0 0 0 62'
+                }
             }
         }
     ]
