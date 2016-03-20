@@ -35,7 +35,7 @@ Ext.define('A.view.main.search.SearchResult', {
                         autoCorrect: false
                     },
                     listeners: {
-                        action: 'search'
+                        action: 'modernKeyboardSearch'
                     }
                 },
                 {
