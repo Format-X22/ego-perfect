@@ -56,14 +56,16 @@ Ext.define('B.biz.reviews.Save', {
         /**
          * @private
          * @param {Object} error Объект ошибки.
+         * @param {Object} result Результат запроса.
          */
-        sendResponse: function (error) {
+        sendResponse: function (error, result) {
             var errorText = B.Mongo.getRequestErrorText();
+            var document = result.value;
 
-            if (error) {
+            if (error || !document) {
                 this.getProtocol().sendError(errorText);
             } else {
-                this.getProtocol().sendSuccess();
+                this.getProtocol().sendData(document.reviews);
             }
         }
     }
