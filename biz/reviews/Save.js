@@ -1,7 +1,7 @@
 /**
  * Сохранение отзывов.
  */
-Ext.define('B.biz.reviews.Reviews', {
+Ext.define('B.biz.reviews.Save', {
     extend: 'B.AbstractRequestHandler',
 
     constructor: function () {
