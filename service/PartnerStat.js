@@ -1,9 +1,22 @@
 /**
- * Сервис для ежемесячной генерации отчетов для партнеров.
+ * Сервис для генерации отчетов для партнеров.
  */
 Ext.define('B.service.PartnerStat', {
+    extend: 'B.service.AbstractStat',
 
-	constructor: function () {
-		//
-	}
+    serviceNameForLogger: 'Отчеты для партнеров',
+
+    /**
+     * @inheritdoc
+     */
+    extractData: function (next) {
+        //
+    },
+
+    /**
+     * @inheritdoc
+     */
+    update: function (document) {
+        //
+    }
 });
