@@ -21,6 +21,16 @@ Ext.define('A.view.main.company.mobile.Summary', {
                 {
                     xtype: 'component',
                     padding: 15,
+                    plugins: 'responsive',
+                    responsiveConfig: {
+                        width: {
+                            maxWidth: {
+                                toString: function () {
+                                    return Ext.Viewport.getWindowWidth();
+                                }
+                            }
+                        }
+                    },
                     bind: {
                         html: '{name}'
                     }
@@ -35,6 +45,16 @@ Ext.define('A.view.main.company.mobile.Summary', {
         {
             xtype: 'component',
             padding: '15 10',
+            plugins: 'responsive',
+            responsiveConfig: {
+                width: {
+                    width: {
+                        toString: function () {
+                            return Ext.Viewport.getWindowWidth();
+                        }
+                    }
+                }
+            },
             bind: {
                 html:
                     '<div class="property"><div class="title">Рейтинг</div> <div class="value">{rating}</div></div>' +
@@ -53,6 +73,16 @@ Ext.define('A.view.main.company.mobile.Summary', {
         {
             xtype: 'component',
             padding: 15,
+            plugins: 'responsive',
+            responsiveConfig: {
+                width: {
+                    width: {
+                        toString: function () {
+                            return Ext.Viewport.getWindowWidth();
+                        }
+                    }
+                }
+            },
             bind: {
                 html: '{summary}'
             }
