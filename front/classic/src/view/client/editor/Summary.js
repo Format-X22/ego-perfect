@@ -28,26 +28,22 @@ Ext.define('A.view.client.editor.Summary', {
         {
             xtype: 'container',
             layout: {
-                type: 'vbox',
-                align: 'center',
-                pack: 'center'
+                type: 'fit'
             },
             items: [
                 {
                     name: 'summary',
                     xtype: 'htmleditor',
-                    padding: '20 0 0 0',
-                    width: 600,
-                    height: 340,
+                    margin: 20,
+                    flex: 1,
+                    height: 200,
                     resizable: {
-                        handles: 'w e s se sw'
+                        handles: 's'
                     },
-                    enableColors: false,
-                    enableFont: false,
-                    enableFontSize: false,
-                    enableSourceEdit: false,
-                    enableLinks: false,
-                    value: 'А мы самые <b>лучшие!</b>'
+                    value: 'А мы самые <b>лучшие!</b>',
+                    listeners: {
+                        change: 'validateAndUpdateCounter'
+                    }
                 }
             ]
         }
