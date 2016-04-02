@@ -57,14 +57,20 @@ Ext.define('A.view.main.auth.RegisterPage', {
             fieldLabel: 'Почта',
             allowBlank: false,
             validateOnChange: false,
-            regex: /.*@.*\.*/
+            regex: /.*@.*\.*/,
+            listeners: {
+                specialkey: 'trySendIfEnterKey'
+            }
         },
         {
             name: 'partner',
             xtype: 'textfield',
             fieldLabel: 'Код партнера',
             emptyText: 'могли дать наши партнеры, не обязателен',
-            validateOnChange: false
+            validateOnChange: false,
+            listeners: {
+                specialkey: 'trySendIfEnterKey'
+            }
         },
         {
             xtype: 'container',

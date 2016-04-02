@@ -39,6 +39,17 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
     },
 
     /**
+     * Пытается отправить форму если была нажата клавиша Enter.
+     * @param {Ext.form.field.Base} field Поле ввода.
+     * @param {Ext.event.Event} event Объект эвента.
+     */
+    trySendIfEnterKey: function (field, event) {
+        if (event.getKey() === event.ENTER) {
+            this.trySend();
+        }
+    },
+
+    /**
      * Перенаправляет на страницу аккаунта.
      */
     goToPage: function () {
