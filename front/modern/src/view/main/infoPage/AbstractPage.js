@@ -13,6 +13,7 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
 
     layout: {
         type: 'hbox',
+        align: 'center',
         pack: 'center'
     },
     scrollable: 'vertical',
