@@ -115,5 +115,11 @@ Ext.define('A.view.main.company.mobile.Summary', {
             height: 15,
             border: 0
         }
-    ]
+    ],
+
+    listeners: {
+        painted: function () {
+            this.component.getScrollable().scrollTo(0, 0);
+        }
+    }
 });
