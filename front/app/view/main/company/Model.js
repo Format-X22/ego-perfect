@@ -8,7 +8,7 @@ Ext.define('A.view.main.company.Model', {
     data: {
         mapMarker: null,
         _id:       '',
-        search_id: 'sample',
+        search_id: 'empty_logo',
         name:      '',
         phone:     '',
         email:      '',
