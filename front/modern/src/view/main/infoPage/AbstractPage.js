@@ -3,14 +3,17 @@
  */
 Ext.define('A.view.main.infoPage.AbstractPage', {
     extend: 'Ext.Container',
+    controller: 'mainInfoPageAbstractPageController',
 
     requires: [
         'Ext.plugin.Responsive',
-        'A.view.main.infoPage.InfoComicIcon'
+        'A.view.main.infoPage.InfoComicIcon',
+        'A.view.main.infoPage.AbstractPageController'
     ],
 
     layout: {
         type: 'hbox',
+        align: 'center',
         pack: 'center'
     },
     scrollable: 'vertical',
@@ -47,6 +50,10 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
             }
         }
     ],
+    
+    listeners: {
+        show: 'fixFreeze'
+    },
 
     /**
      * @protected

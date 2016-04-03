@@ -78,6 +78,7 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
 
         if (!Ext.isClassic) {
             this.showHelpModern();
+            this.resetResultScrollPosition();
         }
     },
 
@@ -111,6 +112,13 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
                     query: value || ''
                 }
             });
+        },
+
+        /**
+         * @private
+         */
+        resetResultScrollPosition: function () {
+            A.getCmp('searchResult').getController().setLastScrollPosition({x: 0, y: 0});
         }
     }
 });

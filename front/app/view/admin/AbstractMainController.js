@@ -69,7 +69,14 @@ Ext.define('A.view.admin.MainController', {
          * @private
          */
         applyLoadedData: function () {
-            this.getView().loadRecord(this.getRecord());
+            var view = this.getView();
+            var fields = A.getAllCmp('field', view);
+
+            view.loadRecord(this.getRecord());
+
+            Ext.each(fields, function (field) {
+                field.originalValue = field.getValue();
+            }, this);
 
             if (this.isStatsExits()) {
                 this.applyDataToCharts();

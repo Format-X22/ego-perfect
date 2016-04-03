@@ -114,28 +114,17 @@ Ext.define('B.biz.client.Router', {
 	 */
 	savePhoto: function (request, response) {
 		var model = Ext.create('B.biz.client.model.Photo');
-		var params = request.body;
 
-		model.set({
-			key:     request.cookies.key,
-			logo:    params.logo,
-			photo1:  params.photo1,
-			photo2:  params.photo2,
-			photo3:  params.photo3,
-			photo4:  params.photo4,
-			photo5:  params.photo5,
-			photo6:  params.photo6,
-			photo7:  params.photo7,
-			photo8:  params.photo8,
-			photo9:  params.photo9,
-			photo10: params.photo10
-		});
+        model.set({
+            key: request.cookies.key
+        });
 
 		if (this.checkRequestModel(model, response)) {
 			Ext.create('B.biz.client.Photo', {
 				expressRequest: request,
 				expressResponse: response,
-				requestModel: model
+				requestModel: model,
+                busboy: request.busboy
 			});
 		}
 	},

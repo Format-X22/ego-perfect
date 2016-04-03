@@ -47,22 +47,24 @@ Ext.define('A.view.client.editor.Photo', {
                     },
                     items: [
                         {
+                            name: 'logo',
+                            xtype: 'filefield',
+                            fieldLabel: 'Картинка для отображения в поиске'
+                        },
+                        {
                             name: 'photo1',
                             xtype: 'filefield',
-                            fieldLabel: 'Фото №1',
-                            allowBlank: false
+                            fieldLabel: 'Фото №1'
                         },
                         {
                             name: 'photo2',
                             xtype: 'filefield',
-                            fieldLabel: 'Фото №2',
-                            allowBlank: false
+                            fieldLabel: 'Фото №2'
                         },
                         {
                             name: 'photo3',
                             xtype: 'filefield',
-                            fieldLabel: 'Фото №3',
-                            allowBlank: false
+                            fieldLabel: 'Фото №3'
                         },
                         {
                             name: 'photo4',

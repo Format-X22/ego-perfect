@@ -42,11 +42,27 @@ Ext.define('A.view.client.editor.KeyWords', {
                     defaults: {
 						margin: '4 0',
                         width: 600,
+                        maxLength: 100,
                         msgTarget: 'under',
-                        maskRe: /([A-z]|[А-я]|[0-9]|ё|Ё|-)/i,
-                        regex: /^([A-z]|[А-я]|[0-9]|ё|Ё|-)+$/i,
-                        regexText: 'Используйте одно слово из букв, цифр и тире',
-                        maxLength: 100
+                        validator: function (value) {
+                            if (!value) {
+                                return true;
+                            }
+                            
+                            value = value
+                                .trim()
+                                .replace(/ - /g,  ' ')
+                                .replace( /- /g,  ' ')
+                                .replace( / -/g,  ' ')
+                                .replace(  /-/g,  ' ')
+                                .replace(/[ ]+/g, ' ');
+
+                            if (value.split(' ').length > 3) {
+                                return 'Слишком много для одного слова...';
+                            }
+
+                            return true;
+                        }
                     },
                     items: [
                         {

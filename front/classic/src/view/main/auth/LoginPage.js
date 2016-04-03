@@ -56,7 +56,10 @@ Ext.define('A.view.main.auth.LoginPage', {
             inputType: 'email',
             fieldLabel: 'Почта',
             allowBlank: false,
-            validateOnChange: false
+            validateOnChange: false,
+            listeners: {
+                specialkey: 'trySendIfEnterKey'
+            }
         },
         {
             name: 'pass',
@@ -64,7 +67,10 @@ Ext.define('A.view.main.auth.LoginPage', {
             inputType: 'password',
             fieldLabel: 'Пароль',
             validateOnChange: false,
-            allowBlank: false
+            allowBlank: false,
+            listeners: {
+                specialkey: 'trySendIfEnterKey'
+            }
         },
         {
             xtype: 'container',

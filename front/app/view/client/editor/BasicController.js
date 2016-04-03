@@ -5,7 +5,7 @@ Ext.define('A.view.client.editor.BasicController', {
     extend: 'A.view.widget.AbstractSaveToolbarController',
     alias: 'controller.clientEditorBasic',
 
-    url: '/api/client',
+    url: '/api/client/basic',
 
     /**
      * Валидатор для поля ввода координат.

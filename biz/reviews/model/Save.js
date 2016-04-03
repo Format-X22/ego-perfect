@@ -1,7 +1,7 @@
 /**
  * Модель параметров сохранения отзывов.
  */
-Ext.define('B.biz.reviews.ReviewsModel', {
+Ext.define('B.biz.reviews.model.Save', {
     extend: 'Ext.data.Model',
 
     requires: [

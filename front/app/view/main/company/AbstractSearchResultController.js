@@ -19,6 +19,14 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         }
     },
 
+    config: {
+
+        /**
+         * @cfg {Object} lastScrollPosition Последняя позиция скролла.
+         */
+        lastScrollPosition: null
+    },
+
     /**
      * @protected
      * Открывает компанию, соответствующую данным рекорда или по ID.
@@ -26,12 +34,31 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
      */
     openCompany: function (recordOrId) {
         var id = recordOrId;
+        var detailsTab = this.getCompanyDetailsTabPanels()[0];
+        var main = detailsTab.up('appMain');
 
         if (recordOrId instanceof Ext.data.Model) {
             id = recordOrId.get('id');
         }
 
-        this.loadCompany(id, this.showCompany);
+        if (Ext.isClassic) {
+            detailsTab.setLoading(true);
+        } else {
+            main.mask({
+                xtype: 'loadmask',
+                message: 'Загрузка...'
+            });
+        }
+
+        this.saveCurrentScrollIfModern();
+        this.showCompany();
+        this.loadCompany(id, function () {
+            if (Ext.isClassic) {
+                detailsTab.setLoading(false);
+            } else {
+                main.unmask();
+            }
+        });
     },
 
     /**
@@ -103,7 +130,6 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         Ext.each(this.getCompanyDetailsTabPanels(), function (tabPanel) {
             this.resetCompanyActiveTabNum(tabPanel);
             this.resetCompanyTabsScroll(tabPanel);
-            this.resetCompanyTabsGallery(tabPanel);
         }, this);
     },
 
@@ -168,14 +194,23 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
             return;
         }
 
-        var result = this.getResultCard();
+        var scrollContainer = this.getView().down('#searchResultContainer');
+        var scroll = scrollContainer.getScrollable();
+        var position = this.getLastScrollPosition();
 
         Ext.defer(function () {
-            result.hide();
-            Ext.defer(function () {
-                result.show();
-            }, 100);
-        }, 550);
+            scroll.refresh(true);
+            scroll.scrollTo(position);
+        }, 550, this);
+    },
+
+    /**
+     * @protected
+     * Перепасовывает вызов поиска на соответствующий контроллер поиска -
+     * {@link A.view.main.company.AbstractAllSearchController}.
+     */
+    modernKeyboardSearch: function () {
+        A.getCmp('searchContainer').getController().search();
     },
 
     privates: {
@@ -251,14 +286,6 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
 
         /**
          * @private
-         * @param {Ext.tab.Panel} tabPanel Панель вкладок компании.
-         */
-        resetCompanyTabsGallery: function (tabPanel) {
-            // @TODO
-        },
-
-        /**
-         * @private
          */
         fixAndroidAutoFocus: function () {
             if (Ext.isClassic) {
@@ -268,6 +295,20 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
             Ext.defer(function () {
                 this.getSearchToolbar().down('#searchInput').blur();
             }, 10, this);
+        },
+
+        /**
+         * @private
+         */
+        saveCurrentScrollIfModern: function () {
+            if (Ext.isClassic) {
+                return;
+            }
+
+            var scrollContainer = this.getView().down('#searchResultContainer');
+            var position = scrollContainer.getScrollable().getPosition();
+
+            this.setLastScrollPosition(Ext.clone(position));
         }
     }
 });

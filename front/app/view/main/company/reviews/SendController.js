@@ -33,8 +33,14 @@ Ext.define('A.view.main.company.reviews.SendController', {
                     id: this.getViewModel().get('_id')
                 },
 
-                success: function () {
+                success: function (self, result) {
+                    if (Ext.isClassic) {
+                        result = result.result;
+                    }
+
                     this.showSendSuccessMessage();
+                    this.updateReviewList(result.data);
+                    this.showReviewsList();
                     this.resetForm();
 
                     Ext.isClassic && form.setLoading(false);
@@ -274,6 +280,31 @@ Ext.define('A.view.main.company.reviews.SendController', {
                     message: message
                 });
             }
+        },
+
+        /**
+         * @private
+         * @param {Object[]} reviews Массив объектов отзывов.
+         */
+        updateReviewList: function (reviews) {
+            var view = this.getView();
+            var tabPanel = view.up('tabpanel');
+            var list = tabPanel.down('#reviewsList');
+            var store = list.getStore();
+            var form = view.down('#reviewForm');
+            var newValues = form.getValues();
+
+            newValues.date = new Date();
+
+            store.loadData([newValues]);
+            store.loadData(reviews.reverse(), true);
+        },
+
+        /**
+         * @private
+         */
+        showReviewsList: function () {
+            this.getView().up('tabpanel').setActiveItem(0);
         }
     }
 });

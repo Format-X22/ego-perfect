@@ -29,8 +29,14 @@ Ext.define('B.field.Keyword', {
 		}
 	},
 
-	validators: {
-		type: 'presence',
-		allowEmpty: true
-	}
+	validators: [
+        {
+            type: 'presence',
+            allowEmpty: true
+        },
+        {
+            type: 'length',
+            max: 100
+        }
+    ]
 });

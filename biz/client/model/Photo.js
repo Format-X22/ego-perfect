@@ -13,10 +13,7 @@ Ext.define('B.biz.client.model.Photo', {
 			}
 		},
 		{
-			name: 'logo',
-			validators: {
-				type: 'presence'
-			}
+			name: 'logo'
 		},
 		{
 			name: 'photo1'

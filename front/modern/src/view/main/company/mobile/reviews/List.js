@@ -38,7 +38,7 @@ Ext.define('A.view.main.company.mobile.reviews.List', {
     initialize: function () {
         this.callParent(arguments);
 
-        this.on('show', this.setStoreIfDirectLink, this, {single: true});
+        this.on('painted', this.setStoreIfDirectLink, this, {single: true});
     },
 
     privates: {

@@ -29,7 +29,8 @@ Ext.define('A.view.partner.Profile', {
             allowBlank: false,
             msgTarget: 'under',
             validateOnBlur: false,
-            validateOnChange: false
+            validateOnChange: false,
+            hidden: true
         },
         {
             xtype: 'container',
@@ -39,6 +40,7 @@ Ext.define('A.view.partner.Profile', {
             },
             width: 600,
             margin: '0 0 40 0',
+            hidden: true,
             items: [
                 {
                     xtype: 'button',

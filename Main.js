@@ -32,7 +32,16 @@ Ext.define('B.Main', {
         /**
          * @cfg {Number} rerunTime Время до попытки перезапуска сервера.
          */
-        rerunTime: 10 * 1000
+        rerunTime: 10 * 1000,
+
+        /**
+         * @cfg {Object} fileSizeLimitsConfig Конфигурация максимальных размеров файлов.
+         */
+        fileSizeLimitsConfig: {
+            limits: {
+                fileSize: 10 * 1024 * 1024
+            }
+        }
     },
 
     constructor: function () {
@@ -71,6 +80,7 @@ Ext.define('B.Main', {
             extended: false
         });
         var cookieParser = require('cookie-parser')();
+        var fileParser = require('connect-busboy')(this.getFileSizeLimitsConfig());
         var publicDir = require('path').join(__dirname, 'public');
         var staticDirSign = this.getExpress().static(publicDir);
         var app = this.getExpressApp();
@@ -78,6 +88,7 @@ Ext.define('B.Main', {
         app.use(jsonParser);
         app.use(urlParser);
         app.use(cookieParser);
+        app.use(fileParser);
         app.use(staticDirSign);
 
         next();
