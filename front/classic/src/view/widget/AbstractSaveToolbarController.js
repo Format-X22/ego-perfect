@@ -21,12 +21,22 @@ Ext.define('A.view.widget.AbstractSaveToolbarController', {
      * @param {Ext.button.Button} button Кнопка сохранения.
      */
     save: function (button) {
-        button.up('form').submit({
+        var form = button.up('form');
+
+        form.mask();
+
+        form.submit({
             clientValidation: true,
             submitEmptyText: false,
             url: this.url,
-            success: this.showSuccessSaveMessage.bind(this),
-            failure: this.showFailureSaveMessage.bind(this)
+            success: function () {
+                this.showSuccessSaveMessage();
+                form.unmask();
+            }.bind(this),
+            failure: function () {
+                this.showFailureSaveMessage();
+                form.unmask();
+            }.bind(this)
         });
     },
 

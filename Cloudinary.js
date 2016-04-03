@@ -7,7 +7,6 @@ Ext.define('B.Cloudinary', {
 	config: {
 
 		/**
-		 * @private
 		 * @cfg {Object} cloudinaryUtil Драйвер облака.
 		 */
 		cloudinaryUtil: require('cloudinary')
