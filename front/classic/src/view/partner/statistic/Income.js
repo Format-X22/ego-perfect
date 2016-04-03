@@ -10,6 +10,13 @@ Ext.define('A.view.partner.statistic.Income', {
 
     items: [
         {
+            xtype: 'adminTopDescription',
+            html:
+                'Уровень вашей доходности.<br>' +
+                'График построен по сумме доходности от привлеченных вами клиентов и партнеров<br>' +
+                'за каждый календарный месяц.'
+        },
+        {
             itemId: 'placeholder',
             xtype: 'partnerStatisticEmptyPlaceholder'
         },

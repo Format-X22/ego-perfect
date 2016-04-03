@@ -6,9 +6,9 @@ Ext.define('A.view.partner.statistic.EmptyPlaceholder', {
     extend: 'Ext.container.Container',
     xtype: 'partnerStatisticEmptyPlaceholder',
 
-    padding: 40,
+    padding: '0 40 20 40',
     html:
         'Примерно так может выглядеть ваша статистика.<br>' +
-        'Реальная статистика будет включена сразу после первой регистрации<br>' +
-        'клиента или партнера по вашему ключу.'
+        'Реальная статистика будет сформирована сразу после первого клиента или партнера<br>' +
+        'и будет обновляться ежедневно.'
 });

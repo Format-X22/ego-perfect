@@ -10,6 +10,13 @@ Ext.define('A.view.partner.statistic.Total', {
 
     items: [
         {
+            xtype: 'adminTopDescription',
+            html:
+                'Срез текущего состояния дел.<br>' +
+                'Показывает сумму доходов и количество привлеченных клиентов и партнеров<br>' +
+                'с начала месяца.'
+        },
+        {
             itemId: 'placeholder',
             xtype: 'partnerStatisticEmptyPlaceholder'
         },

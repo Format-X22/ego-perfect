@@ -19,14 +19,8 @@ Ext.define('B.service.MainLoop', {
 
 			if (hour === 4) {
 				Ext.create('B.service.SearchCleaner', {});
-
-				if (dateNum === 1) {
-					Ext.create('B.service.ClientStat', {});
-				}
-
-				if (dateNum === 2) {
-					Ext.create('B.service.ClientStat', {});
-				}
+                Ext.create('B.service.ClientStat', {});
+                Ext.create('B.service.PartnerStat', {});
 			}
 
 		}.bind(this), 1000 * 60 * 60);
