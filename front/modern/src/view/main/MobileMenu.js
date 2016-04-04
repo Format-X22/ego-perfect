@@ -3,6 +3,7 @@
  */
 Ext.define('A.view.main.MobileMenu', {
     extend: 'Ext.Menu',
+    xtype: 'mobileMenu',
     controller: 'mobileMenu',
     requires: [
         'A.view.main.MobileMenuController'

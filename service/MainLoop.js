@@ -15,7 +15,6 @@ Ext.define('B.service.MainLoop', {
 		setInterval(function () {
 			var date = new Date();
 			var hour = date.getUTCHours() + 3;
-			var dateNum = date.getUTCDate();
 
 			if (hour === 4) {
 				Ext.create('B.service.SearchCleaner', {});

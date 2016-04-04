@@ -46,21 +46,6 @@ Ext.define('A.view.main.Main', {
     ],
 
     /**
-     * @inheritdoc
-     * @localdoc
-     * Добавляем выдвигающееся меню для телефонов.
-     */
-    initialize: function () {
-        var mobileMenu = Ext.create('A.view.main.MobileMenu');
-        var menuConfig = {
-            side: 'right'
-        };
-
-        Ext.Viewport.setMenu(mobileMenu, menuConfig);
-
-    },
-
-    /**
      * @protected
      * Переопределяем оригинальный элемент формы, добавляя в него признаки,
      * указывающие на то что это поисковая форма, что дает нам отображение
