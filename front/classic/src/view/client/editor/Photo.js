@@ -49,7 +49,14 @@ Ext.define('A.view.client.editor.Photo', {
                         {
                             name: 'logo',
                             xtype: 'filefield',
-                            fieldLabel: 'Картинка для отображения в поиске'
+                            fieldLabel: 'Логотип'
+                        },
+                        {
+                            xtype: 'component',
+                            padding: '0 0 25 110',
+                            html:
+                                '<i>Отображается в поиске и в информации о компании.<br>' +
+                                'Лучше всего подойдет картинка размером 300 на 300 пикселей.</i>'
                         },
                         {
                             name: 'photo1',

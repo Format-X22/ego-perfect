@@ -37,5 +37,19 @@ Ext.define('A.view.client.editor.BasicController', {
         } else {
             return errorMessage;
         }
+    },
+
+    /**
+     * Показывает подсказку получения координат компании.
+     */
+    showCoordsHint: function () {
+        var hintWindow = A.getCmp('clientEditorCoordsHintWindow');
+
+        if (hintWindow) {
+            hintWindow.on('hide', hintWindow.destroy, hintWindow);
+            hintWindow.hide();
+        } else {
+            Ext.create('A.view.client.editor.CoordsHintWindow', {});
+        }
     }
 });
