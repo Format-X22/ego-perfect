@@ -131,12 +131,14 @@ Ext.define('B.biz.auth.util.Session', {
     removeSession: function () {
         this.setError(false);
 
-        this.getAccountData(function (data) {
+        this.getAccountData(function () {
+            
+            
             B.Mongo
                 .getCollection(this.getType())
                 .findOneAndUpdate(
                     {
-                        login: data.login
+                        login: this.getLogin()
                     },
                     {
                         $set: {
@@ -207,6 +209,8 @@ Ext.define('B.biz.auth.util.Session', {
                 }
 
                 if (accData) {
+                    this.setAccount(accData);
+                    this.setLogin(accData.getLogin());
                     next.call(this, accData);
                 } else {
                     this.setError(true);
