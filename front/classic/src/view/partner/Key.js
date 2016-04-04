@@ -27,7 +27,7 @@ Ext.define('A.view.partner.Key', {
             flex: 1
         },
         {
-            name: 'key',
+            name: '_id',
             xtype: 'textfield',
             fieldLabel: 'Ваш ключ',
             readOnly: true,

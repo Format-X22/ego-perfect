@@ -1,6 +1,5 @@
 /**
  * Абстрактный контроллер профиля.
- * Требует имплементации метода {@link #getId}.
  */
 Ext.define('A.view.admin.AbstractProfileController', {
     extend: 'Ext.app.ViewController',
@@ -38,15 +37,6 @@ Ext.define('A.view.admin.AbstractProfileController', {
         });
     },
 
-    /**
-     * @protected
-     * @method getId
-     * @required
-     * @template
-     * @return {String} ID профиля.
-     */
-    getId: Ext.emptyFn,
-
     privates: {
 
         /**
@@ -77,10 +67,6 @@ Ext.define('A.view.admin.AbstractProfileController', {
          * @param {Object} [params] Объект параметров.
          */
         send: function (url, successCallback, params) {
-            params = Ext.apply({
-                id: this.getId()
-            }, params);
-
             this.mask();
 
             Ext.Ajax.request({

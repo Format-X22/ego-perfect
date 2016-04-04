@@ -13,8 +13,8 @@ Ext.define('A.model.Partner', {
 
     fields: [
         {name: 'id',    type: 'string'},
+        {name: '_id',   type: 'string'},
         {name: 'email', type: 'string'},
-        {name: 'key',   type: 'string'},
         {name: 'totalStats',    type: 'store', model: 'A.model.PartnerTotalStats'},
         {name: 'clientsStats',  type: 'store', model: 'A.model.Stats'},
         {name: 'partnersStats', type: 'store', model: 'A.model.Stats'},
@@ -22,9 +22,8 @@ Ext.define('A.model.Partner', {
     ],
 
     proxy: {
-        type: 'rest',
-        url: '/api/partners',
-        appendId: true,
+        type: 'ajax',
+        url: '/api/partner',
         reader: 'standard'
     }
 });

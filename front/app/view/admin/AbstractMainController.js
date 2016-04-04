@@ -73,7 +73,7 @@ Ext.define('A.view.admin.MainController', {
             var fields = A.getAllCmp('field', view);
 
             view.loadRecord(this.getRecord());
-
+            
             Ext.each(fields, function (field) {
                 field.originalValue = field.getValue();
             }, this);
