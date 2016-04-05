@@ -10,6 +10,10 @@ Ext.define('A.view.partner.statistic.Partners', {
 
     items: [
         {
+            xtype: 'adminTopDescription',
+            html: 'Количество привлеченных партнеров в динамике за каждый календарный месяц.'
+        },
+        {
             itemId: 'placeholder',
             xtype: 'partnerStatisticEmptyPlaceholder'
         },

@@ -67,7 +67,6 @@ Ext.define('A.view.main.auth.LoginPage', {
             inputType: 'password',
             fieldLabel: 'Пароль',
             validateOnChange: false,
-            allowBlank: false,
             listeners: {
                 specialkey: 'trySendIfEnterKey'
             }
@@ -92,7 +91,7 @@ Ext.define('A.view.main.auth.LoginPage', {
                     iconCls: 'x-fa fa-question',
                     text: 'Забыл пароль',
                     width: 150,
-                    disabled: true
+                    handler: 'resetPass'
                 }
             ]
         },

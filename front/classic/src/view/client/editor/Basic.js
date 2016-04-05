@@ -108,7 +108,8 @@ Ext.define('A.view.client.editor.Basic', {
                                 {
                                     xtype: 'button',
                                     text: 'Где получить свои координаты?',
-                                    ui: 'default-toolbar'
+                                    ui: 'default-toolbar',
+                                    handler: 'showCoordsHint'
                                 }
                             ]
                         }

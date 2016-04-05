@@ -12,13 +12,6 @@ Ext.define('A.view.partner.MainController', {
     /**
      * @inheritdoc
      */
-    getId: function () {
-        return '568d7033afba7c850caaad19'; // @TODO
-    },
-
-    /**
-     * @inheritdoc
-     */
     getModelClassName: function () {
         return 'A.model.Partner';
     },

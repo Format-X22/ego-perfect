@@ -79,7 +79,7 @@ Ext.define('B.biz.auth.Router', {
      */
     logout: function (request, response) {
         var model = Ext.create('B.biz.auth.model.Key');
-
+        
         model.set({
             key: request.cookies.key
         });
