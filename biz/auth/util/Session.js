@@ -132,8 +132,6 @@ Ext.define('B.biz.auth.util.Session', {
         this.setError(false);
 
         this.getAccountData(function () {
-            
-            
             B.Mongo
                 .getCollection(this.getType())
                 .findOneAndUpdate(
