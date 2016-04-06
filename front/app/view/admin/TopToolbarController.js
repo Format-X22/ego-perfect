@@ -25,23 +25,12 @@ Ext.define('A.view.admin.TopToolbarController', {
 
     /**
      * Зарелизить изменения компании.
-     * Используется только в самом начале чтобы указать
-     * на тот факт что услуга пока ещё не оплачена.
      */
     release: function () {
         if (this.isPayed()) {
-            this.toggleReleaseButton();
-            this.showSuccessPayedMessage(
-                this.ifOkButton(
-                    this.toDetails.bind(this)
-                )
-            );
+            this.releasePayed();
         } else {
-            this.showNotPayedMessage(
-                this.ifOkButton(
-                    this.goToPayPage.bind(this)
-                )
-            );
+            this.releaseUnpayed();
         }
     },
 
@@ -67,7 +56,7 @@ Ext.define('A.view.admin.TopToolbarController', {
      * Завершает подготовку вью к показу.
      */
     onShow: function () {
-        if (this.isNewClient()) {
+        if (!this.isPayed()) {
             this.getView().down('#release').show();
         } else {
             this.getView().down('#toDetails').show();
@@ -78,18 +67,53 @@ Ext.define('A.view.admin.TopToolbarController', {
 
         /**
          * @private
-         * @return {Boolean} Новый ли клиент.
+         * @return {Boolean} Оплатил ли клиент.
          */
-        isNewClient: function () {
-            return true;
+        isPayed: function () {
+            return false;  // @TODO
         },
 
         /**
          * @private
-         * @return {Boolean} Оплатил ли клиент.
          */
-        isPayed: function () {
-            return false;
+        releasePayed: function () {
+            this.sendReleaseRequest(function () {
+                this.getView().unmask();
+                this.toggleReleaseButton();
+                this.showSuccessPayedMessage(
+                    this.ifOkButton(
+                        this.toDetails.bind(this)
+                    )
+                );
+            });
+        },
+
+        /**
+         * @private
+         */
+        releaseUnpayed: function () {
+            this.showNotPayedMessage(
+                this.ifOkButton(
+                    this.goToPayPage.bind(this)
+                )
+            );
+        },
+        
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        sendReleaseRequest: function (next) {
+            Ext.Ajax.request({
+                url: '/api/client/release',
+                method: 'POST',
+                success: next,
+                failure: function () {
+                    this.getView().unmask();
+                    this.showErrorReleaseMessage();
+                },
+                scope: this
+            });
         },
 
         /**
@@ -98,7 +122,7 @@ Ext.define('A.view.admin.TopToolbarController', {
          */
         showNotPayedMessage: function (callback) {
             Ext.MessageBox.show({
-                title: 'Оопс...',
+                title: 'Не оплачено',
                 message: 'Похоже вы ещё не оплатили размещение.<br>Вы можете сделать это сейчас.',
                 icon: Ext.MessageBox.INFO,
                 buttons: Ext.MessageBox.OKCANCEL,
@@ -117,6 +141,18 @@ Ext.define('A.view.admin.TopToolbarController', {
                 icon: Ext.MessageBox.INFO,
                 buttons: Ext.MessageBox.OKCANCEL,
                 fn: callback
+            });
+        },
+
+        /**
+         * @private
+         */
+        showErrorReleaseMessage: function () {
+            Ext.MessageBox.show({
+                title: 'Ошибка',
+                message: 'При размещении произошла ошибка, попробуйте позже.',
+                icon: Ext.MessageBox.ERROR,
+                buttons: Ext.MessageBox.OK
             });
         },
 

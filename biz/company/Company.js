@@ -13,7 +13,7 @@ Ext.define('B.biz.company.Company', {
             .getCollection('company')
             .findOneAndUpdate(
                 {
-                    search_id: id
+                    _id: B.Mongo.makeId(id)
                 },
                 {
                     $inc: {

@@ -14,7 +14,25 @@ Ext.define('B.biz.client.Release', {
          * @private
          * @cfg {Object} accountData Данные аккаунта.
          */
-        accountData: null
+        accountData: null,
+
+        /**
+         * @private
+         * @cfg {String[]} tagsData Массив данных для тегов.
+         */
+        tagsData: null,
+
+        /**
+         * @private
+         * @cfg {String[]} tags Массив тегов.
+         */
+        tags: null,
+
+        /**
+         * @private
+         * @cfg {Object} searchObject Объект поиска.
+         */
+        searchObject: null
     },
 
     constructor: function () {
@@ -23,6 +41,7 @@ Ext.define('B.biz.client.Release', {
         B.util.Function.queue([
             this.extractAccountStep,
             this.validateAccountStep,
+            this.extractTagsDataStep,
             this.makeTagsStep,
             this.makeSearchObjectStep,
             this.writeSearchObjectStep,
@@ -100,7 +119,24 @@ Ext.define('B.biz.client.Release', {
          * @private
          * @param {Function} next Следующий шаг.
          */
-        makeTagsStep: function (next) {
+        extractTagsDataStep: function (next) {
+            var data = this.getAccountData();
+
+            this.setTagsData([
+                data.name || '',
+                data.word1 || '',
+                data.word2 || '',
+                data.word3 || '',
+                data.word4 || '',
+                data.word5 || '',
+                data.word6 || '',
+                data.word7 || '',
+                data.word8 || '',
+                data.word9 || '',
+                data.word10 || '',
+                data.address || ''
+            ]);
+            
             next();
         },
 
@@ -108,7 +144,32 @@ Ext.define('B.biz.client.Release', {
          * @private
          * @param {Function} next Следующий шаг.
          */
+        makeTagsStep: function (next) {
+            Ext.create('B.biz.search.util.Tokens', {
+                value: this.getTagsData(),
+                scope: this,
+                callback: function (self, value) {
+                    this.setTags(value);
+                    next();
+                }
+            });
+        },
+
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
         makeSearchObjectStep: function (next) {
+            var data = this.getAccountData();
+
+            this.setSearchObject({
+                company: B.Mongo.makeId(data._id),
+                rating: 0,
+                tags: this.getTags(),
+                map: data.map,
+                payDate: data.payDate
+            });
+            
             next();
         },
 
@@ -117,7 +178,24 @@ Ext.define('B.biz.client.Release', {
          * @param {Function} next Следующий шаг.
          */
         writeSearchObjectStep: function (next) {
-            next();
+            var searchObject = this.getSearchObject();
+            
+            B.Mongo.getCollection('search').update(
+                {
+                    company: searchObject.company
+                },
+                searchObject,
+                {
+                    upsert: true
+                },
+                function (error) {
+                    if (error) {
+                        this.sendError(B.Mongo.requestErrorText);
+                    } else {
+                        next();
+                    }  
+                }.bind(this)
+            );
         }
     }
 });
