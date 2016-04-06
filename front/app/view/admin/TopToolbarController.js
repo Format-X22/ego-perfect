@@ -9,11 +9,8 @@ Ext.define('A.view.admin.TopToolbarController', {
      * Перейти на страницу поиска, главную страницу сайта.
      */
     toSearch: function () {
-        if (Ext.isClassic) {
-            return A.getCmp('appMain').setActiveItem(0);
-        } else {
-            return A.getCmp('mainTabPanel').setActiveItem(0);
-        }
+        A.getCmp('appMain').setActiveItem(0);
+        A.getCmp('appMainPublic #mainTabPanel').setActiveItem(0);
     },
 
     /**
