@@ -10,11 +10,13 @@ Ext.define('B.biz.client.Router', {
 		'B.biz.client.Summary',
 		'B.biz.client.Photo',
 		'B.biz.client.Words',
+		'B.biz.client.Release',
 		'B.biz.client.model.AccountData',
 		'B.biz.client.model.BasicData',
 		'B.biz.client.model.Summary',
 		'B.biz.client.model.Photo',
-		'B.biz.client.model.Words'
+		'B.biz.client.model.Words',
+		'B.biz.client.model.Release'
 	],
 
     map: {
@@ -32,7 +34,10 @@ Ext.define('B.biz.client.Router', {
 		},
 		'/words': {
 			post: 'saveWords'
-		}
+		},
+        '/release': {
+            post: 'release'
+        }
 	},
 
 	/**
@@ -159,5 +164,26 @@ Ext.define('B.biz.client.Router', {
 				requestModel: model
 			});
 		}
-	}
+	},
+
+    /**
+     * Получение данных аккаунта.
+     * @param {Object} request Express объект запроса сервера.
+     * @param {Object} response Express объект ответа сервера.
+     */
+    release: function (request, response) {
+        var model = Ext.create('B.biz.client.model.Release');
+
+        model.set({
+            key: request.cookies.key
+        });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.client.Release', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
+    }
 });

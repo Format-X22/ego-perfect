@@ -77,6 +77,10 @@ Ext.define('B.biz.client.model.BasicData', {
 				if (!value) {
 					return null;
 				}
+                
+                if (Ext.isObject(value)) {
+                    return value.lat + ', ' + value.lng;
+                }
 
 				value = value
 					.trim()
