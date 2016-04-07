@@ -74,23 +74,10 @@ Ext.define('B.Main', {
     initExpress: function (next) {
         this.log('Инициализация Express.');
 
-        var bodyParser = require('body-parser');
-        var jsonParser = bodyParser.json();
-        var urlParser = bodyParser.urlencoded({
-            extended: false
-        });
-        var cookieParser = require('cookie-parser')();
-        var fileParser = require('connect-busboy')(this.getFileSizeLimitsConfig());
-        var publicDir = require('path').join(__dirname, 'public');
-        var staticDirSign = this.getExpress().static(publicDir);
-        var app = this.getExpressApp();
-
-        app.use(jsonParser);
-        app.use(urlParser);
-        app.use(cookieParser);
-        app.use(fileParser);
-        app.use(staticDirSign);
-
+        this.initFavicon();
+        this.initParsers();
+        this.initStaticDir();
+        
         next();
     },
 
@@ -137,6 +124,51 @@ Ext.define('B.Main', {
 
     privates: {
 
+        /**
+         * @private
+         */
+        initFavicon: function () {
+            var app = this.getExpressApp();
+            var dir = __dirname;
+            var path = require('path');
+            var faviconPath = path.join(dir, 'public', 'resources', 'img', 'favicon.png');
+            var favicon = require('serve-favicon')(faviconPath);
+
+            app.use(favicon);
+        },
+
+        /**
+         * @private
+         */
+        initParsers: function () {
+            var app = this.getExpressApp();
+            var bodyParser = require('body-parser');
+            var jsonParser = bodyParser.json();
+            var urlParser = bodyParser.urlencoded({
+                extended: false
+            });
+            var cookieParser = require('cookie-parser')();
+            var fileParser = require('connect-busboy')(this.getFileSizeLimitsConfig());
+
+            app.use(jsonParser);
+            app.use(urlParser);
+            app.use(cookieParser);
+            app.use(fileParser);
+        },
+
+        /**
+         * @private
+         */
+        initStaticDir: function () {
+            var app = this.getExpressApp();
+            var dir = __dirname;
+            var path = require('path');
+            var publicDir = path.join(dir, 'public');
+            var staticDirSign = this.getExpress().static(publicDir);
+            
+            app.use(staticDirSign);
+        },
+        
         /**
          * @private
          * @param value Значение порта.

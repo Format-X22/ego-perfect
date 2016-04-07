@@ -15,7 +15,8 @@
     "express": "~4.13.1",
     "mongodb": "*",
     "sanitize-html": "^1.11.3",
-    "sendgrid": "^1.9.2"
+    "sendgrid": "^1.9.2",
+    "serve-favicon": "^2.3.0"
   },
   "description": "egoPerfect"
 }
