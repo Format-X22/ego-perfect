@@ -13,7 +13,12 @@ Ext.define('B.biz.client.AbstractSave', {
 		/**
 		 * @cfg {String} accountId Айди аккаунта.
 		 */
-		accountId: null
+		accountId: null,
+
+        /**
+         * @cfg {Boolean} releaseRequired Необходимо ли делать релиз данных компании.
+         */
+        releaseRequired: false
 	},
 
 	constructor: function () {
@@ -22,6 +27,7 @@ Ext.define('B.biz.client.AbstractSave', {
 		B.util.Function.queue([
 			this.checkAccountStep,
 			this.updateDataStep,
+            this.releaseIfNeedStep,
 			this.sendSuccess
 		], this);
 	},
@@ -83,6 +89,25 @@ Ext.define('B.biz.client.AbstractSave', {
 				}.bind(this)
 			);
 	},
+
+    /**
+     * @protected
+     * Запускает релиз данных компании если нужно.
+     * Нужность определяется флагом {@link #releaseRequired}.
+     * *Прерывает очередь выполнения шагов!*
+     * @param {Function} next Следующий шаг.
+     */
+    releaseIfNeedStep: function (next) {
+        if (this.getReleaseRequired()) {
+            Ext.create('B.biz.client.Release', {
+                expressRequest: this.getExpressRequest(),
+                expressResponse: this.getExpressResponse(),
+                requestModel: this.getRequestModel()
+            });
+        } else {
+            next();
+        }
+    },
 
 	/**
 	 * @protected

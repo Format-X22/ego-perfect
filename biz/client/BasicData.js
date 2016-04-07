@@ -4,6 +4,8 @@
 Ext.define('B.biz.client.BasicData', {
 	extend: 'B.biz.client.AbstractSave',
 
+    releaseRequired: true,
+    
 	/**
 	 * @inheritdoc
 	 */
