@@ -21,6 +21,20 @@ Ext.define('B.biz.company.Company', {
 						rating: 1
 					}
                 },
+                {
+                    projection: {
+                        rating: 1,
+                        reviews: 1,
+                        name: 1,
+                        phone: 1,
+                        site: 1,
+                        email: 1,
+                        time: 1,
+                        address: 1,
+                        map: 1,
+                        summary: 1
+                    }
+                },
 				this.sendResponse.bind(this)
             );
     },
