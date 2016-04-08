@@ -10,7 +10,7 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
 
     scrollable: 'vertical',
     layout: {
-        type: 'hbox',
+        type: 'vbox',
         align: 'center',
         pack: 'center'
     },
@@ -34,6 +34,9 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
     ],
 
     items: [
+        {
+            flex: 1
+        },
         {
             xtype: 'dataview',
             tpl:
@@ -60,6 +63,9 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
                     width: 810
                 }
             }
+        },
+        {
+            flex: 2
         }
     ],
 
