@@ -53,11 +53,17 @@ Ext.define('A.view.admin.TopToolbarController', {
      * Завершает подготовку вью к показу.
      */
     onShow: function () {
-        if (!this.isPayed()) {
-            this.getView().down('#release').show();
-        } else {
-            this.getView().down('#toDetails').show();
-        }
+        var view = this.getView();
+
+        this.getPayDateField().on('change', function () {
+            if (this.isPayed()) {
+                view.down('#release').hide();
+                view.down('#toDetails').show();
+            } else {
+                view.down('#toDetails').hide();
+                view.down('#release').show();
+            }
+        }, this);
     },
 
     privates: {
@@ -67,7 +73,25 @@ Ext.define('A.view.admin.TopToolbarController', {
          * @return {Boolean} Оплатил ли клиент.
          */
         isPayed: function () {
-            return false;  // @TODO
+            var field = this.getPayDateField();
+            var date = field.getValue();
+            var dateObject;
+            
+            if (date) {
+                dateObject = Ext.Date.parse(date.slice(0, 10), 'Y-m-d');
+
+                return dateObject > new Date();
+            } else {
+                return false;
+            }
+        },
+
+        /**
+         * @private
+         * @return {Ext.form.field.Hidden} Поле с датой оплаты.
+         */
+        getPayDateField: function () {
+            return this.getView().up('appMainClient').down('form [name=payDate]');
         },
 
         /**
@@ -78,7 +102,7 @@ Ext.define('A.view.admin.TopToolbarController', {
                 this.getView().unmask();
                 this.toggleReleaseButton();
                 this.showSuccessPayedMessage(
-                    this.ifOkButton(
+                    this.ifYesButton(
                         this.toDetails.bind(this)
                     )
                 );
@@ -90,7 +114,7 @@ Ext.define('A.view.admin.TopToolbarController', {
          */
         releaseUnpayed: function () {
             this.showNotPayedMessage(
-                this.ifOkButton(
+                this.ifYesButton(
                     this.goToPayPage.bind(this)
                 )
             );
@@ -122,7 +146,7 @@ Ext.define('A.view.admin.TopToolbarController', {
                 title: 'Не оплачено',
                 message: 'Похоже вы ещё не оплатили размещение.<br>Вы можете сделать это сейчас.',
                 icon: Ext.MessageBox.INFO,
-                buttons: Ext.MessageBox.OKCANCEL,
+                buttons: Ext.MessageBox.YESNO,
                 fn: callback
             });
         },
@@ -136,7 +160,7 @@ Ext.define('A.view.admin.TopToolbarController', {
                 title: 'Успешно',
                 message: 'Ваша компания успешно размещена.<br>Хотите посмотреть как она выглядит в живую?',
                 icon: Ext.MessageBox.INFO,
-                buttons: Ext.MessageBox.OKCANCEL,
+                buttons: Ext.MessageBox.YESNO,
                 fn: callback
             });
         },
@@ -155,12 +179,12 @@ Ext.define('A.view.admin.TopToolbarController', {
 
         /**
          * @private
-         * @param {Function} callback Следующий шаг в случае если кнопка ОК.
+         * @param {Function} callback Следующий шаг в случае если кнопка ДА.
          * @return {Function} Обертка для вызова диалоговым окном.
          */
-        ifOkButton: function (callback) {
+        ifYesButton: function (callback) {
             return function (button) {
-                if (button === 'ok') {
+                if (button === 'yes') {
                     callback();
                 }
             }
@@ -178,7 +202,7 @@ Ext.define('A.view.admin.TopToolbarController', {
          * @private
          */
         goToPayPage: function () {
-            console.log('go to pay page'); // @TODO
+            this.getView().up('appMainClient').down('tabpanel').setActiveTab(3);
         }
     }
 });

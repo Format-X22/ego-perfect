@@ -20,10 +20,17 @@ Ext.define('A.view.admin.MainController', {
      * Загружает данные партнера.
      */
     loadData: function () {
+        var view = this.getView();
+        
         this.applyRecordIfNeed();
 
+        view.mask();
         this.getRecord().load({
-            success: this.applyLoadedData,
+            success: function () {
+                this.applyLoadedData();
+                view.unmask();
+            },
+            failure: view.unmask.bind(view),
             scope: this
         });
     },

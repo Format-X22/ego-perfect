@@ -23,6 +23,7 @@ Ext.define('A.view.client.Main', {
         'A.view.client.editor.Summary',
         'A.view.client.editor.Photo',
         'A.view.client.Profile',
+        'A.view.client.Pay',
         'A.view.client.TopToolbar',
         'A.view.widget.SaveToolbar',
         'A.view.widget.AdminTopDescription'
@@ -106,7 +107,7 @@ Ext.define('A.view.client.Main', {
                     iconCls: 'x-fa fa-user'
                 },
                 {
-                    xtype: 'container',
+                    xtype: 'clientPay',
                     title: 'Оплата',
                     iconCls: 'x-fa fa-money'
                 }
