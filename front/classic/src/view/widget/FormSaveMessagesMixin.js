@@ -27,10 +27,14 @@ Ext.define('A.view.widget.FormSaveMessagesMixin', {
         
         var types = Ext.form.action.Action;
         var serverMessage = action.result && (action.result.error || action.result.message);
+        var client = types.CLIENT_INVALID;
         var server = types.SERVER_INVALID;
         var connect = types.CONNECT_FAILURE || types.LOAD_FAILURE;
 
         switch (action.failureType) {
+            case client:
+                return;
+
             case server:
                 this.showErrorMessage(serverMessage);
                 return;
