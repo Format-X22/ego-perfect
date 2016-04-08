@@ -208,7 +208,7 @@ Ext.define('B.biz.auth.util.Session', {
 
                 if (accData) {
                     this.setAccount(accData);
-                    this.setLogin(accData.getLogin());
+                    this.setLogin(accUtil.getLogin());
                     next.call(this, accData);
                 } else {
                     this.setError(true);
