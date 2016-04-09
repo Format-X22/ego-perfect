@@ -34,7 +34,7 @@ Ext.define('A.view.widget.AbstractSaveToolbarController', {
                 form.unmask();
             }.bind(this),
             failure: function () {
-                this.showFailureSaveMessage();
+                this.showFailureSaveMessage.apply(this, arguments);
                 form.unmask();
             }.bind(this)
         });

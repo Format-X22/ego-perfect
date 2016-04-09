@@ -1,9 +1,9 @@
 /**
  * Контроллер галереи фото.
  */
-Ext.define('A.view.main.company.GalleryController', {
+Ext.define('A.view.widget.GalleryController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.companyGallery',
+    alias: 'controller.gallery',
 
     config: {
 
@@ -90,9 +90,9 @@ Ext.define('A.view.main.company.GalleryController', {
      */
     refresh: function () {
         var view = this.getView();
-        var id = this.getViewModel().get('_id');
+        var id = this.getEntityId();
         var images = [];
-        var tplString = 'http://res.cloudinary.com/hdfwhiiko/image/upload/q_60,c_pad,w_{width},h_{height}/{name}.jpg';
+        var tplString = 'http://res.cloudinary.com/hdfwhiiko/image/upload/q_75,c_pad,w_{width},h_{height}/{name}.jpg';
         var tpl = new Ext.Template(tplString);
 
         for (var i = 0; i <= this.getMaxImageIndex(); i++) {
@@ -106,6 +106,14 @@ Ext.define('A.view.main.company.GalleryController', {
         }
 
         this.setImages(images);
+    },
+
+    /**
+     * @protected
+     * @return {String} ID сущности для которой имеются фото.
+     */
+    getEntityId: function () {
+        return this.getViewModel().get('_id');
     },
 
     privates: {

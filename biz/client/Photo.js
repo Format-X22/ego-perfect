@@ -95,7 +95,8 @@ Ext.define('B.biz.client.Photo', {
 
             var publicId = this.getImagePublicName(fieldName);
             var publicIdConfig = {
-                public_id: publicId
+                public_id: publicId,
+                invalidate: true
             };
 
             if (publicId) {
