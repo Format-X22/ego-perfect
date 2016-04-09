@@ -38,7 +38,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         var main = detailsTab.up('appMain');
 
         if (recordOrId instanceof Ext.data.Model) {
-            id = recordOrId.get('id');
+            id = recordOrId.get('company');
         }
 
         if (Ext.isClassic) {

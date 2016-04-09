@@ -44,6 +44,12 @@ Ext.define('A.view.main.MainTabPanel', {
             xtype: 'pageForPartners',
             title: 'Партнерам',
             iconCls: 'x-fa fa-money'
+        },
+        {
+            itemId: 'contacts',
+            xtype: 'pageForContacts',
+            title: 'Контакты',
+            iconCls: 'x-fa fa-phone'
         }
     ]
 });

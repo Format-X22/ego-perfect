@@ -9,11 +9,8 @@ Ext.define('A.view.admin.TopToolbarController', {
      * Перейти на страницу поиска, главную страницу сайта.
      */
     toSearch: function () {
-        if (Ext.isClassic) {
-            return A.getCmp('appMain').setActiveItem(0);
-        } else {
-            return A.getCmp('mainTabPanel').setActiveItem(0);
-        }
+        A.getCmp('appMain').setActiveItem(0);
+        A.getCmp('appMainPublic #mainTabPanel').setActiveItem(0);
     },
 
     /**
@@ -25,23 +22,12 @@ Ext.define('A.view.admin.TopToolbarController', {
 
     /**
      * Зарелизить изменения компании.
-     * Используется только в самом начале чтобы указать
-     * на тот факт что услуга пока ещё не оплачена.
      */
     release: function () {
         if (this.isPayed()) {
-            this.toggleReleaseButton();
-            this.showSuccessPayedMessage(
-                this.ifOkButton(
-                    this.toDetails.bind(this)
-                )
-            );
+            this.releasePayed();
         } else {
-            this.showNotPayedMessage(
-                this.ifOkButton(
-                    this.goToPayPage.bind(this)
-                )
-            );
+            this.releaseUnpayed();
         }
     },
 
@@ -67,29 +53,88 @@ Ext.define('A.view.admin.TopToolbarController', {
      * Завершает подготовку вью к показу.
      */
     onShow: function () {
-        if (this.isNewClient()) {
-            this.getView().down('#release').show();
-        } else {
-            this.getView().down('#toDetails').show();
-        }
+        var view = this.getView();
+
+        this.getPayDateField().on('change', function () {
+            if (this.isPayed()) {
+                view.down('#release').hide();
+                view.down('#toDetails').show();
+            } else {
+                view.down('#toDetails').hide();
+                view.down('#release').show();
+            }
+        }, this);
     },
 
     privates: {
 
         /**
          * @private
-         * @return {Boolean} Новый ли клиент.
+         * @return {Boolean} Оплатил ли клиент.
          */
-        isNewClient: function () {
-            return true;
+        isPayed: function () {
+            var field = this.getPayDateField();
+            var date = field.getValue();
+            var dateObject;
+            
+            if (date) {
+                dateObject = Ext.Date.parse(date.slice(0, 10), 'Y-m-d');
+
+                return dateObject > new Date();
+            } else {
+                return false;
+            }
         },
 
         /**
          * @private
-         * @return {Boolean} Оплатил ли клиент.
+         * @return {Ext.form.field.Hidden} Поле с датой оплаты.
          */
-        isPayed: function () {
-            return false;
+        getPayDateField: function () {
+            return this.getView().up('appMainClient').down('form [name=payDate]');
+        },
+
+        /**
+         * @private
+         */
+        releasePayed: function () {
+            this.sendReleaseRequest(function () {
+                this.getView().unmask();
+                this.toggleReleaseButton();
+                this.showSuccessPayedMessage(
+                    this.ifYesButton(
+                        this.toDetails.bind(this)
+                    )
+                );
+            });
+        },
+
+        /**
+         * @private
+         */
+        releaseUnpayed: function () {
+            this.showNotPayedMessage(
+                this.ifYesButton(
+                    this.goToPayPage.bind(this)
+                )
+            );
+        },
+        
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        sendReleaseRequest: function (next) {
+            Ext.Ajax.request({
+                url: '/api/client/release',
+                method: 'POST',
+                success: next,
+                failure: function () {
+                    this.getView().unmask();
+                    this.showErrorReleaseMessage();
+                },
+                scope: this
+            });
         },
 
         /**
@@ -98,10 +143,10 @@ Ext.define('A.view.admin.TopToolbarController', {
          */
         showNotPayedMessage: function (callback) {
             Ext.MessageBox.show({
-                title: 'Оопс...',
+                title: 'Не оплачено',
                 message: 'Похоже вы ещё не оплатили размещение.<br>Вы можете сделать это сейчас.',
                 icon: Ext.MessageBox.INFO,
-                buttons: Ext.MessageBox.OKCANCEL,
+                buttons: Ext.MessageBox.YESNO,
                 fn: callback
             });
         },
@@ -115,19 +160,31 @@ Ext.define('A.view.admin.TopToolbarController', {
                 title: 'Успешно',
                 message: 'Ваша компания успешно размещена.<br>Хотите посмотреть как она выглядит в живую?',
                 icon: Ext.MessageBox.INFO,
-                buttons: Ext.MessageBox.OKCANCEL,
+                buttons: Ext.MessageBox.YESNO,
                 fn: callback
             });
         },
 
         /**
          * @private
-         * @param {Function} callback Следующий шаг в случае если кнопка ОК.
+         */
+        showErrorReleaseMessage: function () {
+            Ext.MessageBox.show({
+                title: 'Ошибка',
+                message: 'При размещении произошла ошибка, попробуйте позже.',
+                icon: Ext.MessageBox.ERROR,
+                buttons: Ext.MessageBox.OK
+            });
+        },
+
+        /**
+         * @private
+         * @param {Function} callback Следующий шаг в случае если кнопка ДА.
          * @return {Function} Обертка для вызова диалоговым окном.
          */
-        ifOkButton: function (callback) {
+        ifYesButton: function (callback) {
             return function (button) {
-                if (button === 'ok') {
+                if (button === 'yes') {
                     callback();
                 }
             }
@@ -145,7 +202,7 @@ Ext.define('A.view.admin.TopToolbarController', {
          * @private
          */
         goToPayPage: function () {
-            console.log('go to pay page'); // @TODO
+            this.getView().up('appMainClient').down('tabpanel').setActiveTab(3);
         }
     }
 });

@@ -30,6 +30,13 @@ Ext.define('A.view.main.MobileMenu', {
             handler: function () {
                 this.up().getController().goToPage(2);
             }
+        },
+        {
+            text: 'Контакты',     
+            iconCls: 'x-fa fa-phone',
+            handler: function () {
+                this.up().getController().goToPage(3);
+            }
         }
     ]
 });

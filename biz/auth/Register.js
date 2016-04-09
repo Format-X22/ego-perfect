@@ -29,7 +29,13 @@ Ext.define('B.biz.auth.Register', {
 		 * @private
          * @cfg {String} accountId Айди аккаунта клиента.
          */
-        accountId: null
+        accountId: null,
+
+        /**
+         * @private
+         * @cfg {Date/Null} payDate Время следующей оплаты.
+         */
+        payDate: null
     },
 
     constructor: function () {
@@ -38,6 +44,7 @@ Ext.define('B.biz.auth.Register', {
         B.util.Function.queue([
             this.checkDuplicateStep,
             this.makePassAndHashStep,
+            this.checkSpecialKeyStep,
             this.createCompanyStep,
 			this.registerPartnerKeyStep,
             this.sendMailStep,
@@ -97,6 +104,57 @@ Ext.define('B.biz.auth.Register', {
          * @private
          * @param {Function} next Следующий шаг.
          */
+        checkSpecialKeyStep: function (next) {
+            var model = this.getRequestModel();
+            var type = model.get('type');
+            var partner = model.get('partner');
+            var collection = B.Mongo.getCollection('keys');
+            var search;
+
+            if (type !== 'company' || !partner) {
+                next();
+                return;
+            }
+
+            try {
+                search = {
+                    _id: B.Mongo.makeId(partner)
+                }
+            } catch (error) {
+                next();
+                return;
+            }
+
+            this.useKey(collection, search, next);
+        },
+
+        /**
+         * @private
+         * @param {Object} collection Коллекция для поиска.
+         * @param {Object} search Поисковый запрос.
+         * @param {Function} next Следующий шаг.
+         */
+        useKey: function (collection, search, next) {
+            collection.findOne(
+                search,
+                function (error, doc) {
+                    if (doc) {
+                        var month = doc.month;
+                        var date = Ext.Date.add(new Date(), Ext.Date.MONTH, month);
+
+                        this.setPayDate(date);
+
+                        collection.deleteOne(search);
+                    }
+                    next();
+                }.bind(this)
+            );
+        },
+
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
         createCompanyStep: function (next) {
             var model = this.getRequestModel();
             var login = model.get('login');
@@ -114,6 +172,7 @@ Ext.define('B.biz.auth.Register', {
 				companyObject.rating = 0;
 				companyObject.views = 0;
 				companyObject.reviews = [];
+                companyObject.payDate = this.getPayDate();
 			}
 
             if (type === 'partner') {
@@ -137,17 +196,25 @@ Ext.define('B.biz.auth.Register', {
 		 */
 		registerPartnerKeyStep: function (next) {
 			var key = this.getRequestModel().get('partner');
+            var id;
 
 			if (!key) {
 				next();
 				return;
 			}
 
+            try {
+                id = B.Mongo.makeId(key);
+            } catch (error) {
+                next();
+                return;
+            }
+
 			B.Mongo
 				.getCollection('partner')
 				.findOneAndUpdate(
 					{
-						_id: B.Mongo.makeId(key)
+						_id: id
 					},
 					{
 						$push: this.getPushPartnerKeyConfig()

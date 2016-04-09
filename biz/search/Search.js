@@ -4,6 +4,10 @@
 Ext.define('B.biz.search.Search', {
     extend: 'B.AbstractRequestHandler',
 
+    requires: [
+        'B.biz.search.util.Tokens'
+    ],
+
     config: {
 
         /**
@@ -25,15 +29,19 @@ Ext.define('B.biz.search.Search', {
         fieldsToReturn: {
             _id: 1,
             tags: 1,
-            rating: 1
+            rating: 1,
+            company: 1
         }
     },
 
     constructor: function () {
         this.callParent(arguments);
         this.setMongoSearchCollection(B.Mongo.getCollection('search'));
-        this.makeQueryTokens();
-        this.doDBQuery();
+
+        B.util.Function.queue([
+            this.makeQueryTokens,
+            this.doDBQuery
+        ], this);
     },
 
     privates: {
@@ -41,45 +49,15 @@ Ext.define('B.biz.search.Search', {
         /**
          * @private
          */
-        makeQueryTokens: function () {
-            this.setTokens(
-                this
-                    .getRequestModel()
-                    .get('query')
-                    .toLowerCase()                        // Приводим к строчным буквам
-                    .replace(/ +/g, ' ')                  // Заменяем повторяющиеся пробелы на 1 пробел
-                    .replace(/ - /g, '-')                 // Схлопываем тире в дефис
-                    .replace(/ -|- /g, '-')               // И по краям
-                    .replace(/[,]|[.]|[_]/g, ' ')         // Заменяем точки, запятые и подчеркивания на пробелы
-                    .replace(/ +/g, ' ')                  // Заменяем повторяющиеся пробелы на 1 пробел
-                    .replace(/ . /g, ' ')                 // Убираем однобуквенные слова
-                    .replace(/ .. /g, ' ')                // Убираем двухбуквенные слова
-                    .replace(/^. | .$/g, '')              // И по краям
-                    .replace(/ё/g, 'е')                   // Меняем "ё" на "е" для фикса вариантов написания
-                    .split(' ')                           // Режем на части по пробелу
-                    .map(
-                        this.removeTokenEnds.bind(this)   // Убираем окончания
-                    )
-            );
-        },
-
-        /**
-         * @private
-         * @param {String} token Токен запроса.
-         * @return {String} Токен без окончания.
-         */
-        removeTokenEnds: function (token) {
-            token = token.trim();                // Убираем пробельные символы у токена, есть кейсы
-
-            if (token.length < 6) {              // 3-5 букв, режем однобуквенные окончания
-                return token.slice(0, -1);
-            }
-
-            if (token.length < 8) {              // 6-7 букв, режем двухбуквенные окончания
-                return token.slice(0, -2);
-            }
-
-            return token.slice(0, -3);           // 8 и более букв, режем трехбуквенные окончания
+        makeQueryTokens: function (next) {
+            Ext.create('B.biz.search.util.Tokens', {
+                value: this.getRequestModel().get('query'),
+                scope: this,
+                callback: function (self, value) {
+                    this.setTokens(value);
+                    next();
+                }
+            });
         },
 
         /**
@@ -150,10 +128,11 @@ Ext.define('B.biz.search.Search', {
             if (needSort) {
                 data = this.sortResult(data);
             }
-
+            
             data = data.map(function (item) {
                 return {
-                    id: item._id
+                    id: item._id,
+                    company: item.company
                 }
             });
 

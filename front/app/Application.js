@@ -17,7 +17,7 @@ Ext.define('A.Application', {
     launch: function () {
         Ext.get('start-preloader').destroy();
         Ext.Loader.loadScript({
-            url: '//maps.google.com/maps/api/js'
+            url: '//maps.google.com/maps/api/js?key=AIzaSyBEPQR_7mteAqe414VJ4E8MUWN6ffqaoMQ'
         });
 
         A.getCmp = this.getCmp;

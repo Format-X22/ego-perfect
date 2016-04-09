@@ -2,7 +2,12 @@
  * Абстрактный сервис для генерации отчетов статистики.
  */
 Ext.define('B.service.AbstractStat', {
-
+    extend: 'B.service.AbstractService',
+    
+    requires: [
+        'B.util.Function'
+    ],
+    
     config: {
 
         /**
@@ -18,8 +23,7 @@ Ext.define('B.service.AbstractStat', {
     },
 
     constructor: function (config) {
-        Ext.apply(this.config, config);
-        this.initConfig(this.config);
+        this.callParent(arguments);
 
         B.util.Function.queue([
             this.extractData,
@@ -49,21 +53,6 @@ Ext.define('B.service.AbstractStat', {
      * @param {Object} document Обработанный документ.
      */
     update: Ext.emptyFn,
-
-    /**
-     * @protected
-     * Логирует ошибку в процессе формирования отчета.
-     * @param {Object/String} error Ошибка.
-     */
-    logError: function (error) {
-        var tpl = 'Не удается выполнить сервис "{name}" - {error}';
-        var compiled = new Ext.Template(tpl).apply({
-            name: this.getServiceNameForLogger(),
-            error: error
-        });
-
-        Ext.Logger.error(compiled);
-    },
 
     privates: {
 

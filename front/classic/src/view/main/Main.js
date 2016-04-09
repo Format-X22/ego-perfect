@@ -9,6 +9,7 @@ Ext.define('A.view.main.Main', {
         'A.view.main.search.SearchContainer',
         'A.view.main.infoPage.ForClients',
         'A.view.main.infoPage.ForPartners',
+        'A.view.main.infoPage.ForContacts',
         'A.view.main.auth.LoginPage',
         'A.view.main.auth.RegisterPage'
     ],
@@ -38,6 +39,12 @@ Ext.define('A.view.main.Main', {
                     xtype: 'pageForPartners',
                     title: 'Партнерам',
                     iconCls: 'x-fa fa-money'
+                },
+                {
+                    itemId: 'contacts',
+                    xtype: 'pageForContacts',
+                    title: 'Контакты',
+                    iconCls: 'x-fa fa-phone'
                 },
                 {
                     itemId: 'login',

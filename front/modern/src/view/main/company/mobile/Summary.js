@@ -105,7 +105,7 @@ Ext.define('A.view.main.company.mobile.Summary', {
                     width: 300,
                     height: 300,
                     bind: {
-                        src: 'http://res.cloudinary.com/hdfwhiiko/image/upload/{search_id}.jpg'
+                        src: 'http://res.cloudinary.com/hdfwhiiko/image/upload/{_id}.jpg'
                     }
                 }
             ]

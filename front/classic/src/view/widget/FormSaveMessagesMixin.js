@@ -21,6 +21,10 @@ Ext.define('A.view.widget.FormSaveMessagesMixin', {
      * @param {Ext.form.action.Action} action Объект действия формы.
      */
     showFailureSaveMessage: function (form, action) {
+        if (!action) {
+            return;
+        }
+        
         var types = Ext.form.action.Action;
         var serverMessage = action.result && (action.result.error || action.result.message);
         var client = types.CLIENT_INVALID;
