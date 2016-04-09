@@ -134,7 +134,8 @@ Ext.define('A.view.client.editor.SummaryController', {
 
             if (!text) {
                 text = toolbar.insert(0, {
-                    xtype: 'tbtext'
+                    xtype: 'tbtext',
+                    width: 180
                 });
                 toolbar.insert(1, '-');
             }

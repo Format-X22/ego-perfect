@@ -78,6 +78,9 @@ Ext.define('A.view.admin.MainController', {
         applyLoadedData: function () {
             var view = this.getView();
             var fields = A.getAllCmp('field', view);
+            var htmlEditors = A.getAllCmp('htmleditor', view);
+
+            [].push.apply(fields, htmlEditors);
 
             view.loadRecord(this.getRecord());
             

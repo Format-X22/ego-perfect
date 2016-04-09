@@ -34,14 +34,21 @@ Ext.define('A.view.main.company.Model', {
         formatSite: {
             get: function (getter) {
                 var value = getter('site');
-
-                if (value !== '-') {
-                    return Ext.String.format(
-                        '<a class="link" href="{0}" target="_blank">{0}</a>',
-                        value
-                    );
+                var link = value;
+                
+                if (value === '-') {
+                    return '';
                 }
-                return '';
+
+                if (!/(http|https):\/\/|^\/\//.test(value)) {
+                    link = 'http://' + value;
+                }
+
+                return Ext.String.format(
+                    '<a class="link" href="{0}" target="_blank">{1}</a>',
+                    link,
+                    value
+                );
             }
         }
     },
