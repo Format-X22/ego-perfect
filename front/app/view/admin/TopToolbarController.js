@@ -88,7 +88,7 @@ Ext.define('A.view.admin.TopToolbarController', {
 
         /**
          * @private
-         * @return {Ext.form.field.Hidden} Поле с датой оплаты.
+         * @return {Ext.form.field.Display} Поле с датой оплаты.
          */
         getPayDateField: function () {
             return this.getView().up('appMainClient').down('form [name=payDate]');
