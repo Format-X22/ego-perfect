@@ -11,6 +11,6 @@ Ext.define('A.view.main.MainController', {
      * @param {Ext.Component} tab Вкладка.
      */
     updatePageHash: function (panel, tab) {
-        this.redirectTo('rootPage$' + tab.itemId);
+        this.redirectTo('rootPage/' + tab.itemId);
     }
 });

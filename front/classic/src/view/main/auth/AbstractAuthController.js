@@ -59,14 +59,14 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
 
         if (type === 'company') {
             accPage = 1;
-            accHash = '#client';
+            accHash = 'client';
         } else if (type === 'partner') {
             accPage = 2;
-            accHash = '#partner';
+            accHash = 'partner';
         }
 
         A.getCmp('appMain').setActiveItem(accPage);
-        this.redirectTo('account$' + accHash);
+        this.redirectTo('account/' + accHash);
         this.getView().reset();
     }
 });

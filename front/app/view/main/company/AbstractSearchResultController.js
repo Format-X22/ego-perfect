@@ -59,7 +59,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
                 main.unmask();
             }
 
-            this.redirectTo('company$' + id);
+            this.redirectTo('company/' + id);
         });
     },
 
