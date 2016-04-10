@@ -51,5 +51,8 @@ Ext.define('A.view.main.MainTabPanel', {
             title: 'Контакты',
             iconCls: 'x-fa fa-phone'
         }
-    ]
+    ],
+    listeners: {
+        activeitemchange: 'updatePageHash'
+    }
 });

@@ -58,6 +58,8 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
             } else {
                 main.unmask();
             }
+
+            this.redirectTo('company$' + id);
         });
     },
 

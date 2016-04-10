@@ -66,7 +66,7 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
         }
 
         A.getCmp('appMain').setActiveItem(accPage);
-        this.redirectTo(accHash);
+        this.redirectTo('account$' + accHash);
         this.getView().reset();
     }
 });

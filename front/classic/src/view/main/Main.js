@@ -4,6 +4,7 @@
 Ext.define('A.view.main.Main', {
     extend: 'Ext.container.Container',
     xtype: 'appMainPublic',
+    controller: 'appMainPublic',
 
     requires: [
         'A.view.main.search.SearchContainer',
@@ -58,7 +59,10 @@ Ext.define('A.view.main.Main', {
                     title: 'Регистрация',
                     iconCls: 'x-fa fa-user-plus'
                 }
-            ]
+            ],
+            listeners: {
+                tabchange: 'updatePageHash'
+            }
         }
     ]
 });
