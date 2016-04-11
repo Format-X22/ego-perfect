@@ -22,11 +22,16 @@ Ext.define('A.view.admin.TopToolbarController', {
         var searchMainTabPanel = A.getCmp('#mainTabPanel');
         var searchContainer = searchMainTabPanel.down('searchContainer');
         var searchResult = searchMainTabPanel.down('searchResult');
+        var companyContainer = searchMainTabPanel.down('companyContainer');
 
         this.toSearch();
         
         searchContainer.getController().toggleInitView();
         searchResult.getController().openCompany(id);
+        
+        companyContainer.down('#backToSearch').hide();
+        companyContainer.down('#backToAdmin').show();
+        companyContainer.down('#backToSearchFromAdmin').show();
     },
 
     /**

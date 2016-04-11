@@ -16,6 +16,14 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         'companyContainer #backToSearch': {
             tap: 'backToSearch',
             click: 'backToSearch'
+        },
+
+        'companyContainer #backToSearchFromAdmin': {
+            click: 'backToSearchFromAdmin'
+        },
+
+        'companyContainer #backToAdmin': {
+            click: 'backToAdmin'
         }
     },
 
@@ -106,6 +114,38 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         this.switchToSearch();
         this.fixAndroidAutoFocus();
         this.fixScrollFreeze();
+        this.redirectTo('rootPage/search');
+    },
+
+    /**
+     * @protected
+     * Возвращает к результатам поиска при переходе из админки.
+     * @param {Ext.button.Button} button Кнопка возврата.
+     */
+    backToSearchFromAdmin: function (button) {
+        this.toggleAdminButtons(button);
+        this.backToSearch();
+    },
+
+    /**
+     * @protected
+     * Возвращает в админку.
+     * @param {Ext.button.Button} button Кнопка возврата.
+     */
+    backToAdmin: function (button) {
+        this.toggleAdminButtons(button);
+        this.backToSearch();
+        A.getCmp('appMain').setActiveItem(1);
+    },
+
+    /**
+     * @protected
+     * @param {Ext.button.Button} button Кнопка-инициатор.
+     */
+    toggleAdminButtons: function (button) {
+        button.hide();
+        button.up().down('#backToAdmin').hide();
+        button.up().down('#backToSearch').show();
     },
 
     /**
