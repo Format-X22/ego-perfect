@@ -37,6 +37,10 @@ Ext.define('A.view.client.Main', {
 
     items: [
         {
+            name: '_id',
+            xtype: 'hidden'
+        },
+        {
             xtype: 'clientTopToolbar'
         },
         {

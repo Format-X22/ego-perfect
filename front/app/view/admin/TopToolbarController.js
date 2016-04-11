@@ -17,7 +17,16 @@ Ext.define('A.view.admin.TopToolbarController', {
      * Перейти на страницу деталей этой компании.
      */
     toDetails: function () {
-        console.log('to details'); // @TODO
+        var clientMain = this.getView().up('appMainClient');
+        var id = clientMain.down('[name=_id]').getValue();
+        var searchMainTabPanel = A.getCmp('#mainTabPanel');
+        var searchContainer = searchMainTabPanel.down('searchContainer');
+        var searchResult = searchMainTabPanel.down('searchResult');
+
+        this.toSearch();
+        
+        searchContainer.getController().toggleInitView();
+        searchResult.getController().openCompany(id);
     },
 
     /**

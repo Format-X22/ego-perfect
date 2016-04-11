@@ -21,5 +21,14 @@ Ext.define('A.view.main.MainTabPanelController', {
         var title = tabPanel.getActiveItem().title;
 
         toolbar.getViewModel().set('currentPageName', title);
+    },
+
+    /**
+     * Устанавливает хеш страницы.
+     * @param {Ext.tab.Panel} panel Панель вкладок.
+     * @param {Ext.Component} tab Вкладка.
+     */
+    updatePageHash: function (panel, tab) {
+        this.redirectTo('rootPage/' + tab.getItemId());
     }
 });
