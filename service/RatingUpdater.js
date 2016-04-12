@@ -35,7 +35,7 @@ Ext.define('B.service.RatingUpdater', {
             B.Mongo.getCollection('company').update(
                 {
                     payDate: {
-                        $lt: new Date()
+                        $gt: new Date()
                     }
                 },
                 {
@@ -64,7 +64,7 @@ Ext.define('B.service.RatingUpdater', {
             B.Mongo.getCollection('company').find(
                 {
                     payDate: {
-                        $lt: new Date()
+                        $gt: new Date()
                     }
                 },
                 {
