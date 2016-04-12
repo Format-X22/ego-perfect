@@ -40,10 +40,10 @@ Ext.define('A.model.Client', {
         {name: 'word9',        type: 'string'},
         {name: 'word10',       type: 'string'},
 
-        {name: 'rating',  type: 'store', model: 'A.model.Stats'},
-        {name: 'views',   type: 'store', model: 'A.model.Stats'},
-        {name: 'reviews', type: 'store', model: 'A.model.Stats'},
-        {name: 'stars',   type: 'store', model: 'A.model.Stats'},
+        {name: 'ratingStat',  type: 'store', model: 'A.model.Stats'},
+        {name: 'viewsStat',   type: 'store', model: 'A.model.Stats'},
+        {name: 'reviewsStat', type: 'store', model: 'A.model.Stats'},
+        {name: 'starsStat',   type: 'store', model: 'A.model.Stats'},
 
         {
             name: 'map',

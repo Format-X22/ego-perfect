@@ -2,12 +2,20 @@
  * Абстрактный сервис.
  */
 Ext.define('B.service.AbstractService', {
+
+    config: {
+
+        /**
+         * @cfg {String} serviceNameForLogger Имя сервиса для читаемого логирования.
+         */
+        serviceNameForLogger: ''
+    },
     
     constructor: function (config) {
         Ext.apply(this.config, config);
         this.initConfig(this.config);
     },
-
+    
     /**
      * @protected
      * Логирует ошибку сервиса.
