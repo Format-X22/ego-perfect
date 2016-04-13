@@ -169,26 +169,27 @@ Ext.define('B.biz.auth.Register', {
             var type = model.get('type');
             var hash = this.getCrypt().getHash();
             var collection = B.Mongo.getCollection(type);
-            var companyObject = {
+            var entityObject = {
                 login: login,
                 pass: hash,
                 type: type,
 				registerDate: new Date()
             };
+            var payDate = this.getPayDate() || Ext.Date.parse('20.05.2016', 'd.m.Y');
 
 			if (type === 'company') {
-				companyObject.rating = 0;
-				companyObject.views = 0;
-				companyObject.reviews = [];
-                companyObject.payDate = this.getPayDate();
+                entityObject.rating = 0;
+                entityObject.views = 0;
+                entityObject.reviews = [];
+                entityObject.payDate = payDate;
 			}
 
             if (type === 'partner') {
-                companyObject.clients = [];
-                companyObject.partners = [];
+                entityObject.clients = [];
+                entityObject.partners = [];
             }
 
-            collection.insertOne(companyObject, function (error, result) {
+            collection.insertOne(entityObject, function (error, result) {
                 if (error) {
                     this.sendError('Ошибка создания аккаунта!');
                 } else {
