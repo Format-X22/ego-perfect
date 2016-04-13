@@ -8,7 +8,9 @@ Ext.define('B.service.ClientStat', {
     extend: 'B.service.AbstractStat',
 
     serviceNameForLogger: 'Отчеты для клиентов',
-
+    
+    dbCollectionName: 'company',
+    
     config: {
 
         /**
@@ -72,7 +74,7 @@ Ext.define('B.service.ClientStat', {
     extractStatStep: function (next) {
         var id = this.getCurrentId();
 
-        B.Mongo.getCollection('company').findOne(
+        B.Mongo.getCollection(this.getDbCollectionName()).findOne(
             {
                 _id: id
             },
@@ -166,7 +168,7 @@ Ext.define('B.service.ClientStat', {
     updateStatStep: function (next) {
         var id = this.getCurrentId();
 
-        B.Mongo.getCollection('company').updateOne(
+        B.Mongo.getCollection(this.getDbCollectionName()).updateOne(
             {
                 _id: id
             },

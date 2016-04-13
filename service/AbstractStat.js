@@ -12,6 +12,12 @@ Ext.define('B.service.AbstractStat', {
 
         /**
          * @protected
+         * @cfg {String} dbCollectionName Имя коллекции в базе данных с которой необходимо работать.
+         */
+        dbCollectionName: '',
+        
+        /**
+         * @protected
          * @cfg {Object[]} rawIds Массив сырых айдишников документов.
          */
         rawIds: null,
@@ -45,7 +51,7 @@ Ext.define('B.service.AbstractStat', {
      * @param {Function} next Следующий шаг.
      */
     extractIdsStep: function (next) {
-        B.Mongo.getCollection('company').find(
+        B.Mongo.getCollection(this.getDbCollectionName()).find(
             this.getEntityFilter(),
             {
                 _id: true
