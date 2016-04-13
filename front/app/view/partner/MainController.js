@@ -20,7 +20,13 @@ Ext.define('A.view.partner.MainController', {
      * @inheritdoc
      */
     isStatsExits: function () {
-        return Boolean(this.getRecord().get('totalStats').count());
+        var total = this.getRecord().get('totalStat');
+        
+        if (total.count()) {
+            return Boolean(total.getAt(0).get('count') || total.getAt(1).get('count'));
+        } else {
+            return false;
+        }
     },
 
     /**
@@ -30,9 +36,9 @@ Ext.define('A.view.partner.MainController', {
         var view = this.getView();
         var record = this.getRecord();
 
-        view.down('partnerStatisticTotal #chart').setStore(record.get('totalStats'));
-        view.down('partnerStatisticClients #chart').setStore(record.get('clientsStats'));
-        view.down('partnerStatisticPartners #chart').setStore(record.get('partnersStats'));
-        view.down('partnerStatisticIncome #chart').setStore(record.get('incomeStats'));
+        view.down('partnerStatisticTotal #chart').setStore(record.get('totalStat'));
+        view.down('partnerStatisticClients #chart').setStore(record.get('clientsStat'));
+        view.down('partnerStatisticPartners #chart').setStore(record.get('partnersStat'));
+        view.down('partnerStatisticIncome #chart').setStore(record.get('moneyStat'));
     }
 });

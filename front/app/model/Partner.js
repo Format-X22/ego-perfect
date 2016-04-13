@@ -15,10 +15,10 @@ Ext.define('A.model.Partner', {
         {name: 'id',    type: 'string'},
         {name: '_id',   type: 'string'},
         {name: 'email', type: 'string'},
-        {name: 'totalStats',    type: 'store', model: 'A.model.PartnerTotalStats'},
-        {name: 'clientsStats',  type: 'store', model: 'A.model.Stats'},
-        {name: 'partnersStats', type: 'store', model: 'A.model.Stats'},
-        {name: 'incomeStats',   type: 'store', model: 'A.model.Stats'}
+        {name: 'totalStat',    type: 'store', model: 'A.model.PartnerTotalStats'},
+        {name: 'clientsStat',  type: 'store', model: 'A.model.Stats'},
+        {name: 'partnersStat', type: 'store', model: 'A.model.Stats'},
+        {name: 'moneyStat',    type: 'store', model: 'A.model.Stats'}
     ],
 
     proxy: {

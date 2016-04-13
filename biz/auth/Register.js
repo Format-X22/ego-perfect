@@ -108,17 +108,25 @@ Ext.define('B.biz.auth.Register', {
             var model = this.getRequestModel();
             var type = model.get('type');
             var partner = model.get('partner');
+            var discount = model.get('discount');
             var collection = B.Mongo.getCollection('keys');
             var search;
+            var key;
 
             if (type !== 'company' || !partner) {
                 next();
                 return;
             }
 
+            if (discount) {
+                key = discount;
+            } else {
+                key = partner;
+            }
+
             try {
                 search = {
-                    _id: B.Mongo.makeId(partner)
+                    _id: B.Mongo.makeId(key)
                 }
             } catch (error) {
                 next();

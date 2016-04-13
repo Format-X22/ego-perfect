@@ -22,6 +22,20 @@ Ext.define('A.view.main.company.Container', {
             text: 'Назад',
             iconCls: 'x-fa fa-chevron-left'
         },
+        {
+            itemId: 'backToAdmin',
+            xtype: 'button',
+            text: 'Назад в панель редактирования',
+            iconCls: 'x-fa fa-chevron-left',
+            hidden: true
+        },
+        {
+            itemId: 'backToSearchFromAdmin',
+            xtype: 'button',
+            text: 'На страницу поиска',
+            iconCls: 'x-fa fa-search',
+            hidden: true
+        },
         '->',
         {
             xtype: 'tbtext',
