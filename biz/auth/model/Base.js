@@ -27,6 +27,11 @@ Ext.define('B.biz.auth.model.Base', {
             validators: null
         },
         {
+            name: 'discount',
+            type: 'mongoId',
+            validators: null
+        },
+        {
             name: 'key',
             type: 'string'
         }

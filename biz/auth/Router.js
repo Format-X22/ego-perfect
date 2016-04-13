@@ -101,11 +101,28 @@ Ext.define('B.biz.auth.Router', {
     register: function (request, response) {
         var model = Ext.create('B.biz.auth.model.Register');
         var params = request.body;
+        var partner = null;
+        var discount = null;
+        var partnerWithDiscount;
+        
+        if (params.partner) {
+            params.partner = params.partner.trim();
+            
+            partnerWithDiscount = params.partner.split(' ');
+            discount = partnerWithDiscount[1];
+
+            if (discount) {
+                partner = partnerWithDiscount[0];
+            } else {
+                partner = params.partner;
+            }
+        }
 
         model.set({
             type: params.type,
             login: params.login,
-            partner: params.partner,
+            partner: partner,
+            discount: discount,
             captcha: params.captcha
         });
 
