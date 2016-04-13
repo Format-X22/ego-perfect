@@ -128,15 +128,19 @@ Ext.define('B.biz.search.Search', {
             if (needSort) {
                 data = this.sortResult(data);
             }
-            
-            data = data.map(function (item) {
-                return {
-                    id: item._id,
-                    company: item.company
-                }
-            });
 
-            this.getProtocol().sendData(data);
+            this.joinAllCompanies(data, function () {
+                data = data.map(function (item) {
+                    return {
+                        id: item._id,
+                        company: item.company
+                    }
+                });
+
+                data = this.removeDuplicates(data);
+
+                this.getProtocol().sendData(data);
+            });
         },
 
         /**
@@ -234,6 +238,57 @@ Ext.define('B.biz.search.Search', {
                     }
                 };
             }
+        },
+
+        /**
+         * @private
+         * @param {Object[]} data Массив текущего результата поиска.
+         * @param {Function} next Следующий шаг.
+         */
+        joinAllCompanies: function (data, next) {
+            if (this.isEmptyTokens()) {
+                next.call(this);
+                return;
+            }
+            
+            var collection = this.getMongoSearchCollection();
+            var query = {};
+            var projection = this.getFieldsToReturn();
+            var sort = {
+                rating: -1
+            };
+
+            collection
+                .find(query, projection)
+                .sort(sort)
+                .toArray(function (error, result) {
+                    if (error) {
+                        this.sendSearchError();
+                    } else {
+                        [].push.apply(data, result);
+
+                        next.call(this);
+                    }
+                }.bind(this));
+        },
+
+        /**
+         * @private
+         * @param {Object[]} data Массив текущего результата поиска.
+         */
+        removeDuplicates: function (data) {
+            var unique = {};
+
+            data = Ext.Array.map(data, function (item) {
+                if (unique[item.id]) {
+                    return null;
+                } else {
+                    unique[item.id] = true;
+                    return item;
+                }
+            }, this);
+
+            return Ext.Array.clean(data);
         }
     }
 });
