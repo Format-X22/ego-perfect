@@ -60,8 +60,8 @@ Ext.define('A.view.partner.statistic.Total', {
                                 field: 'name',
                                 font: '16px Helvetica',
                                 renderer: function (text, sprite, config, rendererData, index) {
-                                    var record = rendererData.store.getAt(index);
-
+                                    var record = this.getStore().getAt(index);
+                                    
                                     return [
                                         record.get('name'),
                                         record.get('count'),
