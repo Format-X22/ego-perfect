@@ -39,7 +39,7 @@ Ext.define('B.Mail', {
 		 * @private
 		 * @cfg {Object} sender Отправщик писем.
 		 */
-		sender: require('sendgrid')('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'),
+		sender: require('sendgrid')(outerResourcesConfig.sendGrid.apiKey),
 
 		/**
 		 * @private

@@ -11,7 +11,7 @@ Ext.define('B.Mongo', {
         /**
          * @cfg {String} dataBaseLink Ссылка для подключения к базе.
          */
-        dataBaseLink: 'mongodb://admin:114430fK@ds031551.mongolab.com:31551/heroku_hfxkwqsw',
+        dataBaseLink: outerResourcesConfig.mongo.dataBaseLink,
 
         /**
          * @cfg {Number} reconnectTime Время до переподключения к базе.
