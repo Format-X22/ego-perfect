@@ -16,10 +16,6 @@ Ext.define('B.Cloudinary', {
 		Ext.apply(this.config, config);
 		this.initConfig(this.config);
 
-		this.getCloudinaryUtil().config({
-			cloud_name: 'hdfwhiiko',
-			api_key: '888691939378469',
-			api_secret: '7bJ6HEtZ8DjDrFVgL0-HtAlXamw'
-		});
+		this.getCloudinaryUtil().config(outerResourcesConfig.cloudinary);
 	}
 });
