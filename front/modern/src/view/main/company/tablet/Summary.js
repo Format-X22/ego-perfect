@@ -20,7 +20,10 @@ Ext.define('A.view.main.company.tablet.Summary', {
                     width: 300,
                     height: 300,
                     bind: {
-                        src: 'http://res.cloudinary.com/hdfwhiiko/image/upload/{_id}.jpg'
+                        src: 
+                            'http://res.cloudinary.com/' +
+                            outerResourcesConfig.cloudinary.cloud_name +
+                            '/image/upload/{_id}.jpg'
                     }
                 },
                 {

@@ -92,7 +92,10 @@ Ext.define('A.view.widget.GalleryController', {
         var view = this.getView();
         var id = this.getEntityId();
         var images = [];
-        var tplString = 'http://res.cloudinary.com/hdfwhiiko/image/upload/q_75,c_pad,w_{width},h_{height}/{name}.jpg';
+        var tplString = 
+            'http://res.cloudinary.com/' +
+            outerResourcesConfig.cloudinary.cloud_name +
+            '/image/upload/q_75,c_pad,w_{width},h_{height}/{name}.jpg';
         var tpl = new Ext.Template(tplString);
 
         for (var i = 0; i <= this.getMaxImageIndex(); i++) {
