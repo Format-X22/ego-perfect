@@ -91,7 +91,9 @@ Ext.define('A.view.main.search.SearchResult', {
                                 '<tpl for=".">' +
                                     '<div class="item">' +
                                     '<img src="' +
-                                        'http://res.cloudinary.com/hdfwhiiko/image/upload/' +
+                                        'http://res.cloudinary.com/' + 
+                                        outerResourcesConfig.cloudinary.cloud_name +
+                                        '/image/upload/' +
                                         'q_75,c_pad,w_300,h_300' +
                                         '/{company}.jpg' +
                                     '">' +

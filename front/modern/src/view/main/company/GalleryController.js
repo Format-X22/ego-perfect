@@ -38,8 +38,10 @@ Ext.define('A.view.main.company.GalleryController', {
          * @return {Ext.Template} Шаблон.
          */
         getSrcTpl: function () {
-            var tplString = 'http://res.cloudinary.com/hdfwhiiko/image/upload/' +
-                            'q_60,c_pad,w_{width},h_{height}/{name}.jpg';
+            var tplString = 
+                'http://res.cloudinary.com/' +
+                outerResourcesConfig.cloudinary.cloud_name + 
+                '/image/upload/q_60,c_pad,w_{width},h_{height}/{name}.jpg';
 
             return new Ext.Template(tplString);
         },
