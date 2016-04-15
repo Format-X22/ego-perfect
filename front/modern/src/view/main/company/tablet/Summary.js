@@ -21,9 +21,7 @@ Ext.define('A.view.main.company.tablet.Summary', {
                     height: 300,
                     bind: {
                         src: 
-                            'http://res.cloudinary.com/' +
-                            outerResourcesConfig.cloudinary.cloud_name +
-                            '/image/upload/{_id}.jpg'
+                            'http://res.cloudinary.com/hycanb7c0/image/upload/{_id}.jpg'
                     }
                 },
                 {
