@@ -20,7 +20,7 @@ Ext.define('A.view.main.company.mobile.Summary', {
             items: [
                 {
                     xtype: 'component',
-                    padding: 15,
+                    padding: '18 0 15 0',
                     plugins: 'responsive',
                     responsiveConfig: {
                         width: {
@@ -57,7 +57,7 @@ Ext.define('A.view.main.company.mobile.Summary', {
             },
             bind: {
                 html:
-                    '<div class="property"><div class="title">Рейтинг</div> <div class="value">{rating}</div></div>' +
+                    '<div class="property"><div class="title">Рейтинг</div> <div class="value">{formatRating}</div></div>' +
                     '<div class="property"><div class="title">Телефон</div> <div class="value">{phone}</div></div>' +
                     '<div class="property"><div class="title">Сайт</div> <div class="value">{site}</div></div>' +
                     '<div class="property"><div class="title">Почта</div> <div class="value">{email}</div></div>' +
