@@ -124,6 +124,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
      */
     backToSearchFromAdmin: function (button) {
         this.toggleAdminButtons(button);
+        this.redirectTo('company/client');
         this.backToSearch();
     },
 
@@ -145,6 +146,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
     toggleAdminButtons: function (button) {
         button.hide();
         button.up().down('#backToAdmin').hide();
+        button.up().down('#backToSearchFromAdmin').hide();
         button.up().down('#backToSearch').show();
     },
 

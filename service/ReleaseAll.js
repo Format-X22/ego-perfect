@@ -1,0 +1,20 @@
+/**
+ * Утилита для ручного запуска релиза всего.
+ */
+Ext.define('B.service.ReleaseAll', {
+    extend: 'B.service.AbstractService',
+
+    constructor: function () {
+        this.callParent(arguments);
+
+        B.Mongo.getCollection('company').find({}).toArray(function (error, data) {
+            Ext.Array.each(data, function (doc) {
+                
+                Ext.create('B.biz.client.Release', {
+                    isDirectMode: true,
+                    directLogin: doc.login
+                });
+            }, this);
+        });
+    }
+});

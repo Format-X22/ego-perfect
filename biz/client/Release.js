@@ -11,6 +11,18 @@ Ext.define('B.biz.client.Release', {
     config: {
 
         /**
+         * @cfg {Boolean} isDirectMode
+         * В управляемом режиме релиз производится логину, указанному в {@link #directLogin}.
+         */
+        isDirectMode: false,
+
+        /**
+         * @cfg {String/Null} directLogin
+         * Логин, по которому необходимо произвести релиз в управляемом режиме.
+         */
+        directLogin: null,
+
+        /**
          * @private
          * @cfg {Object} accountData Данные аккаунта.
          */
@@ -50,6 +62,26 @@ Ext.define('B.biz.client.Release', {
 
     },
 
+    /**
+     * @protected
+     * Модифицированная версия, не пытается отправить клиенту ошибку при управляемом запуске.
+     */
+    sendError: function () {
+        if (!this.getIsDirectMode()) {
+            this.callParent(arguments);
+        }
+    },
+
+    /**
+     * @protected
+     * Модифицированная версия, не пытается отправить клиенту ошибку при управляемом запуске.
+     */
+    sendSuccess: function () {
+        if (!this.getIsDirectMode()) {
+            this.callParent(arguments);
+        }
+    },
+
     privates: {
 
         /**
@@ -57,13 +89,23 @@ Ext.define('B.biz.client.Release', {
          * @param {Function} next Следующий шаг.
          */
         extractAccountStep: function (next) {
+            var key = null;
+            var login = null;
+
+            if (this.getIsDirectMode()) {
+                login = this.getDirectLogin();
+            } else {
+                key = this.getRequestModel().get('key');
+            }
+
             Ext.create('B.biz.auth.util.Account', {
-                key: this.getRequestModel().get('key'),
+                key: key,
+                login: login,
                 type: 'company',
                 scope: this,
                 callback: function (acc) {
                     var data = acc.getPrivateAccountData();
-
+                    
                     if (data) {
                         this.setAccountData(data);
                         next();
