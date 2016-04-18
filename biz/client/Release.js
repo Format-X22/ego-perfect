@@ -134,6 +134,8 @@ Ext.define('B.biz.client.Release', {
             photo.set(data);
             words.set(data);
 
+            console.log(Ext.JSON.encode(data));
+
             if (!basic.isValid()) {
                 this.sendError('Базовые данные о компании ещё не заполнены.');
                 return;
