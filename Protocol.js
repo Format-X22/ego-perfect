@@ -68,8 +68,12 @@ Ext.define('B.Protocol', {
     },
 
     constructor: function (config) {
-        Ext.apply(this.config, config);
-        this.initConfig(this.config);
+        this.initConfig(
+            Ext.apply(
+                Ext.clone(this.config),
+                config
+            )
+        );
     },
 
     /**

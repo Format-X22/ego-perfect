@@ -113,7 +113,7 @@ Ext.define('B.biz.client.AbstractSave', {
 	 * @protected
 	 * @template
 	 * @method getUpdateData
-	 * Возврадает набор данных для обновления,
+	 * Возвращает набор данных для обновления,
 	 * который будет записан поверх существующих данных.
 	 * @return {Object} Набор обновленных данных.
 	 */
