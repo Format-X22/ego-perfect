@@ -7,11 +7,18 @@ outerResourcesConfig.cloudinary = {
 };
 
 outerResourcesConfig.mongo = {
-    dataBaseLink: 'mongodb://admin:114430fK@ds031551.mongolab.com:31551/heroku_hfxkwqsw'
+    dataBaseLink:
+        'mongodb://' +
+        'admin' +
+        ':' +
+        'Cn2-KKg-ARZ-MZn' +
+        '@ds025240-a0.mlab.com:25240,ds025240-a1.mlab.com:25240/' +
+        'heroku_g44nbmm5' +
+        '?replicaSet=rs-ds025240'
 };
 
 outerResourcesConfig.sendGrid = {
-    apiKey: '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'
+    apiKey: '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'
 };
 
 
