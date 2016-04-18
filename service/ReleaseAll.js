@@ -7,7 +7,11 @@ Ext.define('B.service.ReleaseAll', {
     constructor: function () {
         this.callParent(arguments);
 
-        B.Mongo.getCollection('company').find({}).toArray(function (error, data) {
+        B.Mongo.getCollection('company').find({
+            payDate: {
+                $gt: new Date()
+            }
+        }).toArray(function (error, data) {
             Ext.Array.each(data, function (doc) {
                 
                 Ext.create('B.biz.client.Release', {

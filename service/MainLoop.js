@@ -14,6 +14,10 @@ Ext.define('B.service.MainLoop', {
 	],
 
 	constructor: function () {
+        Ext.defer(function () {
+            // Место для установки ручных сервисов
+        }, 5000);
+        
 		setInterval(function () {
 			var date = new Date();
 			var hour = date.getUTCHours() + 3;
