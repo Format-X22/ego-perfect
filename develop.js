@@ -1,11 +1,5 @@
 global.outerResourcesConfig = {};
 
-outerResourcesConfig.cloudinary = {
-    cloud_name: 'hdfwhiiko',
-    api_key: '888691939378469',
-    api_secret: '7bJ6HEtZ8DjDrFVgL0-HtAlXamw'
-};
-
 outerResourcesConfig.mongo = {
     dataBaseLink: 'mongodb://admin:114430fK@ds031551.mongolab.com:31551/heroku_hfxkwqsw'
 };
