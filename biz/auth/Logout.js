@@ -10,7 +10,7 @@ Ext.define('B.biz.auth.Logout', {
 
     constructor: function () {
         this.callParent(arguments);
-        
+
         var sessionUtil = Ext.create('B.biz.auth.util.Session', {
             session: this.getRequestModel().get('key'),
             scope: this,

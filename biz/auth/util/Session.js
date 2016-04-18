@@ -54,8 +54,12 @@ Ext.define('B.biz.auth.util.Session', {
     },
 
     constructor: function (config) {
-        Ext.apply(this.config, config);
-        this.initConfig(this.config);
+        this.initConfig(
+            Ext.apply(
+                Ext.clone(this.config),
+                config
+            )
+        );
         this.setStepQueue([]);
     },
 
