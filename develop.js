@@ -1,9 +1,9 @@
 global.outerResourcesConfig = {};
 
 outerResourcesConfig.cloudinary = {
-    cloud_name: 'hdfwhiiko',
-    api_key: '888691939378469',
-    api_secret: '7bJ6HEtZ8DjDrFVgL0-HtAlXamw'
+    cloud_name: 'hycanb7c0',
+    api_key: '137151639639889',
+    api_secret: '6orwlZpRokfIQ7gmRDXk-pgpojE'
 };
 
 outerResourcesConfig.mongo = {
