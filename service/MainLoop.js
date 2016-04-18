@@ -9,7 +9,8 @@ Ext.define('B.service.MainLoop', {
 		'B.service.ClientStat',
 		'B.service.PartnerStat',
 		'B.service.SearchCleaner',
-        'B.service.RatingUpdater'
+        'B.service.RatingUpdater',
+        'B.service.ReleaseAll'
 	],
 
 	constructor: function () {

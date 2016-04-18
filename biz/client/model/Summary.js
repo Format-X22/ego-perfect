@@ -22,7 +22,7 @@ Ext.define('B.biz.client.model.Summary', {
                 },
                 {
                     type: 'length',
-                    max: 4000
+                    max: 10000
                 }
             ],
             convert: function (value) {
