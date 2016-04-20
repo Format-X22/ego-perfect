@@ -12,6 +12,10 @@ Ext.define('A.view.client.editor.Basic', {
 
     layout: 'vbox',
 
+    listeners: {
+        dirtychange: 'toggleSaveToolbar'
+    },
+    
     items: [
         {
             xtype: 'widgetSaveToolbar'

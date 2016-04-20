@@ -85,7 +85,7 @@ Ext.define('A.view.admin.MainController', {
             view.loadRecord(this.getRecord());
             
             Ext.each(fields, function (field) {
-                field.originalValue = field.getValue();
+                field.resetOriginalValue();
             }, this);
 
             if (this.isStatsExits()) {

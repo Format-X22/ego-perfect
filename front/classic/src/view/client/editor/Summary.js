@@ -10,6 +10,10 @@ Ext.define('A.view.client.editor.Summary', {
         'A.view.client.editor.SummaryController'
     ],
 
+    listeners: {
+        dirtychange: 'toggleSaveToolbar'
+    },
+    
     items: [
         {
             xtype: 'widgetSaveToolbar'

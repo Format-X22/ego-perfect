@@ -15,13 +15,15 @@ Ext.define('A.view.widget.SaveToolbar', {
             itemId: 'save',
             text: 'Сохранить',
             iconCls: 'x-fa fa-save',
-            handler: 'save'
+            handler: 'save',
+            disabled: true
         },
         {
             itemId: 'reset',
             text: 'Сбросить',
             iconCls: 'x-fa fa-undo',
-            handler: 'reset'
+            handler: 'reset',
+            disabled: true
         }
     ]
 });
