@@ -5,6 +5,10 @@ Ext.define('A.view.client.editor.SummaryController', {
     extend: 'A.view.widget.AbstractSaveToolbarController',
     alias: 'controller.clientEditorSummary',
 
+    mixins: [
+        'A.view.widget.MessagesMixin'
+    ],
+
     url: '/api/client/summary',
 
     config: {
@@ -19,7 +23,45 @@ Ext.define('A.view.client.editor.SummaryController', {
          * @private
          * @cfg {Number} maxCount Максимальное количество символов в редакторе.
          */
-        maxCount: 2000
+        maxCount: 2000,
+
+        /**
+         * @private
+         * @cfg {RegExp} scriptPatternRe Регексп внедрения скритов.
+         */
+        scriptPatternRe: new RegExp([
+            'script',
+            'onblur',
+            'onchange',
+            'onclick',
+            'ondblclick',
+            'onfocus',
+            'onkeydown',
+            'onkeypress',
+            'onkeyup',
+            'onload',
+            'onmousedown',
+            'onmousemove',
+            'onmouseout',
+            'onmouseover',
+            'onmouseup',
+            'onreset',
+            'onselect',
+            'onsubmit',
+            'onunload',
+            'url',
+            'img'
+        ].join('|'), 'gi')
+    },
+
+    /**
+     * Оповещает о изменениях,
+     * дефолтный способ с проверкой на изменения не работает для смены режима редактирования.
+     * @param {Ext.form.field.HtmlEditor} editor Эдитор.
+     */
+    notifyChange: function (editor) {
+        this.validateAndUpdateCounter();
+        this.toggleSaveToolbar(this.getView(), editor.isDirty());
     },
 
     /**
@@ -27,6 +69,17 @@ Ext.define('A.view.client.editor.SummaryController', {
      */
     save: function () {
         if (this.isInvalidLength()) {
+            return;
+        }
+
+        if (this.isAnyScripts()) {
+            this.showErrorMessage(
+                'Ваш текст содержит опасные невидимые символы,<br>' +
+                'которые могут нанести вред другим пользователям системы.<br>' +
+                'Пожалуйста, больше не копируйте их из того места, откуда вы их скопировали.<br>' +
+                'При острой необходимости - введите текст руками,<br>' +
+                'это защитит от "незванных гостей" в виде вирусов.'
+            );
             return;
         }
         
@@ -45,6 +98,7 @@ Ext.define('A.view.client.editor.SummaryController', {
         }
 
         this.removeImages();
+        this.removeScripts();
         this.calculateCount();
         this.updateCounter();
     },
@@ -61,6 +115,20 @@ Ext.define('A.view.client.editor.SummaryController', {
                 .replace('img', 'span')
                 .replace('url', 'null');
             
+            if (value !== cleaned) {
+                editor.setValue(cleaned);
+            }
+        },
+
+        /**
+         * @private
+         */
+        removeScripts: function () {
+            var editor = this.getEditor();
+            var value = editor.getValue();
+            var re = this.getScriptPatternRe();
+            var cleaned = value.replace(re, 'null');
+
             if (value !== cleaned) {
                 editor.setValue(cleaned);
             }
@@ -187,6 +255,17 @@ Ext.define('A.view.client.editor.SummaryController', {
          */
         isInvalidLength: function () {
             return this.getCount() > this.getMaxCount();
+        },
+
+        /**
+         * @private
+         * @return {Boolean} Результат валидации.
+         */
+        isAnyScripts: function () {
+            var value = this.getEditor().getValue();
+            var re = this.getScriptPatternRe();
+
+            return re.test(value);
         }
     }
 });

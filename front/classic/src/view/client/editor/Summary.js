@@ -46,7 +46,8 @@ Ext.define('A.view.client.editor.Summary', {
                     },
                     value: 'А мы самые <b>лучшие!</b>',
                     listeners: {
-                        change: 'validateAndUpdateCounter'
+                        change: 'validateAndUpdateCounter',
+                        editmodechange: 'notifyChange'
                     }
                 }
             ]
