@@ -29,8 +29,8 @@ Ext.define('A.view.main.auth.RegisterPage', {
             margin: '0 0 10 0'
         },
 		{
-			xtype      : 'fieldcontainer',
-			fieldLabel : 'Я',
+			xtype: 'fieldcontainer',
+			fieldLabel: 'Я',
 			defaultType: 'radiofield',
 			defaults: {
 				flex: 1
@@ -38,14 +38,14 @@ Ext.define('A.view.main.auth.RegisterPage', {
 			layout: 'vbox',
 			items: [
 				{
-					boxLabel  : 'Клиент, хочу разместить свою компанию.',
-					name      : 'type',
+					boxLabel: 'Клиент, хочу разместить свою компанию.',
+					name: 'type',
 					inputValue: 'company',
 					checked: true
 				},
 				{
-					boxLabel  : 'Партнер, хочу приглашать клиентов.',
-					name      : 'type',
+					boxLabel: 'Партнер, хочу приглашать клиентов.',
+					name: 'type',
 					inputValue: 'partner'
 				}
 			]
