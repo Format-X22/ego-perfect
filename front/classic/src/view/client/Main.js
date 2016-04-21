@@ -82,6 +82,9 @@ Ext.define('A.view.client.Main', {
                     xtype: 'tabpanel',
                     title: 'Редактор',
                     iconCls: 'x-fa fa-pencil-square-o',
+                    listeners: {
+                        beforetabchange: 'checkEditorSaveOnTabChange'
+                    },
                     items: [
                         {
                             xtype: 'clientEditorBasic',

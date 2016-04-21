@@ -269,13 +269,29 @@ Ext.define('B.biz.auth.Register', {
          * @param {Function} next Следующий шаг.
          */
         sendMailStep: function (next) {
-            var model = this.getRequestModel();
-            var pass = this.getCrypt().getPass();
+            var type = this.getRequestModel().get('type');
 
+            this.sendPassMail(next);
+            
+            if (type === 'partner') {
+                this.sendPartnerMail();
+            }
+        },
+
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        sendPassMail: function (next) {
+            var model = this.getRequestModel();
+            var login = model.get('login');
+            var pass = this.getCrypt().getPass();
+            var type = model.get('type');
+            
             Ext.create('B.Mail', {
-                login: model.get('login'),
+                login: login,
                 pass: pass,
-                type: model.get('type'),
+                type: type,
                 scope: this,
                 callback: function (mailer) {
                     if (mailer.getError()) {
@@ -285,6 +301,18 @@ Ext.define('B.biz.auth.Register', {
                     }
                 }
             }).sendAuthMail();
+        },
+
+        /**
+         * @private
+         */
+        sendPartnerMail: function () {
+            var login = this.getRequestModel().get('login');
+
+            Ext.create('B.Mail', {
+                login: login,
+                scope: this
+            }).sendPartnerRegistrationMail();
         },
 
         /**

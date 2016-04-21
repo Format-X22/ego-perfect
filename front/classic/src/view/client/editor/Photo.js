@@ -12,6 +12,10 @@ Ext.define('A.view.client.editor.Photo', {
 
     layout: 'vbox',
 
+    listeners: {
+        dirtychange: 'toggleSaveToolbar'
+    },
+    
     items: [
         {
             xtype: 'widgetSaveToolbar'

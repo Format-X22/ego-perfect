@@ -10,6 +10,20 @@ Ext.define('A.view.partner.MainController', {
     ],
 
     /**
+     * Обновляет ссылку с ключем до текущего ключа.
+     * Необходимо при загрузке данных партнера.
+     */
+    updateKeyLink: function () {
+        var keyPage = this.getView().down('partnerKey');
+        var idField = keyPage.down('#id');
+        var linkField = keyPage.down('#link');
+        var id = idField.getValue();
+
+        linkField.setValue('http://фирмы.онлайн/#rootPage/register/' + id);
+        
+    },
+
+    /**
      * @inheritdoc
      */
     getModelClassName: function () {
