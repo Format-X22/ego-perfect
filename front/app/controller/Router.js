@@ -9,6 +9,7 @@ Ext.define('A.controller.Router', {
     },
     
     routes: {
+        'rootPage/register/:key': 'goToRegisterPageWithKey',
         'rootPage/:id': 'goToRootPage',
         'company/:id': 'goToCompanyPage',
         'account/:id': 'goToAccountPage'
@@ -76,6 +77,16 @@ Ext.define('A.controller.Router', {
                 main.setActiveItem(4);
                 return;
         }
+    },
+
+    /**
+     * Обрабатывает партнерские ссылки.
+     * Переносит на страницу регистрации и сразу проставляет ключ.
+     * @param {String} key Ключ партнера.
+     */
+    goToRegisterPageWithKey: function (key) {
+        A.getCmp('appMainPublic #register #partner').setValue(key);
+        this.goToRootPage('register');
     },
 
     privates: {

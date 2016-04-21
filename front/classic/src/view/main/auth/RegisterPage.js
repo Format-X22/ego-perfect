@@ -51,6 +51,7 @@ Ext.define('A.view.main.auth.RegisterPage', {
 			]
 		},
         {
+            itemId: 'login',
             name: 'login',
             xtype: 'textfield',
             inputType: 'email',
@@ -63,6 +64,7 @@ Ext.define('A.view.main.auth.RegisterPage', {
             }
         },
         {
+            itemId: 'partner',
             name: 'partner',
             xtype: 'textfield',
             fieldLabel: 'Код партнера',
