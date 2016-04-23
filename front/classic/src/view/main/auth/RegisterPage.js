@@ -58,7 +58,7 @@ Ext.define('A.view.main.auth.RegisterPage', {
             fieldLabel: 'Почта',
             allowBlank: false,
             validateOnChange: false,
-            regex: /.*@.*\.*/,
+            regex: /^[^\s]+@[^\s]+\.[^\s]+$/,
             listeners: {
                 specialkey: 'trySendIfEnterKey'
             }
