@@ -47,6 +47,24 @@ Ext.define('A.view.partner.Key', {
             width: 620
         },
         {
+            itemId: 'activeFlag',
+            name: 'active',
+            xtype: 'hidden',
+            listeners: {
+                change: 'updateContractHint'
+            }
+        },
+        {
+            itemId: 'contractHint',
+            xtype: 'component',
+            margin: 30,
+            width: 620,
+            html:
+                '<b>Необходимо завершить регистрацию подписанием договора.<br>' +
+                'Напишите на почту contact@фирмы.онлайн или позвоните на номер<br>' +
+                '+7 (925) 154-68-79.</b>'
+        },
+        {
             flex: 3
         }
     ]
