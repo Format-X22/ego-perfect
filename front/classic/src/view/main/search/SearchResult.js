@@ -72,6 +72,7 @@ Ext.define('A.view.main.search.SearchResult', {
             width: '100%',
             items: [
                 {
+                    itemId: 'resultCardScrollContainer',
                     xtype: 'container',
                     layout: {
                         type: 'hbox',
