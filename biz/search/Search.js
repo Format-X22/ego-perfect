@@ -38,6 +38,8 @@ Ext.define('B.biz.search.Search', {
         this.callParent(arguments);
         this.setMongoSearchCollection(B.Mongo.getCollection('search'));
 
+        this.getRequestModel().set('limit', 10000); // @TODO до подключения динамической загрузки
+        
         B.util.Function.queue([
             this.makeQueryTokens,
             this.doDBQuery
