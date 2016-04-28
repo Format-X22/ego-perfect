@@ -4,6 +4,8 @@
 Ext.define('B.service.ReleaseAll', {
     extend: 'B.service.AbstractService',
 
+    serviceNameForLogger: 'Релиз всего',
+
     constructor: function () {
         this.callParent(arguments);
 

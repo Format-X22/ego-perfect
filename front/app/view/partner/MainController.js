@@ -24,6 +24,21 @@ Ext.define('A.view.partner.MainController', {
     },
 
     /**
+     * Переключает видимость подсказки необходимости заключения договора.
+     */
+    updateContractHint: function () {
+        var view = this.getView();
+        var isActive = view.down('#activeFlag').getValue();
+        var hint = view.down('#contractHint');
+        
+        if (isActive) {
+            hint.hide();
+        } else {
+            hint.show();
+        }
+    },
+
+    /**
      * @inheritdoc
      */
     getModelClassName: function () {

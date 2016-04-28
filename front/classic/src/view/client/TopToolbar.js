@@ -14,19 +14,19 @@ Ext.define('A.view.client.TopToolbar', {
     height: 70,
     items: [
         {
-            itemId: 'toSearch',
-            xtype: 'button',
-            text: 'На страницу поиска',
-            iconCls: 'x-fa fa-search',
-            handler: 'toSearch'
-        },
-        {
             itemId: 'toDetails',
             xtype: 'button',
             text: 'На страницу вашей компании',
             iconCls: 'x-fa fa-file-text-o',
             handler: 'toDetails',
             hidden: true
+        },
+        {
+            itemId: 'toSearch',
+            xtype: 'button',
+            text: 'На страницу поиска',
+            iconCls: 'x-fa fa-search',
+            handler: 'toSearch'
         },
         {
             itemId: 'release',

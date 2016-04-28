@@ -2,7 +2,7 @@
 <html manifest="">
 <head>
     <title>Фирмы онлайн</title>
-    <meta name="keywords" content="объявления, визитки, отзывы о компании">
+    <meta name="keywords" content="фирмы онлайн, объявления, визитки, отзывы о компании">
     <meta name="description" content="Интернет-визитница с отзывами о компаниях">
     <meta name="author" content="Павлов Олег Михайлович">
     <meta name="copyright" content="ООО Простые числа">
@@ -52,13 +52,17 @@
     <style>
         .start-preloader {
             width: 240px;
-            height: 150px;
+            height: 400px;
             position: absolute;
             top: 0;
             right: 0;
             bottom: 0;
             left: 0;
             margin: auto auto;
+            font-weight: bold;
+            font-size: 300%;
+            text-align: center;
+            color: #4EA6F5;
             animation: start-preloader-animation 2s infinite;
         }
 
@@ -76,7 +80,10 @@
     </style>
 </head>
 <body>
-    <img id="start-preloader" class="start-preloader" src="/resources/img/logo.svg">
+    <div id="start-preloader" class="start-preloader">
+        <img src="/resources/img/logo.svg">
+        <span>Загрузка</span>
+    </div>
     <script id="microloader" data-app="a74a1d35-aabf-46df-9701-54f99dcd1e24" type="text/javascript" src="bootstrap.js"></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -36,6 +36,20 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
     },
 
     /**
+     * Скроллит на последнюю сохраненную позицию если сейчас классический режим.
+     */
+    scrollToLastPositionIfClassic: function () {
+        if (!Ext.isClassic) {
+            return;
+        }
+
+        var container = this.getScrollContainer();
+        var position = this.getLastScrollPosition();
+
+        container.scrollTo(position);
+    },
+
+    /**
      * @protected
      * Открывает компанию, соответствующую данным рекорда или по ID.
      * @param {Ext.data.Model/Number} recordOrId Рекорд или ID.
@@ -58,7 +72,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
             });
         }
 
-        this.saveCurrentScrollIfModern();
+        this.saveCurrentScroll();
         this.showCompany();
         this.loadCompany(id, function () {
             if (Ext.isClassic) {
@@ -114,6 +128,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         this.switchToSearch();
         this.fixAndroidAutoFocus();
         this.fixScrollFreeze();
+        this.scrollToLastPositionIfClassic();
         this.redirectTo('rootPage/search');
     },
 
@@ -344,15 +359,25 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         /**
          * @private
          */
-        saveCurrentScrollIfModern: function () {
-            if (Ext.isClassic) {
-                return;
-            }
-
-            var scrollContainer = this.getView().down('#searchResultContainer');
-            var position = scrollContainer.getScrollable().getPosition();
-
+        saveCurrentScroll: function () {
+            var container = this.getScrollContainer();
+            var position = container.getScrollable().getPosition();
+            
             this.setLastScrollPosition(Ext.clone(position));
+        },
+
+        /**
+         * @private
+         * @return {Ext.Container} Контейнер для скрола.
+         */
+        getScrollContainer: function () {
+            var view = this.getView();
+
+            if (Ext.isClassic) {
+                return view.down('#resultCardScrollContainer');
+            } else {
+                return view.down('#searchResultContainer');
+            }
         }
     }
 });

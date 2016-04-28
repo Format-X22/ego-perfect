@@ -72,6 +72,7 @@ Ext.define('A.view.main.search.SearchResult', {
             width: '100%',
             items: [
                 {
+                    itemId: 'resultCardScrollContainer',
                     xtype: 'container',
                     layout: {
                         type: 'hbox',
@@ -92,8 +93,7 @@ Ext.define('A.view.main.search.SearchResult', {
                                     '<div class="item">' +
                                     '<img src="' +
                                         'http://res.cloudinary.com/hycanb7c0/image/upload/' +
-                                        'q_75,c_pad,w_300,h_300' +
-                                        '/{company}.jpg' +
+                                        '{company}.jpg' +
                                     '">' +
                                     '</div>' +
                                 '</tpl>',
