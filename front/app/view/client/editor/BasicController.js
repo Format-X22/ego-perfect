@@ -21,7 +21,7 @@ Ext.define('A.view.client.editor.BasicController', {
         }
 
         value.replace(/\s+/, ',');
-        value.replace(/,*/, ',');
+        value.replace(/,+/, ',');
         value = value.split(/[,]|[.]]/);
 
         Ext.each(value, function (part) {

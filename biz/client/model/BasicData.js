@@ -85,6 +85,7 @@ Ext.define('B.biz.client.model.BasicData', {
 				value = value
 					.trim()
 					.replace(/@/g, '')
+					.replace(/,/g, ', ')
 					.replace(/[ ]+/g, ' ');
 
 				if (/^\d+.\d+, \d+.\d+$/.test(value)) {
