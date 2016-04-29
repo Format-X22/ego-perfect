@@ -89,7 +89,7 @@ Ext.define('A.view.main.auth.LoginPage', {
                 {
                     xtype: 'button',
                     iconCls: 'x-fa fa-question',
-                    text: 'Забыл пароль',
+                    text: 'Сбросить пароль',
                     width: 150,
                     handler: 'resetPass'
                 }
