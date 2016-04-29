@@ -9,7 +9,7 @@ Ext.define('A.model.field.SafeString', {
     /**
      * @inheritdoc
      */
-    format: function (value) {
-        return Ext.encode(value);
+    convert: function (value) {
+        return Ext.String.htmlEncode(value);
     }
 });

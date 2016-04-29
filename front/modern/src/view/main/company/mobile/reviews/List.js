@@ -38,7 +38,7 @@ Ext.define('A.view.main.company.mobile.reviews.List', {
     initialize: function () {
         this.callParent(arguments);
 
-        this.on('painted', this.setStoreIfDirectLink, this, {single: true});
+        this.on('painted', this.setStoreIfDirectLink, this);
     },
 
     privates: {
@@ -58,10 +58,6 @@ Ext.define('A.view.main.company.mobile.reviews.List', {
         setStoreIfDirectLink: function () {
             var list = this.down('#reviewsList');
             var container = list.up('companyContainer');
-
-            if (list.getStore()) {
-                return;
-            }
 
             if (container) {
                 list.setStore(container.getViewModel().get('reviews'));

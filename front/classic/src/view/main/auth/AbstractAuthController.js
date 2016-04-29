@@ -7,6 +7,10 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
     mixins: [
         'A.view.widget.FormSaveMessagesMixin'
     ],
+    
+    requires: [
+        'A.view.main.auth.ClientOfferRegisterWindow'
+    ],
 
     config: {
 
@@ -20,6 +24,19 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
      * Пытается отправить форму.
      */
     trySend: function () {
+        var type = this.getView().getValues().type;
+        
+        if (type === 'company') {
+            this.showClientOffer();
+        } else {
+            this.send();
+        }
+    },
+
+    /**
+     * Отправляет форма.
+     */
+    send: function () {
         var view = this.getView();
 
         view.mask();
@@ -35,7 +52,7 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
                 this.showFailureSaveMessage.apply(this, arguments);
                 view.unmask();
             }.bind(this)
-        });
+        });    
     },
 
     /**
@@ -68,5 +85,21 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
         A.getCmp('appMain').setActiveItem(accPage);
         this.redirectTo('account/' + accHash);
         this.getView().reset();
+    },
+    
+    privates: {
+
+        /**
+         * @private
+         */
+        showClientOffer: function () {
+            var offer = Ext.create('A.view.main.auth.ClientOfferRegisterWindow');
+            
+            offer.on('done', function () {
+                offer.hide();
+                offer.destroy();
+                this.send();
+            }, this, {single: true});
+        }
     }
 });
