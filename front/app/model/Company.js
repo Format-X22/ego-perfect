@@ -20,7 +20,7 @@ Ext.define('A.model.Company', {
         {name: 'mail',         type: 'safeString'},
         {name: 'time',         type: 'safeString'},
         {name: 'address',      type: 'safeString'},
-        {name: 'summary',      type: 'safeString'},
+        {name: 'summary',      type: 'string'},
 
         {name: 'reviews',      type: 'store',  model: 'A.model.Review', reverseData: true },
         {name: 'map',          type: 'store',  model: 'A.model.Map'                       },
