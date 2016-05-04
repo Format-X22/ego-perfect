@@ -24,6 +24,27 @@ Ext.define('A.store.PageForContacts', {
                 '<a class="link" href="mailto:contact@фирмы.онлайн">contact@фирмы.онлайн</a><br>' +
                 'или позвонить на номер<br>' +
                 '8 (925) 154-68-79'
+        },
+        {
+            id: 2,
+            url: '/resources/img/contacts2.svg',
+            header: 'Юридические данные',
+            description:
+                'ООО «Простые числа»<br>' +
+                '129345, г. Москва, ул. Тайнинская, д.26,<br> пом. I, комн. 1<br>' +
+                'ОГРН<br>' +
+                '1167746406805<br>' +
+                'ИНН/КПП<br>' +
+                '7716823512/771601001'
+        },
+        {
+            id: 3,
+            url: '/resources/img/contacts3.svg',
+            header: 'Банковские реквизиты',
+            description:
+                'Р/сч:<br>' +
+                'БИК:<br>' +
+                'Кор/сч:'
         }
     ]
 });

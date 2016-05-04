@@ -8,15 +8,5 @@ Ext.define('A.view.main.infoPage.ForContacts', {
 
     requires: [
         'A.store.PageForContacts'
-    ],
-
-    items: [
-        {
-            xtype: 'dataview',
-            useComponents: true,
-            inline: true,
-            defaultType: 'infoComicIcon',
-            scrollable: false
-        }
     ]
 });
