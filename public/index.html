@@ -14,45 +14,60 @@
     <title>Фирмы онлайн</title>
     <link rel="icon" type="image/png" href="/resources/img/favicon.png" />
     <script type="text/javascript">
-        var Ext = Ext || {}; // Ext namespace won't be defined yet...
+        var Ext = Ext || {};
 
-        // This function is called by the Microloader after it has performed basic
-        // device detection. The results are provided in the "tags" object. You can
-        // use these tags here or even add custom tags. These can be used by platform
-        // filters in your manifest or by platformConfig expressions in your app.
-        //
         Ext.beforeLoad = function (tags) {
-            var s = location.search,  // the query string (ex "?foo=1&bar")
-                profile;
+            var search = location.search;
+            var paramClassic = search.match(/\bclassic\b/);
+            var paramModern = search.match(/\bmodern\b/);
 
-            // For testing look for "?classic" or "?modern" in the URL to override
-            // device detection default.
-            //
-            if (s.match(/\bclassic\b/)) {
-                profile = 'classic';
-            }
-            else if (s.match(/\bmodern\b/)) {
-                profile = 'modern';
-            }
-            else {
-                profile = tags.desktop ? 'classic' : 'modern';
-                //profile = tags.phone ? 'modern' : 'classic';
+            if (paramClassic) {
+                Ext.manifest = 'classic';
+                return;
             }
 
-            Ext.manifest = profile; // this name must match a build profile name
+            if (paramModern) {
+                Ext.manifest = 'modern';
+                return;
+            }
 
-            // This function is called once the manifest is available but before
-            // any data is pulled from it.
-            //
-            //return function (manifest) {
-                // peek at / modify the manifest object
-            //};
+            if (tags.desktop) {
+                Ext.manifest = 'classic';
+            } else {
+                Ext.manifest = 'modern';
+            }
         };
+    </script>
+    <script type="text/javascript">
+        (function () {
+            function preloaderIncrementer () {
+                var counter = document.getElementById('start-preloader-counter');
+                var count;
+
+                if (!counter) {
+                    return;
+                }
+
+                count = parseInt(counter.innerText);
+
+                if (count < 80) {
+                    count += 5;
+                } else if (count < 99) {
+                    count++;
+                }
+
+                counter.innerText = count + '%';
+
+                setTimeout(preloaderIncrementer, 75);
+            }
+
+            setTimeout(preloaderIncrementer, 75);
+        })();
     </script>
     <style>
         .start-preloader {
-            width: 240px;
-            height: 400px;
+            width: 300px;
+            height: 300px;
             position: absolute;
             top: 0;
             right: 0;
@@ -60,29 +75,20 @@
             left: 0;
             margin: auto auto;
             font-weight: bold;
-            font-size: 300%;
+            font-size: 150%;
             text-align: center;
             color: #4EA6F5;
-            animation: start-preloader-animation 2s infinite;
-        }
-
-        @keyframes start-preloader-animation {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 1;
-            }
         }
     </style>
 </head>
 <body>
     <div id="start-preloader" class="start-preloader">
         <img src="/resources/img/logo.svg">
-        <span>Загрузка</span>
+        <br>
+        <span>Мы загружаем<br> сайт сейчас<br> чтобы не отвлекать<br> вас потом.</span>
+        <br>
+        <br>
+        <span id="start-preloader-counter">10%</span>
     </div>
     <script id="microloader" data-app="a74a1d35-aabf-46df-9701-54f99dcd1e24" type="text/javascript">var Ext=Ext||{};Ext.manifest=Ext.manifest||"modern.json";Ext=Ext||{};
 Ext.Boot=Ext.Boot||function(e){function g(a){if(a.$isRequest)return a;a=a.url?a:{url:a};var m=a.url,m=m.charAt?[m]:m,d=a.charset||b.config.charset;v(this,a);delete this.url;this.urls=m;this.charset=d}function p(a){if(a.$isEntry)return a;var m=a.charset||b.config.charset,d=Ext.manifest,d=d&&d.loader,f=void 0!==a.cache?a.cache:d&&d.cache,j;b.config.disableCaching&&(void 0===f&&(f=!b.config.disableCaching),!1===f?j=+new Date:!0!==f&&(j=f),j&&(d=d&&d.cacheParam||b.config.disableCachingParam,j=d+"\x3d"+
