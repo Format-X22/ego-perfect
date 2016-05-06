@@ -96,6 +96,11 @@ Ext.define('A.view.widget.GalleryController', {
             'http://res.cloudinary.com/hycanb7c0/image/upload/q_75,c_pad,w_{width},h_{height}/{name}.jpg';
         var tpl = new Ext.Template(tplString);
 
+        if (!view.rendered) {
+            view.on('show', this.refresh, this, {single: true});
+            return;
+        }
+        
         for (var i = 0; i <= this.getMaxImageIndex(); i++) {
             images.push({
                 src: tpl.apply({

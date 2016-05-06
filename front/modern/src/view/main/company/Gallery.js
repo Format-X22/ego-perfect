@@ -6,8 +6,6 @@ Ext.define('A.view.main.company.Gallery', {
     xtype: 'companyGallery',
     controller: 'companyGallery',
 
-    width: 0,
-
     items: (function () {
         var config = [];
 
@@ -27,8 +25,7 @@ Ext.define('A.view.main.company.Gallery', {
     initialize: function () {
         this.on({
             scope: this,
-            show: this.fixSlideOnShow,
-            hide: this.fixSlideOnHide
+            show: this.fixSlideOnShow
         });
     },
 
@@ -44,15 +41,10 @@ Ext.define('A.view.main.company.Gallery', {
          */
         fixSlideOnShow: function () {
             Ext.defer(function () {
-                this.setWidth(null);
+                this.onSizeChange(); // @TODO [VERSION HACK]
+                                     // Вызов приватного метода, который фиксит карусель,
+                                     // других адекватных путей без побочных эффектов - не найдено.
             }, 550, this);
-        },
-
-        /**
-         * @private
-         */
-        fixSlideOnHide: function () {
-            this.setWidth(0);
         }
     }
 });

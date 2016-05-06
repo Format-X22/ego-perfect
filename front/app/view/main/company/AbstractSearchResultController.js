@@ -103,6 +103,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
             },
             callback: function () {
                 viewModel.applyDataFromModel();
+                container.notifyCompanyLoad();
                 callback.call(this);
             }.bind(this)
         });
