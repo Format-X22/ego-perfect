@@ -176,7 +176,8 @@ Ext.define('B.biz.client.Release', {
                 data.word8 || '',
                 data.word9 || '',
                 data.word10 || '',
-                data.address || ''
+                data.address || '',
+                data.summary || ''
             ]);
             
             next();

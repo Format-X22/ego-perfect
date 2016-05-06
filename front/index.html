@@ -50,10 +50,14 @@
 
                 count = parseInt(counter.innerText);
 
-                if (count < 80) {
+                if (count < 60) {
                     count += 5;
+                } else if (count < 75) {
+                    count += 4;
+                } else if (count < 90) {
+                    count += 2;
                 } else if (count < 99) {
-                    count++;
+                    count += 1;
                 }
 
                 counter.innerText = count + '%';
