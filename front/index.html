@@ -43,6 +43,7 @@
             function preloaderIncrementer () {
                 var counter = document.getElementById('start-preloader-counter');
                 var count;
+                var inc;
 
                 if (!counter) {
                     return;
@@ -50,22 +51,40 @@
 
                 count = parseInt(counter.innerText);
 
-                if (count < 60) {
+                if (count < 50) {
                     count += 5;
-                } else if (count < 75) {
-                    count += 4;
-                } else if (count < 90) {
+                    inc = 100;
+                } else if (count < 60) {
+                    count += 3;
+                    inc = 150;
+                } else if (count < 70) {
                     count += 2;
+                    inc = 200;
+                } else if (count < 80) {
+                    count += 1;
+                    inc = 300;
+                } else if (count < 90) {
+                    count += 1;
+                    inc = 500;
                 } else if (count < 99) {
                     count += 1;
+                    inc = 1000;
                 }
 
                 counter.innerText = count + '%';
 
-                setTimeout(preloaderIncrementer, 75);
+                if (count > 80) {
+                    counter.innerText += ' (медленный интернет)';
+                }
+
+                if (count === 99 || isNaN(count)) {
+                    counter.innerText = 'У вас очень плохой интернет, НО загрузка продолжается...'
+                }
+
+                setTimeout(preloaderIncrementer, inc);
             }
 
-            setTimeout(preloaderIncrementer, 75);
+            setTimeout(preloaderIncrementer, 100);
         })();
     </script>
     <style>
