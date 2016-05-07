@@ -9,7 +9,7 @@ Ext.define('A.view.main.search.HelpWindowController', {
     control: {
         'searchHelpWindow': {
             beforeshow: 'checkNoShowed',
-            close: 'closeWindowHandler'
+            hide: 'closeWindowHandler'
         }
     },
 
