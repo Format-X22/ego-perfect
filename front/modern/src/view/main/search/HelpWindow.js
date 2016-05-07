@@ -16,6 +16,7 @@ Ext.define('A.view.main.search.HelpWindow', {
 
     title: 'Подсказка',
     buttons: Ext.MessageBox.OK,
+    hideOnMaskTap: true,
 
     layout: {
         type: 'vbox',
