@@ -20,7 +20,6 @@ Ext.define('A.view.client.editor.Summary', {
         },
 		{
 			xtype: 'adminTopDescription',
-			border: '0 0 1 0',
 			html:
 				'Опишите вашу компанию. Подробно.<br>' +
 				'Расскажите о том чем вы занимаетесь и что можете предложить.<br>' +
@@ -29,6 +28,9 @@ Ext.define('A.view.client.editor.Summary', {
 				'На основе этого текста будет сформировано первое впечатление<br>' +
 				'о вас и вашей компании.'
 		},
+        {
+            xtype: 'clientEditorWidgetSplitLine'
+        },
         {
             xtype: 'container',
             layout: {

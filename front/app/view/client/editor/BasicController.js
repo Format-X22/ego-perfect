@@ -49,7 +49,7 @@ Ext.define('A.view.client.editor.BasicController', {
             hintWindow.on('hide', hintWindow.destroy, hintWindow);
             hintWindow.hide();
         } else {
-            Ext.create('A.view.client.editor.CoordsHintWindow', {});
+            Ext.create('A.view.client.editor.widget.CoordsHintWindow', {});
         }
     }
 });

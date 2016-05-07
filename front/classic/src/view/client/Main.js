@@ -22,6 +22,7 @@ Ext.define('A.view.client.Main', {
         'A.view.client.editor.Basic',
         'A.view.client.editor.Summary',
         'A.view.client.editor.Photo',
+        'A.view.client.editor.widget.HintSplitLine',
         'A.view.client.Profile',
         'A.view.client.Pay',
         'A.view.client.TopToolbar',

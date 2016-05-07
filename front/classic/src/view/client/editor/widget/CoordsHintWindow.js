@@ -1,7 +1,7 @@
 /**
  * Окно с подсказкой о получении координат компании.
  */
-Ext.define('A.view.client.editor.CoordsHintWindow', {
+Ext.define('A.view.client.editor.widget.CoordsHintWindow', {
     extend: 'Ext.window.Window',
     xtype: 'clientEditorCoordsHintWindow',
     cls: 'client-editor-coords-hint-window',
