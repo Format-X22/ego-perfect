@@ -103,6 +103,23 @@ Ext.define('A.view.client.editor.SummaryController', {
         this.updateCounter();
     },
 
+    /**
+     * Обновляет размер эдитора до заполнения всего пустого пространства.
+     */
+    flexEditorSize: function () {
+        var view = this.getView();
+        var fullWidgetHeight = view.getHeight();
+        var editor = view.down('htmleditor');
+        var hint = view.down('adminTopDescription');
+        var offset = 250;
+        
+        if (!hint) {
+            offset = offset - 145;
+        }
+
+        editor.setHeight(fullWidgetHeight - offset);
+    },
+
     privates: {
 
         /**
