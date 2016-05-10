@@ -36,6 +36,7 @@ Ext.define('A.view.client.editor.Summary', {
             xtype: 'clientEditorWidgetSplitLine'
         },
         {
+            itemId: 'editorContainer',
             xtype: 'container',
             layout: {
                 type: 'fit'

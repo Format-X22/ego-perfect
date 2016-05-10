@@ -51,7 +51,13 @@ Ext.define('A.view.client.editor.SummaryController', {
             'onunload',
             'url',
             'img'
-        ].join('|'), 'gi')
+        ].join('|'), 'gi'),
+
+        /**
+         * @private
+         * @cfg {Ext.tip.ToolTip} maxTextTooltipWidget Виджет максимального текста.
+         */
+        maxTextTooltipWidget: null
     },
 
     /**
@@ -69,6 +75,7 @@ Ext.define('A.view.client.editor.SummaryController', {
      */
     save: function () {
         if (this.isInvalidLength()) {
+            this.toggleMaxLengthTooltip();
             return;
         }
 
@@ -118,6 +125,24 @@ Ext.define('A.view.client.editor.SummaryController', {
         }
 
         editor.setHeight(fullWidgetHeight - offset);
+    },
+
+    /**
+     * Переключает отображение тултипа о привышении максимального количества символов.
+     */
+    toggleMaxLengthTooltip: function () {
+        var view = this.getView();
+        var tooltip = this.getMaxTextTooltip();
+        var target;
+        
+        if (this.isInvalidLength()) {
+            target = view.down('#editorContainer').getEl().dom;
+            tooltip.show();
+            tooltip.showBy(target, 'tl');
+        } else {
+            tooltip.hide();
+        }
+        
     },
 
     privates: {
@@ -219,6 +244,7 @@ Ext.define('A.view.client.editor.SummaryController', {
 
             if (!text) {
                 text = toolbar.insert(0, {
+                    itemId: 'maxLengthText',
                     xtype: 'tbtext',
                     width: 180
                 });
@@ -283,6 +309,35 @@ Ext.define('A.view.client.editor.SummaryController', {
             var re = this.getScriptPatternRe();
 
             return re.test(value);
+        },
+
+        /**
+         * @private
+         * @return {Ext.tip.ToolTip} Тултип.
+         */
+        getMaxTextTooltip: function () {
+            var tooltip = this.getMaxTextTooltipWidget();
+            
+            if (tooltip) {
+                return tooltip;
+            } else {
+                tooltip = this.makeMaxTextTooltip();
+
+                this.setMaxTextTooltipWidget(tooltip);
+                
+                return tooltip;
+            }
+        },
+
+        /**
+         * @private
+         * @return {Ext.tip.ToolTip} Тултип.
+         */
+        makeMaxTextTooltip: function () {
+            return Ext.create('Ext.tip.ToolTip', {
+                html: 'Слишком много символов',
+                autoHide: false
+            });
         }
     }
 });
