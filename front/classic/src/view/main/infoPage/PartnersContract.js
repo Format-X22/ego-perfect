@@ -4,7 +4,7 @@
 Ext.define('A.view.main.infoPage.PartnersContract', {
     extend: 'Ext.panel.Panel',
     xtype: 'partnersContract',
-    cls: 'partnersContract',
+    cls: 'partners-contract',
     scrollable: 'vertical',
     layout: {
         type: 'vbox',
@@ -28,7 +28,7 @@ Ext.define('A.view.main.infoPage.PartnersContract', {
             width: '70%',
             padding: 30,
             maxWidth: 800,
-            cls: 'partnersContractText',
+            cls: 'partners-contract-text',
             html: 
                 '<div class="header">Партнерское соглашение №__________</div>' +
 
@@ -276,7 +276,7 @@ Ext.define('A.view.main.infoPage.PartnersContract', {
                 'Генеральный директор<br>' +
                 '<br>' +
                 '_________________________/ Павлов Олег Михайлович/<br>' +
-                '<div class="printerTarget">М.П.</div>' +
+                '<div class="printer-target">М.П.</div>' +
                 '</div>' +
                     
                 '<div class="requisites">' +
@@ -299,7 +299,7 @@ Ext.define('A.view.main.infoPage.PartnersContract', {
                 '_______________________<br>' +
                 '<br>' +
                 '__________________________/ _____________________________/<br>' +
-                '<div class="printerTarget">М.П.</div>' +
+                '<div class="printer-target">М.П.</div>' +
                 '</div>'
         }
     ]
