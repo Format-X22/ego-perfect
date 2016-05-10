@@ -1,5 +1,5 @@
 /**
- * Страница с информацией для клиентов с офертой.
+ * Страница с информацией для клиентов и офертой.
  */
 Ext.define('A.view.main.infoPage.ForClientsWithOffer', {
     extend: 'Ext.tab.Panel',

@@ -1,5 +1,5 @@
 /**
- * Страница с информацией для партнеров.
+ * Виджет с презентацией для партнеров.
  */
 Ext.define('A.view.main.infoPage.ForPartners', {
     extend: 'A.view.main.infoPage.AbstractPage',

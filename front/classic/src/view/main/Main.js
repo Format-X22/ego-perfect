@@ -9,7 +9,7 @@ Ext.define('A.view.main.Main', {
     requires: [
         'A.view.main.search.SearchContainer',
         'A.view.main.infoPage.ForClientsWithOffer',
-        'A.view.main.infoPage.ForPartners',
+        'A.view.main.infoPage.ForPartnersWithContract',
         'A.view.main.infoPage.ForContacts',
         'A.view.main.auth.LoginPage',
         'A.view.main.auth.RegisterPage'
@@ -37,7 +37,7 @@ Ext.define('A.view.main.Main', {
                 },
                 {
                     itemId: 'partners',
-                    xtype: 'pageForPartners',
+                    xtype: 'pageForPartnersWithContract',
                     title: 'Партнерам',
                     iconCls: 'x-fa fa-money'
                 },
