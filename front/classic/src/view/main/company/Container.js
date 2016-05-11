@@ -4,9 +4,11 @@
 Ext.define('A.view.main.company.Container', {
     extend: 'Ext.panel.Panel',
     xtype: 'companyContainer',
+    controller: 'companyContainer',
     viewModel: 'companyContainer',
 
     requires: [
+        'A.view.main.company.Controller',
         'A.view.main.company.Summary',
         'A.view.main.company.Gallery',
         'A.view.main.company.reviews.Container',
@@ -79,5 +81,18 @@ Ext.define('A.view.main.company.Container', {
                 }
             ]
         }
-    ]
+    ],
+
+    /**
+     * Оповещает о том что данные компании загружены.
+     */
+    notifyCompanyLoad: function () {
+
+        /**
+         * @event companyLoaded
+         * Происходит после загрузки и добавления в вью-модель данных компании.
+         * @param {A.view.main.company.Container} this Этот контейнер.
+         */
+        this.fireEvent('companyLoaded', this);
+    }
 });

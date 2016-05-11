@@ -1,18 +1,20 @@
 /**
- * Контейнер виджета деталей компании.
+ * Контейнер деталей компании.
  */
 Ext.define('A.view.main.company.Container', {
     extend: 'Ext.Container',
     xtype: 'companyContainer',
+    controller: 'companyContainer',
     viewModel: 'companyContainer',
 
     requires: [
+        'A.view.main.company.Controller',
         'A.view.main.company.mobile.TabPanel',
         'A.view.main.company.tablet.TabPanel'
     ],
-
+    
     layout: 'vbox',
-
+    
     items: [
         {
             xtype: 'toolbar',
@@ -67,5 +69,18 @@ Ext.define('A.view.main.company.Container', {
                 }
             }
         }
-    ]
+    ],
+
+    /**
+     * Оповещает о том что данные компании загружены.
+     */
+    notifyCompanyLoad: function () {
+
+        /**
+         * @event companyLoaded
+         * Происходит после загрузки и добавления в вью-модель данных компании.
+         * @param {A.view.main.company.Container} this Этот контейнер.
+         */
+        this.fireEvent('companyLoaded', this);
+    }
 });

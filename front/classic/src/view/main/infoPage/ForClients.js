@@ -1,5 +1,5 @@
 /**
- * Страница с информацией для клиентов.
+ * Виджет с презентацией для клиентов.
  */
 Ext.define('A.view.main.infoPage.ForClients', {
     extend: 'A.view.main.infoPage.AbstractPage',

@@ -58,7 +58,7 @@ Ext.define('A.view.main.auth.LoginPage', {
             allowBlank: false,
             validateOnChange: false,
             listeners: {
-                specialkey: 'trySendIfEnterKey'
+                specialkey: 'sendIfEnterKey'
             }
         },
         {
@@ -68,7 +68,7 @@ Ext.define('A.view.main.auth.LoginPage', {
             fieldLabel: 'Пароль',
             validateOnChange: false,
             listeners: {
-                specialkey: 'trySendIfEnterKey'
+                specialkey: 'sendIfEnterKey'
             }
         },
         {
@@ -83,7 +83,7 @@ Ext.define('A.view.main.auth.LoginPage', {
                     iconCls: 'x-fa fa-key',
                     text: 'Войти',
                     width: 150,
-                    handler: 'trySend',
+                    handler: 'send',
                     margin: '0 15 0 0'
                 },
                 {

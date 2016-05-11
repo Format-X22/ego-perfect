@@ -21,20 +21,7 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
     },
 
     /**
-     * Пытается отправить форму.
-     */
-    trySend: function () {
-        var type = this.getView().getValues().type;
-        
-        if (type === 'company') {
-            this.showClientOffer();
-        } else {
-            this.send();
-        }
-    },
-
-    /**
-     * Отправляет форма.
+     * Отправляет форму.
      */
     send: function () {
         var view = this.getView();
@@ -56,13 +43,13 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
     },
 
     /**
-     * Пытается отправить форму если была нажата клавиша Enter.
+     * Отправляет форму если была нажата клавиша Enter.
      * @param {Ext.form.field.Base} field Поле ввода.
      * @param {Ext.event.Event} event Объект эвента.
      */
-    trySendIfEnterKey: function (field, event) {
+    sendIfEnterKey: function (field, event) {
         if (event.getKey() === event.ENTER) {
-            this.trySend();
+            this.send();
         }
     },
 

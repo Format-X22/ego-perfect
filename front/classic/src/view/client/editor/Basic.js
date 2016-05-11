@@ -7,7 +7,8 @@ Ext.define('A.view.client.editor.Basic', {
     controller: 'clientEditorBasic',
 
     requires: [
-        'A.view.client.editor.BasicController'
+        'A.view.client.editor.BasicController',
+        'A.view.client.editor.widget.CoordsHintWindow'
     ],
 
     layout: 'vbox',
@@ -22,9 +23,11 @@ Ext.define('A.view.client.editor.Basic', {
         },
 		{
 			xtype: 'adminTopDescription',
-			border: '0 0 1 0',
 			html: 'На этой вкладке вы можете указать основную информацию о вашей компании.'
 		},
+        {
+            xtype: 'clientEditorWidgetSplitLine'
+        },
         {
             xtype: 'container',
             padding: '20 20 20 50',

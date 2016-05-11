@@ -29,16 +29,30 @@ Ext.define('A.view.widget.AbstractSaveToolbarController', {
             clientValidation: true,
             submitEmptyText: false,
             url: this.url,
-            success: function () {
-                this.resetForm(form);
-                this.showSuccessSaveMessage();
-                form.unmask();
-            }.bind(this),
-            failure: function () {
-                this.showFailureSaveMessage.apply(this, arguments);
-                form.unmask();
-            }.bind(this)
+            success: this.successSaveHandler.bind(this),
+            failure: this.failureSaveHandler.bind(this)
         });
+    },
+
+    /**
+     * Обработчик успешного сохранения.
+     */
+    successSaveHandler: function () {
+        var form = this.getView();
+        
+        this.resetForm(form);
+        this.showSuccessSaveMessage();
+        form.unmask();
+    },
+
+    /**
+     * Обработчик не успешного сохранения.
+     */
+    failureSaveHandler: function () {
+        var form = this.getView();
+        
+        this.showFailureSaveMessage.apply(this, arguments);
+        form.unmask();
     },
 
     /**

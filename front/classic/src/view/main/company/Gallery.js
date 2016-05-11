@@ -3,10 +3,5 @@
  */
 Ext.define('A.view.main.company.Gallery', {
     extend: 'A.view.widget.Gallery',
-    xtype: 'companyGallery',
-
-    listeners: {
-        show: 'refresh',
-        resize: 'refresh'
-    }
+    xtype: 'companyGallery'
 });

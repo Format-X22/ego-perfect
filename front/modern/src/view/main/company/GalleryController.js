@@ -11,7 +11,8 @@ Ext.define('A.view.main.company.GalleryController', {
     refresh: function () {
         var images = this.getImages();
         var tpl = this.getSrcTpl();
-
+        var view = this.getView();
+        
         Ext.each(images, function (image, index) {
             image.setSrc(tpl.apply({
                 name: this.getImageName(index),
@@ -20,7 +21,7 @@ Ext.define('A.view.main.company.GalleryController', {
             }));
         }, this);
 
-        this.getView().setActiveItem(0);
+        view.setActiveItem(0);
     },
 
     privates: {

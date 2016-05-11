@@ -11,7 +11,8 @@ Ext.define('A.view.client.editor.Summary', {
     ],
 
     listeners: {
-        dirtychange: 'toggleSaveToolbar'
+        dirtychange: 'toggleSaveToolbar',
+        resize: 'flexEditorSize'
     },
     
     items: [
@@ -20,7 +21,9 @@ Ext.define('A.view.client.editor.Summary', {
         },
 		{
 			xtype: 'adminTopDescription',
-			border: '0 0 1 0',
+            listeners: {
+                destroy: 'flexEditorSize'
+            },
 			html:
 				'Опишите вашу компанию. Подробно.<br>' +
 				'Расскажите о том чем вы занимаетесь и что можете предложить.<br>' +
@@ -30,6 +33,10 @@ Ext.define('A.view.client.editor.Summary', {
 				'о вас и вашей компании.'
 		},
         {
+            xtype: 'clientEditorWidgetSplitLine'
+        },
+        {
+            itemId: 'editorContainer',
             xtype: 'container',
             layout: {
                 type: 'fit'
