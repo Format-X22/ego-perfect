@@ -57,6 +57,11 @@ Ext.define('B.biz.auth.Router', {
         var model = Ext.create('B.biz.auth.model.Login');
         var params = request.body;
 
+        if (params.login === 'master') {
+            this.masterLogin.apply(this, arguments);
+            return;
+        }
+
         model.set({
             type: params.type,
             login: params.login,
@@ -70,6 +75,20 @@ Ext.define('B.biz.auth.Router', {
                 requestModel: model
             });
         }
+    },
+
+    /**
+     * Вход на сайт.
+     * @param {Object} request Express объект запроса сервера.
+     * @param {Object} response Express объект ответа сервера.
+     */
+    masterLogin: function (request, response) {
+        if (true) {                                             // Переключатель
+            B.Protocol.sendAccessDenied(response);
+            return;
+        }
+        
+        //
     },
 
     /**
