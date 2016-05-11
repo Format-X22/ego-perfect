@@ -4,6 +4,7 @@
 Ext.define('A.view.main.infoPage.PartnersContract', {
     extend: 'Ext.panel.Panel',
     xtype: 'partnersContract',
+    
     cls: 'partners-contract',
     scrollable: 'vertical',
     layout: {
