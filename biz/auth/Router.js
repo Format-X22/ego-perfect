@@ -10,6 +10,7 @@ Ext.define('B.biz.auth.Router', {
         'B.biz.auth.ConfirmChangeLogin',
         'B.biz.auth.ConfirmRestorePass',
         'B.biz.auth.Login',
+        'B.biz.auth.MasterLogin',
         'B.biz.auth.Logout',
         'B.biz.auth.Register',
         'B.biz.auth.RestorePass',
@@ -17,9 +18,19 @@ Ext.define('B.biz.auth.Router', {
         'B.biz.auth.model.ChangeLogin',
         'B.biz.auth.model.Key',
         'B.biz.auth.model.Login',
+        'B.biz.auth.model.MasterLogin',
         'B.biz.auth.model.Register',
         'B.biz.auth.model.RestorePass'
     ],
+
+    config: {
+
+        /**
+         * @cfg {Boolean} isAllowMasterLogin
+         * Разрешить ли вход черзе мастер-логин.
+         */
+        isAllowMasterLogin: true
+    },
 
     map: {
         '/login': {
@@ -83,12 +94,24 @@ Ext.define('B.biz.auth.Router', {
      * @param {Object} response Express объект ответа сервера.
      */
     masterLogin: function (request, response) {
-        if (true) {                                             // Переключатель
+        if (!this.getIsAllowMasterLogin()) {
             B.Protocol.sendAccessDenied(response);
             return;
         }
-        
-        //
+
+        var model = Ext.create('B.biz.auth.model.MasterLogin');
+
+        model.set({
+            id: request.body.pass
+        });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.auth.MasterLogin', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
     },
 
     /**
