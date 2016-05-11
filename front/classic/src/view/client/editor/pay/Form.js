@@ -1,10 +1,9 @@
 /**
- * Вкладка оплаты.
+ * Платежная форма.
  */
-Ext.define('A.view.client.Pay', {
-    extend: 'Ext.form.Panel',
-    controller: 'clientPay',
-    xtype: 'clientPay',
+Ext.define('A.view.client.pay.Form', {
+    extend: 'Ext.panel.Panel',
+    xtype: 'clientPayForm',
 
     layout: {
         type: 'vbox'
@@ -30,7 +29,7 @@ Ext.define('A.view.client.Pay', {
             renderer: function (value) {
                 var date = Ext.Date.parse(value, 'c');
                 var format = Ext.Date.format(date, 'd.m.Y');
-                
+
                 return '<b>' + format + '</b>';
             }
         },
@@ -52,8 +51,8 @@ Ext.define('A.view.client.Pay', {
             items: [
                 {
                     xtype: 'image',
-                    width: 120,
-                    height: 75,
+                    width: 180,
+                    height: 103,
                     margin: '0 0 10 0',
                     src: '/resources/img/logo.svg',
                     plugins: 'responsive',
@@ -78,7 +77,7 @@ Ext.define('A.view.client.Pay', {
                 },
                 {
                     xtype: 'component',
-                    html: 
+                    html:
                         '<div style="' +
                             'width: 450px;' +
                             'text-align: center;' +
@@ -90,7 +89,7 @@ Ext.define('A.view.client.Pay', {
             ]
         },
         {
-            flex: 4
+            flex: 5
         }
     ]
 });

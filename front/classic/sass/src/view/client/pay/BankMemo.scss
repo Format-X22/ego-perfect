@@ -1,0 +1,16 @@
+.client-pay-bank-memo {
+
+	.client-pay-bank-memo-text {
+		text-align: justify;
+
+		.header {
+			font-weight: bold;
+			text-align: center;
+			padding: 20px;
+
+			&.top {
+				font-size: 120%;
+			}
+		}
+	}
+}
