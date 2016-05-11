@@ -60,7 +60,7 @@ Ext.define('A.view.main.auth.RegisterPage', {
             validateOnChange: false,
             regex: /^[^\s]+@[^\s]+\.[^\s]+$/,
             listeners: {
-                specialkey: 'trySendIfEnterKey'
+                specialkey: 'sendIfEnterKey'
             }
         },
         {
@@ -71,7 +71,7 @@ Ext.define('A.view.main.auth.RegisterPage', {
             emptyText: 'могли дать наши партнеры, не обязателен',
             validateOnChange: false,
             listeners: {
-                specialkey: 'trySendIfEnterKey'
+                specialkey: 'sendIfEnterKey'
             }
         },
         {
