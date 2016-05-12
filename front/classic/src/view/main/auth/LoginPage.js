@@ -14,7 +14,10 @@ Ext.define('A.view.main.auth.LoginPage', {
 
     defaults: {
         width: 500,
-		labelWidth: 120
+		labelWidth: 120,
+        msgTarget: 'under',
+        validateOnChange: false,
+        validateOnBlur: false
     },
 
     items: [
@@ -56,7 +59,6 @@ Ext.define('A.view.main.auth.LoginPage', {
             inputType: 'email',
             fieldLabel: 'Почта',
             allowBlank: false,
-            validateOnChange: false,
             listeners: {
                 specialkey: 'sendIfEnterKey'
             }
@@ -66,7 +68,6 @@ Ext.define('A.view.main.auth.LoginPage', {
             xtype: 'textfield',
             inputType: 'password',
             fieldLabel: 'Пароль',
-            validateOnChange: false,
             listeners: {
                 specialkey: 'sendIfEnterKey'
             }

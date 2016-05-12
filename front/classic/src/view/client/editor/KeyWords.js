@@ -50,6 +50,8 @@ Ext.define('A.view.client.editor.KeyWords', {
                         width: 600,
                         maxLength: 100,
                         msgTarget: 'under',
+                        validateOnChange: false,
+                        validateOnBlur: false,
                         validator: function (value) {
                             if (!value) {
                                 return true;

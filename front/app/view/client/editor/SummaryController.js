@@ -104,6 +104,7 @@ Ext.define('A.view.client.editor.SummaryController', {
             return;
         }
 
+        this.modifyUrls();
         this.removeImages();
         this.removeScripts();
         this.calculateCount();
@@ -156,10 +157,22 @@ Ext.define('A.view.client.editor.SummaryController', {
             var cleaned = value
                 .replace('img', 'span')
                 .replace('url', 'null');
-            
-            if (value !== cleaned) {
-                editor.setValue(cleaned);
-            }
+
+            editor.setValue(cleaned);
+        },
+
+        /**
+         * @private
+         */
+        modifyUrls: function () {
+            var editor = this.getEditor();
+            var value = editor.getValue();
+            var modified = value.replace(
+                /<a (?!target="_blank" rel="nofollow noopener noreferrer" )/gi,
+                '<a target="_blank" rel="nofollow noopener noreferrer" '
+            );
+
+            editor.setValue(modified);
         },
 
         /**
@@ -171,9 +184,7 @@ Ext.define('A.view.client.editor.SummaryController', {
             var re = this.getScriptPatternRe();
             var cleaned = value.replace(re, 'null');
 
-            if (value !== cleaned) {
-                editor.setValue(cleaned);
-            }
+            editor.setValue(cleaned);
         },
 
         /**

@@ -46,7 +46,9 @@ Ext.define('A.view.client.editor.Basic', {
                     defaults: {
                         width: 600,
                         margin: '7 0',
-                        msgTarget: 'under'
+                        msgTarget: 'under',
+                        validateOnChange: false,
+                        validateOnBlur: false
                     },
                     items: [
                         {
@@ -99,7 +101,6 @@ Ext.define('A.view.client.editor.Basic', {
                             emptyText: '55.6341123, 37.602898',
                             maxLength: 100,
                             allowBlank: false,
-                            validateOnChange: false,
                             validator: function () {
                                 return this.up('form').getController().mapValidator.apply(this, arguments);
                             }

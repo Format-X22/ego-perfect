@@ -40,7 +40,7 @@ Ext.define('A.view.main.company.GalleryController', {
          */
         getSrcTpl: function () {
             var tplString = 
-                'http://res.cloudinary.com/hycanb7c0/image/upload/q_60,c_pad,w_{width},h_{height}/{name}.jpg';
+                'http://res.cloudinary.com/hycanb7c0/image/upload/q_80,c_pad,w_{width},h_{height}/{name}.jpg';
 
             return new Ext.Template(tplString);
         },

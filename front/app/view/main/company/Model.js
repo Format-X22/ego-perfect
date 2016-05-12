@@ -45,7 +45,7 @@ Ext.define('A.view.main.company.Model', {
                 }
 
                 return Ext.String.format(
-                    '<a class="link" href="{0}" target="_blank">{1}</a>',
+                    '<a class="link" href="{0}" target="_blank" rel="nofollow noopener noreferrer">{1}</a>',
                     link,
                     value
                 );

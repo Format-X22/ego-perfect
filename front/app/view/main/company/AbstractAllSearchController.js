@@ -76,8 +76,11 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
         this.toggleInitView();
         this.sendQuery();
         this.resetResultScrollPosition();
-        this.scrollClassicToTop();
-        
+
+        if (Ext.isClassic) {
+            Ext.defer(this.scrollClassicToTop, 300, this);
+        }
+
         if (!Ext.isClassic) {
             this.showHelpModern();
         }

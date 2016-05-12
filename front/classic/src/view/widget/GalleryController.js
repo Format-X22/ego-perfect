@@ -93,7 +93,7 @@ Ext.define('A.view.widget.GalleryController', {
         var id = this.getEntityId();
         var images = [];
         var tplString = 
-            'http://res.cloudinary.com/hycanb7c0/image/upload/q_75,c_pad,w_{width},h_{height}/{name}.jpg';
+            'http://res.cloudinary.com/hycanb7c0/image/upload/q_80,c_pad,w_{width},h_{height}/{name}.jpg';
         var tpl = new Ext.Template(tplString);
 
         if (!view.rendered) {
