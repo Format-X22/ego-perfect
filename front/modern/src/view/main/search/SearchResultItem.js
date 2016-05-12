@@ -37,7 +37,7 @@ Ext.define('A.view.main.search.SearchResultItem', {
         }
         
         var linkTpl = 
-            'http://res.cloudinary.com/hycanb7c0/image/upload/q_75,c_pad,w_300,h_300/{0}.jpg';
+            'http://res.cloudinary.com/hycanb7c0/image/upload/w_300,h_300/{0}.png';
         var link = Ext.String.format(linkTpl, record.get('company'));
 
         this.down('img').setSrc(link);

@@ -93,7 +93,7 @@ Ext.define('A.view.main.search.SearchResult', {
                                     '<div class="item">' +
                                     '<img src="' +
                                         'http://res.cloudinary.com/hycanb7c0/image/upload/' +
-                                        '{company}.jpg' +
+                                        '{company}.png' +
                                     '">' +
                                     '</div>' +
                                 '</tpl>',
