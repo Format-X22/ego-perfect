@@ -28,8 +28,8 @@ Ext.define('A.view.partner.Profile', {
             regexText: Ext.form.field.VTypes.emailText,
             allowBlank: false,
             msgTarget: 'under',
-            validateOnBlur: false,
             validateOnChange: false,
+            validateOnBlur: false,
             hidden: true
         },
         {

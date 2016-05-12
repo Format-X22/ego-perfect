@@ -135,7 +135,7 @@ Ext.define('B.biz.client.Release', {
             words.set(data);
 
             if (!basic.isValid()) {
-                this.sendError('Базовые данные о компании ещё не заполнены.');
+                this.sendError('Основные данные о компании ещё не заполнены.');
                 return;
             }
 

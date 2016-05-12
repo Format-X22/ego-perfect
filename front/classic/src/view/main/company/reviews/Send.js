@@ -22,7 +22,10 @@ Ext.define('A.view.main.company.reviews.Send', {
             xtype: 'form',
             padding: '100 10',
             defaults: {
-                width: 700
+                width: 700,
+                msgTarget: 'under',
+                validateOnChange: false,
+                validateOnBlur: false
             },
             items: [
                 {

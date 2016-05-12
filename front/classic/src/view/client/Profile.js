@@ -32,8 +32,8 @@ Ext.define('A.view.client.Profile', {
             regexText: Ext.form.field.VTypes.emailText,
             allowBlank: false,
             msgTarget: 'under',
-            validateOnBlur: false,
             validateOnChange: false,
+            validateOnBlur: false,
             hidden: true
         },
         {

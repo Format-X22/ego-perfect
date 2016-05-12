@@ -14,7 +14,10 @@ Ext.define('A.view.main.auth.RegisterPage', {
 
     defaults: {
         width: 500,
-        labelWidth: 120
+        labelWidth: 120,
+        msgTarget: 'under',
+        validateOnChange: false,
+        validateOnBlur: false
     },
 
     items: [
@@ -57,8 +60,8 @@ Ext.define('A.view.main.auth.RegisterPage', {
             inputType: 'email',
             fieldLabel: 'Почта',
             allowBlank: false,
-            validateOnChange: false,
             regex: /^[^\s]+@[^\s]+\.[^\s]+$/,
+            regexText: 'Должно быть похоже на почту вида boss@mail.ru',
             listeners: {
                 specialkey: 'sendIfEnterKey'
             }
@@ -69,7 +72,6 @@ Ext.define('A.view.main.auth.RegisterPage', {
             xtype: 'textfield',
             fieldLabel: 'Код партнера',
             emptyText: 'могли дать наши партнеры, не обязателен',
-            validateOnChange: false,
             listeners: {
                 specialkey: 'sendIfEnterKey'
             }

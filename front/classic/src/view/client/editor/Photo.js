@@ -49,6 +49,8 @@ Ext.define('A.view.client.editor.Photo', {
 						margin: '4 0',
                         width: 600,
                         msgTarget: 'under',
+                        validateOnChange: false,
+                        validateOnBlur: false,
                         regex: /(.(png|jpg))$|^Загружено успешно!$/i,
                         regexText: 'Разрешены только файлы jpg и png.'
                     },
@@ -63,7 +65,7 @@ Ext.define('A.view.client.editor.Photo', {
                             padding: '0 0 25 110',
                             html:
                                 '<i>Отображается в поиске и в информации о компании.<br>' +
-                                'Лучше всего подойдет картинка размером 300 на 300 пикселей.</i>'
+                                'Лучше всего подойдет картинка размером 300 на 300 пикселей в формате png.</i>'
                         },
                         {
                             name: 'photo1',
