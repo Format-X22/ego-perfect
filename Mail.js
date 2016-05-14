@@ -41,17 +41,17 @@ Ext.define('B.Mail', {
 		 */
 		sender: require('sendgrid')(outerResourcesConfig.sendGrid.apiKey),
 
-		/**
-		 * @private
-		 * @cfg {String} authMailTpl Шаблон письма авторизации.
-		 */
-		authMailTpl: [
-			'Данные для входа на сайт фирмы.онлайн',
-			'Тип аккаунта: {type}',
-			'Ваш логин: {login}',
-			'Ваш пароль: {pass}',
-			'Не сообщайте пароль никому, даже сотруднику Фирмы Онлайн.'
-		].join('\n\r')
+        /**
+         * @private
+         * @cfg {String} signature Подпись писем.
+         */
+        signature: [
+            '',
+            '_________________________',
+            'ООО "Простые числа"',
+            'contact@фирмы.онлайн',
+            '+7 (925) 154-68-79'
+        ].join('\n\r')
 	},
 
 	constructor: function (config) {
@@ -74,7 +74,15 @@ Ext.define('B.Mail', {
 		var type = this.getPrettyTypeName();
 		var login = this.getLogin();
 		var pass = this.getPass();
-		var tpl = new Ext.Template(this.getAuthMailTpl());
+        var signature = this.getSignature();
+		var tpl = new Ext.Template([
+            'Данные для входа на сайт фирмы.онлайн',
+            'Тип аккаунта: {type}',
+            'Ваш логин: {login}',
+            'Ваш пароль: {pass}',
+            'Не сообщайте пароль никому, даже сотруднику Фирмы Онлайн.',
+            '{signature}'
+        ].join('\n\r'));
 
 		this.getSender().send(
 			{
@@ -84,7 +92,8 @@ Ext.define('B.Mail', {
 				text: tpl.apply({
 					type: type,
 					login: login,
-					pass: pass
+					pass: pass,
+                    signature: signature
 				})
 			},
 			this.sendCallback.bind(this)
@@ -108,16 +117,33 @@ Ext.define('B.Mail', {
                     'Только что вы зарегистрировались на сайте фирмы.онлайн в качестве партнера.',
                     'Для завершения этого процесса необходимо заключить официальный договор.',
                     'Для этого просто напишите в ответ на это письмо или позвоните по номеру +7 (925) 154-68-79.',
-                    '',
-                    '_________________________',
-                    'ООО "Простые числа"',
-                    'contact@фирмы.онлайн',
-                    '+7 (925) 154-68-79'
+                    this.getSignature()
                 ].join('\n\r')
             },
             this.sendCallback.bind(this)
         );
     },
+
+    /**
+     * Уведомляет партнера о том что кто-то зарегистрировался по его ключу.
+     * @param {String} clientLogin Логин клиента.
+     */
+	notifyPartnerAboutUseKey: function (clientLogin) {
+        this.getSender().send(
+            {
+                from: 'contact@xn--h1ailo2b.xn--80asehdb',
+                to: this.getLogin(),
+                subject: 'Хорошие новости! Кто-то использовал ваш ключ!',
+                text: [
+                    'Здравствуйте!',
+                    'Клиент с логином ' + clientLogin + ' вопспользовался вашим ключем при регистрации!',
+                    'Теперь от всех его платежей вы будете получать свои проценты.',
+                    this.getSignature()
+                ].join('\n\r')
+            },
+            this.sendCallback.bind(this)
+        );
+	},
 
 	privates: {
 
