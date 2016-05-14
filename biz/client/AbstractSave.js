@@ -102,7 +102,8 @@ Ext.define('B.biz.client.AbstractSave', {
             Ext.create('B.biz.client.Release', {
                 expressRequest: this.getExpressRequest(),
                 expressResponse: this.getExpressResponse(),
-                requestModel: this.getRequestModel()
+                requestModel: this.getRequestModel(),
+				isSendSuccessIfPayDateIsExpired: true
             });
         } else {
             next();

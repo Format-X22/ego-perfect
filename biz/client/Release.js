@@ -17,6 +17,16 @@ Ext.define('B.biz.client.Release', {
         isDirectMode: false,
 
         /**
+         * @cfg {Boolean} isSendSuccessIfPayDateIsExpired
+         * Флаг, указывающий на то что необходимо отправить что всё прошло успешно
+         * в случае если истек переиод оплаты,
+         * не смотря на то что из-за этого релиз произведен не был.
+         * Может быть использовано в кейсе когда аккаунт был создан только что,
+         * данные вносятся клиентом, но оплата ещё не произошла.
+         */
+        isSendSuccessIfPayDateIsExpired: false,
+
+        /**
          * @cfg {String/Null} directLogin
          * Логин, по которому необходимо произвести релиз в управляемом режиме.
          */
@@ -49,7 +59,7 @@ Ext.define('B.biz.client.Release', {
 
     constructor: function () {
         this.callParent(arguments);
-        
+
         B.util.Function.queue([
             this.extractAccountStep,
             this.validateAccountStep,
@@ -127,6 +137,11 @@ Ext.define('B.biz.client.Release', {
             var photo =   Ext.create('B.biz.client.model.Photo');
             var words =   Ext.create('B.biz.client.model.Words');
 
+            if (this.isPayDateExpired()) {
+                this.handlePayDateExpired();
+                return;
+            }
+            
             data.key = true; // Модели требуют наличия ключа сессии.
             
             basic.set(data);
@@ -155,6 +170,27 @@ Ext.define('B.biz.client.Release', {
             }
 
             next();
+        },
+
+        /**
+         * @private
+         */
+        handlePayDateExpired: function () {
+            var successIfExpired = this.getIsSendSuccessIfPayDateIsExpired();
+
+            if (successIfExpired) {
+                this.sendSuccess();
+            } else {
+                this.sendError('Невозможно выполнить действие - услуга ещё не оплачена.');
+            }
+        },
+
+        /**
+         * @private
+         * @return {Boolean} Закончился ли оплаченый период.
+         */
+        isPayDateExpired: function () {
+            return this.getAccountData().payDate < new Date();
         },
 
         /**
