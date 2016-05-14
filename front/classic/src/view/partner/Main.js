@@ -34,14 +34,19 @@ Ext.define('A.view.partner.Main', {
                     iconCls: 'x-fa fa-line-chart'
                 },
                 {
+                    xtype: 'partnerKey',
+                    title: 'Ваш персональный ключ партнера',
+                    iconCls: 'x-fa fa-key'
+                },
+                {
+                    xtype: 'partnerActs',
+                    title: 'Акты',
+                    iconCls: 'x-fa fa-file-o'
+                },
+                {
                     xtype: 'partnerProfile',
                     title: 'Профиль',
                     iconCls: 'x-fa fa-user'
-                },
-                {
-                    xtype: 'partnerKey',
-                    title: 'Персональный ключ партнера',
-                    iconCls: 'x-fa fa-key'
                 }
             ]
         }
