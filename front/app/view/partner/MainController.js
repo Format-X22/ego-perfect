@@ -82,8 +82,7 @@ Ext.define('A.view.partner.MainController', {
     applyDataToCharts: function () {
         var view = this.getView();
         var record = this.getRecord();
-
-        view.down('partnerStatisticTotal #chart').setStore(record.get('totalStat'));
+        
         view.down('partnerStatisticClients #chart').setStore(record.get('clientsStat'));
         view.down('partnerStatisticPartners #chart').setStore(record.get('partnersStat'));
         view.down('partnerStatisticIncome #chart').setStore(record.get('moneyStat'));
