@@ -174,12 +174,14 @@ Ext.define('B.biz.auth.Register', {
             var model = this.getRequestModel();
             var login = model.get('login');
             var type = model.get('type');
+            var partnerKey = model.get('partner');
             var hash = this.getCrypt().getHash();
             var collection = B.Mongo.getCollection(type);
             var entityObject = {
                 login: login,
                 pass: hash,
                 type: type,
+                partnerKey: partnerKey,
 				registerDate: new Date()
             };
             var payDate = this.getPayDate() || Ext.Date.parse('20.05.2016', 'd.m.Y');
