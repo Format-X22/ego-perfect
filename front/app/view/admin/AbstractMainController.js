@@ -61,6 +61,29 @@ Ext.define('A.view.admin.MainController', {
      */
     applyDataToCharts: Ext.emptyFn,
 
+    /**
+     * @protected
+     * Установка загруженных данных.
+     */
+    applyLoadedData: function () {
+        var view = this.getView();
+        var fields = A.getAllCmp('field', view);
+        var htmlEditors = A.getAllCmp('htmleditor', view);
+
+        [].push.apply(fields, htmlEditors);
+
+        view.loadRecord(this.getRecord());
+
+        Ext.each(fields, function (field) {
+            field.resetOriginalValue();
+        }, this);
+
+        if (this.isStatsExits()) {
+            this.applyDataToCharts();
+            this.showCharts();
+        }
+    },
+    
     privates: {
 
         /**
@@ -69,28 +92,6 @@ Ext.define('A.view.admin.MainController', {
         applyRecordIfNeed: function () {
             if (!this.getRecord()) {
                 this.setRecord(Ext.create(this.getModelClassName()));
-            }
-        },
-
-        /**
-         * @private
-         */
-        applyLoadedData: function () {
-            var view = this.getView();
-            var fields = A.getAllCmp('field', view);
-            var htmlEditors = A.getAllCmp('htmleditor', view);
-
-            [].push.apply(fields, htmlEditors);
-
-            view.loadRecord(this.getRecord());
-            
-            Ext.each(fields, function (field) {
-                field.resetOriginalValue();
-            }, this);
-
-            if (this.isStatsExits()) {
-                this.applyDataToCharts();
-                this.showCharts();
             }
         },
 

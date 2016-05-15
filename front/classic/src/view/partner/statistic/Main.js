@@ -15,7 +15,6 @@ Ext.define('A.view.partner.statistic.Main', {
         'Ext.chart.axis.Category',
         'Ext.chart.series.Area',
         'Ext.chart.interactions.ItemHighlight',
-        'A.view.partner.statistic.Total',
         'A.view.partner.statistic.Clients',
         'A.view.partner.statistic.Partners',
         'A.view.partner.statistic.Income'
@@ -26,12 +25,6 @@ Ext.define('A.view.partner.statistic.Main', {
     },
 
     items: [
-        {
-            title: 'Сводка',
-            xtype: 'partnerStatisticTotal',
-            iconCls: 'x-fa fa-circle-o'
-
-        },
         {
             title: 'Регистрации клиентов',
             xtype: 'partnerStatisticClients',

@@ -3,7 +3,7 @@
  * статистики ещё не откуда взять.
  */
 Ext.define('A.view.partner.statistic.EmptyPlaceholder', {
-    extend: 'Ext.container.Container',
+    extend: 'A.view.widget.AdminTopDescription',
     xtype: 'partnerStatisticEmptyPlaceholder',
 
     padding: '0 40 20 40',

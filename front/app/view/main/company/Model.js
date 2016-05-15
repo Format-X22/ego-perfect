@@ -10,7 +10,7 @@ Ext.define('A.view.main.company.Model', {
         _id:       'empty_logo',
         name:      '',
         phone:     '',
-        email:      '',
+        email:     '',
         time:      '',
         address:   '',
         summary:   '',

@@ -39,6 +39,16 @@ Ext.define('A.view.partner.MainController', {
     },
 
     /**
+     * Установка данных актов.
+     */
+    applyActsData: function () {
+        var view = this.getView();
+        var record = this.getRecord();
+        
+        view.down('partnerActs #clientsPayGrid').setStore(record.get('actsData'));
+    },
+
+    /**
      * @inheritdoc
      */
     getModelClassName: function () {
@@ -61,11 +71,18 @@ Ext.define('A.view.partner.MainController', {
     /**
      * @inheritdoc
      */
+    applyLoadedData: function () {
+        this.callParent(arguments);
+        this.applyActsData();
+    },
+
+    /**
+     * @inheritdoc
+     */
     applyDataToCharts: function () {
         var view = this.getView();
         var record = this.getRecord();
-
-        view.down('partnerStatisticTotal #chart').setStore(record.get('totalStat'));
+        
         view.down('partnerStatisticClients #chart').setStore(record.get('clientsStat'));
         view.down('partnerStatisticPartners #chart').setStore(record.get('partnersStat'));
         view.down('partnerStatisticIncome #chart').setStore(record.get('moneyStat'));

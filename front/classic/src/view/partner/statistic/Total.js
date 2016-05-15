@@ -1,4 +1,5 @@
 /**
+ * @deprecated
  * Общая сводка по партнеру.
  */
 Ext.define('A.view.partner.statistic.Total', {

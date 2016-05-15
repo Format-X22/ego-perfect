@@ -35,7 +35,13 @@ Ext.define('B.biz.auth.Register', {
          * @private
          * @cfg {Date/Null} payDate Время следующей оплаты.
          */
-        payDate: null
+        payDate: null,
+
+        /**
+         * @private
+         * @cfg {String} partnerLogin Логин партнера если есть.
+         */
+        partnerLogin: null
     },
 
     constructor: function () {
@@ -47,6 +53,7 @@ Ext.define('B.biz.auth.Register', {
             this.checkSpecialKeyStep,
             this.createCompanyStep,
 			this.registerPartnerKeyStep,
+            this.notifyPartnerStep,
             this.sendMailStep,
             this.makeSessionStep,
             this.setSessionCookie,
@@ -167,12 +174,14 @@ Ext.define('B.biz.auth.Register', {
             var model = this.getRequestModel();
             var login = model.get('login');
             var type = model.get('type');
+            var partnerKey = model.get('partner');
             var hash = this.getCrypt().getHash();
             var collection = B.Mongo.getCollection(type);
             var entityObject = {
                 login: login,
                 pass: hash,
                 type: type,
+                partnerKey: partnerKey,
 				registerDate: new Date()
             };
             var payDate = this.getPayDate() || Ext.Date.parse('20.05.2016', 'd.m.Y');
@@ -228,13 +237,16 @@ Ext.define('B.biz.auth.Register', {
 					{
 						$push: this.getPushPartnerKeyConfig()
 					},
-					function (error) {
+					function (error, result) {
 						if (error) {
 							this.sendError('Ошибка прикрепления аккаунта к партнеру!');
 						} else {
+                            if (result.value) {
+                                this.setPartnerLogin(result.value.login);
+                            }
 							next();
 						}
-					}
+					}.bind(this)
 				);
 		},
 
@@ -263,6 +275,24 @@ Ext.define('B.biz.auth.Register', {
 					return 'partners';
 			}
 		},
+
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        notifyPartnerStep: function (next) {
+            var clientLogin = this.getRequestModel().get('login');
+            var partnerLogin = this.getPartnerLogin();
+
+            if (partnerLogin) {
+                Ext.create('B.Mail', {
+                    login: partnerLogin,
+                    scope: this
+                }).notifyPartnerAboutUseKey(clientLogin);
+            }
+            
+            next();
+        },
 
         /**
          * @private

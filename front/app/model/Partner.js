@@ -1,5 +1,5 @@
 /**
- * Модель данных патнера.
+ * Модель данных партнера.
  */
 Ext.define('A.model.Partner', {
     extend: 'Ext.data.Model',
@@ -7,6 +7,7 @@ Ext.define('A.model.Partner', {
     requires: [
         'A.model.field.Store',
         'A.model.Stats',
+        'A.model.PartnerAct',
         'A.model.PartnerTotalStats',
         'A.store.reader.Standard'
     ],
@@ -15,6 +16,8 @@ Ext.define('A.model.Partner', {
         {name: 'id',    type: 'string'},
         {name: '_id',   type: 'string'},
         {name: 'email', type: 'string'},
+        
+        {name: 'actsData',     type: 'store', model: 'A.model.PartnerAct'},
         {name: 'totalStat',    type: 'store', model: 'A.model.PartnerTotalStats'},
         {name: 'clientsStat',  type: 'store', model: 'A.model.Stats'},
         {name: 'partnersStat', type: 'store', model: 'A.model.Stats'},
