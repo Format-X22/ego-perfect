@@ -9,7 +9,8 @@ Ext.define('B.Main', {
 		'B.Cloudinary',
         'B.MainRouter',
 		'B.service.MainLoop',
-        'B.util.Function'
+        'B.util.Function',
+        'B.util.String'
     ],
 
     config: {

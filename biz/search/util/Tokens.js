@@ -34,6 +34,7 @@ Ext.define('B.biz.search.util.Tokens', {
         var scope = this.getScope() || this;
 
         value = this.normalize(value);
+        value = this.removeTags(value);
         value = this.split(value);
         value = this.removeEnds(value);
         value = this.removeDuplicates(value);
@@ -63,24 +64,34 @@ Ext.define('B.biz.search.util.Tokens', {
 
         /**
          * @private
+         * @param value {String} Значение.
+         * @return {String} Очищенное значение.
+         */
+        removeTags: function (value) {
+            return B.util.String.removeTags(value);
+        },
+
+        /**
+         * @private
          * @param {String} value Значение.
          * @return {String[]} Токены.
          */
         split: function (value) {
             return value
-                .toLowerCase()                        // Приводим к строчным буквам
-                .replace(/\.|,|"|«|»|'|\(|\)/g, ' ')  // Убираем всевозможный мусор
-                .replace(/ +/g, ' ')                  // Заменяем повторяющиеся пробелы на 1 пробел
-                .replace(/ - /g, '-')                 // Схлопываем тире в дефис
-                .replace(/ -|- /g, '-')               // И по краям
-                .replace(/[,]|[.]|[_]/g, ' ')         // Заменяем точки, запятые и подчеркивания на пробелы
-                .replace(/ +/g, ' ')                  // Заменяем повторяющиеся пробелы на 1 пробел
-                .replace(/ . /g, ' ')                 // Убираем однобуквенные слова
-                .replace(/ .. /g, ' ')                // Убираем двухбуквенные слова
-                .replace(/^. | .$/g, '')              // И по краям однобуквенные
-                .replace(/^.. | ..$/g, '')            // И по краям двухбуквенные
-                .replace(/ё/g, 'е')                   // Меняем "ё" на "е" для фикса вариантов написания
-                .split(' ');                          // Режем на части по пробелу
+                .toLowerCase()                                  // Приводим к строчным буквам
+                .replace(/&nbsp;|\u200B|\n|\r/g, ' ')           // Убираем всевозможный мусор
+                .replace(/\.|,|\?|!|;|"|«|»|'|\(|\)|_/g, ' ')   // Убираем знаки препинания
+                .replace(/ +/g, ' ')                            // Заменяем повторяющиеся пробелы на 1 пробел
+                .replace(/ - /g, '-')                           // Схлопываем тире в дефис
+                .replace(/ -|- /g, '-')                         // И по краям
+                .replace(/\/\/|\\/g, ' ')                       // Заменяем слеши на пробелы
+                .replace(/ +/g, ' ')                            // Заменяем повторяющиеся пробелы на 1 пробел
+                .replace(/ . /g, ' ')                           // Убираем однобуквенные слова
+                .replace(/ .. /g, ' ')                          // Убираем двухбуквенные слова
+                .replace(/^. | .$/g, '')                        // И по краям однобуквенные
+                .replace(/^.. | ..$/g, '')                      // И по краям двухбуквенные
+                .replace(/ё/g, 'е')                             // Меняем "ё" на "е" для фикса вариантов написания
+                .split(' ');                                    // Режем на части по пробелу
         },
 
         /**
