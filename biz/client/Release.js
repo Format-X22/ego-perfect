@@ -17,6 +17,24 @@ Ext.define('B.biz.client.Release', {
         isDirectMode: false,
 
         /**
+         * @cfg {Boolean} directErrorCallback
+         * В управляемом режиме вызывает эту функцию в случае ошибки, вместо отправки клиенту данных.
+         */
+        directErrorCallback: Ext.emptyFn,
+
+        /**
+         * @cfg {Boolean} directErrorCallbackScope
+         * Скоуп выполнения {@link #directErrorCallback}.
+         */
+        directErrorCallbackScope: null,
+
+        /**
+         * @cfg {String/Null} directLogin
+         * Логин, по которому необходимо произвести релиз в управляемом режиме.
+         */
+        directLogin: null,
+        
+        /**
          * @cfg {Boolean} isSendSuccessIfPayDateIsExpired
          * Флаг, указывающий на то что необходимо отправить что всё прошло успешно
          * в случае если истек переиод оплаты,
@@ -25,12 +43,6 @@ Ext.define('B.biz.client.Release', {
          * данные вносятся клиентом, но оплата ещё не произошла.
          */
         isSendSuccessIfPayDateIsExpired: false,
-
-        /**
-         * @cfg {String/Null} directLogin
-         * Логин, по которому необходимо произвести релиз в управляемом режиме.
-         */
-        directLogin: null,
 
         /**
          * @private
@@ -75,9 +87,12 @@ Ext.define('B.biz.client.Release', {
     /**
      * @protected
      * Модифицированная версия, не пытается отправить клиенту ошибку при управляемом запуске.
+     * Вместо этого вызывает {@link #directErrorCallback}.
      */
     sendError: function () {
-        if (!this.getIsDirectMode()) {
+        if (this.getIsDirectMode()) {
+            this.getDirectErrorCallback().apply(this.getDirectErrorCallbackScope(), arguments);
+        } else {
             this.callParent(arguments);
         }
     },
