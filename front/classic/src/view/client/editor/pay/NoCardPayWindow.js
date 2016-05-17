@@ -1,0 +1,94 @@
+/**
+ * Оплата без карты.
+ */
+Ext.define('A.view.client.pay.NoCardPayWindow', {
+    extend: 'Ext.window.Window',
+    xtype: 'clientPayNoCardPayWindow',
+
+    maximizable: true,
+    autoShow: true,
+    title: 'Реквизиты оплаты',
+
+    config: {
+
+        /**
+         * @cfg {Number} monthCount Количество месяцев, на которое происходит оплата.
+         */
+        monthCount: 0,
+
+        /**
+         * @cfg {String} companyId MongoID компании в виде строки.
+         */
+        companyId: '',
+
+        /**
+         * @private
+         * @cfg {Number} cost Стоимость одного месяца услуги.
+         */
+        oneMonthCost: 2190
+    },
+
+    items: [
+        {
+            itemId: 'text',
+            xtype: 'component',
+            padding: '40 50',
+            data: {
+                cost: 0
+            },
+            tpl:
+                'Стоимость услуги - <b>{cost} рублей</b><br>' +
+                '<br>' +
+                'Время действия услуги - <b>{count} месяц{countTail}</b><br>' +
+                '<br>' +
+                '<br>' +
+                '<b>Назначение платежа:</b><br>' +
+                '<i>«Оплата услуги размещения компании {companyId}»</i><br>' +
+                '<br>' +
+                '<b>Реквизиты для платежа:</b><br>' +
+                'Р/сч: 40702810201270006807<br>' +
+                'БИК: 044583999<br>' +
+                'Кор/сч: 30101810600000000999 в Ф ОНЛАЙН ПАО "ХАНТЫ-МАНСИЙСКИЙ БАНК ОТКРЫТИЕ"<br>' +
+                '<br>' +
+                '<b>Контакты:</b><br>' +
+                'Телефон: +7 (925) 154-68-79<br>' +
+                'Адрес электронной почты: contact@фирмы.онлайн'
+        }
+    ],
+
+    /**
+     * @inheritdoc
+     */
+    initComponent: function () {
+        this.callParent(arguments);
+
+        var companyId = this.getCompanyId();
+        var cost = this.getOneMonthCost();
+        var count = this.getMonthCount();
+        var countTail;
+
+        switch (count % 10) {
+            case 1:
+                countTail = '';
+                break;
+            case 2:
+            case 3:
+            case 4:
+                countTail = 'a';
+                break;
+            default:
+                countTail = 'ев';
+        }
+
+        if (count > 10 && count < 15) {
+            countTail = 'ев';
+        }
+        
+        this.down('#text').setData({
+            companyId: companyId,
+            count: count,
+            countTail: countTail,
+            cost: cost * count
+        });
+    }
+});

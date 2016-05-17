@@ -1,4 +1,8 @@
 /**
+ * Внимание!
+ * В данный момент отключено в связи с отсутсвием эквайринга!
+ * Хранится в готовом виде в ожидании подключения!
+ * 
  * Контейнер вкладки оплаты.
  */
 Ext.define('A.view.client.pay.Container', {
@@ -6,6 +10,11 @@ Ext.define('A.view.client.pay.Container', {
     controller: 'clientPay',
     xtype: 'clientPayContainer',
 
+    requires: [
+        'A.view.client.pay.Form',
+        'A.view.client.pay.BankMemo'
+    ],
+    
     layout: {
         type: 'fit'
     },
