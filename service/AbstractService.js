@@ -32,6 +32,6 @@ Ext.define('B.service.AbstractService', {
             error: error
         });
 
-        Ext.Logger.error(compiled);
+        Ext.Logger.warn(compiled);
     }
 });

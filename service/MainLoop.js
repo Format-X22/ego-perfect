@@ -11,7 +11,8 @@ Ext.define('B.service.MainLoop', {
 		'B.service.SearchCleaner',
         'B.service.RatingUpdater',
         'B.service.ReleaseAll',
-        'B.service.KeyGen'
+        'B.service.KeyGen',
+        'B.service.PayOne'
 	],
 
 	constructor: function () {

@@ -1,27 +1,26 @@
 /**
- * Внимание!
- * В данный момент отключено в связи с отсутсвием эквайринга!
- * Хранится в готовом виде в ожидании подключения!
- * 
- * Платежная форма.
+ * Оплата без карты.
  */
-Ext.define('A.view.client.pay.Form', {
-    extend: 'Ext.panel.Panel',
-    xtype: 'clientPayForm',
+Ext.define('A.view.client.pay.NoCard', {
+    extend: 'Ext.form.Panel',
+    controller: 'clientPay',
+    xtype: 'clientPayNoCard',
 
+    requires: [
+        'A.view.client.pay.NoCardPayWindow'
+    ],
+    
     layout: {
-        type: 'vbox'
+        type: 'vbox',
+        align: 'center'
     },
 
     items: [
         {
             xtype: 'adminTopDescription',
             html:
-                'Оплата услуг сервиса.<br>' +
-                'Поддерживаются любые карты Visa и MasterCard.<br>' +
-                'Уровень безопасности используемого платежного сервиса подтвержден сертификатом PCI DSS.<br><br>' +
-                'При необходимости будет предоставлен акт выполненых работ.<br>' +
-                'Для получения акта напишите письмо на адрес contact@фирмы.онлайн'
+                'Оплата услуг сервиса перечислением на расчетный счет.<br>' +
+                'После оплаты на вашу почту будет выслан акт выполненых работ.'
         },
         {
             name: 'payDate',
@@ -72,12 +71,12 @@ Ext.define('A.view.client.pay.Form', {
                 {
                     xtype: 'button',
                     text: 'Оплатить на 1 месяц - 2 190 рублей',
-                    handler: 'pay1Month'
+                    handler: 'noCardPay1Month'
                 },
                 {
                     xtype: 'button',
                     text: 'Оплатить на 12 месяцев - 26 280 рублей',
-                    handler: 'pay12Month'
+                    handler: 'noCardPay12Month'
                 },
                 {
                     xtype: 'component',
