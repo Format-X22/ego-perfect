@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='B-MainRouter'>/**
+</span> * Главный роутер приложения.
+ */
+Ext.define(&#39;B.MainRouter&#39;, {
+    extend: &#39;B.AbstractRouter&#39;,
+
+    requires: [],
+
+<span id='B-MainRouter-cfg-delegate'>    delegate: {},
+</span>
+    config: {
+<span id='B-MainRouter-cfg-callback'>        callback: null
+</span>    },
+
+<span id='B-MainRouter-method-constructor'>    constructor: function () {
+</span>        this.callParent(arguments);
+        B.Main.getExpressApp().use(this.getExpressRouter());
+        this.getCallback()();
+    }
+});</pre>
+</body>
+</html>

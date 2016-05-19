@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='B-AbstractRouter'>/**
+</span> * Абстрактный роутер обработки входящих запросов.
+ * Способен обрабатывать как конкретные запросы,
+ * так и переадресовывать запросы другим роутерам.
+ *
+ *
+ * Для задания карты роутинга необходимо заполнить
+ * объект конфигурации map в таком виде:
+ *
+ *      map: {
+ *          &#39;urlPath&#39;: {
+ *              &#39;methodNameLowerCase&#39;: &#39;handlerAsString or linkToFunction&#39;
+ *          }
+ *      }
+ *
+ *
+ * Для задания карты переадресации запроса другим роутерам необходимо заполнить
+ * объект конфигурации delegate в таком виде:
+ *
+ *      delegate: {
+ *          &#39;urlPath&#39;: &#39;routerClassNameAsString&#39;
+ *      }
+ *
+ *
+ * *Порядок ссылок имеет значение.*
+ * Если в начале указать слишком общую ссылку - следующие ниже ссылки
+ * не будут обработаны т.к. соответствие паттерну запроса было найдено раньше.
+ * Ссылки делегирования обрабатываются в конце.
+ */
+Ext.define(&#39;B.AbstractRouter&#39;, {
+
+    config: {
+
+<span id='B-AbstractRouter-cfg-map'>        /**
+</span>         * @cfg {Object} Карта роутинга, смотри описание класса.
+         */
+        map: null,
+
+<span id='B-AbstractRouter-cfg-delegate'>        /**
+</span>         * @cfg {Object} Схема делегирования,смотри описание класса.
+         */
+        delegate: null,
+
+<span id='B-AbstractRouter-cfg-expressRouter'>        /**
+</span>         * @cfg {Object} Объект Express роутера.
+         */
+        expressRouter: null
+    },
+
+<span id='B-AbstractRouter-method-constructor'>    constructor: function (config) {
+</span>        this.initConfig(
+            Ext.apply(
+                Ext.clone(this.config),
+                config
+            )
+        );
+        
+        this.makeExpressRouter();
+        this.initMap();
+        this.initDelegate();
+    },
+
+<span id='B-AbstractRouter-method-makeExpressRouter'>    /**
+</span>     * Создает и сохраняет Express роутер.
+     */
+    makeExpressRouter: function () {
+        var express = B.Main.getExpress();
+
+        this.setExpressRouter(express.Router());
+    },
+
+<span id='B-AbstractRouter-method-initMap'>    /**
+</span>     * Инициализация карты роутинга.
+     */
+    initMap: function () {
+        Ext.Object.each(this.getMap(), function (path, config) {
+            Ext.Object.each(config, function (method, handler) {
+                if (Ext.isString(handler)) {
+                    handler = this[handler];
+                }
+
+                this.getExpressRouter()[method](path, handler.bind(this));
+            }, this);
+        }, this);
+    },
+
+<span id='B-AbstractRouter-method-initDelegate'>    /**
+</span>     * Инициализация схемы делегирования.
+     */
+    initDelegate: function () {
+        Ext.Object.each(this.getDelegate(), function (path, routerName) {
+            var routerImpl = Ext.create(routerName);
+            var target = routerImpl.getExpressRouter();
+
+            this.getExpressRouter().use(path, target);
+        }, this);
+    },
+
+<span id='B-AbstractRouter-method-checkRequestModel'>    /**
+</span>     * Валидирует модель.
+     * В случае если модель не валидна - отправляет клиенту сообщение об ошибке.
+     * @param {Ext.data.Model} model Модель запроса.
+     * @param {Object} response Express объект ответа сервера.
+     * @return {Boolean} Результат валидации.
+     */
+    checkRequestModel: function (model, response) {
+        if (model.isValid()) {
+            return true;
+        } else {
+            B.Protocol.sendInvalidParams(response);
+            return false
+        }
+    }
+});</pre>
+</body>
+</html>

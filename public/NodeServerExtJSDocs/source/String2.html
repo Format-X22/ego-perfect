@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='B-util-String'>/**
+</span> * Набор утилит для работы со строками.
+ */
+Ext.define(&#39;B.util.String&#39;, {
+    singleton: true,
+
+<span id='B-util-String-method-removeTags'>    /**
+</span>     * Очищает значение от тегов.
+     * @param {String} value Значение.
+     * @return {String} Очищенное значение.
+     */
+    removeTags: function (value) {
+        return value.replace(/&lt;\/?[^&gt;]+(&gt;|$)/g, &#39;&#39;);
+    },
+
+<span id='B-util-String-method-removeScripts'>    /**
+</span>     * Очищает значение от скриптов.
+     * @param {String} value Значение.
+     * @return {String} Очищенное значение.
+     */
+    removeScripts: function (value) {
+        var scriptsRe = new RegExp(
+            [
+                &#39;script&#39;,
+                &#39;onblur&#39;,
+                &#39;onchange&#39;,
+                &#39;onclick&#39;,
+                &#39;ondblclick&#39;,
+                &#39;onfocus&#39;,
+                &#39;onkeydown&#39;,
+                &#39;onkeypress&#39;,
+                &#39;onkeyup&#39;,
+                &#39;onload&#39;,
+                &#39;onmousedown&#39;,
+                &#39;onmousemove&#39;,
+                &#39;onmouseout&#39;,
+                &#39;onmouseover&#39;,
+                &#39;onmouseup&#39;,
+                &#39;onreset&#39;,
+                &#39;onselect&#39;,
+                &#39;onsubmit&#39;,
+                &#39;onunload&#39;
+            ].join(&#39;|&#39;),
+            &#39;gi&#39;
+        );
+
+        return value.replace(scriptsRe, &#39;&#39;);
+    }
+});</pre>
+</body>
+</html>
