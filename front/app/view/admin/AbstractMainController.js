@@ -37,8 +37,7 @@ Ext.define('A.view.admin.MainController', {
 
     /**
      * @protected
-     * @method getModelClassName
-     * @required
+     * @method getModelClassName (required)
      * @template
      * @return {String} Имя модели данных админки.
      */
@@ -46,8 +45,7 @@ Ext.define('A.view.admin.MainController', {
 
     /**
      * @protected
-     * @method isStatsExits
-     * @required
+     * @method isStatsExits (required)
      * @template
      * @return {Boolean} Имеется ли какая-либо статистика.
      */
@@ -55,8 +53,7 @@ Ext.define('A.view.admin.MainController', {
 
     /**
      * @protected
-     * @method applyDataToCharts
-     * @required
+     * @method applyDataToCharts (required)
      * @template
      */
     applyDataToCharts: Ext.emptyFn,

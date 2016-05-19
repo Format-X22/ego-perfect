@@ -17,8 +17,7 @@ Ext.define('B.AbstractRequestHandler', {
         expressRequest: null,
 
         /**
-         * @required
-         * @cfg {Object} expressResponse Express объект ответа.
+         * @cfg {Object} expressResponse (required) Express объект ответа.
          */
         expressResponse: null,
 
