@@ -73,6 +73,10 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
      * Запускает поиск.
      */
     search: function () {
+        if (!Ext.isClassic && !this.getSearchValue()) {
+            return;
+        }
+
         this.toggleInitView();
         this.sendQuery();
         this.resetResultScrollPosition();
@@ -109,7 +113,7 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
          * @private
          */
         sendQuery: function () {
-            var value = this.getSearchInputs()[0].getValue();
+            var value = this.getSearchValue();
 
             A.store.Search.load({
                 params: {
@@ -130,6 +134,14 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
          */
         scrollClassicToTop: function () {
             A.getCmp('searchResult').getController().scrollToLastPositionIfClassic();
+        },
+
+        /**
+         * @private
+         * @return {String/Null} Значение поиска.
+         */
+        getSearchValue: function () {
+            return this.getSearchInputs()[0].getValue();
         }
     }
 });
