@@ -96,6 +96,21 @@ Ext.define('B.Mongo', {
         return this.getObjectIdMaker()(value);
     },
 
+    /**
+     * Создает Mongo ObjectID по указанному значению.
+     * В случае если значени не является строковым идентификатором Mongo
+     * возвращает null.
+     * @param {String} value Значение для превращения в ObjectID.
+     * @return {Mongo.ObjectID/Null} Mongo ObjectID или Null.
+     */
+    safeMakeId: function (value) {
+        try {
+            return this.makeId(value);
+        } catch (error) {
+            return null;
+        }
+    },
+
     privates: {
 
         /**

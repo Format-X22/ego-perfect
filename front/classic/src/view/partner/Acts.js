@@ -31,7 +31,7 @@ Ext.define('A.view.partner.Acts', {
                     padding: '20 0 10 0',
                     value: 0,
                     renderer: function (value) {
-                        return '<b>' + value + ' рублей</b>';
+                        return '<b>' + Ext.util.Format.currency(value, " ", 2, false) + ' рублей</b>';
                     }
                 },
                 {
