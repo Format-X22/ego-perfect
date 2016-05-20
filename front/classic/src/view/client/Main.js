@@ -80,6 +80,7 @@ Ext.define('A.view.client.Main', {
                     ]
                 },
                 {
+                    itemId: 'editorTabPanel',
                     xtype: 'tabpanel',
                     title: 'Редактор',
                     iconCls: 'x-fa fa-pencil-square-o',

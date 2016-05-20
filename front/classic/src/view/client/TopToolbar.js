@@ -4,11 +4,11 @@
 Ext.define('A.view.client.TopToolbar', {
     extend: 'Ext.toolbar.Toolbar',
     xtype: 'clientTopToolbar',
-    controller: 'adminTopToolbar',
+    controller: 'clientTopToolbar',
     itemId: 'topToolbar',
 
     requires: [
-        'A.view.admin.TopToolbarController'
+        'A.view.client.TopToolbarController'
     ],
 
     height: 70,

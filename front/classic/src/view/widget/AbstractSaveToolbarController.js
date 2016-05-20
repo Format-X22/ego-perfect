@@ -22,8 +22,11 @@ Ext.define('A.view.widget.AbstractSaveToolbarController', {
      */
     save: function (button) {
         var form = button.up('form');
+        var maskTarget = form.getMaskTarget() || form.el;
 
-        form.mask();
+        if (maskTarget && maskTarget.mask) {
+            form.mask();
+        }
 
         form.submit({
             clientValidation: true,
@@ -39,10 +42,14 @@ Ext.define('A.view.widget.AbstractSaveToolbarController', {
      */
     successSaveHandler: function () {
         var form = this.getView();
+        var maskTarget = form.getMaskTarget() || form.el;
         
         this.resetForm(form);
         this.showSuccessSaveMessage();
-        form.unmask();
+
+        if (maskTarget && maskTarget.mask) {
+            form.unmask();
+        }
     },
 
     /**
@@ -50,9 +57,14 @@ Ext.define('A.view.widget.AbstractSaveToolbarController', {
      */
     failureSaveHandler: function () {
         var form = this.getView();
+        var maskTarget = form.getMaskTarget() || form.el;
         
         this.showFailureSaveMessage.apply(this, arguments);
         form.unmask();
+
+        if (maskTarget && maskTarget.mask) {
+            form.unmask();
+        }
     },
 
     /**
