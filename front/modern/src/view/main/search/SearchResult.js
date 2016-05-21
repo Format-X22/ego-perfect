@@ -50,8 +50,7 @@ Ext.define('A.view.main.search.SearchResult', {
             itemId: 'resultCard',
             xtype: 'container',
             layout: {
-                type: 'card',
-                animation: 'flip'
+                type: 'card'
             },
             flex: 1,
             padding: '0 10',
