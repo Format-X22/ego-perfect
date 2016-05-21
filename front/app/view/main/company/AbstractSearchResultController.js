@@ -50,6 +50,14 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
     },
 
     /**
+     * Ничего не найдено?
+     * @return {Boolean} Результат проверки.
+     */
+    isNoSearchResult: function () {
+        return !A.store.Search.getCount();
+    },
+
+    /**
      * @protected
      * Открывает компанию, соответствующую данным рекорда или по ID.
      * @param {Ext.data.Model/Number} recordOrId Рекорд или ID.

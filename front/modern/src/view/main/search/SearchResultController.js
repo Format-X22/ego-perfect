@@ -24,6 +24,10 @@ Ext.define('A.view.main.search.SearchResultController', {
      * @inheritdoc
      */
     backToSearch: function () {
+        if (this.isNoSearchResult()) {
+            this.toggleToStartSearch();
+        }
+        
         this.callParent(arguments);
         this.hideMobileBackButton();
     },
@@ -50,6 +54,27 @@ Ext.define('A.view.main.search.SearchResultController', {
          */
         getMobileBackButton: function () {
             return A.getCmp('#backToSearchMobile');
+        },
+
+        /**
+         * @private
+         */
+        toggleToStartSearch: function () {
+            var container = A.getCmp('searchContainer');
+            var width = Ext.Viewport.getWindowWidth();
+            var height = Ext.Viewport.getWindowHeight();
+            var mobileSearch = container.down('startMobileSearch');
+            var tabletSearch = container.down('startTabletSearch');
+            
+            container.down('#searchResult').hide();
+
+            if (width < 600 || height < 400) {
+                tabletSearch.hide();
+                mobileSearch.show('flip');
+            } else {
+                mobileSearch.hide();
+                tabletSearch.show('flip');
+            }
         }
     }
 });
