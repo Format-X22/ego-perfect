@@ -47,7 +47,7 @@ Ext.define('B.mongo.AbstractBase', {
          * @cfg {Boolean}
          * Необходимо ли блокировать документ на время выполнения операции.
          * Используется для методов изменения данных.
-         * Поддерживается не везде, поддержка указана в описании метода.
+         * Поддерживается не везде, поддержка указана в описании конкретного метода.
          */
         atomic: false,
         
@@ -70,6 +70,7 @@ Ext.define('B.mongo.AbstractBase', {
          * Будет вызван после любой операции.
          * Первым аргументом будет объект ошибки или null.
          * Вторым аргументом будет объект результата исполнения.
+         * Вызывается последним, после всех других соответствующих колбеков.
          */
         always: Ext.emptyFn,
 
@@ -81,7 +82,7 @@ Ext.define('B.mongo.AbstractBase', {
         /**
          * @cfg {Boolean} autoDestroy
          * Флаг, указывающий на то что необходимо автоматически уничтожать
-         * инстанс класса после вызова любого колбека. Является оптимизацией памяти.
+         * инстанс класса после первого завершения исполнения. Является оптимизацией памяти.
          * В случае необходимости повторных вызовов нужно проставить флаг в false.
          */
         autoDestroy: true,
@@ -134,6 +135,19 @@ Ext.define('B.mongo.AbstractBase', {
 
     /**
      * @protected
+     * Вызывает соответствующий колбек с соответствующем скопом.
+     * После, при необходимости, уничтожает класс.
+     */
+    callAlways: function () {
+        this.getSuccess().apply(this.getScope(), arguments);
+
+        if (this.getAutoDestroy()) {
+            this.destroy();
+        }
+    },
+
+    /**
+     * @protected
      * Вызывает соответсвующие колбеки в зависимости от результата.
      * @param {Object/Null} error Объект ошибки или null.
      * @param {Object} result Объект результата.
@@ -168,20 +182,6 @@ Ext.define('B.mongo.AbstractBase', {
             return 'findOneAndUpdate';
         } else {
             return 'updateOne';
-        }
-    },
-
-    privates: {
-
-        /**
-         * @private
-         */
-        callAlways: function () {
-            this.getSuccess().apply(this.getScope(), arguments);
-
-            if (this.getAutoDestroy()) {
-                this.destroy();
-            }
         }
     }
 });

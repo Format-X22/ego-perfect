@@ -18,14 +18,10 @@ Ext.define('B.mongo.AbstractAccount', {
         login: null,
 
         /**
-         * @cfg {Boolean} strictId
-         * Флаг, указывающий что в случае если id не является валидным
-         * идентификатором документа MongoDB - вызывать {@link #badIdCallback}.
-         */
-        strictId: true,
-
-        /**
-         * @cfg {Function} badIdCallback Будет вызван в случае не валидного id.
+         * @cfg {Function} badIdCallback
+         * Будет вызван за место failure в случае не валидного id.
+         * При этом always также будет вызван.
+         * Вызывается до фактического запроса к базе данных.
          */
         badIdCallback: Ext.emptyFn
     },
@@ -35,8 +31,14 @@ Ext.define('B.mongo.AbstractAccount', {
      * Получение данных аккаунта.
      */
     getAccount: function () {
+        var query = this.makeIdQuery();
+
+        if (!query) {
+            return;
+        }
+
         this.getCollection().findOne(
-            this.makeIdQuery(),
+            query,
             this.getProjection(),
             this.getCallbackCaller()
         );
@@ -61,9 +63,14 @@ Ext.define('B.mongo.AbstractAccount', {
      */
     updateAccount: function () {
         var method = this.getSingleUpdateMethodName();
+        var query = this.makeIdQuery();
+
+        if (!query) {
+            return;
+        }
 
         this.getCollection()[method](
-            this.makeIdQuery(),
+            query,
             this.getValue(),
             this.getOptions(),
             this.getCallbackCaller()
@@ -101,12 +108,21 @@ Ext.define('B.mongo.AbstractAccount', {
     /**
      * @protected
      * Создает запрос на поиск по ID.
-     * @return {Object} Объект запроса.
+     * В случае ошибки создания ID будет возвращен null.
+     * @return {Object/Null} Объект запроса или null.
      */
     makeIdQuery: function () {
-        return {
-            _id: this.makeIdIfNeed(this.getId())
+        var id = this.makeIdIfNeed(this.getId());
+        var query = {
+            _id: id
         };
+
+        if (id) {
+            return query;
+        } else {
+            return null;
+        }
+
     },
 
     /**
@@ -123,16 +139,23 @@ Ext.define('B.mongo.AbstractAccount', {
     /**
      * @protected
      * Создает из строки объект MongoDB ObjectID, если параметр им ещё не является.
-     * Создание происходит в безопасном режиме, в случае ошибки будет возвращен null.
+     * В случае ошибки будет вызван {@link #badIdCallback}.
      * @param {String/Object} id Строковый или ObjectID идентификатор документа MongoDB.
      * @return {Object/Null} ObjectID идентификатор документа MongoDB или null.
      */
     makeIdIfNeed: function (id) {
-        if (!Ext.isObject(id)) {
-            id = B.mongo.Mongo.safeMakeId(id);
+        if (Ext.isObject(id)) {
+            return id;
         }
 
-        return id;
+        id = B.mongo.Mongo.safeMakeId(id);
+
+        if (id) {
+            return id;
+        } else {
+            this.callBadIdCallback();
+            return null;
+        }
     },
     
     /**
@@ -141,5 +164,6 @@ Ext.define('B.mongo.AbstractAccount', {
      */
     callBadIdCallback: function () {
         this.getBadIdCallback().call(this.getScope());
+        this.callAlways();
     }
 });
