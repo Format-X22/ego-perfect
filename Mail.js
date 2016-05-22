@@ -55,12 +55,7 @@ Ext.define('B.Mail', {
 	},
 
 	constructor: function (config) {
-        this.initConfig(
-            Ext.apply(
-                Ext.clone(this.config),
-                config
-            )
-        );
+		this.initConfig(config);
 	},
 
 	/**

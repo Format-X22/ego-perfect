@@ -97,12 +97,7 @@ Ext.define('B.biz.auth.util.Account', {
     },
 
     constructor: function (config) {
-        this.initConfig(
-            Ext.apply(
-                Ext.clone(this.config),
-                config
-            )
-        );
+        this.initConfig(config);
 
         this.setStepQueue([]);
 

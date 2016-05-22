@@ -33,12 +33,7 @@ Ext.define('B.AbstractRequestHandler', {
     },
 
     constructor: function (config) {
-        this.initConfig(
-            Ext.apply(
-                Ext.clone(this.config),
-                config
-            )
-        );
+        this.initConfig(config);
 
         this.setProtocol(Ext.create('B.Protocol', {
             expressResponse: this.getExpressResponse()
