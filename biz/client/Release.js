@@ -17,6 +17,18 @@ Ext.define('B.biz.client.Release', {
         isDirectMode: false,
 
         /**
+         * @cfg {Boolean} directCallback
+         * В управляемом режиме вызывает эту функцию в момент завершения, вместо отправки клиенту данных.
+         */
+        directCallback: Ext.emptyFn,
+
+        /**
+         * @cfg {Boolean} directCallbackScope
+         * Скоуп выполнения {@link #directCallback}.
+         */
+        directCallbackScope: null,
+        
+        /**
          * @cfg {Boolean} directErrorCallback
          * В управляемом режиме вызывает эту функцию в случае ошибки, вместо отправки клиенту данных.
          */
@@ -87,22 +99,25 @@ Ext.define('B.biz.client.Release', {
     /**
      * @protected
      * Модифицированная версия, не пытается отправить клиенту ошибку при управляемом запуске.
+     * Вместо этого вызывает {@link #directCallback}.
+     */
+    sendSuccess: function () {
+        if (this.getIsDirectMode()) {
+            this.getDirectCallback().apply(this.getDirectCallbackScope(), arguments);
+        } else {
+            this.callParent(arguments);
+        }
+    },
+    
+    /**
+     * @protected
+     * Модифицированная версия, не пытается отправить клиенту ошибку при управляемом запуске.
      * Вместо этого вызывает {@link #directErrorCallback}.
      */
     sendError: function () {
         if (this.getIsDirectMode()) {
             this.getDirectErrorCallback().apply(this.getDirectErrorCallbackScope(), arguments);
         } else {
-            this.callParent(arguments);
-        }
-    },
-
-    /**
-     * @protected
-     * Модифицированная версия, не пытается отправить клиенту ошибку при управляемом запуске.
-     */
-    sendSuccess: function () {
-        if (!this.getIsDirectMode()) {
             this.callParent(arguments);
         }
     },

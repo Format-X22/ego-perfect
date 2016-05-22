@@ -32,7 +32,6 @@ Ext.define('A.view.main.company.Container', {
                 }
             },
             items: [
-                '->',
                 {
                     itemId: 'backToSearch',
                     xtype: 'button',

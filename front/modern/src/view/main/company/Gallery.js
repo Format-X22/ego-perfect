@@ -12,7 +12,10 @@ Ext.define('A.view.main.company.Gallery', {
         for (var i = 0; i < 10; i++) {
             config.push({
                 xtype: 'image',
-                src: ''
+                src: '',
+                style: {
+                    backgroundSize: 'auto'
+                }
             });
         }
 

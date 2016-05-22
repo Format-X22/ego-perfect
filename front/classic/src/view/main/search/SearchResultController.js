@@ -24,6 +24,17 @@ Ext.define('A.view.main.search.SearchResultController', {
         this.getAllSearchController().searchIfEnter(field, event);
     },
 
+    /**
+     * @inheritdoc
+     */
+    backToSearch: function () {
+        if (this.isNoSearchResult()) {
+            this.toggleToStartSearch();
+        }
+
+        this.callParent(arguments);
+    },
+
     privates: {
 
         /**
@@ -32,6 +43,16 @@ Ext.define('A.view.main.search.SearchResultController', {
          */
         getAllSearchController: function () {
             return this.getView().up('searchContainer').getController();
+        },
+
+        /**
+         * @private
+         */
+        toggleToStartSearch: function () {
+            var container = A.getCmp('searchContainer');
+            
+            container.down('startDesktopSearch').show();
+            container.down('#searchResult').hide();
         }
     }
 });

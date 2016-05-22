@@ -13,11 +13,29 @@ Ext.define('A.view.main.MobileMenuController', {
         A.getCmp('appMainPublic mainTabPanel').setActiveItem(pageNum);
         Ext.Viewport.toggleMenu('right');
 
+        if (pageNum === 0) {
+            this.goToStartMobileSearch();
+        }
+
         this.toggleBackToSearchMobileButton(pageNum);
     },
 
     privates: {
 
+        /**
+         * @private
+         */
+        goToStartMobileSearch: function () {
+            var mainTabPanel = A.getCmp('appMainPublic mainTabPanel');
+            var container = mainTabPanel.down('searchContainer');
+            var result = container.down('#searchResult');
+            var startSearch = container.down('startMobileSearch');
+
+            result.hide('flip');
+            startSearch.show('flip');
+            result.getController().backToSearch();
+        },
+        
         /**
          * @private
          * @param {Number} pageNum Номер страницы.
