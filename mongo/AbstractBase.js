@@ -79,11 +79,23 @@ Ext.define('B.mongo.AbstractBase', {
         scope: null,
 
         /**
+         * @cfg {Boolean} autoDestroy
+         * Флаг, указывающий на то что необходимо автоматически уничтожать
+         * инстанс класса после вызова любого колбека. Является оптимизацией памяти.
+         * В случае необходимости повторных вызовов нужно проставить флаг в false.
+         */
+        autoDestroy: true,
+
+        /**
          * @protected
          * @cfg {String} collectionName (required)
          * Имя коллекции в базе данных, над которой будут происходить манипуляции.
          */
         collectionName: ''
+    },
+    
+    constructor: function (config) {
+        this.initConfig(config);
     },
 
     /**
@@ -161,6 +173,10 @@ Ext.define('B.mongo.AbstractBase', {
          */
         callAlways: function () {
             this.getSuccess().apply(this.getScope(), arguments);
+
+            if (this.getAutoDestroy()) {
+                this.destroy();
+            }
         }
     }
 });
