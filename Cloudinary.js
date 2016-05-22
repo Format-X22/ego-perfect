@@ -13,7 +13,12 @@ Ext.define('B.Cloudinary', {
 	},
 
 	constructor: function (config) {
-		this.initConfig(config);
+        this.initConfig(
+            Ext.apply(
+                Ext.clone(this.config),
+                config
+            )
+        );
 
 		this.getCloudinaryUtil().config(outerResourcesConfig.cloudinary);
 	}

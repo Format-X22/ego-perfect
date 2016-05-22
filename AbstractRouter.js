@@ -48,7 +48,13 @@ Ext.define('B.AbstractRouter', {
     },
 
     constructor: function (config) {
-        this.initConfig(config);
+        this.initConfig(
+            Ext.apply(
+                Ext.clone(this.config),
+                config
+            )
+        );
+        
         this.makeExpressRouter();
         this.initMap();
         this.initDelegate();

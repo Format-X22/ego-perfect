@@ -80,7 +80,12 @@ Ext.define('B.biz.auth.util.Crypt', {
     },
 
     constructor: function (config) {
-        this.initConfig(config);
+        this.initConfig(
+            Ext.apply(
+                Ext.clone(this.config),
+                config
+            )
+        );
     },
 
     /**

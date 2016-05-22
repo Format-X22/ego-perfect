@@ -12,7 +12,12 @@ Ext.define('B.service.AbstractService', {
     },
     
     constructor: function (config) {
-        this.initConfig(config);
+        this.initConfig(
+            Ext.apply(
+                Ext.clone(this.config),
+                config
+            )
+        );
     },
     
     /**

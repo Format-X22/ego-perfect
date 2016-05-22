@@ -23,7 +23,12 @@ Ext.define('B.biz.search.util.Tokens', {
     },
 
     constructor: function (config) {
-        this.initConfig(config);
+        this.initConfig(
+            Ext.apply(
+                Ext.clone(this.config),
+                config
+            )
+        );
 
         var value = this.getValue();
         var scope = this.getScope() || this;

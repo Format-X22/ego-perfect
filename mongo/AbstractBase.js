@@ -95,7 +95,12 @@ Ext.define('B.mongo.AbstractBase', {
     },
     
     constructor: function (config) {
-        this.initConfig(config);
+        this.initConfig(
+            Ext.apply(
+                Ext.clone(this.config),
+                config
+            )
+        );
     },
 
     /**
