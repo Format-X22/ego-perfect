@@ -29,11 +29,6 @@ Ext.define('A.view.main.search.SearchResult', {
                     cls: 'result-search',
                     placeHolder: 'Что ищем?',
                     flex: 1,
-                    component: {
-                        autoComplete: false,
-                        autoCapitalize: false,
-                        autoCorrect: false
-                    },
                     listeners: {
                         action: 'modernKeyboardSearch'
                     }

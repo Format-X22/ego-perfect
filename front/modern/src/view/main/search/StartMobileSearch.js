@@ -39,11 +39,6 @@ Ext.define('A.view.main.search.StartMobileSearch', {
             cls: 'mobile-search',
             placeHolder: 'Что ищем?',
             width: '100%',
-            component: {
-                autoComplete: false,
-                autoCapitalize: false,
-                autoCorrect: false
-            },
             listeners: {
                 action: 'search'
             }

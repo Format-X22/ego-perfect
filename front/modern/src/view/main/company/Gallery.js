@@ -32,6 +32,44 @@ Ext.define('A.view.main.company.Gallery', {
         });
     },
 
+    /**
+     * @protected
+     * Фикс наложения фто друг на друга, причина - не верное определение ширины.
+     * Жестко установлена ширина, равная текущей ширине экрана.
+     */
+    refreshSizing: function() {
+        var element = this.element,
+            itemLength = this.getItemLength(),
+            translatableItemLength = {
+                x: 0,
+                y: 0
+            },
+            itemOffset, containerSize;
+
+        if (this.getDirection() === 'horizontal') {
+            //containerSize = element.getWidth(); FIXED
+            containerSize = Ext.getBody().getWidth(); // @TODO [VERSION HACK] фикс ширины
+        }
+        else {
+            containerSize = element.getHeight();
+        }
+
+        this.hiddenTranslation = -containerSize;
+
+        if (itemLength === null) {
+            itemLength = containerSize;
+            itemOffset = 0;
+        }
+        else {
+            itemOffset = (containerSize - itemLength) / 2;
+        }
+
+        this.itemLength = itemLength;
+        this.itemOffset = itemOffset;
+        translatableItemLength[this.currentAxis] = itemLength;
+        this.getTranslatable().setItemLength(translatableItemLength);
+    },
+
     listeners: {
         show: 'refresh',
         resize: 'refresh'

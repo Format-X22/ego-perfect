@@ -48,11 +48,6 @@ Ext.define('A.view.main.search.StartTabletSearch', {
                     border: 1,
                     placeHolder: 'Что ищем? Например - кафе',
                     flex: 1,
-                    component: {
-                        autoComplete: false,
-                        autoCapitalize: false,
-                        autoCorrect: false
-                    },
                     listeners: {
                         focus: 'switchTabletInitToSimple',
                         blur: 'switchTabletInitToFull',
