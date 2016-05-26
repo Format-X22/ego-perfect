@@ -156,6 +156,10 @@ Ext.define('A.view.client.editor.SummaryController', {
         var me = this;
         
         Ext.defer(function () {
+            if (!editor.getEditorBody()) {
+                return;
+            }
+
             editor.getEditorBody().onpaste = function (event) {
                 me.fixPasteStyleOnPaste(event, editor);
             };
