@@ -369,8 +369,14 @@ Ext.define('B.biz.auth.Register', {
          * @param {Function} next Следующий шаг.
          */
         setSessionCookie: function (next) {
-            this.getExpressResponse().cookie('key', this.getSessionUtil().getSession(), {
+            var model = this.getRequestModel();
+            var response = this.getExpressResponse();
+
+            response.cookie('key', this.getSessionUtil().getSession(), {
                 httpOnly: true
+            });
+            response.cookie('type', model.get('type'), {
+                httpOnly: false
             });
             next();
         }

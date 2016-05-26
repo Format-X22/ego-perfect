@@ -71,7 +71,7 @@ Ext.define('A.controller.Router', {
         switch (id) {
             case 'client':
             case 'partner':
-                main.setActiveItem(4);
+                main.setActiveItem(3);
                 return;
         }
     },
