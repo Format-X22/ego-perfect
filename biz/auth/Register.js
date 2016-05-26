@@ -302,10 +302,6 @@ Ext.define('B.biz.auth.Register', {
             var type = this.getRequestModel().get('type');
 
             this.sendPassMail(next);
-            
-            if (type === 'partner') {
-                this.sendPartnerMail();
-            }
         },
 
         /**
