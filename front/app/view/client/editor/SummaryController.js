@@ -146,6 +146,26 @@ Ext.define('A.view.client.editor.SummaryController', {
         
     },
 
+    /**
+     * Фикс вставки стилей при копировании.
+     * Стили не вставляются дабы избежать проблем с форматированием.
+     * *Исправление работает не во всех браузерах и не работает на очень медленных машинах.*
+     * @param {Ext.form.field.HtmlEditor} editor Эдитор.
+     */
+    fixPasteStyle: function (editor) {
+        var me = this;
+        
+        Ext.defer(function () {
+            if (!editor.getEditorBody()) {
+                return;
+            }
+
+            editor.getEditorBody().onpaste = function (event) {
+                me.fixPasteStyleOnPaste(event, editor);
+            };
+        }, 1000);
+    },
+
     privates: {
 
         /**
@@ -349,6 +369,24 @@ Ext.define('A.view.client.editor.SummaryController', {
                 html: 'Слишком много символов',
                 autoHide: false
             });
+        },
+
+        /**
+         * @private
+         * @param {ClipboardEvent} event Эвент.
+         * @param {Ext.form.field.HtmlEditor} editor Эдитор.
+         */
+        fixPasteStyleOnPaste: function (event, editor) {
+            var clipboard = event.clipboardData || window.clipboardData;
+            var data;
+
+            if (clipboard) {
+                event.preventDefault();
+
+                data = clipboard.getData('text/plain');
+
+                editor.insertAtCursor(data);
+            }
         }
     }
 });

@@ -76,8 +76,13 @@ Ext.define('B.biz.auth.MasterLogin', {
          * @param {String} value Значение для установки.
          */
         setKeyCookie: function (value) {
-            this.getExpressResponse().cookie('key', value, {
+            var response = this.getExpressResponse();
+
+            response.cookie('key', value, {
                 httpOnly: true
+            });
+            response.cookie('type', 'company', {
+                httpOnly: false
             });
         },
 

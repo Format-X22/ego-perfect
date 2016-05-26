@@ -57,7 +57,7 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
      * Перенаправляет на страницу аккаунта.
      */
     goToPage: function () {
-        var type = this.getView().getValues().type;
+        var type = Ext.util.Cookies.get('type');
         var accPage = 0;
         var accHash = '';
 

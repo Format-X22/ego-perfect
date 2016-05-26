@@ -32,7 +32,9 @@ Ext.define('A.view.main.auth.RegisterPage', {
             margin: '0 0 10 0'
         },
 		{
+            itemId: 'registerSwitch',
 			xtype: 'fieldcontainer',
+            hidden: true,
 			fieldLabel: 'Я',
 			defaultType: 'radiofield',
 			defaults: {

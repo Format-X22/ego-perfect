@@ -32,8 +32,9 @@ Ext.define('A.view.main.auth.LoginPage', {
             margin: '0 0 10 0'
         },
         {
-            xtype      : 'fieldcontainer',
-            fieldLabel : 'Я',
+            xtype: 'fieldcontainer',
+            hidden: true,
+            fieldLabel: 'Я',
             defaultType: 'radiofield',
             defaults: {
                 flex: 1

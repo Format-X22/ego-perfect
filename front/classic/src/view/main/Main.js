@@ -36,12 +36,6 @@ Ext.define('A.view.main.Main', {
                     iconCls: 'x-fa fa-user'
                 },
                 {
-                    itemId: 'partners',
-                    xtype: 'pageForPartnersWithContract',
-                    title: 'Партнерам',
-                    iconCls: 'x-fa fa-money'
-                },
-                {
                     itemId: 'contacts',
                     xtype: 'pageForContacts',
                     title: 'Контакты',

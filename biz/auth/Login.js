@@ -38,7 +38,6 @@ Ext.define('B.biz.auth.Login', {
 
         Ext.create('B.biz.auth.util.Account', {
             login: model.get('login'),
-            type: model.get('type'),
             scope: this,
             callback: this.handleAccountSearch
         });
@@ -140,8 +139,13 @@ Ext.define('B.biz.auth.Login', {
          * @private
          */
         setSessionCookie: function () {
-            this.getExpressResponse().cookie('key', this.getSessionUtil().getSession(), {
+            var response = this.getExpressResponse();
+
+            response.cookie('key', this.getSessionUtil().getSession(), {
                 httpOnly: true
+            });
+            response.cookie('type', this.getAccount().type, {
+                httpOnly: false
             });
         }
     }

@@ -54,7 +54,8 @@ Ext.define('A.view.client.editor.Summary', {
                     value: 'А мы самые <b>лучшие!</b>',
                     listeners: {
                         change: 'validateAndUpdateCounter',
-                        editmodechange: 'notifyChange'
+                        editmodechange: 'notifyChange',
+                        afterrender: 'fixPasteStyle'
                     }
                 }
             ]

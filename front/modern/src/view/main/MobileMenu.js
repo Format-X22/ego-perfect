@@ -25,17 +25,10 @@ Ext.define('A.view.main.MobileMenu', {
             }
         },
         {
-            text: 'Партнерам',
-            iconCls: 'x-fa fa-money',
-            handler: function () {
-                this.up().getController().goToPage(2);
-            }
-        },
-        {
             text: 'Контакты',     
             iconCls: 'x-fa fa-phone',
             handler: function () {
-                this.up().getController().goToPage(3);
+                this.up().getController().goToPage(2);
             }
         }
     ]
