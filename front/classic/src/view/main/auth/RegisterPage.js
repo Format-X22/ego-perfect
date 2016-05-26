@@ -33,6 +33,7 @@ Ext.define('A.view.main.auth.RegisterPage', {
         },
 		{
 			xtype: 'fieldcontainer',
+            hidden: true,
 			fieldLabel: 'Я',
 			defaultType: 'radiofield',
 			defaults: {
