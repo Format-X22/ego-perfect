@@ -49,7 +49,7 @@ Ext.define('B.Mail', {
             '',
             '_________________________',
             'ООО "Простые числа"',
-            'contact@фирмы.онлайн',
+            'w@фирмы.онлайн',
             '+7 (925) 154-68-79'
         ].join('\n\r')
 	},
@@ -109,7 +109,7 @@ Ext.define('B.Mail', {
 
         this.getSender().send(
             {
-                from: 'contact@xn--h1ailo2b.xn--80asehdb',
+                from: 'w@xn--h1ailo2b.xn--80asehdb',
                 to: this.getLogin(),
                 subject: 'Заключение договора с Фирмы Онлайн',
                 text: [
@@ -131,7 +131,7 @@ Ext.define('B.Mail', {
 	notifyPartnerAboutUseKey: function (clientLogin) {
         this.getSender().send(
             {
-                from: 'contact@xn--h1ailo2b.xn--80asehdb',
+                from: 'w@xn--h1ailo2b.xn--80asehdb',
                 to: this.getLogin(),
                 subject: 'Хорошие новости! Кто-то использовал ваш ключ!',
                 text: [
