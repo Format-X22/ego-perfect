@@ -31,11 +31,6 @@ Ext.define('A.view.partner.statistic.Main', {
             iconCls: 'x-fa fa-user-plus'
         },
         {
-            title: 'Регистрации партнеров',
-            xtype: 'partnerStatisticPartners',
-            iconCls: 'x-fa fa-bank'
-        },
-        {
             title: 'Доходность',
             xtype: 'partnerStatisticIncome',
             iconCls: 'x-fa fa-money'

@@ -1,4 +1,5 @@
 /**
+ * @deprecated
  * График патнеров, привлеченных партнером.
  */
 Ext.define('A.view.partner.statistic.Partners', {
