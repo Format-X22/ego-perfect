@@ -33,7 +33,11 @@ Ext.define('A.view.client.pay.NoCard', {
                 var date = Ext.Date.parse(value, 'c');
                 var format = Ext.Date.format(date, 'd.m.Y');
 
-                return '<b>' + format + '</b>';
+                if (new Date() < date) {
+                    return '<b>' + format + '</b>';
+                } else {
+                    return '<b>не оплачено</b>';
+                }
             }
         },
         {
@@ -70,24 +74,18 @@ Ext.define('A.view.client.pay.NoCard', {
                 },
                 {
                     xtype: 'button',
-                    text: 'Оплатить на 1 месяц - 2 190 рублей',
-                    handler: 'noCardPay1Month'
-                },
-                {
-                    xtype: 'button',
                     text: 'Оплатить на 12 месяцев - 26 280 рублей',
                     handler: 'noCardPay12Month'
                 },
                 {
-                    xtype: 'component',
-                    html:
-                        '<div style="' +
-                            'width: 450px;' +
-                            'text-align: center;' +
-                            'font-style: italic;' +
-                        '">' +
-                            'При оплате на 12 месяцев +2 месяца бесплатно.' +
-                        '</div>'
+                    xtype: 'button',
+                    text: 'Оплатить на 18 месяца - 39 420 рублей',
+                    handler: 'noCardPay18Month'
+                },
+                {
+                    xtype: 'button',
+                    text: 'Оплатить на 24 месяца - 52 560 рублей',
+                    handler: 'noCardPay24Month'
                 }
             ]
         },

@@ -32,7 +32,7 @@ Ext.define('A.view.main.search.StartTabletSearch', {
             itemId: 'description',
             xtype: 'component',
             padding: '0 0 10 0',
-            html: 'Все фирмы на одном сайте'
+            html: 'Визуальная поисковая система компаний и услуг'
         },
         {
             xtype: 'container',
