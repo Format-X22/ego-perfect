@@ -144,6 +144,22 @@ Ext.define('B.Mail', {
         );
 	},
 
+	/**
+	 * Отправка запроса на бесплатный логотип.
+	 * @param {String} id ID клиента.
+	 */
+	sendDrawForMeRequest: function (id) {
+		this.getSender().send(
+			{
+				from: 'robot@xn--h1ailo2b.xn--80asehdb',
+				to: 'oleg.pav.m@gmail.com',
+				subject: 'Запрос на бесплатный логотип',
+				html: 'ID: ' + id
+			},
+			this.sendCallback.bind(this)
+		);
+	},
+
 	privates: {
 
 		/**
