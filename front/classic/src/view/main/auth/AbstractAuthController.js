@@ -73,6 +73,17 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
         this.redirectTo('account/' + accHash);
         this.getView().reset();
     },
+
+    /**
+     * Очищает значение от лишних значений по краям.
+     */
+    trimValueOnChange: function (target) {
+        var value = target.getValue();
+        
+        value = value || '';
+        
+        target.setValue(value.trim());
+    },
     
     privates: {
 

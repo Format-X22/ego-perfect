@@ -61,7 +61,8 @@ Ext.define('A.view.main.auth.LoginPage', {
             fieldLabel: 'Почта',
             allowBlank: false,
             listeners: {
-                specialkey: 'sendIfEnterKey'
+                specialkey: 'sendIfEnterKey',
+                change: 'trimValueOnChange'
             }
         },
         {
@@ -70,7 +71,8 @@ Ext.define('A.view.main.auth.LoginPage', {
             inputType: 'password',
             fieldLabel: 'Пароль',
             listeners: {
-                specialkey: 'sendIfEnterKey'
+                specialkey: 'sendIfEnterKey',
+                change: 'trimValueOnChange'
             }
         },
         {
