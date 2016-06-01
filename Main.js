@@ -89,8 +89,16 @@ Ext.define('B.Main', {
     initRouter: function (next) {
         this.log('Инициализация главного роутера.');
 
+        var dir = __dirname;
+        var path = require('path');
+        var indexHtml = path.join(dir, 'public', 'index.html');
+
         Ext.create('B.MainRouter', {
             callback: next
+        });
+
+        this.getExpressApp().get(/^\/page-/, function (request, response) {
+            response.sendFile(indexHtml);
         });
     },
 
