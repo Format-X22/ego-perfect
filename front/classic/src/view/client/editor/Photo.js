@@ -69,7 +69,7 @@ Ext.define('A.view.client.editor.Photo', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    text: 'Нарисуйте за меня (бесплатно, на основе дизайна вашего сайта)',
+                                    text: 'Нарисуйте за меня (бесплатно)',
                                     width: 495,
                                     handler: 'drawForMe'
                                 }
