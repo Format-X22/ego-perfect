@@ -70,8 +70,19 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
         }
 
         A.getCmp('appMain').setActiveItem(accPage);
-        this.redirectTo('account/' + accHash);
+        A.changePathTo('account-' + accHash);
         this.getView().reset();
+    },
+
+    /**
+     * Очищает значение от лишних значений по краям.
+     */
+    trimValueOnChange: function (target) {
+        var value = target.getValue();
+        
+        value = value || '';
+        
+        target.setValue(value.trim());
     },
     
     privates: {

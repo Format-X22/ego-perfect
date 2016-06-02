@@ -61,10 +61,25 @@ Ext.define('A.view.client.editor.Photo', {
                             fieldLabel: 'Логотип'
                         },
                         {
+                            xtype: 'container',
+                            layout: {
+                                type: 'vbox',
+                                align: 'right'
+                            },
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    text: 'Нарисуйте за меня (бесплатно)',
+                                    width: 495,
+                                    handler: 'drawForMe'
+                                }
+                            ]
+                        },
+                        {
                             xtype: 'component',
                             padding: '0 0 25 110',
                             html:
-                                '<i>Отображается в поиске и в информации о компании.<br>' +
+                                '<i>Логотип отображается в поиске и в информации о компании.<br>' +
                                 'Лучше всего подойдет картинка размером 300 на 300 пикселей в формате png.</i>'
                         },
                         {

@@ -2,17 +2,48 @@
  * Глобальный роутер всего приложения.
  */
 Ext.define('A.controller.Router', {
-    extend: 'Ext.app.Controller',
+    singleton: true,
 
     config: {
-        isFirstCall: true
+
+        /**
+         * @private
+         * @cfg {Boolean} isFirstCall Первый ли запуск.
+         */
+        isFirstCall: true,
+
+        /**
+         * @private
+         * @cfg {String} linkSplitter Разделитель в ссылках.
+         */
+        linkSplitter: '-'
     },
     
-    routes: {
-        'rootPage/register/:key': 'goToRegisterPageWithKey',
-        'rootPage/:id': 'goToRootPage',
-        'company/:id': 'goToCompanyPage',
-        'account/:id': 'goToAccountPage'
+    constructor: function () {
+        this.initConfig(this.config);
+    },
+
+    /**
+     * Переход на текущую страницу.
+     */
+    goToCurrentPage: function () {
+        var path = this.getPathLink();
+        var end = this.getEndPoint();
+        
+        switch (path) {
+            case 'root-register':
+                this.goToRegisterPageWithKey(end);
+                break;
+            case 'root':
+                this.goToRootPage(end);
+                break;
+            case 'company':
+                this.goToCompanyPage(end);
+                break;
+            case 'account':
+                this.goToAccountPage(end);
+                break;
+        }
     },
 
     /**
@@ -87,6 +118,43 @@ Ext.define('A.controller.Router', {
     },
 
     privates: {
+
+        /**
+         * @private
+         * @return {String} Токен.
+         */
+        getFullLink: function () {
+            return location.pathname.replace('/page-', '');
+        },
+
+        /**
+         * @private
+         * @param {Number[]} range Диапазон, 1 или 2 значения.
+         * @return {String} Токен.
+         */
+        extractLinkTokens: function (range) {
+            var splitter = this.getLinkSplitter();
+            var split = this.getFullLink().split(splitter);
+            var tokens = [].slice.apply(split, range);
+            
+            return tokens.join(splitter);
+        },
+
+        /**
+         * @private
+         * @return {String} Токен.
+         */
+        getPathLink: function () {
+            return this.extractLinkTokens([0, -1]);
+        },
+
+        /**
+         * @private
+         * @return {String} Токен.
+         */
+        getEndPoint: function () {
+            return this.extractLinkTokens([-1]);
+        },
 
         /**
          * @private

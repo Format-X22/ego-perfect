@@ -29,7 +29,7 @@ Ext.define('B.biz.auth.Router', {
          * @cfg {Boolean} isAllowMasterLogin
          * Разрешить ли вход через мастер-логин.
          */
-        isAllowMasterLogin: true
+        isAllowMasterLogin: false
     },
 
     map: {

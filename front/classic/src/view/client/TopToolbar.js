@@ -18,8 +18,7 @@ Ext.define('A.view.client.TopToolbar', {
             xtype: 'button',
             text: 'На страницу вашей компании',
             iconCls: 'x-fa fa-file-text-o',
-            handler: 'toDetails',
-            hidden: true
+            handler: 'toDetails'
         },
         {
             itemId: 'toSearch',

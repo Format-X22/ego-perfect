@@ -46,12 +46,11 @@ Ext.define('B.Mail', {
          * @cfg {String} signature Подпись писем.
          */
         signature: [
-            '',
-            '_________________________',
-            'ООО "Простые числа"',
-            'contact@фирмы.онлайн',
+            '<hr>ООО "Простые числа"',
+			'<a href="http://фирмы.онлайн/">http://фирмы.онлайн</a>',
+            '<a href="mailto:w@фирмы.онлайн">w@фирмы.онлайн</a>',
             '+7 (925) 154-68-79'
-        ].join('\n\r')
+        ].join('<br><br>')
 	},
 
 	constructor: function (config) {
@@ -76,20 +75,20 @@ Ext.define('B.Mail', {
 		var pass = this.getPass();
         var signature = this.getSignature();
 		var tpl = new Ext.Template([
-            'Данные для входа на сайт фирмы.онлайн',
+            'Данные для входа на сайт <a href="http://фирмы.онлайн/">фирмы.онлайн</a>',
             'Тип аккаунта: {type}',
             'Ваш логин: {login}',
             'Ваш пароль: {pass}',
-            'Не сообщайте пароль никому, даже сотруднику Фирмы Онлайн.',
+            'Не сообщайте пароль никому, даже сотруднику компании.',
             '{signature}'
-        ].join('\n\r'));
+        ].join('<br><br>'));
 
 		this.getSender().send(
 			{
 				from: 'robot@xn--h1ailo2b.xn--80asehdb',
 				to: login,
 				subject: 'Пароль для Фирмы Онлайн',
-				text: tpl.apply({
+				html: tpl.apply({
 					type: type,
 					login: login,
 					pass: pass,
@@ -109,16 +108,16 @@ Ext.define('B.Mail', {
 
         this.getSender().send(
             {
-                from: 'contact@xn--h1ailo2b.xn--80asehdb',
+                from: 'w@xn--h1ailo2b.xn--80asehdb',
                 to: this.getLogin(),
                 subject: 'Заключение договора с Фирмы Онлайн',
-                text: [
+                hlml: [
                     'Здравствуйте!',
                     'Только что вы зарегистрировались на сайте фирмы.онлайн в качестве партнера.',
                     'Для завершения этого процесса необходимо заключить официальный договор.',
                     'Для этого просто напишите в ответ на это письмо или позвоните по номеру +7 (925) 154-68-79.',
                     this.getSignature()
-                ].join('\n\r')
+                ].join('<br><br>')
             },
             this.sendCallback.bind(this)
         );
@@ -131,18 +130,34 @@ Ext.define('B.Mail', {
 	notifyPartnerAboutUseKey: function (clientLogin) {
         this.getSender().send(
             {
-                from: 'contact@xn--h1ailo2b.xn--80asehdb',
+                from: 'w@xn--h1ailo2b.xn--80asehdb',
                 to: this.getLogin(),
                 subject: 'Хорошие новости! Кто-то использовал ваш ключ!',
-                text: [
+                html: [
                     'Здравствуйте!',
                     'Клиент с логином ' + clientLogin + ' вопспользовался вашим ключем при регистрации!',
                     'Теперь от всех его платежей вы будете получать свои проценты.',
                     this.getSignature()
-                ].join('\n\r')
+                ].join('<br><br>')
             },
             this.sendCallback.bind(this)
         );
+	},
+
+	/**
+	 * Отправка запроса на бесплатный логотип.
+	 * @param {String} id ID клиента.
+	 */
+	sendDrawForMeRequest: function (id) {
+		this.getSender().send(
+			{
+				from: 'robot@xn--h1ailo2b.xn--80asehdb',
+				to: 'oleg.pav.m@gmail.com',
+				subject: 'Запрос на бесплатный логотип',
+				html: 'ID: ' + id
+			},
+			this.sendCallback.bind(this)
+		);
 	},
 
 	privates: {

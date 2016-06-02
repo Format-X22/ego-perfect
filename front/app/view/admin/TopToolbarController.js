@@ -32,6 +32,10 @@ Ext.define('A.view.admin.TopToolbarController', {
         companyContainer.down('#backToSearch').hide();
         companyContainer.down('#backToAdmin').show();
         companyContainer.down('#backToSearchFromAdmin').show();
+        
+        if (!this.isPayed()) {
+            Ext.MessageBox.alert('Внимание', 'Компания не будет отображаться в общем поиске до оплаты!');
+        }
     },
 
     /**
@@ -72,9 +76,7 @@ Ext.define('A.view.admin.TopToolbarController', {
         this.getPayDateField().on('change', function () {
             if (this.isPayed()) {
                 view.down('#release').hide();
-                view.down('#toDetails').show();
             } else {
-                view.down('#toDetails').hide();
                 view.down('#release').show();
             }
         }, this);
@@ -209,7 +211,6 @@ Ext.define('A.view.admin.TopToolbarController', {
          */
         toggleReleaseButton: function () {
             this.getView().down('#release').hide();
-            this.getView().down('#toDetails').show();
         },
 
         /**

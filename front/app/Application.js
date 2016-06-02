@@ -3,15 +3,12 @@
  */
 Ext.define('A.Application', {
     extend: 'Ext.app.Application',
-    
+
     name: 'A',
 
     requires: [
-        'A.store.reader.Standard'
-    ],
-
-    controllers: [
-        'Router'
+        'A.store.reader.Standard',
+        'A.controller.Router'
     ],
 
     launch: function () {
@@ -26,6 +23,12 @@ Ext.define('A.Application', {
         Ext.override(Ext.panel.Panel, {
             closeToolText: 'Закрыть'
         });
+
+        A.changePathTo = this.changePathTo;
+
+        A.controller.Router.goToCurrentPage();
+
+        this.alwaysPreventHistoryBack();
     },
 
     /**
@@ -52,5 +55,22 @@ Ext.define('A.Application', {
         } else {
             return Ext.ComponentQuery.query(selector);
         }
+    },
+
+    /**
+     * Меняет текущую ссылку на указанную.
+     * @param {String} target Целевая ссылка.
+     */
+    changePathTo: function (target) {
+        history.pushState('', '', 'page-' + target);
+    },
+
+    /**
+     * Отключает переход по истории назад. Навсегда.
+     */
+    alwaysPreventHistoryBack: function () {
+        window.onpopstate = function() {
+            history.go(1);
+        };
     }
 });

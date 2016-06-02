@@ -9,37 +9,56 @@ Ext.define('A.view.client.PayController', {
      * Оплата на 1 месяц.
      */
     pay1Month: function () {
-        alert('Оплата будет доступна после 1 июня (1)');
+        // @TODO
     },
 
     /**
      * Оплата на 12 месяцев.
      */
     pay12Month: function () {
-        alert('Оплата будет доступна после 1 июня (12)');
+        // @TODO
     },
 
     /**
      * Оплата на 1 месяц без карты.
      */
     noCardPay1Month: function () {
-        Ext.create('A.view.client.pay.NoCardPayWindow', {
-            monthCount: 1,
-            companyId: this.getCompanyId()
-        });
+        this.noCardPay(1);
     },
 
     /**
      * Оплата на 12 месяцев без карты.
      */
     noCardPay12Month: function () {
-        Ext.create('A.view.client.pay.NoCardPayWindow', {
-            monthCount: 12,
-            companyId: this.getCompanyId()
-        });
+        this.noCardPay(12);
+    },
+
+    /**
+     * Оплата на 18 месяцев без карты.
+     */
+    noCardPay18Month: function () {
+        this.noCardPay(18);
+    },
+
+    /**
+     * Оплата на 24 месяцев без карты.
+     */
+    noCardPay24Month: function () {
+        this.noCardPay(24);
     },
 
     privates: {
+
+        /**
+         * @private
+         * @param {Number} month Количество месяцев.
+         */
+        noCardPay: function (month) {
+            Ext.create('A.view.client.pay.NoCardPayWindow', {
+                monthCount: month,
+                companyId: this.getCompanyId()
+            });
+        },
 
         /**
          * @private

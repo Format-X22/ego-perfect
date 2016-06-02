@@ -65,7 +65,8 @@ Ext.define('A.view.main.auth.RegisterPage', {
             regex: /^[^\s]+@[^\s]+\.[^\s]+$/,
             regexText: 'Должно быть похоже на почту вида boss@mail.ru',
             listeners: {
-                specialkey: 'trySendIfEnterKey'
+                specialkey: 'trySendIfEnterKey',
+                change: 'trimValueOnChange'
             }
         },
         {
@@ -75,7 +76,8 @@ Ext.define('A.view.main.auth.RegisterPage', {
             fieldLabel: 'Код партнера',
             emptyText: 'могли дать наши партнеры, не обязателен',
             listeners: {
-                specialkey: 'trySendIfEnterKey'
+                specialkey: 'trySendIfEnterKey',
+                change: 'trimValueOnChange'
             }
         },
         {
