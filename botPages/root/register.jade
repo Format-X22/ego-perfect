@@ -1,0 +1,41 @@
+extends ../skeleton.jade
+
+block meta
+	meta(name='keywords', content='регистрация, участие, добавление компании, клиент, партнер, фирмы оналйн')
+	meta(name='description', content='Регистрация в поисковой системе Фирмы Онлайн. Добавление своей компании в каталог.')
+
+block body
+	div(id="loginPage", role="presentation")
+		img(id="image-1110", src="/resources/img/logo.svg", alt="Логотип")
+		div(role="presentation", id="textfield-1114")
+			label(id="textfield-1114-labelEl", for="textfield-1114-inputEl")
+				span
+					span(id="textfield-1114-labelTextEl") Почта:
+			div(id="textfield-1114-bodyEl", role="presentation")
+				div(id="textfield-1114-triggerWrap", role="presentation")
+					div(id="textfield-1114-inputWrap", role="presentation")
+						div(style='padding: 30px'): input(id="textfield-1114-inputEl", style='width: 300px;', type="email", size="1", name="login", role="textbox", aria-hidden="false", aria-disabled="false", aria-readonly="false", aria-invalid="false", aria-required="true", autocomplete="off")
+				div(id="textfield-1114-ariaErrorEl", role="alert", aria-live="polite", class="x-hidden-clip")
+		div(role="presentation", id="textfield-1115")
+			label(id="textfield-1115-labelEl", for="textfield-1115-inputEl")
+				span
+					span(id="textfield-1115-labelTextEl") Пароль:
+			div(id="textfield-1115-bodyEl", role="presentation")
+				div(id="textfield-1115-triggerWrap", role="presentation")
+					div(id="textfield-1115-inputWrap", role="presentation")
+						div(style='padding: 30px'): input(id="textfield-1115-inputEl", style='width: 300px;', type="password", size="1", name="pass", role="textbox", aria-hidden="false", aria-disabled="false", aria-readonly="false", aria-invalid="false", aria-required="false" autocomplete="off")
+				div(id="textfield-1115-ariaErrorEl", role="alert", aria-live="polite")
+			div(id="textfield-1115-errorWrapEl")
+				div(role="presentation", id="textfield-1115-errorEl")
+		br
+		div(style='padding: 30px'): a(hidefocus="on", unselectable="on", role="button", aria-hidden="false", aria-disabled="false", id="button-1117", tabindex="0")
+			span(id="button-1117-btnWrap", role="presentation", unselectable="on")
+				span(id="button-1117-btnEl", role="presentation", unselectable="on")
+					span(id="button-1117-btnIconEl", role="presentation", unselectable="on")
+					div(style='padding: 30px'): span(id="button-1117-btnInnerEl", unselectable="on") Войти
+		br
+		div(style='padding: 30px'): a(hidefocus="on", unselectable="on", role="button", aria-hidden="false", aria-disabled="false", id="button-1118", tabindex="0")
+			span(id="button-1118-btnWrap", role="presentation", unselectable="on")
+				span(id="button-1118-btnEl", role="presentation", unselectable="on")
+					span(id="button-1118-btnIconEl", role="presentation", unselectable="on")
+					div(style='padding: 30px'): span(id="button-1118-btnInnerEl", unselectable="on") Сбросить пароль
