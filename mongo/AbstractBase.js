@@ -110,7 +110,7 @@ Ext.define('B.mongo.AbstractBase', {
      * @return {Object} Указатель.
      */
     getCollection: function () {
-        return B.mongo.Mongo.getCollection(this.getCollectionName());    
+        return B.Mongo.getCollection(this.getCollectionName());    
     },
 
     /**

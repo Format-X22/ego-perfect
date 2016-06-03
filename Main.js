@@ -50,11 +50,12 @@ Ext.define('B.Main', {
         this.setExpressApp(this.getExpress()());
 
         B.util.Function.queue([
-            this.initDataBase,
-            this.initExpress,
-            this.initRouter,
-            this.createServer,
-            this.launchServer
+            this.initDataBaseStep,
+            this.initExpressStep,
+            this.initRouterStep,
+            this.initSearchBotPagesStep,
+            this.createServerStep,
+            this.launchServerStep
         ], this);
     },
 
@@ -62,7 +63,7 @@ Ext.define('B.Main', {
      * Инициализация базы.
      * @param {Function} next Следующий шаг.
      */
-    initDataBase: function (next) {
+    initDataBaseStep: function (next) {
         this.log('Инициализация Mongo.');
 
         B.Mongo.connect(next);
@@ -72,7 +73,7 @@ Ext.define('B.Main', {
      * Инициализация Экспресса.
      * @param {Function} next Следующий шаг.
      */
-    initExpress: function (next) {
+    initExpressStep: function (next) {
         this.log('Инициализация Express.');
 
         this.initFavicon();
@@ -86,7 +87,7 @@ Ext.define('B.Main', {
      * Инициализация роутера.
      * @param {Function} next Следующий шаг.
      */
-    initRouter: function (next) {
+    initRouterStep: function (next) {
         this.log('Инициализация главного роутера.');
 
         var dir = __dirname;
@@ -103,10 +104,18 @@ Ext.define('B.Main', {
     },
 
     /**
+     * Инициализация страциц для поисковых ботов.
+     * @param {Function} next Следующий шаг.
+     */
+    initSearchBotPagesStep: function (next) {
+        next();
+    },
+
+    /**
      * Создание объекта сервера.
      * @param {Function} [next] Следующий шаг.
      */
-    createServer: function (next) {
+    createServerStep: function (next) {
         this.log('Создание сервера.');
 
         var http = require('http');
@@ -119,7 +128,7 @@ Ext.define('B.Main', {
     /**
      * Запуск сервера.
      */
-    launchServer: function () {
+    launchServerStep: function () {
         this.log('Запуск сервера.');
 
         var server = this.getServer();

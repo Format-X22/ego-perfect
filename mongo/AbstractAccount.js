@@ -148,7 +148,7 @@ Ext.define('B.mongo.AbstractAccount', {
             return id;
         }
 
-        id = B.mongo.Mongo.safeMakeId(id);
+        id = B.Mongo.safeMakeId(id);
 
         if (id) {
             return id;
