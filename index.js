@@ -1,3 +1,5 @@
+global.serverRootPath = __dirname;
+
 global.outerResourcesConfig = {};
 
 outerResourcesConfig.cloudinary = {

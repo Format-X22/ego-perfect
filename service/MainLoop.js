@@ -13,7 +13,8 @@ Ext.define('B.service.MainLoop', {
         'B.service.ReleaseAll',
         'B.service.KeyGen',
         'B.service.PayOne',
-        'B.service.TotalPayDateChange'
+        'B.service.TotalPayDateChange',
+        'B.service.SiteMapGenerator'
     ],
 
     constructor: function () {
@@ -34,6 +35,10 @@ Ext.define('B.service.MainLoop', {
                 Ext.create('B.service.PartnerStat');
                 Ext.create('B.service.SearchCleaner');
                 Ext.create('B.service.RatingUpdater');
+            }
+
+            if (hour === 5) {
+                Ext.create('B.service.SiteMapGenerator');
             }
 
         }.bind(this), 1000 * 60 * 60);
