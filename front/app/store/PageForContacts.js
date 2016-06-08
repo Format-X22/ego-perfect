@@ -30,7 +30,7 @@ Ext.define('A.store.PageForContacts', {
             url: '/resources/img/contacts2.svg',
             header: 'Юридические данные',
             description:
-                'ООО «Простые числа»<br>' +
+                'ООО "Простые числа"<br>' +
                 '129345, г. Москва, ул. Тайнинская, д.26,<br> пом. I, комн. 1<br>' +
                 'ОГРН<br>' +
                 '1167746406805<br>' +

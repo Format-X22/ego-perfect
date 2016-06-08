@@ -20,6 +20,7 @@ Ext.define('A.view.main.company.tablet.reviews.Container', {
 
     items: [
         {
+            itemId: 'reviewsTabPanel',
             xtype: 'tabpanel',
             width: '100%',
             height: '100%',
@@ -35,11 +36,13 @@ Ext.define('A.view.main.company.tablet.reviews.Container', {
             },
             items: [
                 {
+                    itemId: 'list',
                     xtype: 'companyTabletReviewsList',
                     title: 'Все отзывы',
                     iconCls: 'x-fa fa-th-list'
                 },
                 {
+                    itemId: 'send',
                     xtype: 'companyTabletReviewsSend',
                     title: 'Оставить свой отзыв',
                     iconCls: 'x-fa fa-pencil'
