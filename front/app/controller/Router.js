@@ -21,6 +21,10 @@ Ext.define('A.controller.Router', {
     
     constructor: function () {
         this.initConfig(this.config);
+
+        window.onpopstate = function() {
+            this.goToCurrentPage();
+        }.bind(this);
     },
 
     /**
@@ -102,6 +106,7 @@ Ext.define('A.controller.Router', {
                 this.goToRegisterPageWithKey();
                 break;
             case 'root':
+            case '':
                 this.goToRootPage();
                 break;
             case 'company':
@@ -118,16 +123,16 @@ Ext.define('A.controller.Router', {
      * @param {String} [id] В ручную заданный идентификатор страницы.
      */
     goToRootPage: function (id) {
-        if (this.isNotFirstCall()) {
-            return;
-        }
-
         var main = this.getMainTabPanel();
 
         if (!id) {
             id = this.getCurrentPathEndPoint();
         }
-
+        
+        if (id === '/') {
+            id = 'search';
+        }
+        
         main.setActiveItem(main.down('#' + id));
         
         if (id === 'clients') {
@@ -139,14 +144,23 @@ Ext.define('A.controller.Router', {
      * Переносит на страницу компании.
      */
     goToCompanyPage: function self () {
-        if (this.isNotFirstCall()) {
-            return;
+        var id = this.getCurrentPathEndPoint();
+        var companyContainer = A.getCmp('companyContainer');
+        var companyViewModel = A.getCmp('companyContainer').getViewModel();
+        var isEmptyCompany = (companyViewModel.get('_id') === 'empty_logo');
+        var companyPageOpened = companyContainer.isVisible();
+        var main = this.getMainTabPanel();
+
+        main.setActiveItem(main.down('#search'));
+
+        if (isEmptyCompany) {
+            this.getSearchContainerController().toggleInitView();
         }
 
-        var id = this.getCurrentPathEndPoint();
-
-        this.getSearchContainerController().toggleInitView();
-        this.getSearchResultController().openCompany(id);
+        if (isEmptyCompany || !companyPageOpened) {
+            this.getSearchResultController().openCompany(id);
+        }
+        
         this.goToCompanyInnerTabFromPage();
     },
 
@@ -154,10 +168,6 @@ Ext.define('A.controller.Router', {
      * Переносит на страницу входа в аккаунт.
      */
     goToAccountPage: function () {
-        if (this.isNotFirstCall()) {
-            return;
-        }
-
         var id = this.getCurrentPathEndPoint();
         var main = this.getMainTabPanel();
 
@@ -188,8 +198,18 @@ Ext.define('A.controller.Router', {
          * @return {String} Токен.
          */
         extractCurrentPathTokens: function (range) {
+            return this.extractPathTokens(range, this.getCurrentPath());
+        },
+
+        /**
+         * @private
+         * @param {Number[]} range Диапазон, 1 или 2 значения.
+         * @param {String} path Путь.
+         * @return {String} Токен.
+         */
+        extractPathTokens: function (range, path) {
             var splitter = '-';
-            var split = this.getCurrentPath().split(splitter);
+            var split = path.split(splitter);
             var tokens = [].slice.apply(split, range);
 
             return tokens.join(splitter);
@@ -226,6 +246,8 @@ Ext.define('A.controller.Router', {
 
             if (subPath) {
                 tabPanel.setActiveItem(subPath);    
+            } else if (Ext.isClassic) {
+                tabPanel.setActiveItem('show');
             }
         },
 
@@ -233,14 +255,11 @@ Ext.define('A.controller.Router', {
          * @private
          */
         goToCompanyInnerTabFromPage: function () {
-            var id = this.getCurrentPathEndPoint();
             var subPath = this.getCurrentSubPath();
             var subBase = subPath.split('_')[0];
             var subEnd = subPath.split('_')[1];
 
-            if (subPath) {
-                this.switchCompanyInnerTabs();
-            }
+            this.switchCompanyInnerTabs();
             
             if (subEnd && (subBase === 'reviews')) {
                 this.switchCompanyReviewsTabs();
@@ -251,9 +270,11 @@ Ext.define('A.controller.Router', {
          * @private
          */
         switchCompanyInnerTabs: function () {
-            var detailsTabPanels = this.getDetailsTabPanels();
             var subPath = this.getCurrentSubPath();
+            var detailsTabPanels = this.getDetailsTabPanels();
             var subBase = subPath.split('_')[0];
+            
+            subBase = subBase || 'summary';
 
             Ext.each(detailsTabPanels, function (panel) {
                 var toActive = panel.down('#' + subBase);

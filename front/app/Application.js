@@ -26,8 +26,6 @@ Ext.define('A.Application', {
 
         A.Router = A.controller.Router;
         A.Router.goToCurrentPage();
-
-        this.alwaysPreventHistoryBack();
     },
 
     /**
@@ -54,14 +52,5 @@ Ext.define('A.Application', {
         } else {
             return Ext.ComponentQuery.query(selector);
         }
-    },
-    
-    /**
-     * Отключает переход по истории назад. Навсегда.
-     */
-    alwaysPreventHistoryBack: function () {
-        window.onpopstate = function() {
-            history.go(1);
-        };
     }
 });
