@@ -1,7 +1,7 @@
 /**
  * Логика получения данных даты оплаты клиента.
  */
-Ext.define('B.biz.client.AccountData', {
+Ext.define('B.biz.client.ShowPayDate', {
     extend: 'B.AbstractRequestHandler',
 
     requires: [
@@ -12,10 +12,11 @@ Ext.define('B.biz.client.AccountData', {
         this.callParent(arguments);
 
         var collection = Ext.create('B.mongo.Company').getCollection();
+        var login = this.getRequestModel().get('login');
 
         collection.findOne(
             {
-                login: this.getRequestModel().get('login')
+                login: login
             },
             {
                 _id: false,
@@ -60,17 +61,18 @@ Ext.define('B.biz.client.AccountData', {
          * @param {Date/Null} payDate Дата окончания услуг.
          */
         sendPayDate: function (payDate) {
-            var defaultDate = Ext.Date.parse('20.05.2016', 'd.m.Y');
+            var defaultDate = '20.05.2016';
+            var formedData = Ext.Date.format(payDate, 'd.m.Y');
 
-            if (payDate === defaultDate) {
-                this.sendHtml('<b>Не оплачено и не платилось никогда.</b>');
+            if (formedData === defaultDate) {
+                this.sendHtml('<b>Не оплачено и не оплачивалось ни разу.</b>');
                 return;
             }
 
             if (payDate < new Date) {
-                this.sendHtml('<b>Не оплачено, истекло ' + payDate + '</b>');
+                this.sendHtml('<b>Не оплачено, истекло ' + formedData + '</b>');
             } else {
-                this.sendHtml('<b>Оплачено до ' + payDate + '</b>');
+                this.sendHtml('<b>Оплачено до ' + formedData + '</b>');
             }
         },
 
@@ -86,7 +88,7 @@ Ext.define('B.biz.client.AccountData', {
          * @param {String} html Строка для отправки.
          */
         sendHtml: function (html) {
-            this.getExpressResponse().sendHtml(html);
+            this.getExpressResponse().send(html);
         }
     }
 });
