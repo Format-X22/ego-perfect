@@ -52,10 +52,18 @@ Ext.define('A.view.client.editor.Basic', {
                     },
                     items: [
                         {
+                            name: 'jurName',
+                            xtype: 'textfield',
+                            fieldLabel: 'Юридическое имя компании',
+                            emptyText: 'ООО "Ромашка"',
+                            maxLength: 100,
+                            allowBlank: false
+                        },
+                        {
                             name: 'name',
                             xtype: 'textfield',
-                            fieldLabel: 'Имя компании',
-                            emptyText: 'ООО Ромашка',
+                            fieldLabel: 'Отображаемое имя компании',
+                            emptyText: 'ООО "Ромашка" - Сегодня скидки!',
                             maxLength: 100,
                             allowBlank: false
                         },
