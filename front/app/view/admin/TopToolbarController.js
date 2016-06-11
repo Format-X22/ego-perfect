@@ -34,7 +34,10 @@ Ext.define('A.view.admin.TopToolbarController', {
         companyContainer.down('#backToSearchFromAdmin').show();
         
         if (!this.isPayed()) {
-            Ext.MessageBox.alert('Внимание', 'Компания не будет отображаться в общем поиске до оплаты!');
+            Ext.MessageBox.alert(
+                'Подсказка',
+                'Компания пока ещё не отображается в поиске,<br>оплата за размещение ещё не внесена.'
+            );
         }
     },
 
