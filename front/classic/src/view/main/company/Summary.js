@@ -29,9 +29,9 @@ Ext.define('A.view.main.company.Summary', {
                     bind: {
                         html:
                             '<div class="property"><div class="title">Рейтинг</div> <div class="value">{formatRating}</div></div>' +
-                            '<div class="property"><div class="title">Телефон</div> <div class="value">{phone}</div></div>' +
+                            '<div class="property"><div class="title">Телефон</div> <div class="value">{formatPhone}</div></div>' +
                             '<div class="property"><div class="title">Сайт</div> <div class="value">{formatSite}</div></div>' +
-                            '<div class="property"><div class="title">Почта</div> <div class="value">{email}</div></div>' +
+                            '<div class="property"><div class="title">Почта</div> <div class="value">{formatEmail}</div></div>' +
                             '<div class="property"><div class="title">Время работы</div> <div class="value">{time}</div></div>' +
                             '<div class="property"><div class="title">Адрес</div> <div class="value">{address}</div></div>'
                     }
