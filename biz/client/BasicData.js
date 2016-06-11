@@ -16,7 +16,6 @@ Ext.define('B.biz.client.BasicData', {
 		var lng = mapArray[1];
 
 		return {
-			jurName: model.get('jurName'),
 			name:    model.get('name'),
 			phone:   model.get('phone'),
 			site:    model.get('site'),

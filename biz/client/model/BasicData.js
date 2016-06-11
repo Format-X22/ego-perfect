@@ -13,15 +13,6 @@ Ext.define('B.biz.client.model.BasicData', {
 			}
 		},
 		{
-			name: 'jurName',
-			type: 'string',
-			validators: {
-				type: 'length',
-				min: 1,
-				max: 100
-			}
-		},
-		{
 			name: 'name',
 			type: 'string',
 			validators: {
