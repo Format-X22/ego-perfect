@@ -23,7 +23,7 @@ Ext.define('A.store.PageForContacts', {
                 'написать на почту<br>' +
                 '<a class="link" href="mailto:w@фирмы.онлайн">w@фирмы.онлайн</a><br>' +
                 'или позвонить на номер<br>' +
-                '8 (925) 154-68-79'
+                '<a class="link" href="tel:+79251546879">+7 (925) 154-68-79</a>'
         },
         {
             id: 2,
