@@ -139,7 +139,7 @@ Ext.define('B.mongo.AbstractBase', {
      * После, при необходимости, уничтожает класс.
      */
     callAlways: function () {
-        this.getSuccess().apply(this.getScope(), arguments);
+        this.getAlways().apply(this.getScope(), arguments);
 
         if (this.getAutoDestroy()) {
             this.destroy();

@@ -45,6 +45,14 @@ Ext.define('B.AbstractRequestHandler', {
         }));
     },
 
+    /**
+     * Отправляет данные.
+     * @param {Object} data Данные.
+     */
+    sendData: function (data) {
+        this.getProtocol().sendData(data);
+    },
+
 	/**
 	 * Отправляет сообщение о том что всё прошло успешно.
      */

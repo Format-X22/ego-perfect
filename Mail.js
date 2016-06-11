@@ -130,7 +130,7 @@ Ext.define('B.Mail', {
 	notifyPartnerAboutUseKey: function (clientLogin) {
         this.getSender().send(
             {
-                from: 'w@xn--h1ailo2b.xn--80asehdb',
+                from: 'robot@xn--h1ailo2b.xn--80asehdb',
                 to: this.getLogin(),
                 subject: 'Хорошие новости! Кто-то использовал ваш ключ!',
                 html: [
@@ -155,6 +155,28 @@ Ext.define('B.Mail', {
 				to: 'oleg.pav.m@gmail.com',
 				subject: 'Запрос на бесплатный логотип',
 				html: 'ID: ' + id
+			},
+			this.sendCallback.bind(this)
+		);
+	},
+
+	/**
+	 * Уведомляет клиента о том что кто-то оставил ему отзыв.
+	 * @param {String} id ID компании.
+	 */ 
+	notifyClientAboutReview: function (id) {
+		this.getSender().send(
+			{
+				from: 'robot@xn--h1ailo2b.xn--80asehdb',
+				to: this.getLogin(),
+				subject: 'Новый отзыв!',
+				html: [
+					'Здравствуйте!',
+					'О вашей компании оставлен новый отзыв!',
+					'Прочитать его вы можете ' +
+					'<a href="http://xn--h1ailo2b.xn--80asehdb/page-company-' + id + '_reviews">на странице вашей компании.</a>',
+					this.getSignature()
+				].join('<br><br>')
 			},
 			this.sendCallback.bind(this)
 		);
