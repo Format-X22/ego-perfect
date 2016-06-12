@@ -8,41 +8,56 @@ Ext.define('B.biz.reviews.Save', {
         this.callParent(arguments);
 
         var model = this.getRequestModel();
-
-        B.Mongo
-            .getCollection('company')
-            .findOneAndUpdate(
-                {
-                    _id: this.getMongoId()
-                },
-                {
-                    $push: {
-                        reviews: {
-                            name:        model.get('name'),
-                            header:      model.get('header'),
-                            description: model.get('description'),
-                            rating:      model.get('rating'),
-                            date:        this.getDate()
-                        }
-                    },
-                    $inc: {
-                        rating: model.get('rating') * 20
+        var mongo = Ext.create('B.mongo.Company', {
+            atomic: true,
+            id: model.get('id'),
+            scope: this,
+            success: this.sendReviewsIfFoundAndNotifyClient,
+            failure: this.sendError,
+            value: {
+                $push: {
+                    reviews: {
+                        name:        model.get('name'),
+                        header:      model.get('header'),
+                        description: model.get('description'),
+                        rating:      model.get('rating'),
+                        date:        this.getDate()
                     }
                 },
-                this.sendResponse.bind(this)
-            );
+                $inc: {
+                    rating: model.get('rating') * 20
+                }
+            }
+        });
+
+        mongo.updateCompany();
     },
 
     privates: {
 
         /**
          * @private
-         * @return {Mongo.ObjectID} ID документа базы.
+         * @param {Object} result Результат запроса.
          */
-        getMongoId: function () {
-            var id = this.getRequestModel().get('id');
+        sendReviewsIfFoundAndNotifyClient: function (result) {
+            var doc = result.value;
 
-            return B.Mongo.makeId(id);
+            if (doc) {
+                this.sendData(doc.reviews);
+
+                Ext.create('B.Mail', {
+                    login: doc.login
+                }).notifyClientAboutReview(doc._id);
+            } else {
+                this.sendError();
+            }
+        },
+
+        /**
+         * @private
+         */
+        sendError: function () {
+            this.callParent(['Ошибка при добавлении отзыва.']);
         },
 
         /**
@@ -51,22 +66,6 @@ Ext.define('B.biz.reviews.Save', {
          */
         getDate: function () {
             return Ext.Date.format(new Date(), 'd.m.Y');
-        },
-
-        /**
-         * @private
-         * @param {Object} error Объект ошибки.
-         * @param {Object} result Результат запроса.
-         */
-        sendResponse: function (error, result) {
-            var errorText = B.Mongo.getRequestErrorText();
-            var document = result.value;
-
-            if (error || !document) {
-                this.getProtocol().sendError(errorText);
-            } else {
-                this.getProtocol().sendData(document.reviews);
-            }
         }
     }
 });

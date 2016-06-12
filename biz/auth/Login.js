@@ -7,7 +7,8 @@ Ext.define('B.biz.auth.Login', {
     requires: [
         'B.biz.auth.util.Account',
         'B.biz.auth.util.Crypt',
-        'B.biz.auth.util.Session'
+        'B.biz.auth.util.Session',
+        'B.mongo.Company'
     ],
 
     config: {
@@ -132,6 +133,7 @@ Ext.define('B.biz.auth.Login', {
             } else {
                 this.setSessionCookie();
                 this.sendSuccess();
+                this.setLastLogin();
             }
         },
 
@@ -147,6 +149,25 @@ Ext.define('B.biz.auth.Login', {
             response.cookie('type', this.getAccount().type, {
                 httpOnly: false
             });
+        },
+
+        /**
+         * @private
+         */
+        setLastLogin: function () {
+            var model = this.getRequestModel();
+            var collection = Ext.create('B.mongo.Company').getCollection();
+
+            collection.update(
+                {
+                    login: model.get('login')
+                },
+                {
+                    $set: {
+                        lastLogin: new Date()
+                    }
+                }
+            );
         }
     }
 });

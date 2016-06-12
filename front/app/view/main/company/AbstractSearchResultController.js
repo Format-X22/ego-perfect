@@ -89,7 +89,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
                 main.unmask();
             }
 
-            A.changePathTo('company-' + id);
+            A.Router.changePathTo('company-' + id);
         });
     },
 
@@ -138,8 +138,8 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         this.fixAndroidAutoFocus();
         this.fixScrollFreeze();
         this.scrollToLastPositionIfClassic();
-        
-        A.changePathTo('root-search');
+
+        A.Router.changePathTo('root-search');
     },
 
     /**
@@ -163,7 +163,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         this.backToSearch();
         
         A.getCmp('appMain').setActiveItem(1);
-        A.changePathTo('company-client');
+        A.Router.changePathTo('company-client');
     },
 
     /**

@@ -20,6 +20,7 @@ Ext.define('A.view.main.company.mobile.reviews.Container', {
 
     items: [
         {
+            itemId: 'reviewsTabPanel',
             xtype: 'tabpanel',
             width: '100%',
             height: '100%',
@@ -37,10 +38,12 @@ Ext.define('A.view.main.company.mobile.reviews.Container', {
             },
             items: [
                 {
+                    itemId: 'list',
                     xtype: 'companyMobileReviewsList',
                     iconCls: 'x-fa fa-th-list'
                 },
                 {
+                    itemId: 'send',
                     xtype: 'companyMobileReviewsSend',
                     iconCls: 'x-fa fa-pencil'
                 }

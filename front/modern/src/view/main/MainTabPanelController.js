@@ -29,6 +29,13 @@ Ext.define('A.view.main.MainTabPanelController', {
      * @param {Ext.Component} tab Вкладка.
      */
     updatePageHash: function (panel, tab) {
-        A.changePathTo('root-' + tab.getItemId());
+        var id = tab.getItemId();
+        var currentPageIsCompany = ~A.Router.getCurrentPath().indexOf('company-');
+
+        if (currentPageIsCompany && (id === 'search')) {
+            return;
+        }
+        
+        A.Router.changePathTo('root-' + tab.getItemId());
     }
 });

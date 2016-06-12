@@ -24,11 +24,8 @@ Ext.define('A.Application', {
             closeToolText: 'Закрыть'
         });
 
-        A.changePathTo = this.changePathTo;
-
-        A.controller.Router.goToCurrentPage();
-
-        this.alwaysPreventHistoryBack();
+        A.Router = A.controller.Router;
+        A.Router.goToCurrentPage();
     },
 
     /**
@@ -55,22 +52,5 @@ Ext.define('A.Application', {
         } else {
             return Ext.ComponentQuery.query(selector);
         }
-    },
-
-    /**
-     * Меняет текущую ссылку на указанную.
-     * @param {String} target Целевая ссылка.
-     */
-    changePathTo: function (target) {
-        history.pushState('', '', 'page-' + target);
-    },
-
-    /**
-     * Отключает переход по истории назад. Навсегда.
-     */
-    alwaysPreventHistoryBack: function () {
-        window.onpopstate = function() {
-            history.go(1);
-        };
     }
 });

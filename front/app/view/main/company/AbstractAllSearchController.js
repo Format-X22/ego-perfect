@@ -10,7 +10,7 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
 
     control: {
         '#searchResult': {
-            show: 'showHelpClassic'
+            show: 'showHelpClassicIfNeed'
         },
         '#resultCard': {
             activeitemchange: 'showHelpModernFromCompanyTab'
@@ -28,10 +28,20 @@ Ext.define('A.view.main.company.AbstractAllSearchController', {
      * Показывает окно подсказки о том что нужно нажимать
      * на квадраты, для десктопа.
      */
-    showHelpClassic: function () {
-        if (Ext.isClassic) {
-            Ext.widget('searchHelpWindow').showAt(10, 100);
+    showHelpClassicIfNeed: function () {
+        if (!Ext.isClassic) {
+            return;
         }
+        
+        Ext.defer(function () {
+            var view = this.getView();
+            var resultContainer = view.down('#searchResult #resultCard #resultCardScrollContainer');
+            var resultContainerVisible = !resultContainer.isHidden();
+
+            if (resultContainerVisible) {
+                Ext.widget('searchHelpWindow').showAt(10, 100);
+            }
+        }, 1, this);
     },
 
     /**

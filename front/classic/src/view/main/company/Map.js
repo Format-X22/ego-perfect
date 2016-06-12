@@ -41,11 +41,16 @@ Ext.define('A.view.main.company.Map', {
         /**
          * @private
          */
-        initMapComponent: function () {
+        initMapComponent: function self () {
             if (this.down('gmappanel')) {
                 return;
             }
 
+            if (!window['google']) {
+                Ext.defer(self, 100, this);
+                return;
+            }
+            
             this.down('#mapContainer').add({
                 xtype: 'gmappanel',
                 mapOptions: {

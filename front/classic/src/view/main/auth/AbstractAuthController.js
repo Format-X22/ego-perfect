@@ -70,7 +70,7 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
         }
 
         A.getCmp('appMain').setActiveItem(accPage);
-        A.changePathTo('account-' + accHash);
+        A.Router.changePathTo('account-' + accHash);
         this.getView().reset();
     },
 

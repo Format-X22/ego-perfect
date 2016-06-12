@@ -12,13 +12,15 @@ Ext.define('B.biz.client.Router', {
         'B.biz.client.Words', 
         'B.biz.client.Release', 
         'B.biz.client.DrawForMe', 
+        'B.biz.client.ShowPayDate', 
         'B.biz.client.model.AccountData', 
         'B.biz.client.model.BasicData', 
         'B.biz.client.model.Summary', 
         'B.biz.client.model.Photo', 
         'B.biz.client.model.Words', 
         'B.biz.client.model.Release',
-        'B.biz.client.model.DrawForMe'
+        'B.biz.client.model.DrawForMe',
+        'B.biz.client.model.ShowPayDate'
     ],
     
     map: {
@@ -42,6 +44,9 @@ Ext.define('B.biz.client.Router', {
         }, 
         '/drawforme': {
             post: 'drawForMe'
+        },
+        '/showpaydate': {
+            get: 'showPayDate'
         }
     },
     
@@ -206,6 +211,27 @@ Ext.define('B.biz.client.Router', {
 
         if (this.checkRequestModel(model, response)) {
             Ext.create('B.biz.client.DrawForMe', {
+                expressRequest: request,
+                expressResponse: response,
+                requestModel: model
+            });
+        }
+    },
+
+    /**
+     * Получение информации об оплаченности услуг клиентом.
+     * @param {Object} request Express объект запроса сервера.
+     * @param {Object} response Express объект ответа сервера.
+     */
+    showPayDate: function (request, response) {
+        var model = Ext.create('B.biz.client.model.ShowPayDate');
+
+        model.set({
+            login: request.query.login
+        });
+
+        if (this.checkRequestModel(model, response)) {
+            Ext.create('B.biz.client.ShowPayDate', {
                 expressRequest: request,
                 expressResponse: response,
                 requestModel: model

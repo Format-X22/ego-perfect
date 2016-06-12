@@ -14,7 +14,12 @@ Ext.define('A.view.main.company.MapController', {
     /**
      * Обновляет карту по текущим данным.
      */
-    renewMap: function () {
+    renewMap: function self () {
+        if (!window['google']) {
+            Ext.defer(self, 100, this);
+            return;
+        }
+
         this.waitForAnimation(function () {
             this.centerToCurrent();
             this.makeNewMarkerIfNeed();
@@ -120,9 +125,7 @@ Ext.define('A.view.main.company.MapController', {
          * @private
          */
         makeNewMarkerIfNeed: function () {
-            if (!this.getMarker()) {
-                this.setMarker(this.createMarker());
-            }
+            this.setMarker(this.createMarker());
         },
 
         /**
