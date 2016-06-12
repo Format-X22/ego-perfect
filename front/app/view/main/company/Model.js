@@ -5,6 +5,21 @@ Ext.define('A.view.main.company.Model', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.companyContainer',
 
+    config: {
+
+        /**
+         * @private
+         * @cfg {Ext.Template} linkTemplate Шаблон ссылки.
+         */
+        linkTemplate: '<a href="{href}" class="link" target="_blank" rel="nofollow noopener noreferrer">{title}</a>'
+    },
+    
+    constructor: function () {
+        this.callParent(arguments);
+        
+        this.setLinkTemplate(new Ext.Template(this.getLinkTemplate()));
+    },
+    
     data: {
         mapMarker: null,
         _id:       'empty_logo',
@@ -43,12 +58,11 @@ Ext.define('A.view.main.company.Model', {
                 if (!/(http|https):\/\/|^\/\//.test(value)) {
                     link = 'http://' + value;
                 }
-
-                return Ext.String.format(
-                    '<a class="link" href="{0}" target="_blank" rel="nofollow noopener noreferrer">{1}</a>',
-                    link,
-                    value
-                );
+                
+                return this.getLinkTemplate().apply({
+                    href: link,
+                    title: value
+                });
             }
         },
         formatPhone: {
@@ -84,7 +98,10 @@ Ext.define('A.view.main.company.Model', {
                     var full = [start, mid, end].join('-');
                     var phone = '+7' + code + full;
 
-                    return '<a class="link" href="tel:+7' + num.slice(1) + '">' + phone + '</a>';
+                    return this.getLinkTemplate().apply({
+                        href: 'tel:+7' + num.slice(1),
+                        title: phone
+                    });
                 }, this);
 
                 return format.join(', ');
@@ -120,10 +137,31 @@ Ext.define('A.view.main.company.Model', {
                 }
 
                 format = Ext.Array.map(split, function (mail) {
-                    return '<a class="link" href="mailto:' + mail + '">' + mail + '</a>';
+                    return this.getLinkTemplate().apply({
+                        href: 'mailto:' + mail,
+                        title: mail
+                    });
                 }, this);
                 
                 return format.join(', ');
+            }
+        },
+        mobileFormatAddress: {
+            get: function (getter) {
+                var value = getter('address');
+                var aTag;
+
+                if (value === '-' || !value) {
+                    return value;
+                }
+
+                aTag = document.createElement('a');
+                aTag.href = 'https://www.google.ru/maps/place/' + value;
+                
+                return this.getLinkTemplate().apply({
+                    href: aTag.href.toString(),
+                    title: value
+                });
             }
         }
     },
