@@ -1,5 +1,6 @@
 /**
  * Глобальный роутер всего приложения.
+ * @TODO Класс будет переписан полностью под новую парадигму перемещения. Код этого класса может вызывать сомнения.
  */
 Ext.define('A.controller.Router', {
     singleton: true,
@@ -142,13 +143,23 @@ Ext.define('A.controller.Router', {
             this.setActiveInfoPageSubIfNeed(id);
         }
 
-        if (!Ext.isClassic && id === 'search') {
-            resultCard = main.down('#resultCard');
-            searchResultContainer = resultCard.down('#searchResultContainer');
-            company = resultCard.down('#company');
-            
-            if (searchResultContainer.isHidden() && company.isVisible()) {
-                resultCard.up('searchResult').getController().backToSearch();
+        if (id === 'search') {
+            if (Ext.isClassic) {
+                resultCard = main.down('#resultCard');
+                searchResultContainer = resultCard.down('#resultCardScrollContainer');
+                company = resultCard.down('#company');
+
+                if (searchResultContainer.isHidden() && company.isVisible()) {
+                    resultCard.up('searchResult').getController().backToSearch();
+                }
+            } else {
+                resultCard = main.down('#resultCard');
+                searchResultContainer = resultCard.down('#searchResultContainer');
+                company = resultCard.down('#company');
+
+                if (searchResultContainer.isHidden() && company.isVisible()) {
+                    resultCard.up('searchResult').getController().backToSearch();
+                }
             }
         }
     },
