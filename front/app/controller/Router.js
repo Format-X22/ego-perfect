@@ -124,6 +124,9 @@ Ext.define('A.controller.Router', {
      */
     goToRootPage: function (id) {
         var main = this.getMainTabPanel();
+        var resultCard;
+        var searchResultContainer;
+        var company;
 
         if (!id) {
             id = this.getCurrentPathEndPoint();
@@ -137,6 +140,16 @@ Ext.define('A.controller.Router', {
         
         if (id === 'clients') {
             this.setActiveInfoPageSubIfNeed(id);
+        }
+
+        if (!Ext.isClassic && id === 'search') {
+            resultCard = main.down('#resultCard');
+            searchResultContainer = resultCard.down('#searchResultContainer');
+            company = resultCard.down('#company');
+            
+            if (searchResultContainer.isHidden() && company.isVisible()) {
+                resultCard.up('searchResult').getController().backToSearch();
+            }
         }
     },
 
