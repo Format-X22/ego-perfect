@@ -21,8 +21,13 @@ Ext.define('B.mail.Sender', {
             )
         );
     },
-    
+
+    /**
+     * Отправляет письмо используя входящий конфиг.
+     * @param {Object} config Конфиг.
+     * @param {Function} callback Колбек с результатом.
+     */
     send: function (config, callback) {
-        
+        this.getSender().send(config, callback);    
     }
 });
