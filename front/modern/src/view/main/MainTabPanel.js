@@ -17,7 +17,7 @@ Ext.define('A.view.main.MainTabPanel', {
     },
     flex: 1,
     tabBarPosition: 'top',
-
+    
     defaults: {
         tab: {
             iconAlign: 'top',
@@ -47,6 +47,7 @@ Ext.define('A.view.main.MainTabPanel', {
         }
     ],
     listeners: {
+        painted: 'addPhone',
         activeitemchange: 'updatePageHash'
     }
 });

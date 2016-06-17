@@ -12,6 +12,28 @@ Ext.define('A.view.main.MainTabPanelController', {
     },
 
     /**
+     * Добавляет номер телефона техподдержки в верхний тулбар.
+     */
+    addPhone: function () {
+        var tabBar = this.getView().getTabBar();
+
+        tabBar.add({
+            flex: 1
+        });
+        
+        tabBar.add(
+            {
+                xtype: 'component',
+                padding: '0 25',
+                style: {
+                    color: 'white'
+                },
+                html: '<a class="link link-white" href="tel:88002500186">8 (800) 25-00-186</a> | круглосуточно'
+            }
+        );
+    },
+
+    /**
      * Обновляем титл мобильного тулбара,
      * на котором указывается текущая страница.
      * @param {Ext.tab.Panel} tabPanel Выбранная вкладка.
