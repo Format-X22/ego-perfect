@@ -32,7 +32,6 @@ Ext.define('A.view.main.company.reviews.Send', {
                     name: 'name',
                     xtype: 'textfield',
                     fieldLabel: 'Имя',
-                    minLength: 3,
                     maxLength: 100,
                     allowBlank: false
                 },
@@ -40,7 +39,6 @@ Ext.define('A.view.main.company.reviews.Send', {
                     name: 'header',
                     xtype: 'textfield',
                     fieldLabel: 'Заголовок',
-                    minLength: 3,
                     maxLength: 100,
                     allowBlank: false
                 },
@@ -49,7 +47,6 @@ Ext.define('A.view.main.company.reviews.Send', {
                     xtype: 'textarea',
                     fieldLabel: 'Отзыв',
                     height: 120,
-                    minLength: 3,
                     maxLength: 1000,
                     allowBlank: false
                 },

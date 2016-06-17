@@ -18,7 +18,7 @@ Ext.define('B.biz.reviews.model.Save', {
             type: 'string',
             validators: {
                 type: 'length',
-                min: 3,
+                min: 1,
                 max: 100
             }
         },
@@ -27,8 +27,8 @@ Ext.define('B.biz.reviews.model.Save', {
             type: 'string',
             validators: {
                 type: 'length',
-                min: 3,
-                max: 200
+                min: 1,
+                max: 100
             }
         },
         {
@@ -36,8 +36,8 @@ Ext.define('B.biz.reviews.model.Save', {
             type: 'string',
             validators: {
                 type: 'length',
-                min: 3,
-                max: 2000
+                min: 1,
+                max: 1000
             }
         },
         {
