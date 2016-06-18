@@ -53,6 +53,26 @@ Ext.define('A.view.client.TopToolbar', {
         {
             xtype: 'component',
             flex: 2
+        },
+        {
+            xtype: 'tbtext',
+            padding: '6 25',
+            plugins: 'responsive',
+            responsiveConfig: { 
+                'width < 1300': {
+                    html:
+                        '<span>' +
+                            '<a class="link link-text" href="tel:88002500186">8 (800) 25-00-186</a>' +
+                        '</span>'
+                },
+                'width >= 1300': {
+                    html:
+                        '<span>' +
+                            'КРУГЛОСУТОЧНО БЕСПЛАТНО ' +
+                            '<a class="link link-text" href="tel:88002500186">8 (800) 25-00-186</a>' +
+                        '</span>'
+                }
+            }
         }
     ],
 

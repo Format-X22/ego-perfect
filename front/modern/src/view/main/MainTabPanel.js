@@ -17,7 +17,7 @@ Ext.define('A.view.main.MainTabPanel', {
     },
     flex: 1,
     tabBarPosition: 'top',
-
+    
     defaults: {
         tab: {
             iconAlign: 'top',
@@ -44,9 +44,16 @@ Ext.define('A.view.main.MainTabPanel', {
             xtype: 'pageForContacts',
             title: 'Контакты',
             iconCls: 'x-fa fa-phone'
+        },
+        {
+            itemId: 'offer',
+            xtype: 'clientsOffer',
+            title: 'Оферта',
+            iconCls: 'x-fa fa-bank'
         }
     ],
     listeners: {
+        painted: 'addPhone',
         activeitemchange: 'updatePageHash'
     }
 });

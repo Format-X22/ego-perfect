@@ -59,25 +59,5 @@ Ext.define('A.view.main.company.reviews.List', {
                 }
             ]
         }
-    ],
-
-    /**
-     * @inheritdoc
-     */
-    initComponent: function () {
-        this.callParent(arguments);
-
-        this.on('afterrender', function self () {
-            var list = this.down('#reviewsList');
-            var store = list.up('companyContainer').getViewModel().get('reviews');
-
-            if (!list.getStore() && store) {
-                list.setStore(store);
-            }
-            
-            if (!store) {
-                Ext.defer(self, 200, this);
-            }
-        });
-    }
+    ]
 });

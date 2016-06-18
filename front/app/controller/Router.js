@@ -137,6 +137,19 @@ Ext.define('A.controller.Router', {
             id = 'search';
         }
         
+        if (Ext.isClassic && id === 'offer') {
+            this.changePathTo('root-clients');
+            this.changeSubPathTo('offer');
+            this.goToCurrentPage();
+            return;
+        }
+        
+        if (!Ext.isClassic && id === 'clients' && this.getCurrentSubPath() === 'offer') {
+            this.changePathTo('root-offer', true);
+            this.goToCurrentPage();
+            return;
+        }
+        
         main.setActiveItem(main.down('#' + id));
         
         if (id === 'clients') {
@@ -174,6 +187,7 @@ Ext.define('A.controller.Router', {
         var isEmptyCompany = (companyViewModel.get('_id') === 'empty_logo');
         var companyPageOpened = companyContainer.isVisible();
         var main = this.getMainTabPanel();
+        var mobileMenu;
 
         main.setActiveItem(main.down('#search'));
 
@@ -184,7 +198,15 @@ Ext.define('A.controller.Router', {
         if (isEmptyCompany || !companyPageOpened) {
             this.getSearchResultController().openCompany(id);
         }
-        
+
+        if (!Ext.isClassic) {
+            mobileMenu = A.getCmp('mobileMenu');
+            
+            if (mobileMenu) {
+                mobileMenu.getController().toggleBackToSearchMobileButton(0);
+            }
+        }
+
         this.goToCompanyInnerTabFromPage();
     },
 

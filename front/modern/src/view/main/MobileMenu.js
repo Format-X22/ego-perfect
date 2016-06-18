@@ -30,6 +30,13 @@ Ext.define('A.view.main.MobileMenu', {
             handler: function () {
                 this.up().getController().goToPage(2);
             }
+        },
+        {
+            text: 'Оферта',
+            iconCls: 'x-fa fa-bank',
+            handler: function () {
+                this.up().getController().goToPage(4);
+            }
         }
     ]
 });

@@ -268,10 +268,10 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
         var scrollContainer = this.getView().down('#searchResultContainer');
         var scroll = scrollContainer.getScrollable();
         var position = this.getLastScrollPosition();
-
+        
         Ext.defer(function () {
-            scroll.refresh(true);
             scroll.scrollTo(position);
+            scroll.refresh(true);
         }, 550, this);
     },
 

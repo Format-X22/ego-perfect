@@ -7,7 +7,7 @@ Ext.define('A.view.main.company.Controller', {
 
     control: {
         'companyContainer': {
-            'companyLoaded': 'refreshGallery'
+            'companyLoaded': 'refreshNotBindData'
         },
         'companyContainer [companyDetailsTabPanel=true]': {
             'tabchange': 'updateTabLink',
@@ -17,6 +17,24 @@ Ext.define('A.view.main.company.Controller', {
             'tabchange': 'updateReviewsTabLink',
             'activeitemchange': 'updateReviewsTabLink'
         }
+    },
+
+    /**
+     * Обновляет те данные, что не обновляются автоматически через биндинг.
+     */
+    refreshNotBindData: function () {
+        this.refreshReviews();
+        this.refreshGallery();
+    },
+
+    /**
+     * Обновляет данные списка отзывов.
+     */
+    refreshReviews: function () {
+        var list = this.getView().down('#reviewsList');
+        var store = this.getViewModel().get('reviews');
+
+        list.setStore(store);
     },
 
     /**

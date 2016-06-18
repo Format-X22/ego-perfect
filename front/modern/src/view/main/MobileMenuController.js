@@ -20,6 +20,23 @@ Ext.define('A.view.main.MobileMenuController', {
         this.toggleBackToSearchMobileButton(pageNum);
     },
 
+    /**
+     * Переключает видимость кнопки "Назад" для мобильных.
+     * @param {Number} pageNum Номер страницы.
+     */
+    toggleBackToSearchMobileButton: function (pageNum) {
+        var backButton = A.getCmp('#backToSearchMobile');
+        var companyContainer = A.getCmp('companyContainer');
+        var searchPage = (pageNum === 0);
+        var companyDetailsOpen = !companyContainer.isHidden();
+
+        if (searchPage && companyDetailsOpen) {
+            backButton.show();
+        } else {
+            backButton.hide();
+        }
+    },
+
     privates: {
 
         /**
@@ -34,23 +51,6 @@ Ext.define('A.view.main.MobileMenuController', {
             result.hide('flip');
             startSearch.show('flip');
             result.getController().backToSearch();
-        },
-        
-        /**
-         * @private
-         * @param {Number} pageNum Номер страницы.
-         */
-        toggleBackToSearchMobileButton: function (pageNum) {
-            var backButton = A.getCmp('#backToSearchMobile');
-            var companyContainer = A.getCmp('companyContainer');
-            var searchPage = (pageNum === 0);
-            var companyDetailsOpen = !companyContainer.isHidden();
-
-            if (searchPage && companyDetailsOpen) {
-                backButton.show();
-            } else {
-                backButton.hide();
-            }
         }
     }
 });
