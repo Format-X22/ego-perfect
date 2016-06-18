@@ -137,6 +137,19 @@ Ext.define('A.controller.Router', {
             id = 'search';
         }
         
+        if (Ext.isClassic && id === 'offer') {
+            this.changePathTo('root-clients');
+            this.changeSubPathTo('offer');
+            this.goToCurrentPage();
+            return;
+        }
+        
+        if (!Ext.isClassic && id === 'clients' && this.getCurrentSubPath() === 'offer') {
+            this.changePathTo('root-offer', true);
+            this.goToCurrentPage();
+            return;
+        }
+        
         main.setActiveItem(main.down('#' + id));
         
         if (id === 'clients') {

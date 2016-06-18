@@ -45,8 +45,9 @@ Ext.define('A.view.main.MainTabPanelController', {
      */
     updateMobileTitle: function (tabPanel) {
         var toolbar = A.getCmp('appMainPublic mobileMenuToolbar');
-        var title = tabPanel.getActiveItem().title;
-
+        var active = tabPanel.getActiveItem();
+        var title = active.title || active.getTitle();
+        
         toolbar.getViewModel().set('currentPageName', title);
     },
 
