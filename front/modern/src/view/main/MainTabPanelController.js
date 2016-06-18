@@ -17,12 +17,17 @@ Ext.define('A.view.main.MainTabPanelController', {
     addPhone: function () {
         var tabBar = this.getView().getTabBar();
 
+        if (tabBar.down('#phone')) {
+            return;
+        }
+        
         tabBar.add({
             flex: 1
         });
         
         tabBar.add(
             {
+                itemId: 'phone',
                 xtype: 'component',
                 padding: '0 25',
                 style: {
