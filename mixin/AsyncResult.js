@@ -56,7 +56,7 @@ Ext.define('B.mixin.AsyncResult', {
          * @cfg {Boolean} autoCallAlways
          * Указывает на необходимость автоматически вызывать {@link #callAlways}
          * при вызове {@link #callSuccess} или {@link #callFailure}.
-         * При выключении также не происходит автоматическое уничтожение класса
+         * При выключении также перестает происходить автоматическое уничтожение класса
          * вызовами {@link #callSuccess} или {@link #callFailure}
          * из-за того что для уничтожения необходимо вызвать {@link #callAlways}.
          *

@@ -57,7 +57,7 @@ Ext.define('B.mail.AbstractMail', {
         autoSend: true,
 
         /**
-         * @cfg {String} signature Универсальная подпись для писем с контактами.
+         * @cfg {String} signature Подпись для письма.
          */
         signature: [
             '<hr>' +
