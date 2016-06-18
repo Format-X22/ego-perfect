@@ -47,6 +47,7 @@
                 var inc;
 
                 if (!counter) {
+                    setTimeout(preloaderIncrementer, 100);
                     return;
                 }
 
@@ -57,19 +58,19 @@
                     inc = 100;
                 } else if (count < 60) {
                     count += 3;
-                    inc = 150;
+                    inc = 200;
                 } else if (count < 70) {
                     count += 2;
-                    inc = 200;
+                    inc = 300;
                 } else if (count < 80) {
                     count += 1;
-                    inc = 300;
+                    inc = 500;
                 } else if (count < 90) {
                     count += 1;
-                    inc = 500;
+                    inc = 1000;
                 } else if (count < 99) {
                     count += 1;
-                    inc = 1000;
+                    inc = 2000;
                 }
 
                 counter.innerText = count + '%';
@@ -79,7 +80,7 @@
                 }
 
                 if (count === 99 || isNaN(count)) {
-                    counter.innerText = 'У вас очень плохой интернет, НО загрузка продолжается...'
+                    counter.innerText = 'Очень медленный интернет, но загрузка продолжается...'
                 }
 
                 setTimeout(preloaderIncrementer, inc);
