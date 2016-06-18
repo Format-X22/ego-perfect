@@ -174,6 +174,7 @@ Ext.define('A.controller.Router', {
         var isEmptyCompany = (companyViewModel.get('_id') === 'empty_logo');
         var companyPageOpened = companyContainer.isVisible();
         var main = this.getMainTabPanel();
+        var mobileMenu;
 
         main.setActiveItem(main.down('#search'));
 
@@ -184,7 +185,15 @@ Ext.define('A.controller.Router', {
         if (isEmptyCompany || !companyPageOpened) {
             this.getSearchResultController().openCompany(id);
         }
-        
+
+        if (!Ext.isClassic) {
+            mobileMenu = A.getCmp('mobileMenu');
+            
+            if (mobileMenu) {
+                mobileMenu.getController().toggleBackToSearchMobileButton(0);
+            }
+        }
+
         this.goToCompanyInnerTabFromPage();
     },
 
