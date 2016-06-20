@@ -231,8 +231,13 @@ Ext.define('A.controller.Router', {
      */
     goToRegisterPageWithKey: function () {
         var key = this.getCurrentPathEndPoint();
+        var storage = Ext.util.LocalStorage.get('partnerKey');
+
+        storage.setItem('key', key);
+        storage.release();
 
         A.getCmp('appMainPublic #register #partner').setValue(key);
+
         this.goToRootPage('register');
     },
 

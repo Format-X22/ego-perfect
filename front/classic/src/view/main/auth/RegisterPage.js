@@ -6,6 +6,10 @@ Ext.define('A.view.main.auth.RegisterPage', {
     xtype: 'registerPage',
     controller: 'mainAuthRegisterPage',
 
+    listeners: {
+        show: 'updatePartnerKeyOnShow'
+    },
+    
     layout: {
         type: 'vbox',
         align: 'center',
