@@ -3,16 +3,16 @@
  */
 Ext.define('B.biz.auth.Login', {
     extend: 'B.AbstractRequestHandler',
-
+    
     requires: [
-        'B.biz.auth.util.Account',
-        'B.biz.auth.util.Crypt',
-        'B.biz.auth.util.Session',
+        'B.biz.auth.util.Account', 
+        'B.biz.auth.util.Crypt', 
+        'B.biz.auth.util.Session', 
         'B.mongo.Company'
     ],
-
+    
     config: {
-
+        
         /**
          * @private
          * @cfg {Object} account Объект данных аккаунта.
@@ -25,8 +25,8 @@ Ext.define('B.biz.auth.Login', {
          */
         crypt: null,
 
-		/**
-		 * @private
+        /**
+         * @private
          * @cfg {B.biz.auth.util.Session} sessionUtil Утилита сессий.
          */
         sessionUtil: null
@@ -34,9 +34,9 @@ Ext.define('B.biz.auth.Login', {
 
     constructor: function () {
         this.callParent(arguments);
-
+        
         var model = this.getRequestModel();
-
+        
         Ext.create('B.biz.auth.util.Account', {
             login: model.get('login'),
             scope: this,
@@ -44,7 +44,7 @@ Ext.define('B.biz.auth.Login', {
         });
     },
 
-	/**
+    /**
      * @inheritdoc
      */
     sendError: function () {
@@ -110,11 +110,12 @@ Ext.define('B.biz.auth.Login', {
          * @private
          */
         addSession: function () {
+            var account = this.getAccount();
             var model = this.getRequestModel();
             var util = Ext.create('B.biz.auth.util.Session', {
                 login: model.get('login'),
-                type: model.get('type'),
-                account: this.getAccount(),
+                type: account.type,
+                account: account,
                 scope: this,
                 callback: this.handleSessionAdd
             });

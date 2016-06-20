@@ -84,7 +84,7 @@ Ext.define('A.view.partner.statistic.Clients', {
                         {
                             type: 'numeric',
                             position: 'left',
-                            title: 'Количество зарегистрированных с ключем',
+                            title: 'Регистраций с ключем',
                             grid: true,
                             minimum: 0,
                             fields: [

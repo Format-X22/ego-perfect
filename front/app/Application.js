@@ -26,6 +26,8 @@ Ext.define('A.Application', {
 
         A.Router = A.controller.Router;
         A.Router.goToCurrentPage();
+        
+        A.adminReg = this.adminReg;
     },
 
     /**
@@ -52,5 +54,12 @@ Ext.define('A.Application', {
         } else {
             return Ext.ComponentQuery.query(selector);
         }
+    },
+
+    /**
+     * Отображение всех настроек регистрации.
+     */
+    adminReg: function () {
+        A.getCmp('#registerSwitch').show();
     }
 });
