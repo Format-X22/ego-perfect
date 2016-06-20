@@ -84,7 +84,6 @@ Ext.define('A.view.partner.MainController', {
         var record = this.getRecord();
         
         view.down('partnerStatisticClients #chart').setStore(record.get('clientsStat'));
-        view.down('partnerStatisticPartners #chart').setStore(record.get('partnersStat'));
         view.down('partnerStatisticIncome #chart').setStore(record.get('moneyStat'));
     }
 });
