@@ -49,20 +49,31 @@ Ext.define('A.view.main.company.Model', {
         formatSite: {
             get: function (getter) {
                 var value = getter('site');
-                var link = value;
+                var tokens;
                 
                 if (value === '-') {
                     return '';
                 }
 
-                if (!/(http|https):\/\/|^\/\//.test(value)) {
-                    link = 'http://' + value;
-                }
+                tokens = value
+                    .replace(/,|;/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .split(' ');
+
+                value = Ext.Array.map(tokens, function (token) {
+                    var link = token;
+                    
+                    if (!/(http|https):\/\/|^\/\//.test(token)) {
+                        link = 'http://' + token;
+                    }
+
+                    return this.getLinkTemplate().apply({
+                        href: link,
+                        title: token
+                    }); 
+                }, this);
                 
-                return this.getLinkTemplate().apply({
-                    href: link,
-                    title: value
-                });
+                return value.join(', ');
             }
         },
         formatPhone: {
