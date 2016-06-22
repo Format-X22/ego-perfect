@@ -75,7 +75,7 @@
 
                 counter.innerText = count + '%';
 
-                if (count > 80) {
+                if (count > 95) {
                     counter.innerText += ' (медленный интернет)';
                 }
 
@@ -90,6 +90,38 @@
         })();
     </script>
     <style>
+        @keyframes appLoadingIndicator {
+            0% {
+                opacity: 0;
+                transform: rotate(-45deg);
+            }
+            100% {
+                opacity: 1;
+                transform: rotate(0deg);
+            }
+        }
+
+        @keyframes slide {
+            25% {
+                opacity: 1;
+                transform: translate(0);
+            }
+            75% {
+                opacity: 1;
+                transform: translate(0);
+            }
+            100% {
+                opacity: 0.5;
+                transform: translate(10000px);
+            }
+        }
+
+        @keyframes slide-end {
+            100% {
+                opacity: 1;
+            }
+        }
+
         .start-preloader {
             width: 300px;
             height: 300px;
@@ -103,7 +135,48 @@
             font-size: 150%;
             text-align: center;
             color: #4EA6F5;
+            animation: appLoadingIndicator 2s ease-out;
         }
+
+        .slide1, .slide2, .slide3, .slide4, .slide5, .slide6 {
+            animation: slide 4s;
+            opacity: 0.5;
+            transform: translate(-10000px);
+            position: absolute;
+            width: 300px;
+        }
+
+        .slide1 {
+            animation-delay: 2s;
+        }
+
+        .slide2 {
+            animation-delay: 5s;
+        }
+
+        .slide3 {
+            animation-delay: 8s;
+        }
+
+        .slide4 {
+            animation-delay: 11s;
+        }
+
+        .slide5 {
+            animation-delay: 14s;
+        }
+
+        .slide6 {
+            animation-delay: 17s;
+        }
+
+        .slide7 {
+            margin-top: 70px;
+            opacity: 0;
+            animation: slide-end 2s infinite ease-out;
+            animation-delay: 9.5s;
+        }
+
     </style>
 
     <!-- Google -->
@@ -154,11 +227,13 @@
 <body>
     <div id="start-preloader" class="start-preloader">
         <img src="/resources/img/logo.svg">
-        <br>
-        <span>Мы загружаем<br> сайт сейчас<br> чтобы не отвлекать<br> вас потом.</span>
-        <br>
-        <br>
-        <span id="start-preloader-counter">10%</span>
+        <div class="slide1">Тысячи компаний</div>
+        <div class="slide2">Тысячи клиентов</div>
+        <div class="slide3">Контакты, фото, отзывы</div>
+        <div class="slide4">Всё вместе</div>
+        <div class="slide5">В визуальной поисковой системе</div>
+        <div class="slide6">Фирмы онлайн</div>
+        <div class="slide7" id="start-preloader-counter">10%</div>
     </div>
 
     <!-- Mail -->
