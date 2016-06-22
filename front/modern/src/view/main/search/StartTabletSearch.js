@@ -46,7 +46,7 @@ Ext.define('A.view.main.search.StartTabletSearch', {
                     ui: 'text',
                     cls: 'tablet-search',
                     border: 1,
-                    placeHolder: 'Что ищем? Например - кафе',
+                    placeHolder: 'Что ищем? Например - химчистка',
                     flex: 1,
                     listeners: {
                         focus: 'switchTabletInitToSimple',
