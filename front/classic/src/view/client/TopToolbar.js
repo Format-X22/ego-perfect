@@ -68,8 +68,8 @@ Ext.define('A.view.client.TopToolbar', {
                 'width >= 1300': {
                     html:
                         '<span>' +
-                            'КРУГЛОСУТОЧНО БЕСПЛАТНО ' +
                             '<a class="link link-text" href="tel:88002500186">8 (800) 25-00-186</a>' +
+                            ' | круглосуточно' +
                         '</span>'
                 }
             }
