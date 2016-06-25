@@ -17,6 +17,11 @@ Ext.define('A.view.client.pay.NoCardPayWindow', {
         monthCount: 0,
 
         /**
+         * @cfg {Number} forceCost Жестко установленная цена,
+         */
+        forceCost: null,
+
+        /**
          * @cfg {String} companyId MongoID компании в виде строки.
          */
         companyId: '',
@@ -68,8 +73,16 @@ Ext.define('A.view.client.pay.NoCardPayWindow', {
 
         var companyId = this.getCompanyId();
         var cost = this.getOneMonthCost();
+        var forceCost = this.getForceCost();
         var count = this.getMonthCount();
         var countTail;
+        var finalCost;
+
+        if (forceCost) {
+            finalCost = forceCost;
+        } else {
+            finalCost = cost * count;
+        }
 
         switch (count % 10) {
             case 1:
@@ -87,12 +100,12 @@ Ext.define('A.view.client.pay.NoCardPayWindow', {
         if (count > 10 && count < 15) {
             countTail = 'ев';
         }
-        
+
         this.down('#text').setData({
             companyId: companyId,
             count: count,
             countTail: countTail,
-            cost: cost * count
+            cost: finalCost
         });
     }
 });
