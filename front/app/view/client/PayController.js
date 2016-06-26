@@ -30,14 +30,14 @@ Ext.define('A.view.client.PayController', {
      * Оплата на 3 месяца без карты.
      */
     noCardPay3Month: function () {
-        this.noCardPay(3, 7210);
+        this.noCardPay(3, 7160);
     },
 
     /**
      * Оплата на 6 месяцев без карты.
      */
     noCardPay6Month: function () {
-        this.noCardPay(6, 14050);
+        this.noCardPay(6, 14059);
     },
 
     /**
