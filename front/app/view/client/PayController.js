@@ -27,6 +27,20 @@ Ext.define('A.view.client.PayController', {
     },
 
     /**
+     * Оплата на 3 месяца без карты.
+     */
+    noCardPay3Month: function () {
+        this.noCardPay(3, 7160);
+    },
+
+    /**
+     * Оплата на 6 месяцев без карты.
+     */
+    noCardPay6Month: function () {
+        this.noCardPay(6, 14059);
+    },
+
+    /**
      * Оплата на 12 месяцев без карты.
      */
     noCardPay12Month: function () {
@@ -52,10 +66,12 @@ Ext.define('A.view.client.PayController', {
         /**
          * @private
          * @param {Number} month Количество месяцев.
+         * @param {Number} [forceCost] Жесткая установка цены.
          */
-        noCardPay: function (month) {
+        noCardPay: function (month, forceCost) {
             Ext.create('A.view.client.pay.NoCardPayWindow', {
                 monthCount: month,
+                forceCost: forceCost,
                 companyId: this.getCompanyId()
             });
         },

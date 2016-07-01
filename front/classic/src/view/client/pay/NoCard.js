@@ -74,18 +74,18 @@ Ext.define('A.view.client.pay.NoCard', {
                 },
                 {
                     xtype: 'button',
+                    text: 'Оплатить на 3 месяца - 7 160 рублей',
+                    handler: 'noCardPay3Month'
+                },
+                {
+                    xtype: 'button',
+                    text: 'Оплатить на 6 месяцев - 14 059 рублей',
+                    handler: 'noCardPay6Month'
+                },
+                {
+                    xtype: 'button',
                     text: 'Оплатить на 12 месяцев - 26 280 рублей',
                     handler: 'noCardPay12Month'
-                },
-                {
-                    xtype: 'button',
-                    text: 'Оплатить на 18 месяца - 39 420 рублей',
-                    handler: 'noCardPay18Month'
-                },
-                {
-                    xtype: 'button',
-                    text: 'Оплатить на 24 месяца - 52 560 рублей',
-                    handler: 'noCardPay24Month'
                 }
             ]
         },
