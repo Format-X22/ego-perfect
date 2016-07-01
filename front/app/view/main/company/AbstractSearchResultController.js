@@ -82,7 +82,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
 
         this.saveCurrentScroll();
         this.showCompany();
-        this.loadCompany(id, function () {
+        this.loadCompany(id, function (viewModel) {
             if (Ext.isClassic) {
                 detailsTab.setLoading(false);
             } else {
@@ -90,6 +90,8 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
             }
 
             A.Router.changePathTo('company-' + id);
+
+            document.title = 'Фирмы онлайн | ' + viewModel.get('name').replace(/&quot;/g, '');
         });
     },
 
@@ -112,7 +114,7 @@ Ext.define('A.view.main.company.AbstractSearchResultController', {
             callback: function () {
                 viewModel.applyDataFromModel();
                 container.notifyCompanyLoad();
-                callback.call(this);
+                callback.call(this, viewModel);
             }.bind(this)
         });
     },

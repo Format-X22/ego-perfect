@@ -46,6 +46,7 @@ Ext.define('A.controller.Router', {
         }
 
         history.pushState('', '', path);
+        document.title = 'Фирмы онлайн';
     },
 
     /**
