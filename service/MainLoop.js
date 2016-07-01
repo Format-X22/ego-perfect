@@ -14,7 +14,8 @@ Ext.define('B.service.MainLoop', {
         'B.service.KeyGen',
         'B.service.PayOne',
         'B.service.TotalPayDateChange',
-        'B.service.SiteMapGenerator'
+        'B.service.SiteMapGenerator',
+        'B.service.ViewUp'
     ],
 
     constructor: function () {
@@ -28,6 +29,10 @@ Ext.define('B.service.MainLoop', {
 
             if (!B.Mongo || !B.Mongo.getCollection('search')) {
                 return;
+            }
+
+            if (hour === 2) {
+                Ext.create('B.service.ViewUp');
             }
 
             if (hour === 4) {
