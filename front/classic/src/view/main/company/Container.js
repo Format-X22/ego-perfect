@@ -15,6 +15,7 @@ Ext.define('A.view.main.company.Container', {
         'A.view.main.company.Map'
     ],
 
+    cls: 'vcard',
     layout: 'fit',
 
     tbar: [
@@ -42,7 +43,7 @@ Ext.define('A.view.main.company.Container', {
         {
             xtype: 'tbtext',
             bind: {
-                html: '<b>{name}</b>'
+                html: '<b class="fn org">{name}</b>'
             }
         },
         '->'

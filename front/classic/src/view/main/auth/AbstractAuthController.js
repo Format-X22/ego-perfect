@@ -32,6 +32,7 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
             url: this.getUrl(),
             callback: view.unmask.bind(view),
             success: function () {
+                this.showTrialMessageIfRegister();
                 this.goToPage();
                 view.unmask();
             }.bind(this),
@@ -98,6 +99,22 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
                 offer.destroy();
                 this.send();
             }, this, {single: true});
+        },
+
+        /**
+         * @private
+         */
+        showTrialMessageIfRegister: function () {
+            if (this.$className !== 'A.view.main.auth.RegisterPageController') {
+                return;
+            }
+            
+            Ext.Msg.show({
+                title: 'Пробная версия',
+                msg: 'Пробная версия на 1 месяц активирована.',
+                icon: Ext.Msg.INFO,
+                buttons: Ext.Msg.OK
+            });
         }
     }
 });

@@ -61,19 +61,19 @@ Ext.define('A.view.main.company.mobile.Summary', {
                         '<div class="title">Рейтинг</div> <div class="value">{formatRating}</div>' +
                     '</div>' +
                     '<div class="property">' +
-                        '<div class="title">Телефон</div> <div class="value">{formatPhone}</div>' +
+                        '<div class="title">Телефон</div> <div class="value tel">{formatPhone}</div>' +
                     '</div>' +
                     '<div class="property">' +
-                        '<div class="title">Сайт</div> <div class="value">{formatSite}</div>' +
+                        '<div class="title">Сайт</div> <div class="value url">{formatSite}</div>' +
                     '</div>' +
                     '<div class="property">' +
-                        '<div class="title">Почта</div> <div class="value">{formatEmail}</div>' +
+                        '<div class="title">Почта</div> <div class="value email">{formatEmail}</div>' +
                     '</div>' +
                     '<div class="property">' +
-                        '<div class="title">Время работы</div> <div class="value">{time}</div>' +
+                        '<div class="title">Время работы</div> <div class="value workhours">{time}</div>' +
                     '</div>' +
                     '<div class="property">' +
-                        '<div class="title">Адрес</div> <div class="value">{mobileFormatAddress}</div>' +
+                        '<div class="title">Адрес</div> <div class="value adr">{mobileFormatAddress}</div>' +
                     '</div>'
             }
         },

@@ -184,7 +184,7 @@ Ext.define('B.biz.auth.Register', {
                 partnerKey: partnerKey,
 				registerDate: new Date()
             };
-            var payDate = this.getPayDate() || Ext.Date.parse('20.05.2016', 'd.m.Y');
+            var payDate = this.getPayDate() || Ext.Date.add(new Date(), Ext.Date.MONTH, 1);
 
 			if (type === 'company') {
                 entityObject.rating = 0;
