@@ -6,4 +6,12 @@ block meta
 	meta(name="description", content="Регистрация в поисковой системе.")
 
 block body
-	//
+	form(action='/api/auth/register', method='POST')
+		img(src='/resources/img/logo.svg', alt='логотип компании')
+		br
+		h1 Регистрация в поисковой системе
+		label Форма
+			input(id='login', type='text', name='login')
+			input(id='code', type='text', name='partner')
+			input(id='type', type='hidden', name='type', value='company')
+			input(id='send', type='submit')

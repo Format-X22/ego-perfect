@@ -6,4 +6,12 @@ block meta
 	meta(name="description", content="Вход в личный кабинет.")
 
 block body
-	//
+	form(action='/api/auth/login', method='POST')
+		img(src='/resources/img/logo.svg', alt='логотип компании')
+		br
+		h1 Вход в личный кабинет
+		label Форма
+			input(id='login', type='text', name='login')
+			input(id='password', type='password', name='pass')
+			input(id='type', type='hidden', name='type', value='company')
+			input(id='send', type='submit')
