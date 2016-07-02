@@ -12,6 +12,10 @@ Ext.define('B.BotRouter', {
         var originalPath = request.path;
         var path = originalPath;
 
+        if (!path || path === '/') {
+            path = '/page-root-search';
+        }
+
         path = this.normalizePath(path);
         path = this.removeRegisterId(path);
         path = this.removeCompanyId(path);

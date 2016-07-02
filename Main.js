@@ -77,10 +77,10 @@ Ext.define('B.Main', {
     initExpressStep: function (next) {
         this.log('Инициализация Express.');
 
+        this.initBotPages();
         this.initFavicon();
         this.initParsers();
         this.initStaticDir();
-        this.initBotPages();
         
         next();
     },
@@ -95,18 +95,14 @@ Ext.define('B.Main', {
         var dir = __dirname;
         var path = require('path');
         var indexHtml = path.join(dir, 'public', 'index.html');
-        var botRouter = Ext.create('B.BotRouter');
-        
+        var app = this.getExpressApp();
+
         Ext.create('B.MainRouter', {
             callback: next
         });
 
-        this.getExpressApp().get(/^\/page-/, function (request, response) {
-            if ('_escaped_fragment_' in request.query) {
-                botRouter.render(request, response);
-            } else {
-                response.sendFile(indexHtml);
-            }
+        app.get(/^\/page-/, function (request, response) {
+            response.sendFile(indexHtml);
         });
     },
 
@@ -202,9 +198,18 @@ Ext.define('B.Main', {
             var dir = __dirname;
             var path = require('path');
             var botPagesDir = path.join(dir, 'botPages');
+            var botRouter = Ext.create('B.BotRouter');
 
             app.set('view engine', 'jade');
             app.set('views', botPagesDir);
+
+            app.get(/.*/, function (request, response, next) {
+                if ('_escaped_fragment_' in request.query) {
+                    botRouter.render(request, response);
+                } else {
+                    next();
+                }
+            });
         },
         
         /**
