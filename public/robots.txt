@@ -1,6 +1,7 @@
 User-Agent: *
 Disallow: /page-account-client
 Disallow: /page-account-partner
+Disallow: /page-root-search
 Disallow: /api/*
 Disallow: /page-company-*_reviews_send
 Host: xn--h1ailo2b.xn--80asehdb
