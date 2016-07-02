@@ -8,6 +8,7 @@ Ext.define('B.Main', {
         'B.Mongo',
 		'B.Cloudinary',
         'B.MainRouter',
+        'B.BotRouter',
 		'B.service.MainLoop',
         'B.util.Function',
         'B.util.String'
@@ -79,6 +80,7 @@ Ext.define('B.Main', {
         this.initFavicon();
         this.initParsers();
         this.initStaticDir();
+        this.initBotPages();
         
         next();
     },
@@ -93,13 +95,18 @@ Ext.define('B.Main', {
         var dir = __dirname;
         var path = require('path');
         var indexHtml = path.join(dir, 'public', 'index.html');
-
+        var botRouter = Ext.create('B.BotRouter');
+        
         Ext.create('B.MainRouter', {
             callback: next
         });
 
         this.getExpressApp().get(/^\/page-/, function (request, response) {
-            response.sendFile(indexHtml);
+            if ('_escaped_fragment_' in request.query) {
+                botRouter.render(request, response);
+            } else {
+                response.sendFile(indexHtml);
+            }
         });
     },
 
@@ -185,6 +192,19 @@ Ext.define('B.Main', {
             var staticDirSign = this.getExpress().static(publicDir);
             
             app.use(staticDirSign);
+        },
+
+        /**
+         * @private
+         */
+        initBotPages: function () {
+            var app = this.getExpressApp();
+            var dir = __dirname;
+            var path = require('path');
+            var botPagesDir = path.join(dir, 'botPages');
+
+            app.set('view engine', 'jade');
+            app.set('views', botPagesDir);
         },
         
         /**
