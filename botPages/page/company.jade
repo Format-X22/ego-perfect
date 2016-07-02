@@ -6,4 +6,33 @@ block meta
 	meta(name="description", content="Информация и контакты компании #{name}")
 
 block body
-	//
+	div(itemscope, itemtype="http://schema.org/ImageObject")
+		h2(itemprop="name") #{name}
+		img(
+			itemprop="contentUrl",
+			src='http://res.cloudinary.com/hycanb7c0/image/upload/w_300,h_300/#{_id}.png',
+			alt='#{name}'
+		)
+		span(itemprop="description") Логотип компании #{name}
+
+	div(itemscope, itemtype="http://schema.org/Organization")
+		span Рейтинг
+		span #{rating}
+		br
+		span Компания
+		span(itemprop="name") #{name}
+		br
+		span Телефон
+		span(itemprop="telephone") #{phone}
+		br
+		span Сайт
+		span(itemprop="url") #{site}
+		br
+		span Почта
+		span(itemprop="email") #{email}
+		br
+		span Время работы
+		time(itemprop="openingHours") #{time}
+		br
+		span Адрес
+		span(itemprop="address") #{address}
