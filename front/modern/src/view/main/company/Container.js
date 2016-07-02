@@ -12,7 +12,8 @@ Ext.define('A.view.main.company.Container', {
         'A.view.main.company.mobile.TabPanel',
         'A.view.main.company.tablet.TabPanel'
     ],
-    
+
+    cls: 'vcard',
     layout: 'vbox',
     
     items: [
@@ -20,7 +21,7 @@ Ext.define('A.view.main.company.Container', {
             xtype: 'toolbar',
             hidden: true,
             bind: {
-                title: '{name}'
+                title: '<span class="fn org">{name}</span>'
             },
             plugins: 'responsive',
             responsiveConfig: {
