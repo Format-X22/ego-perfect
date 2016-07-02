@@ -5,60 +5,92 @@ Ext.define('A.view.client.PayController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.clientPay',
 
-    /**
-     * Оплата на 1 месяц.
-     */
-    pay1Month: function () {
-        // @TODO
+    config: {
+
+        /**
+         * @private
+         * @cfg {Number} monthCost Цена за месяц.
+         */
+        monthCost: 2190,
+
+        /**
+         * @private
+         * @cfg {String} payButtonTpl Шаблон текста кнопки оплаты.
+         */
+        payButtonTpl: 'Оплатить на {count} месяцев - {cost} рублей<tpl if="discount"> (скидка {discount}%)</tpl>',
+
+        /**
+         * @private
+         * @cfg {Number} currentCost Текущее значение для оплаты.
+         */
+        currentCost: 0
     },
 
     /**
-     * Оплата на 12 месяцев.
+     * Подготовка кнопки оплаты.
      */
-    pay12Month: function () {
-        // @TODO
+    preparePayButton: function () {
+        var slider = this.getView().down('#monthSlider');
+        var count = slider.getValue();
+        
+        this.recalculateCost(slider, count);
+    },
+    
+    /**
+     * Пересчитывает цену оплаты.
+     * @param {Ext.slider.Single} field Слайдер количества месяцев.
+     * @param {Number} count Количество месяцев.
+     */
+    recalculateCost: function (field, count) {
+        var payButton = this.getView().down('#payButton');
+        var discount = 0;
+        var monthCost = this.getMonthCost();
+        var tpl = new Ext.XTemplate(this.getPayButtonTpl());
+        var cost;
+
+        switch (count) {
+            case 1:
+            case 2:
+                break;
+            case 3:
+            case 4:
+            case 5:
+                discount = 10;
+                break;
+            case 6:
+            case 7:
+            case 8:
+                discount = 15;
+                break;
+            case 9:
+            case 10:
+            case 11:
+                discount = 20;
+                break;
+            case 12:
+                discount = 25;
+                break;
+        }
+
+        cost = Math.round((count * (100 - discount) * monthCost) / 100);
+        
+        this.setCurrentCost(cost);
+        
+        payButton.setText(tpl.apply({
+            count: count,
+            cost: cost,
+            discount: discount
+        }));
     },
 
     /**
-     * Оплата на 1 месяц без карты.
+     * Оплата без карты на выбранное слайдером количество месяцев. 
      */
-    noCardPay1Month: function () {
-        this.noCardPay(1);
-    },
-
-    /**
-     * Оплата на 3 месяца без карты.
-     */
-    noCardPay3Month: function () {
-        this.noCardPay(3, 7160);
-    },
-
-    /**
-     * Оплата на 6 месяцев без карты.
-     */
-    noCardPay6Month: function () {
-        this.noCardPay(6, 14059);
-    },
-
-    /**
-     * Оплата на 12 месяцев без карты.
-     */
-    noCardPay12Month: function () {
-        this.noCardPay(12);
-    },
-
-    /**
-     * Оплата на 18 месяцев без карты.
-     */
-    noCardPay18Month: function () {
-        this.noCardPay(18);
-    },
-
-    /**
-     * Оплата на 24 месяцев без карты.
-     */
-    noCardPay24Month: function () {
-        this.noCardPay(24);
+    noCardPaySlider: function () {
+        var count = this.getView().down('#monthSlider').getValue();
+        var cost = this.getCurrentCost();
+        
+        this.noCardPay(count, cost);
     },
 
     privates: {

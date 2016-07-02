@@ -15,6 +15,10 @@ Ext.define('A.view.client.pay.NoCard', {
         align: 'center'
     },
 
+    listeners: {
+        activate: 'preparePayButton'
+    },
+
     items: [
         {
             xtype: 'adminTopDescription',
@@ -73,19 +77,23 @@ Ext.define('A.view.client.pay.NoCard', {
                     }
                 },
                 {
-                    xtype: 'button',
-                    text: 'Оплатить на 3 месяца - 7 160 рублей',
-                    handler: 'noCardPay3Month'
+                    itemId: 'monthSlider',
+                    xtype: 'slider',
+                    fieldLabel: 'Количество месяцев',
+                    width: 500,
+                    value: 3,
+                    minValue: 1,
+                    maxValue: 12,
+                    increment: 1,
+                    listeners: {
+                        change: 'recalculateCost'
+                    }
                 },
                 {
+                    itemId: 'payButton',
                     xtype: 'button',
-                    text: 'Оплатить на 6 месяцев - 14 059 рублей',
-                    handler: 'noCardPay6Month'
-                },
-                {
-                    xtype: 'button',
-                    text: 'Оплатить на 12 месяцев - 26 280 рублей',
-                    handler: 'noCardPay12Month'
+                    text: '',
+                    handler: 'noCardPaySlider'
                 }
             ]
         },
