@@ -78,7 +78,25 @@ Ext.define('B.BotRouter', {
          * @param {Object} scope Контекст исполнения следующего шага.
          */
         getContextData: function (path, callback, scope) {
-            callback.call(scope, null, {});
+            if (!/company/.test(path)) {
+                callback.call(scope, null, {});
+            }
+
+            var id = path.replace(/_/g, '-').split('-')[2];
+
+            Ext.create('B.mongo.Company', {
+                id: id,
+                scope: this,
+                success: function (data) {
+                    callback.call(scope, null, data);
+                },
+                failure: function () {
+                    callback.call(scope, 'Ошибка получения данных', {});
+                },
+                badIdCallback: function () {
+                    callback.call(scope, 'Не валидный идентификатор компании', {});
+                }
+            }).getCompany();
         }
     }
 });

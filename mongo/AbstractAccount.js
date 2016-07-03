@@ -32,16 +32,19 @@ Ext.define('B.mongo.AbstractAccount', {
      */
     getAccount: function () {
         var query = this.makeIdQuery();
+        var collection = this.getCollection();
+        var projection = this.getProjection();
+        var callback = this.getCallbackCaller();
 
         if (!query) {
             return;
         }
 
-        this.getCollection().findOne(
-            query,
-            this.getProjection(),
-            this.getCallbackCaller()
-        );
+        if (projection) {
+            collection.findOne(query, projection, callback);
+        } else {
+            collection.findOne(query, callback);
+        }
     },
 
     /**
@@ -49,11 +52,17 @@ Ext.define('B.mongo.AbstractAccount', {
      * Получение данных аккаунта по логину.
      */
     getAccountByLogin: function () {
-        this.getCollection().findOne(
-            this.makeLoginQuery(),
-            this.getProjection(),
-            this.getCallbackCaller()
-        );
+        var collection = this.getCollection();
+        var query = this.makeLoginQuery();
+        var projection = this.getProjection();
+        var callback = this.getCallbackCaller();
+        
+        if (projection) {
+            collection.findOne(query, projection, callback);
+        } else {
+            collection.findOne(query, callback);
+        }
+        
     },
 
     /**
