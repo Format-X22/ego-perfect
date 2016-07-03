@@ -80,6 +80,7 @@ Ext.define('B.BotRouter', {
         getContextData: function (path, callback, scope) {
             if (!/company/.test(path)) {
                 callback.call(scope, null, {});
+                return;
             }
 
             var id = path.replace(/_/g, '-').split('-')[2];
