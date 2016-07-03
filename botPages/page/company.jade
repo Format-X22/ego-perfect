@@ -6,6 +6,7 @@ block meta
 	meta(name="description", content="Информация и контакты компании #{name}")
 
 block body
+	h1 #{name}
 	div(itemscope, itemtype="http://schema.org/ImageObject")
 		h2(itemprop="name") #{name}
 		img(
@@ -36,3 +37,9 @@ block body
 		br
 		span Адрес
 		span(itemprop="address") #{address}
+		br
+		span Координаты
+		div(itemprop="geo", itemscope, itemtype="http://schema.org/GeoCoordinates")
+			- map = map || {};
+			meta(itemprop="latitude", content="#{map.lat}")
+			meta(itemprop="longitude", content="#{map.lng}")

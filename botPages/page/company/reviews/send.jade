@@ -6,4 +6,20 @@ block meta
 	meta(name="description", content="Отправка отзыва о компании #{name}.")
 
 block body
-	//
+	form(action='/api/reviews', method='POST')
+		h1 Отправить отзыв о компании #{name}
+		label Форма
+			span Имя
+			input(id='name', type='text', name='name')
+			br
+			span Заголовок
+			input(id='header', type='text', name='header')
+			br
+			span Отзыв
+			input(id='description', type='text', name='description')
+			br
+			span Оценка
+			input(id='rating', type='text', name='rating')
+			input(id='id', type='hidden', name='id', value='#{_id}')
+			br
+			input(id='send', type='submit')

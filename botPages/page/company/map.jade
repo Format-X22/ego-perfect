@@ -6,4 +6,10 @@ block meta
 	meta(name="description", content="Расположение компании #{name} на карте.")
 
 block body
-	//
+	h1 Компания #{name} на карте
+	div(itemscope, itemtype="http://schema.org/Place")
+		span(itemprop="name") #{name}
+		div(itemprop="geo", itemscope, itemtype="http://schema.org/GeoCoordinates")
+			- map = map || {};
+			meta(itemprop="latitude", content="#{map.lat}")
+			meta(itemprop="longitude", content="#{map.lng}")
