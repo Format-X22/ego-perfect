@@ -42,7 +42,14 @@ Ext.define('A.controller.Router', {
         path = 'page-' + path;
 
         if (equivalent && currentSub && !force) {
-            path = path + '_' + currentSub;
+            switch (currentSub) {
+                case 'summary':
+                case 'show':
+                case 'list':
+                    break;
+                default:
+                    path = path + '_' + currentSub;
+            }
         }
 
         history.pushState('', '', path);
@@ -54,7 +61,17 @@ Ext.define('A.controller.Router', {
      * @param {String} path Вложенный путь.
      */
     changeSubPathTo: function (path) {
-        this.changePathTo(this.getCurrentPath() + '_' + path, true);
+        var current = this.getCurrentPath();
+        
+        switch (path) {
+            case 'summary':
+            case 'show':
+            case 'list':
+                this.changePathTo(current, true);
+                break;
+            default:
+                this.changePathTo(current + '_' + path, true);
+        }
     },
 
     /**

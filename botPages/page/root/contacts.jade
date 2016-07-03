@@ -1,0 +1,57 @@
+extends ../../main
+
+block meta
+	title Фирмы онлайн | Контакты
+	meta(name="keywords", content="фирмы онлайн, контакты, о компании")
+	meta(name="description", content="Контакты компании.")
+
+block body
+	h1 Контакты
+	div(itemscope, itemtype="http://schema.org/Organization")
+		span(itemprop="name") ООО "Простые числа"
+		div(itemprop="address", itemscope, itemtype="http://schema.org/PostalAddress")
+			span Адрес
+			span(itemprop="streetAddress") г. Москва, ул. Тайнинская, д.26
+			span(itemprop="postalCode") 129345
+			span(itemprop="addressLocality") Москва
+		span Телефон
+		span(itemprop="telephone") +7 800 250-01-86
+		span Сайт
+		span(itemprop="url") http://xn--h1ailo2b.xn--80asehdb/
+		span Электронная почта
+		span(itemprop="email") w@фирмы.онлайн
+		time(itemprop="openingHours", datetime="Mo-Su") Круглосуточно
+	div(itemscope, itemtype="http://schema.org/ImageObject")
+		h2(itemprop="name") Единая связь
+		img(itemprop="contentUrl", src='/resources/img/contacts1.svg', alt='Единая связь')
+		span(itemprop="description").
+			По любому вопросу вы
+			всегда можете
+			написать на почту
+			w@фирмы.онлайн
+			или позвонить на номер
+			8 (800) 25-00-186
+			Круглосуточно.
+			Бесплатно.
+	div(itemscope, itemtype="http://schema.org/ImageObject")
+		h2(itemprop="name") Юридические данные
+		img(itemprop="contentUrl", src='/resources/img/contacts2.svg', alt='Юридические данные')
+		span(itemprop="description").
+			ООО "Простые числа"
+			129345, г. Москва, ул. Тайнинская, д.26,
+			пом. I, комн. 1
+			ОГРН
+			1167746406805
+			ИНН/КПП
+			7716823512/771601001
+	div(itemscope, itemtype="http://schema.org/ImageObject")
+		h2(itemprop="name") Банковские реквизиты
+		img(itemprop="contentUrl", src='/resources/img/contacts3.svg', alt='Банковские реквизиты')
+		span(itemprop="description").
+			Р/сч:
+			40702810201270006807
+			БИК:
+			044583999
+			Кор/сч:
+			30101810600000000999
+			в ТОЧКА ПАО "ХАНТЫ-МАНСИЙСКИЙ БАНК ОТКРЫТИЕ"

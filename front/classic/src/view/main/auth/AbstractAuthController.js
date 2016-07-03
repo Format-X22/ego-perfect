@@ -110,8 +110,8 @@ Ext.define('A.view.main.auth.AbstractAuthController', {
             }
             
             Ext.Msg.show({
-                title: 'Пробная версия',
-                msg: 'Пробная версия на 1 месяц активирована.',
+                title: 'Месяц бесплатно',
+                msg: 'Пробная версия на 1 месяц активирована',
                 icon: Ext.Msg.INFO,
                 buttons: Ext.Msg.OK
             });

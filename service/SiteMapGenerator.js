@@ -17,6 +17,7 @@ Ext.define('B.service.SiteMapGenerator', {
         baseLinks: [
             'root-search',
             'root-clients',
+            'root-clients_offer',
             'root-contacts',
             'root-login',
             'root-register'
@@ -115,10 +116,15 @@ Ext.define('B.service.SiteMapGenerator', {
          */
         addEachUrl: function (urls) {
             Ext.each(urls, function (url) {
-                var current = this.getResult();
-                var section = this.makeUrlSection(url);
+                var result = this.getResult();
 
-                this.setResult(current + section);
+                result += this.makeUrlSection(url);
+                result += this.makeUrlSection(url + '_gallery');
+                result += this.makeUrlSection(url + '_reviews');
+                result += this.makeUrlSection(url + '_reviews_send');
+                result += this.makeUrlSection(url + '_map');
+                
+                this.setResult(result);
             }, this);
         },
 

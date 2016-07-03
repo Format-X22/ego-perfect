@@ -1,0 +1,21 @@
+extends ../../main
+
+block meta
+	title Фирмы онлайн | Фотографии #{name}
+	meta(name="keywords", content="фирмы онлайн, фотографии")
+	meta(name="description", content="Фотографии компании #{name}.")
+
+block body
+	h1 Фотографии компании #{name}
+
+	- var index = 1;
+	while index <= 10
+		div(itemscope, itemtype="http://schema.org/ImageObject")
+			h2(itemprop="name") Фотография номер #{index}
+			img(
+				itemprop="contentUrl",
+				src='http://res.cloudinary.com/hycanb7c0/image/upload/#{_id}_#{index}.jpg',
+				alt='фотография компании #{name}'
+			)
+			span(itemprop="description") Фотография компании #{name} под номером #{index}
+		- index++;

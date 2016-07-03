@@ -1,0 +1,28 @@
+extends ../../main
+
+block meta
+	title Фирмы онлайн | Список отзывов о #{name}
+	meta(name="keywords", content="фирмы онлайн, отзывы о компании")
+	meta(name="description", content="Список отзывов о компании #{name}.")
+
+block body
+	h1 #{name}
+
+	- reviews = reviews || [];
+	each review in reviews
+		div(itemscope, itemtype="http://schema.org/Review")
+			meta(
+				itemprop="datePublished",
+				content="#{review.date.split('.')[2]}-#{review.date.split('.')[1]}-#{review.date.split('.')[0]}"
+			)
+			span #{review.date}
+			br
+			span(itemprop="reviewBody") #{review.description}
+			br
+			span(itemprop="name") #{review.header}
+			br
+			span(itemprop="author") #{review.name}
+			br
+			span(itemprop="reviewRating") #{review.rating}
+			br
+			hr

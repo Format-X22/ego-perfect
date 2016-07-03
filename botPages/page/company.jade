@@ -1,0 +1,56 @@
+extends ../main
+
+block meta
+	title Фирмы онлайн | #{name}
+	meta(name="keywords", content="фирмы онлайн, информация о компании, контакты")
+	meta(name="description", content="Информация и контакты компании #{name}")
+
+block body
+	h1 #{name}
+	div(itemscope, itemtype="http://schema.org/ImageObject")
+		h2(itemprop="name") #{name}
+		img(
+			itemprop="contentUrl",
+			src='http://res.cloudinary.com/hycanb7c0/image/upload/w_300,h_300/#{_id}.png',
+			alt='#{name}'
+		)
+		span(itemprop="description") Логотип компании #{name}
+
+	div(itemscope, itemtype="http://schema.org/Organization")
+		span Рейтинг
+		br
+		span #{rating}
+		br
+		span Компания
+		br
+		span(itemprop="name") #{name}
+		br
+		span Телефон
+		br
+		span(itemprop="telephone") #{phone}
+		br
+		span Сайт
+		br
+		span(itemprop="url") #{site}
+		br
+		span Почта
+		br
+		span(itemprop="email") #{email}
+		br
+		span Время работы
+		br
+		time(itemprop="openingHours") #{time}
+		br
+		span Адрес
+		br
+		span(itemprop="address") #{address}
+		br
+		span Координаты
+		br
+		div(itemprop="geo", itemscope, itemtype="http://schema.org/GeoCoordinates")
+			- map = map || {};
+			meta(itemprop="latitude", content="#{map.lat}")
+			meta(itemprop="longitude", content="#{map.lng}")
+			span #{map.lat}
+			br
+			span #{map.lng}
