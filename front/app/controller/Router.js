@@ -129,7 +129,11 @@ Ext.define('A.controller.Router', {
                 this.goToRootPage('register');
                 break;
             case 'key':
-                this.goToRootPageWithKey();
+                if (Ext.isClassic) {
+                    this.goToRootPageWithKey();
+                } else {
+                    this.goToRootPage();
+                }
                 break;
             case 'root-register':
                 this.goToRegisterPageWithKey();
