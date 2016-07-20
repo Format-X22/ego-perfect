@@ -9,7 +9,6 @@ Ext.define('A.view.partner.Main', {
     requires: [
         'A.view.partner.MainController',
         'A.view.partner.TopToolbar',
-        'A.view.partner.statistic.Main',
         'A.view.partner.Profile',
         'A.view.partner.Key',
         'A.view.widget.AdminTopDescription'
@@ -29,13 +28,8 @@ Ext.define('A.view.partner.Main', {
             flex: 1,
             items: [
                 {
-                    xtype: 'partnerStatistic',
-                    title: 'Статистика',
-                    iconCls: 'x-fa fa-line-chart'
-                },
-                {
                     xtype: 'partnerKey',
-                    title: 'Ваш персональный ключ партнера',
+                    title: 'Ключ агента',
                     iconCls: 'x-fa fa-key'
                 },
                 {

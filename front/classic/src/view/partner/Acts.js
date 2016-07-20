@@ -19,14 +19,12 @@ Ext.define('A.view.partner.Acts', {
                 {
                     xtype: 'adminTopDescription',
                     html:
-                        'Информация для составления актов.<br>' +
-                        'Содержит данные по платежам клиентов, привлеченных вами,<br>' +
-                        'а так же клиентов, которых привлекли ваши субагенты.'
+                        'Информация для составления актов.'
                 },
                 {
                     name: 'reservedMoneyCount',
                     xtype: 'displayfield',
-                    fieldLabel: 'Доступно для получения',
+                    fieldLabel: 'Начислено',
                     labelWidth: 190,
                     padding: '20 0 10 0',
                     value: 0,

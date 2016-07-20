@@ -1,5 +1,5 @@
 /**
- * Сервис для оплаты одной компании в ручную.
+ * Генератор Sitemap.
  */
 Ext.define('B.service.SiteMapGenerator', {
     extend: 'B.service.AbstractService',
@@ -121,7 +121,6 @@ Ext.define('B.service.SiteMapGenerator', {
                 result += this.makeUrlSection(url);
                 result += this.makeUrlSection(url + '_gallery');
                 result += this.makeUrlSection(url + '_reviews');
-                result += this.makeUrlSection(url + '_reviews_send');
                 result += this.makeUrlSection(url + '_map');
                 
                 this.setResult(result);

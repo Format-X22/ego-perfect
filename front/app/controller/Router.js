@@ -54,6 +54,7 @@ Ext.define('A.controller.Router', {
 
         history.pushState('', '', path);
         document.title = 'Фирмы онлайн';
+        location.hash = '!';
     },
 
     /**
@@ -121,6 +122,19 @@ Ext.define('A.controller.Router', {
         var path = this.getCurrentPathBase();
         
         switch (path) {
+            case 'all-reg':
+                Ext.defer(function () {
+                    A.adminReg();
+                }, 1000, this);
+                this.goToRootPage('register');
+                break;
+            case 'key':
+                if (Ext.isClassic) {
+                    this.goToRootPageWithKey();
+                } else {
+                    this.goToRootPage();
+                }
+                break;
             case 'root-register':
                 this.goToRegisterPageWithKey();
                 break;
@@ -245,21 +259,36 @@ Ext.define('A.controller.Router', {
 
     /**
      * Обрабатывает партнерские ссылки.
+     * Переносит на главную страницу и сразу проставляет ключ.
+     */
+    goToRootPageWithKey: function () {
+        this.setPartnerKey();
+        this.goToRootPage();
+    },
+
+    /**
+     * Обрабатывает партнерские ссылки.
      * Переносит на страницу регистрации и сразу проставляет ключ.
      */
     goToRegisterPageWithKey: function () {
-        var key = this.getCurrentPathEndPoint();
-        var storage = Ext.util.LocalStorage.get('partnerKey');
-
-        storage.setItem('key', key);
-        storage.release();
-
-        A.getCmp('appMainPublic #register #partner').setValue(key);
-
+        this.setPartnerKey();
         this.goToRootPage('register');
     },
 
     privates: {
+
+        /**
+         * @private
+         */
+        setPartnerKey: function () {
+            var key = this.getCurrentPathEndPoint();
+            var storage = Ext.util.LocalStorage.get('partnerKey');
+
+            storage.setItem('key', key);
+            storage.release();
+
+            A.getCmp('appMainPublic #register #partner').setValue(key);
+        },
 
         /**
          * @private

@@ -11,15 +11,10 @@ Ext.define('A.view.partner.Key', {
     },
 
     items: [
-		{
-			xtype: 'adminTopDescription',
-			html:
-				'За любых клиентов, зарегистрированных<br>' +
-				'с этим ключем, вы получаете денежный бонус<br>' +
-                'равный бонусу, указанному в договоре.<br>' +
-                'Также вы можете выдавать клиентам ссылку,<br>' +
-                'которая автоматически установит ключ.'
-		},
+        {
+            xtype: 'adminTopDescription',
+            html: 'Ваш персональный ключ агента.'
+        },
         {
             flex: 1
         },
@@ -27,12 +22,20 @@ Ext.define('A.view.partner.Key', {
             itemId: 'id',
             name: '_id',
             xtype: 'textfield',
-            fieldLabel: 'Ваш ключ',
+            fieldLabel: 'Ключ',
             readOnly: true,
             width: 620,
             listeners: {
                 change: 'updateKeyLink'
             }
+        },
+        {
+            xtype: 'component',
+            width: 620,
+            padding: '0 0 30 105',
+            html:
+                '<b>При регистрации клиента ключ необходимо установить<br>' +
+                'в поле "Ключ агента"</b>.'
         },
         {
             itemId: 'link',
@@ -42,18 +45,35 @@ Ext.define('A.view.partner.Key', {
             width: 620
         },
         {
+            xtype: 'component',
+            width: 620,
+            padding: '0 0 30 105',
+            html: '<b>При переходе по ссылке ключ установится автоматически.</b>'
+        },
+        {
+            itemId: 'register',
+            xtype: 'textfield',
+            fieldLabel: 'Прямая регистрация',
+            readOnly: true,
+            width: 620
+        },
+        {
+            xtype: 'component',
+            width: 620,
+            padding: '0 0 30 105',
+            html: '<b>Альтернативная ссылка, сразу ведет на страницу регистрации.</b>'
+        },
+        {
             itemId: 'activeFlag',
             name: 'active',
-            xtype: 'hidden',
-            listeners: {
-                change: 'updateContractHint'
-            }
+            xtype: 'hidden'
         },
         {
             itemId: 'contractHint',
             xtype: 'component',
             margin: 30,
             width: 620,
+            hidden: true,
             html:
                 '<b>Необходимо завершить регистрацию подписанием договора.<br>' +
                 'Напишите на почту w@фирмы.онлайн или позвоните на номер<br>' +

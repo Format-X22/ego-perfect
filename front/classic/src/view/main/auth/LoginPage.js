@@ -42,13 +42,13 @@ Ext.define('A.view.main.auth.LoginPage', {
             layout: 'vbox',
             items: [
                 {
-                    boxLabel: 'Клиент, моя компания на сайте.',
+                    boxLabel: 'Клиент',
                     name: 'type',
                     inputValue: 'company',
                     checked: true
                 },
                 {
-                    boxLabel: 'Партнер, работаем вместе.',
+                    boxLabel: 'Агент',
                     name: 'type',
                     inputValue: 'partner'
                 }

@@ -239,7 +239,7 @@ Ext.define('B.biz.auth.Register', {
 					},
 					function (error, result) {
 						if (error) {
-							this.sendError('Ошибка прикрепления аккаунта к партнеру!');
+							this.sendError('Ошибка прикрепления аккаунта к агенту!');
 						} else {
                             if (result.value) {
                                 this.setPartnerLogin(result.value.login);
