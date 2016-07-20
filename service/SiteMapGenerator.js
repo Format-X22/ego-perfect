@@ -1,5 +1,5 @@
 /**
- * Сервис для оплаты одной компании в ручную.
+ * Генератор Sitemap.
  */
 Ext.define('B.service.SiteMapGenerator', {
     extend: 'B.service.AbstractService',
