@@ -122,6 +122,12 @@ Ext.define('A.controller.Router', {
         var path = this.getCurrentPathBase();
         
         switch (path) {
+            case 'all-reg':
+                Ext.defer(function () {
+                    A.adminReg();
+                }, 1000, this);
+                this.goToRootPage('register');
+                break;
             case 'key':
                 this.goToRootPageWithKey();
                 break;
