@@ -17,9 +17,11 @@ Ext.define('A.view.partner.MainController', {
         var keyPage = this.getView().down('partnerKey');
         var idField = keyPage.down('#id');
         var linkField = keyPage.down('#link');
+        var registerLinkField = keyPage.down('#register');
         var id = idField.getValue();
 
-        linkField.setValue('http://фирмы.онлайн/page-root-register-' + id);
+        linkField.setValue('http://фирмы.онлайн/page-key-' + id);
+        registerLinkField.setValue('http://фирмы.онлайн/page-root-register-' + id);
         
     },
 

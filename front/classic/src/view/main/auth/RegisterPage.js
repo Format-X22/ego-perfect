@@ -47,13 +47,13 @@ Ext.define('A.view.main.auth.RegisterPage', {
 			layout: 'vbox',
 			items: [
 				{
-					boxLabel: 'Клиент, хочу разместить свою компанию.',
+					boxLabel: 'Клиент',
 					name: 'type',
 					inputValue: 'company',
 					checked: true
 				},
 				{
-					boxLabel: 'Партнер, хочу приглашать клиентов.',
+					boxLabel: 'Агент',
 					name: 'type',
 					inputValue: 'partner'
 				}
@@ -77,8 +77,8 @@ Ext.define('A.view.main.auth.RegisterPage', {
             itemId: 'partner',
             name: 'partner',
             xtype: 'textfield',
-            fieldLabel: 'Код партнера',
-            emptyText: 'могли дать наши партнеры, не обязателен',
+            fieldLabel: 'Ключ агента',
+            emptyText: 'если он у вас есть',
             listeners: {
                 specialkey: 'trySendIfEnterKey',
                 change: 'trimValueOnChange'

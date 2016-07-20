@@ -205,7 +205,7 @@ Ext.define('B.Mail', {
 				case 'company':
 					return 'Клиент';
 				case 'partner':
-					return 'Партнер';
+					return 'Агент';
 			}
 		}
 	}

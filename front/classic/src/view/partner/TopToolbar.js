@@ -14,13 +14,6 @@ Ext.define('A.view.partner.TopToolbar', {
     height: 70,
     items: [
         {
-            itemId: 'toSearch',
-            xtype: 'button',
-            text: 'На страницу поиска',
-            iconCls: 'x-fa fa-search',
-            handler: 'toSearch'
-        },
-        {
             itemId: 'exit',
             xtype: 'button',
             text: 'Выйти',
@@ -33,11 +26,11 @@ Ext.define('A.view.partner.TopToolbar', {
         },
         {
             xtype: 'tbtext',
-            html: 'Панель партнера'
+            html: 'Личный кабинет агента'
         },
         {
             xtype: 'component',
-            flex: 2
+            flex: 1
         }
     ]
 });
