@@ -1,4 +1,41 @@
 extends shared/public-base
 
 block content
-	p 1
+	.container
+		.row.presentation-row
+			.presentation-block.col-md-4(itemscope, itemtype="http://schema.org/ImageObject")
+				img(itemprop="contentUrl", src='/static/img/contacts1.svg', alt='Единая связь')
+				.name(itemprop="name") Единая связь
+				p(itemprop="description")
+					| По любому вопросу вы
+					| всегда можете
+					| написать на почту
+					a(href='mailto:w@фирмы.онлайн')  w@фирмы.онлайн
+					|  или позвонить на номер
+					a(href='tel:88002500186')  8 (800) 25-00-186
+					|  Круглосуточно.
+					| Бесплатно.
+			.presentation-block.col-md-4(itemscope, itemtype="http://schema.org/ImageObject")
+				img(itemprop="contentUrl", src='/static/img/contacts2.svg', alt='Юридические данные')
+				.name(itemprop="name") Юридические данные
+				p(itemprop="description").
+					ООО "Простые числа"
+					129345, г. Москва, ул. Тайнинская, д.26,
+					пом. I, комн. 1
+					ОГРН
+					1167746406805
+					ИНН/КПП
+					7716823512/771601001
+			.presentation-block.col-md-4(itemscope, itemtype="http://schema.org/ImageObject")
+				img(itemprop="contentUrl", src='/static/img/contacts3.svg', alt='Банковские реквизиты')
+				.name(itemprop="name") Банковские реквизиты
+				p(itemprop="description").
+					Р/сч:
+					40702810201270006807
+					БИК:
+					044583999
+					Кор/сч:
+					30101810600000000999
+					в ТОЧКА ПАО "ХАНТЫ-МАНСИЙСКИЙ БАНК ОТКРЫТИЕ"
+
+	include shared/footer
