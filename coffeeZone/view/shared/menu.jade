@@ -1,0 +1,23 @@
+nav.navbar.navbar-default.navbar-fixed-top
+	.container-fluid
+		.navbar-header
+			ul.visible-xs-inline-block.nav.navbar-nav
+				li: a#mobile-page-hint
+			button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#top-menu-buttons', aria-expanded='false')
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
+			a.navbar-brand
+		#top-menu-buttons.collapse.navbar-collapse
+			ul.nav.navbar-nav
+				li#top-menu-search:       a(href='/')             Поиск
+				li#top-menu-presentation: a(href='/presentation') Клиентам
+				li#top-menu-offer:        a(href='/offer')        Оферта
+				li#top-menu-contacts:     a(href='/contacts')     Контакты
+				li#top-menu-login:        a(href='/login')        Вход
+				li#top-menu-register:     a(href='/register')     Регистрация
+
+			ul.nav.navbar-nav.navbar-right.hidden-sm
+				li: a(href='tel:88002500186') 8 (800) 25-00-186
+					span.hidden-xs  | круглосуточно
