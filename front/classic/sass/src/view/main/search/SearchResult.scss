@@ -6,10 +6,11 @@
 		img {
 			width: 300px;
 			height: 300px;
+			border: 1px solid black;
 			cursor: pointer;
 
 			&:hover {
-				box-shadow: #585858 0 0 4px 1px;
+				box-shadow: #bbbbbb 0 0 4px 1px;
 			}
 		}
 
@@ -19,7 +20,7 @@
 	}
 
 	.search-toolbar {
-		box-shadow: #585858 0 0 4px 1px;
+		box-shadow: #bbbbbb 0 0 4px 1px;
 		z-index: 1;
 	}
 

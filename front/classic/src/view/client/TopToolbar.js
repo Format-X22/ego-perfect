@@ -17,21 +17,18 @@ Ext.define('A.view.client.TopToolbar', {
             itemId: 'toDetails',
             xtype: 'button',
             text: 'На страницу вашей компании',
-            iconCls: 'x-fa fa-file-text-o',
             handler: 'toDetails'
         },
         {
             itemId: 'toSearch',
             xtype: 'button',
             text: 'На страницу поиска',
-            iconCls: 'x-fa fa-search',
             handler: 'toSearch'
         },
         {
             itemId: 'release',
             xtype: 'button',
             text: 'Разместить!',
-            iconCls: 'x-fa fa-cloud-upload',
             handler: 'release',
             hidden: true
         },
@@ -39,7 +36,6 @@ Ext.define('A.view.client.TopToolbar', {
             itemId: 'exit',
             xtype: 'button',
             text: 'Выйти',
-            iconCls: 'x-fa fa-lock',
             handler: 'exit'
         },
         {

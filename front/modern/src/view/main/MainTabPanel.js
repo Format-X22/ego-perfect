@@ -30,26 +30,22 @@ Ext.define('A.view.main.MainTabPanel', {
         {
             itemId: 'search',
             xtype: 'searchContainer',
-            title: 'Поиск',
-            iconCls: 'x-fa fa-search'
+            title: 'Поиск'
         },
         {
             itemId: 'clients',
             xtype: 'pageForClients',
-            title: 'Клиентам',
-            iconCls: 'x-fa fa-user'
+            title: 'Клиентам'
         },
         {
             itemId: 'contacts',
             xtype: 'pageForContacts',
-            title: 'Контакты',
-            iconCls: 'x-fa fa-phone'
+            title: 'Контакты'
         },
         {
             itemId: 'offer',
             xtype: 'clientsOffer',
-            title: 'Оферта',
-            iconCls: 'x-fa fa-bank'
+            title: 'Оферта'
         }
     ],
     listeners: {

@@ -46,32 +46,27 @@ Ext.define('A.view.main.Main', {
                 {
                     itemId: 'search',
                     xtype: 'searchContainer',
-                    title: 'Поиск',
-                    iconCls: 'x-fa fa-search'
+                    title: 'Поиск'
                 },
                 {
                     itemId: 'clients',
                     xtype: 'pageForClientsWithOffer',
-                    title: 'Клиентам',
-                    iconCls: 'x-fa fa-user'
+                    title: 'Клиентам'
                 },
                 {
                     itemId: 'contacts',
                     xtype: 'pageForContacts',
-                    title: 'Контакты',
-                    iconCls: 'x-fa fa-phone'
+                    title: 'Контакты'
                 },
                 {
                     itemId: 'login',
                     xtype: 'loginPage',
-                    title: 'Вход',
-                    iconCls: 'x-fa fa-key'
+                    title: 'Вход'
                 },
                 {
                     itemId: 'register',
                     xtype: 'registerPage',
-                    title: 'Регистрация',
-                    iconCls: 'x-fa fa-user-plus'
+                    title: 'Регистрация'
                 }
             ],
             listeners: {

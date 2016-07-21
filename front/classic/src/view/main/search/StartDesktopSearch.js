@@ -43,7 +43,7 @@ Ext.define('A.view.main.search.StartDesktopSearch', {
                     xtype: 'textfield',
                     inputType: 'search',
                     border: 1,
-                    emptyText: 'Что ищем? Например - химчистка',
+                    emptyText: 'Например - химчистка',
                     submitEmptyText: false,
                     flex: 1,
                     listeners: {
@@ -54,8 +54,7 @@ Ext.define('A.view.main.search.StartDesktopSearch', {
                 {
                     itemId: 'searchButton',
                     xtype: 'button',
-                    html: 'Искать',
-                    iconCls: 'x-fa fa-search'
+                    html: 'Искать'
                 }
             ]
         },

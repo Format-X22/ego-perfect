@@ -11,7 +11,6 @@ Ext.define('A.view.main.company.reviews.Send', {
     ],
 
     title: 'Оставить свой отзыв',
-    iconCls: 'x-fa fa-pencil',
     layout: {
         type: 'hbox',
         pack: 'center'
@@ -31,21 +30,21 @@ Ext.define('A.view.main.company.reviews.Send', {
                 {
                     name: 'name',
                     xtype: 'textfield',
-                    fieldLabel: 'Имя',
+                    emptyText: 'Имя',
                     maxLength: 100,
                     allowBlank: false
                 },
                 {
                     name: 'header',
                     xtype: 'textfield',
-                    fieldLabel: 'Заголовок',
+                    emptyText: 'Заголовок',
                     maxLength: 100,
                     allowBlank: false
                 },
                 {
                     name: 'description',
                     xtype: 'textarea',
-                    fieldLabel: 'Отзыв',
+                    emptyText: 'Отзыв',
                     height: 120,
                     maxLength: 1000,
                     allowBlank: false

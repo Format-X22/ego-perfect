@@ -260,8 +260,8 @@ Ext.define('B.Main', {
             this.getServer().close();
 
             Ext.defer(function () {
-                this.createServer();
-                this.launchServer();
+                this.createServerStep();
+                this.launchServerStep();
             }, this.getRerunTime(), this);
         },
 

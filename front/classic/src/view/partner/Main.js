@@ -29,18 +29,15 @@ Ext.define('A.view.partner.Main', {
             items: [
                 {
                     xtype: 'partnerKey',
-                    title: 'Ключ агента',
-                    iconCls: 'x-fa fa-key'
+                    title: 'Ключ агента'
                 },
                 {
                     xtype: 'partnerActs',
-                    title: 'Акты',
-                    iconCls: 'x-fa fa-file-o'
+                    title: 'Акты'
                 },
                 {
                     xtype: 'partnerProfile',
-                    title: 'Профиль',
-                    iconCls: 'x-fa fa-user'
+                    title: 'Профиль'
                 }
             ]
         }

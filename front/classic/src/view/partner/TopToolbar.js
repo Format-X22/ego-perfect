@@ -17,7 +17,6 @@ Ext.define('A.view.partner.TopToolbar', {
             itemId: 'exit',
             xtype: 'button',
             text: 'Выйти',
-            iconCls: 'x-fa fa-lock',
             handler: 'exit'
         },
         {

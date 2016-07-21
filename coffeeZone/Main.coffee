@@ -6,6 +6,8 @@ cookieParser = require 'cookie-parser'
 fileParser = require 'connect-busboy'
 http = require 'http'
 
+Router = require './router'
+
 class Main
     app = express()
     server = null
@@ -17,6 +19,7 @@ class Main
     constructor: ->
         @initDataBaseStep()
         @initExpressStep()
+        @initRouter()
         @createServerStep()
 
     initDataBaseStep: ->
@@ -28,21 +31,9 @@ class Main
         app.set 'view engine', 'jade'
         app.set 'views', "#{__dirname}/view"
 
-        #hack
-        app.get /.*/, (req, res, next) =>
-            path = req.path.slice 1
-            path = path || 'index'
+        faviconPath = path.join "#{__dirname}/public/static/img/favicon.png"
 
-            if /^static/.test path
-                next()
-            else
-                res.render path
-
-        #/hack
-
-        #faviconPath = path.join "#{__dirname}public/resources/img/favicon.png"
-
-        #app.use favicon(faviconPath)
+        app.use favicon(faviconPath)
 
         app.use bodyParser.json()
         app.use bodyParser.urlencoded {extended: false}
@@ -52,6 +43,9 @@ class Main
         staticDirSign = express.static "#{__dirname}/public"
 
         app.use staticDirSign
+
+    initRouter: ->
+	    new Router(app)
 
     createServerStep: ->
         server = http.createServer app
