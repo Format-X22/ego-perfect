@@ -1,7 +1,7 @@
 extends shared/public-base
 
 block content
-	form.container
+	form(action='/login', method='POST').container
 		.start-search-desktop-offset.hidden-xs
 		.row
 			img.center-block(src='static/img/logo.svg', width='240', height="200")
@@ -11,17 +11,15 @@ block content
 					.input-group
 						.input-group-addon
 							span.glyphicon.glyphicon-envelope
-						input.form-control(type='email', placeholder='boss@mail.com', autocomplete='email', autofocus)
+						input.form-control(name='login', type='email', placeholder='boss@mail.com', autocomplete='email', autofocus)
 		.row
 			.col-md-offset-3.col-md-6
 				.form-group
 					.input-group
 						.input-group-addon
 							span.glyphicon.glyphicon-asterisk
-						input.form-control(type='password', placeholder='1SecretT22', autocomplete='current-password', inputmode='latin')
+						input.form-control(name='pass', type='password', placeholder='1SecretT22', autocomplete='current-password', inputmode='latin')
 		.row
 			.col-md-offset-3.col-md-6.form-right-buttons
 				button.btn.btn-primary.right(type='submit') Войти в кабинет
 				button.btn.btn-default.right(type='button') Напомнить пароль
-
-	include shared/footer

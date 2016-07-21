@@ -1,34 +1,31 @@
 extends shared/public-base
 
 block content
-	#start.container.hidden
+	#start.container
+
 		.start-search-desktop-offset.hidden-xs
 		.row
 			img.center-block(src='static/img/logo.svg', width='240')
 		.row
 			.col-md-12
 				h1.start-search-info Визуальная поисковая система компаний и услуг
-		form.row(action='/', role='search')
-			.col-md-offset-2.col-md-8.hidden-xs
+		.row
+			form.col-md-offset-2.col-md-8(action='/', method='GET', role='search')
 				.input-group
-					input.form-control(type='search', placeholder='химчистка')
-					.input-group-btn
-						button.btn.btn-primary(type='submit') Искать
-			.col-md-offset-2.col-md-8.visible-xs-block
-				.input-group
-					input.form-control(type='search', placeholder='химчистка')
+					input.form-control(name='query', type='search', placeholder='химчистка', autofocus)
 					.input-group-btn
 						button.btn.btn-primary(type='submit')
-							span.glyphicon.glyphicon-search
+							span.hidden-xs Искать
+							span.glyphicon.glyphicon-search.visible-xs-inline
 
-	#result.container
+	#result.container.hidden
 
 		nav.navbar.navbar-inverse.navbar-fixed-top.offset-menu-desktop.hidden-xs
 			.container-fluid
 				.navbar-header
 					a.navbar-brand.hidden-sm
 						img.center-block(src='static/img/logo.svg', width='40')
-				form.navbar-form(action='/', role='search')
+				form.navbar-form(action='/', method='GET', role='search')
 					.form-group
 						.input-group.desktop-search-width
 							input.form-control.desktop-search-width(type='search', placeholder='химчистка')
@@ -37,7 +34,7 @@ block content
 									span.glyphicon.glyphicon-search
 
 		nav.navbar.navbar-inverse.navbar-fixed-top.offset-menu-mobile.visible-xs-block
-			form.navbar-form.mobile-search-form(action='/', role='search')
+			form.navbar-form.mobile-search-form(action='/', method='GET', role='search')
 				.form-group
 					.input-group
 						input.form-control(type='search', placeholder='химчистка')
