@@ -51,6 +51,7 @@ Ext.define('A.view.main.search.StartMobileSearch', {
             xtype: 'button',
             ui: 'search-with-text',
             html: 'Искать',
+            iconCls: 'x-fa fa-search',
             width: '100%'
         },
         {

@@ -39,6 +39,7 @@ Ext.define('A.view.main.search.SearchResult', {
                 {
                     itemId: 'searchButton',
                     xtype: 'button',
+                    iconCls: 'x-fa fa-search',
                     text: 'Искать'
                 },
                 {

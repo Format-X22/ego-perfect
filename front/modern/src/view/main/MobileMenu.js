@@ -12,28 +12,28 @@ Ext.define('A.view.main.MobileMenu', {
     items: [
         {
             text: 'Поиск',
-            minWidth: 150,
+            iconCls: 'x-fa fa-search',
             handler: function () {
                 this.up().getController().goToPage(0);
             }
         },
         {
             text: 'Клиентам',
-            minWidth: 150,
+            iconCls: 'x-fa fa-user',
             handler: function () {
                 this.up().getController().goToPage(1);
             }
         },
         {
-            text: 'Контакты',
-            minWidth: 150,
+            text: 'Контакты',     
+            iconCls: 'x-fa fa-phone',
             handler: function () {
                 this.up().getController().goToPage(2);
             }
         },
         {
             text: 'Оферта',
-            minWidth: 150,
+            iconCls: 'x-fa fa-bank',
             handler: function () {
                 this.up().getController().goToPage(4);
             }

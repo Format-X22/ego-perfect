@@ -93,6 +93,7 @@ Ext.define('A.view.main.auth.RegisterPage', {
             items: [
                 {
                     xtype: 'button',
+                    iconCls: 'x-fa fa-user-plus',
                     text: 'Зарегистрироваться',
                     width: 200,
                     handler: 'trySend'

@@ -20,12 +20,14 @@ Ext.define('A.view.main.infoPage.ForClientsWithOffer', {
         {
             itemId: 'show',
             xtype: 'pageForClients',
-            title: 'Презентация'
+            title: 'Презентация',
+            iconCls: 'x-fa fa-eye'
         },
         {
             itemId: 'offer',
             xtype: 'clientsOffer',
-            title: 'Оферта'
+            title: 'Оферта',
+            iconCls: 'x-fa fa-bank'
         }
     ]
 });

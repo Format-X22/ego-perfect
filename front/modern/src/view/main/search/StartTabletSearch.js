@@ -46,7 +46,7 @@ Ext.define('A.view.main.search.StartTabletSearch', {
                     ui: 'text',
                     cls: 'tablet-search',
                     border: 1,
-                    placeHolder: 'Например - химчистка',
+                    placeHolder: 'Что ищем? Например - химчистка',
                     flex: 1,
                     listeners: {
                         focus: 'switchTabletInitToSimple',
@@ -58,7 +58,8 @@ Ext.define('A.view.main.search.StartTabletSearch', {
                     itemId: 'searchButton',
                     xtype: 'button',
                     ui: 'search-with-text',
-                    html: 'Искать'
+                    html: 'Искать',
+                    iconCls: 'x-fa fa-search'
                 }
             ]
         },

@@ -84,16 +84,18 @@ Ext.define('A.view.main.auth.LoginPage', {
             items: [
                 {
                     xtype: 'button',
-                    text: 'Сбросить пароль',
+                    iconCls: 'x-fa fa-key',
+                    text: 'Войти',
                     width: 150,
-                    handler: 'resetPass',
+                    handler: 'send',
                     margin: '0 15 0 0'
                 },
                 {
                     xtype: 'button',
-                    text: 'Войти',
+                    iconCls: 'x-fa fa-question',
+                    text: 'Сбросить пароль',
                     width: 150,
-                    handler: 'send'
+                    handler: 'resetPass'
                 }
             ]
         },

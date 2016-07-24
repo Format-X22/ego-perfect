@@ -6,6 +6,7 @@ Ext.define('A.view.main.company.reviews.List', {
     xtype: 'companyReviewsList',
 
     title: 'Все отзывы',
+    iconCls: 'x-fa fa-th-list',
     height: '100%',
 
     items: [

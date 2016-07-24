@@ -51,6 +51,7 @@ Ext.define('A.view.client.Main', {
                 {
                     xtype: 'tabpanel',
                     title: 'Статистика',
+                    iconCls: 'x-fa fa-line-chart',
                     height: '100%',
                     defaults: {
                         padding: 30
@@ -58,19 +59,23 @@ Ext.define('A.view.client.Main', {
                     items: [
                         {
                             xtype: 'clientStatisticRating',
-                            title: 'Рейтинг'
+                            title: 'Рейтинг',
+                            iconCls: 'x-fa fa-diamond'
                         },
                         {
                             xtype: 'clientStatisticViews',
-                            title: 'Просмотры'
+                            title: 'Просмотры',
+                            iconCls: 'x-fa fa-eye'
                         },
                         {
                             xtype: 'clientStatisticReviews',
-                            title: 'Отзывы'
+                            title: 'Отзывы',
+                            iconCls: 'x-fa fa-commenting'
                         },
                         {
                             xtype: 'clientStatisticStars',
-                            title: 'Звездность'
+                            title: 'Звездность',
+                            iconCls: 'x-fa fa-star'
                         }
                     ]
                 },
@@ -78,35 +83,42 @@ Ext.define('A.view.client.Main', {
                     itemId: 'editorTabPanel',
                     xtype: 'tabpanel',
                     title: 'Редактор',
+                    iconCls: 'x-fa fa-pencil-square-o',
                     listeners: {
                         beforetabchange: 'checkEditorSaveOnTabChange'
                     },
                     items: [
                         {
                             xtype: 'clientEditorBasic',
-                            title: 'Основное'
+                            title: 'Основное',
+                            iconCls: 'x-fa fa-list'
                         },
                         {
                             xtype: 'clientEditorSummary',
-                            title: 'Описание компании'
+                            title: 'Описание компании',
+                            iconCls: 'x-fa fa-file-text-o'
                         },
                         {
                             xtype: 'clientEditorPhoto',
-                            title: 'Фото'
+                            title: 'Фото',
+                            iconCls: 'x-fa fa-picture-o'
                         },
                         {
                             xtype: 'clientEditorKeyWords',
-                            title: 'Ключевые слова'
+                            title: 'Ключевые слова',
+                            iconCls: 'x-fa fa-font'
                         }
                     ]
                 },
                 {
                     xtype: 'clientProfile',
-                    title: 'Профиль'
+                    title: 'Профиль',
+                    iconCls: 'x-fa fa-user'
                 },
                 {
                     xtype: 'clientPayNoCard',
-                    title: 'Оплата'
+                    title: 'Оплата',
+                    iconCls: 'x-fa fa-money'
                 }
             ]
         }
