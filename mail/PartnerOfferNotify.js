@@ -5,7 +5,7 @@
 Ext.define('B.mail.PartnerOfferNotify', {
     extend: 'B.mail.AbstractMail',
 
-    from: 'w@xn--h1ailo2b.xn--80asehdb',
+    from: 'w@firms-online.com',
     subject: 'Заключение договора с ООО "Простые числа"',
     html:
         'Здравствуйте!' +

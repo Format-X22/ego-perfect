@@ -12,7 +12,7 @@ Ext.define('B.mail.NewReview', {
         'О вашей компании оставлен новый отзыв!' +
         '<br><br>' +
         'Прочитать его вы можете ' +
-        '<a href="http://xn--h1ailo2b.xn--80asehdb/page-company-{companyId}_reviews">' +
+        '<a href="http://firms-online.com/page-company-{companyId}_reviews">' +
             'на странице вашей компании.' +
         '</a>' +
         '<br><br>',

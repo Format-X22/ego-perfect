@@ -85,7 +85,7 @@ Ext.define('B.Mail', {
 
 		this.getSender().send(
 			{
-				from: 'robot@xn--h1ailo2b.xn--80asehdb',
+				from: 'robot@firms-online.com',
 				to: login,
 				subject: 'Пароль для Фирмы Онлайн',
 				html: tpl.apply({
@@ -108,7 +108,7 @@ Ext.define('B.Mail', {
 
         this.getSender().send(
             {
-                from: 'w@xn--h1ailo2b.xn--80asehdb',
+                from: 'w@firms-online.com',
                 to: this.getLogin(),
                 subject: 'Заключение договора с Фирмы Онлайн',
                 html: [
@@ -130,7 +130,7 @@ Ext.define('B.Mail', {
 	notifyPartnerAboutUseKey: function (clientLogin) {
         this.getSender().send(
             {
-                from: 'robot@xn--h1ailo2b.xn--80asehdb',
+                from: 'robot@firms-online.com',
                 to: this.getLogin(),
                 subject: 'Хорошие новости! Кто-то использовал ваш ключ!',
                 html: [
@@ -151,7 +151,7 @@ Ext.define('B.Mail', {
 	sendDrawForMeRequest: function (id) {
 		this.getSender().send(
 			{
-				from: 'robot@xn--h1ailo2b.xn--80asehdb',
+				from: 'robot@firms-online.com',
 				to: 'oleg.pav.m@gmail.com',
 				subject: 'Запрос на бесплатный логотип',
 				html: 'ID: ' + id
@@ -167,14 +167,14 @@ Ext.define('B.Mail', {
 	notifyClientAboutReview: function (id) {
 		this.getSender().send(
 			{
-				from: 'robot@xn--h1ailo2b.xn--80asehdb',
+				from: 'robot@firms-online.com',
 				to: this.getLogin(),
 				subject: 'Новый отзыв!',
 				html: [
 					'Здравствуйте!',
 					'О вашей компании оставлен новый отзыв!',
 					'Прочитать его вы можете ' +
-					'<a href="http://xn--h1ailo2b.xn--80asehdb/page-company-' + id + '_reviews">на странице вашей компании.</a>',
+					'<a href="http://firms-online.com/page-company-' + id + '_reviews">на странице вашей компании.</a>',
 					this.getSignature()
 				].join('<br><br>')
 			},

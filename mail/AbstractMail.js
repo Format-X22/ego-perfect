@@ -16,7 +16,7 @@ Ext.define('B.mail.AbstractMail', {
         /**
          * @cfg {String} from (required) От кого.
          */
-        from: 'robot@xn--h1ailo2b.xn--80asehdb',
+        from: 'robot@firms-online.com',
 
         /**
          * @cfg {String} to (required) Кому.
