@@ -33,7 +33,7 @@ Ext.define('A.store.PageForPartners', {
             header: 'Мы договоримся',
             description:
                 'Просто напишите на эту почту - ' +
-                '<a class="link" href="mailto:w@фирмы.онлайн">w@фирмы.онлайн</a><br>' +
+                '<a class="link" href="mailto:w@firms-online.com">w@firms-online.com</a><br>' +
                 'или позвоните на номер<br>' +
                 '<a class="link" href="tel:88002500186">8 (800) 25-00-186</a>'
         }

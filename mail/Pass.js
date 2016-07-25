@@ -7,7 +7,7 @@ Ext.define('B.mail.Pass', {
 
     subject: 'Пароль для Фирмы Онлайн',
     tpl:
-        'Данные для входа на сайт <a href="http://фирмы.онлайн/">http://фирмы.онлайн</a>' +
+        'Данные для входа на сайт <a href="http://firms-online.com/">http://фирмы.онлайн</a>' +
         '<br><br>' +
         'Ваш логин: {login}' +
         '<br><br>' +

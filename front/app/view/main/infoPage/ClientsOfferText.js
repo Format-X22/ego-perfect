@@ -233,7 +233,7 @@ Ext.define('A.view.main.infoPage.ClientsOfferText', {
         'БИК: 044583999<br>' +
         'Кор/сч: 30101810600000000999 в ТОЧКА ПАО "ХАНТЫ-МАНСИЙСКИЙ БАНК ОТКРЫТИЕ"<br>' +
         'Телефон: <a class="link" href="tel:88002500186">8 (800) 25-00-186</a><br>' +
-        'Адрес электронной почты: <a class="link" href="mailto:w@фирмы.онлайн">w@фирмы.онлайн</a><br><br>' +
+        'Адрес электронной почты: <a class="link" href="mailto:w@firms-online.com">w@firms-online.com</a><br><br>' +
         '<br>' +
         '<b>Генеральный директор</b><br>' +
         'Павлов Олег Михайлович'
