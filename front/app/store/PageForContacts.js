@@ -21,7 +21,7 @@ Ext.define('A.store.PageForContacts', {
                 'По любому вопросу вы<br>' +
                 'всегда можете<br>' +
                 'написать на почту<br>' +
-                '<a class="link" href="mailto:w@фирмы.онлайн">w@фирмы.онлайн</a><br>' +
+                '<a class="link" href="mailto:w@firms-online.com">w@firms-online.com</a><br>' +
                 'или позвонить на номер<br>' +
                 '<a class="link" href="tel:88002500186">8 (800) 25-00-186</a><br>Круглосуточно.<br>Бесплатно.'
         },

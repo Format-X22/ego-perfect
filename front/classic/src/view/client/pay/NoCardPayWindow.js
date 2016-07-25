@@ -58,7 +58,7 @@ Ext.define('A.view.client.pay.NoCardPayWindow', {
                 '<br>' +
                 '<b>Контакты:</b><br>' +
                 'Телефон: <a class="link" href="tel:88002500186">8 (800) 25-00-186</a><br>' +
-                'Адрес электронной почты: <a class="link" href="mailto:w@фирмы.онлайн">w@фирмы.онлайн</a><br>'
+                'Адрес электронной почты: <a class="link" href="mailto:w@firms-online.com">w@firms-online.com</a><br>'
         }
     ],
 

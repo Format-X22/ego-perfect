@@ -62,8 +62,8 @@ Ext.define('B.mail.AbstractMail', {
         signature: [
             '<hr>' +
             'ООО "Простые числа"',
-            '<a href="http://фирмы.онлайн/">http://фирмы.онлайн</a>',
-            '<a href="mailto:w@фирмы.онлайн">w@фирмы.онлайн</a>',
+            '<a href="http://firms-online.com/">http://фирмы.онлайн</a>',
+            '<a href="mailto:w@firms-online.com">w@firms-online.com</a>',
             '<a href="tel:88002500186">8 (800) 25-00-186</a>'
         ].join('<br><br>')
 
