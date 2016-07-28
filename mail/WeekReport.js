@@ -20,6 +20,8 @@ Ext.define('B.mail.WeekReport', {
             '{name}' +
         '</a>' +
         '<br><br>' +
+        'Услуги оплачены до - <b>{payDate}</b><br>' +
+        '<br><br>' +
         'Успехов!' +
         '<br><br>',
 
@@ -53,7 +55,12 @@ Ext.define('B.mail.WeekReport', {
         /**
          * @cfg {String} name Имя компании.
          */
-        name: ''
+        name: '',
+
+        /**
+         * @cfg {Date} Дата, до которой оплачены услуги.
+         */
+        payDate: null
     },
 
     init: function () {
@@ -65,7 +72,8 @@ Ext.define('B.mail.WeekReport', {
             stars: this.getStars(),
             rating: this.getRating(),
             id: this.getId(),
-            name: this.getName()
+            name: this.getName(),
+            payDate: this.getPayDate()
         });
     }
 });
