@@ -87,7 +87,8 @@ Ext.define('B.service.ViewUp', {
                         },
                         {
                             $inc: {
-                                views: Ext.Number.randomInt(50, 200)
+                                views: Ext.Number.randomInt(50, 200),
+                                rating: Ext.Number.randomInt(1, 50)
                             }
                         },
                         function (error) {
