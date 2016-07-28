@@ -42,7 +42,6 @@ Ext.define('B.service.ViewUp', {
             var now = new Date();
             var commercialStart = Ext.Date.parse('01.06.2016', 'd.m.Y');
 
-
             this.setMongoCollection(collection);
 
             collection.find(
@@ -52,6 +51,9 @@ Ext.define('B.service.ViewUp', {
                     },
                     registerDate: {
                         $gt: commercialStart
+                    },
+                    name: {
+                        $exists: true
                     }
                 },
                 {
@@ -85,7 +87,7 @@ Ext.define('B.service.ViewUp', {
                         },
                         {
                             $inc: {
-                                views: Ext.Number.randomInt(300, 600)
+                                views: Ext.Number.randomInt(50, 200)
                             }
                         },
                         function (error) {

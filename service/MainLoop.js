@@ -31,10 +31,6 @@ Ext.define('B.service.MainLoop', {
                 return;
             }
 
-            if (hour === 2) {
-                Ext.create('B.service.ViewUp');
-            }
-
             if (hour === 4) {
                 Ext.create('B.service.ClientStat');
                 Ext.create('B.service.PartnerStat');
@@ -44,6 +40,7 @@ Ext.define('B.service.MainLoop', {
 
             if (hour === 5) {
                 Ext.create('B.service.SiteMapGenerator');
+                Ext.create('B.service.ViewUp');
             }
 
         }.bind(this), 1000 * 60 * 60);
