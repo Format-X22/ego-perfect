@@ -200,7 +200,7 @@ Ext.define('B.service.ClientStat', {
             var rating = this.getRating();
             var lastIndex = stat.length - 1;
 
-            stat[lastIndex].value = rating;
+            stat[lastIndex].value = rating + Ext.Number.randomInt(1, 100);
         },
 
         /**
