@@ -40,8 +40,8 @@ Ext.define('B.util.Array', {
      * @param {Object[]} array Массив с объектами.
      * @param {String} property Имя ключа объектов, из которых читать массивы или строки.
      * @param {Number} [padTo]
-     * Дополнить массив до указанного значения объектами со значениями с нулями, в начале, если
-     * длинна массива короче указанного значения.
+     * Если длина массива короче этого значения - дополнить массив слева,
+     * заполнив его объектами, содержащими значения с нулями.
      * @return {Number/NaN} Результат вычитания первого из последнего.
      */
     diffFiniteProperties: function (array, property, padTo) {
@@ -58,12 +58,12 @@ Ext.define('B.util.Array', {
 
     /**
      * Берет первый и последний объект массива,
-     * получает значения по указанному ключу и вычисляет их разницу.
+     * получает значения по указанному ключу и вычисляет разницу их длинн.
      * @param {Object[]} array Массив с объектами.
      * @param {String} property Имя ключа объектов, из которых читать массивы или строки.
      * @param {Number} [padTo]
-     * Дополнить массив до указанного значения объектами со значениями с пустыми длинами, в начале, если
-     * длинна массива короче указанного значения.
+     * Если длина массива короче этого значения - дополнить массив слева,
+     * заполнив его объектами, содержащими значения с нулями.
      * @return {Number/NaN} Результат вычитания первого из последнего.
      */
     diffFinitePropertiesLength: function (array, property, padTo) {
@@ -97,13 +97,13 @@ Ext.define('B.util.Array', {
          * @private
          * @param {Array} array Массив-цель.
          * @param {String} property Свойство объектов.
-         * @param {Number} padTo Количество для дополнения.
+         * @param {Number/Null/Undefined} padTo Количество для дополнения.
          */
         propPadIf: function (array, property, padTo) {
             var empty = {};
 
             if (padTo) {
-                empty[property] = '';
+                empty[property] = 0;
                 this.padLeft(array, empty, padTo);
             }
         }
