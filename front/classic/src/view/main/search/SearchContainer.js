@@ -14,6 +14,7 @@ Ext.define('A.view.main.search.SearchContainer', {
     ],
 
     layout: 'fit',
+    cls: 'grey-back',
 
     items: [
         {

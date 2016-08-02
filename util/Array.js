@@ -69,6 +69,8 @@ Ext.define('B.util.Array', {
     diffFinitePropertiesLength: function (array, property, padTo) {
         var clone = Ext.Array.clone(array);
 
+        this.propPadIf(array, property, padTo);
+
         clone.forEach(function (item) {
             item[property] = item[property].length;
         });

@@ -20,7 +20,8 @@ Ext.define('B.service.MainLoop', {
     ],
 
     constructor: function () {
-        Ext.defer(function () {
+        return;
+        /*Ext.defer(function () {
             Ext.create('B.service.ClientStat');
             Ext.create('B.service.ViewUp');
             Ext.create('B.service.WeekReport');
@@ -74,7 +75,7 @@ Ext.define('B.service.MainLoop', {
             Ext.create('B.service.ViewUp');
             Ext.create('B.service.WeekReport');
             // Место для установки ручных сервисов
-        }, 40000);
+        }, 40000);*/
 
         setInterval(function () {
             var date = new Date();

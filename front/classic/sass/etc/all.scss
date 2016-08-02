@@ -1,4 +1,54 @@
 // Фикс сползания полей файлов.
 .#{$prefix}form-text-wrap {
 	vertical-align: top;
+	background-color: white;
+}
+
+body {
+	.#{$prefix}panel-body-default,
+	.#{$prefix}form-item-label-default,
+	.#{$prefix}form-display-field-default {
+		color: white;
+	}
+
+	.#{$prefix}tab-active,
+	.#{$prefix}toolbar-default,
+	.#{$prefix}message-box,
+	.#{$prefix}slider-thumb {
+		text-shadow: none;
+	}
+
+	.client-main,
+	.partner-main {
+
+		.#{$prefix}panel-body-default,
+		.#{$prefix}form-item-label-default,
+		.#{$prefix}form-display-field-default {
+			text-shadow: none;
+			color: #404040 !important;
+		}
+	}
+
+	.#{$prefix}form-error-msg {
+		text-shadow: 1px 1px 0 black;
+	}
+}
+
+.grey-back {
+	background: grey url(/resources/img/background.jpeg);
+	background-size: cover;
+
+	.#{$prefix}panel-body-default {
+		background: transparent;
+	}
+}
+
+.no-gray-back {
+	background: white;
+	text-shadow: none;
+	color: #404040 !important;
+}
+
+.offer-accept-text {
+	text-shadow: none;
 }

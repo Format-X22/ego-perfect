@@ -30,7 +30,7 @@ Ext.define('A.view.main.search.StartDesktopSearch', {
         {
             xtype: 'component',
             padding: '0 0 10 0',
-            html: 'Визуальная поисковая система компаний и услуг'
+            html: 'Визуальная поисковая система'
         },
         {
             xtype: 'container',

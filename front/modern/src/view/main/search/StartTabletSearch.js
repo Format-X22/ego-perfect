@@ -16,6 +16,7 @@ Ext.define('A.view.main.search.StartTabletSearch', {
         type: 'vbox',
         align: 'center'
     },
+    cls: 'grey-back',
 
     items: [
         {
@@ -32,7 +33,7 @@ Ext.define('A.view.main.search.StartTabletSearch', {
             itemId: 'description',
             xtype: 'component',
             padding: '0 0 10 0',
-            html: 'Визуальная поисковая система компаний и услуг'
+            html: 'Визуальная поисковая система'
         },
         {
             xtype: 'container',

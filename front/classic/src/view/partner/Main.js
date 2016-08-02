@@ -15,6 +15,7 @@ Ext.define('A.view.partner.Main', {
     ],
 
     layout: 'vbox',
+    cls: 'partner-main',
     defaults: {
         width: '100%'
     },

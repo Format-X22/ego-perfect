@@ -126,7 +126,7 @@ Ext.define('B.service.WeekReport', {
          * @return {Number} Значение.
          */
         calculateRating: function (slice) {
-            return Ext.util.Array.diffFiniteProperties(slice, 'rating');
+            return B.util.Array.diffFiniteProperties(slice, 'rating');
         },
 
         /**
@@ -135,7 +135,7 @@ Ext.define('B.service.WeekReport', {
          * @return {Number} Значение.
          */
         calculateViews: function (slice) {
-            return Ext.util.Array.diffFiniteProperties(slice, 'views');
+            return B.util.Array.diffFiniteProperties(slice, 'views');
         },
 
         /**
@@ -144,7 +144,7 @@ Ext.define('B.service.WeekReport', {
          * @return {Number} Значение.
          */
         calculateReviewsCount: function (slice) {
-            return Ext.util.Array.diffFinitePropertiesLength(slice, 'reviews');
+            return B.util.Array.diffFinitePropertiesLength(slice, 'reviews');
         },
 
         /**

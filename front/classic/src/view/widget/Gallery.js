@@ -39,7 +39,7 @@ Ext.define('A.view.widget.Gallery', {
                     items.push({
                         itemId: 'image' + i,
                         xtype: 'image',
-                        alt: 'Это место для фото пока пусто...',
+                        alt: 'Фотография ' + i,
                         hidden: true
                     });
                 }

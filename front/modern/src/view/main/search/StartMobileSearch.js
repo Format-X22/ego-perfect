@@ -16,6 +16,7 @@ Ext.define('A.view.main.search.StartMobileSearch', {
         type: 'vbox',
         align: 'center'
     },
+    cls: 'grey-back',
 
     items: [
         {
@@ -33,7 +34,7 @@ Ext.define('A.view.main.search.StartMobileSearch', {
             style: {
                 textAlign: 'center'
             },
-            html: 'Визуальная поисковая система компаний и услуг'
+            html: 'Визуальная поисковая система'
         },
         {
             itemId: 'searchInput',

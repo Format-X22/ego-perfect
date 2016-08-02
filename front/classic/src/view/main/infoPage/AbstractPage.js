@@ -14,6 +14,7 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
         align: 'center',
         pack: 'center'
     },
+    cls: 'grey-back',
 
     config: {
 

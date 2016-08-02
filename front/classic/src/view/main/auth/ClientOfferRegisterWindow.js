@@ -30,6 +30,7 @@ Ext.define('A.view.main.auth.ClientOfferRegisterWindow', {
         {
             itemId: 'accept',
             xtype: 'checkbox',
+            cls: 'offer-accept-text',
             boxLabel: 'Я полностью соглашаюсь с условиями Оферты',
             listeners: {
                 change: 'toggleDoneButton'

@@ -31,7 +31,7 @@ Ext.define('A.view.client.Main', {
     ],
 
     layout: 'vbox',
-
+    cls: 'client-main',
     defaults: {
         width: '100%'
     },
