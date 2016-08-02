@@ -46,7 +46,7 @@ Ext.define('A.store.PageForClients', {
             url: '/resources/img/client1.svg',
             header: 'Интерактив',
             description:
-                'Представление компаний в виде микро-презентаций.'
+                'Представление компаний в виде микро-презентаций'
         },
         {
             id: 4,

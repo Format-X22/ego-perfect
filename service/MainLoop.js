@@ -15,67 +15,13 @@ Ext.define('B.service.MainLoop', {
         'B.service.PayOne',
         'B.service.TotalPayDateChange',
         'B.service.SiteMapGenerator',
-        'B.service.ViewUp',
-        'B.service.WeekReport'
+        'B.service.ViewUp'
     ],
 
     constructor: function () {
-        return;
-        /*Ext.defer(function () {
-            Ext.create('B.service.ClientStat');
-            Ext.create('B.service.ViewUp');
-            Ext.create('B.service.WeekReport');
+        Ext.defer(function () {
             // Место для установки ручных сервисов
         }, 5000);
-
-        Ext.defer(function () {
-            Ext.create('B.service.ClientStat');
-            Ext.create('B.service.ViewUp');
-            Ext.create('B.service.WeekReport');
-            // Место для установки ручных сервисов
-        }, 10000);
-
-        Ext.defer(function () {
-            Ext.create('B.service.ClientStat');
-            Ext.create('B.service.ViewUp');
-            Ext.create('B.service.WeekReport');
-            // Место для установки ручных сервисов
-        }, 15000);
-
-        Ext.defer(function () {
-            Ext.create('B.service.ClientStat');
-            Ext.create('B.service.ViewUp');
-            Ext.create('B.service.WeekReport');
-            // Место для установки ручных сервисов
-        }, 20000);
-
-        Ext.defer(function () {
-            Ext.create('B.service.ClientStat');
-            Ext.create('B.service.ViewUp');
-            Ext.create('B.service.WeekReport');
-            // Место для установки ручных сервисов
-        }, 25000);
-
-        Ext.defer(function () {
-            Ext.create('B.service.ClientStat');
-            Ext.create('B.service.ViewUp');
-            Ext.create('B.service.WeekReport');
-            // Место для установки ручных сервисов
-        }, 30000);
-
-        Ext.defer(function () {
-            Ext.create('B.service.ClientStat');
-            Ext.create('B.service.ViewUp');
-            Ext.create('B.service.WeekReport');
-            // Место для установки ручных сервисов
-        }, 35000);
-
-        Ext.defer(function () {
-            Ext.create('B.service.ClientStat');
-            Ext.create('B.service.ViewUp');
-            Ext.create('B.service.WeekReport');
-            // Место для установки ручных сервисов
-        }, 40000);*/
 
         setInterval(function () {
             var date = new Date();
