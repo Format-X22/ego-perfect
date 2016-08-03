@@ -17,7 +17,6 @@ Ext.define('A.view.main.infoPage.AbstractPage', {
         pack: 'center'
     },
     scrollable: 'vertical',
-    cls: 'grey-back',
 
     config: {
 

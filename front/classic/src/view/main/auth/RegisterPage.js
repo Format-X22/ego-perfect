@@ -15,7 +15,6 @@ Ext.define('A.view.main.auth.RegisterPage', {
         align: 'center',
         pack: 'center'
     },
-    cls: 'grey-back',
 
     defaults: {
         width: 500,

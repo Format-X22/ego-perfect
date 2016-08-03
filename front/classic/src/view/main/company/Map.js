@@ -12,7 +12,6 @@ Ext.define('A.view.main.company.Map', {
     ],
 
     layout: 'vbox',
-    cls: 'no-gray-back',
 
     items: [
         {

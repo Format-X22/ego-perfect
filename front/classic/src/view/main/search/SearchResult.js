@@ -81,7 +81,6 @@ Ext.define('A.view.main.search.SearchResult', {
                     padding: '0 10',
                     width: '100%',
                     scrollable: 'vertical',
-                    cls: 'grey-back',
                     items: [
                         {
                             itemId: 'searchResult',

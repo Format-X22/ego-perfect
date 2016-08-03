@@ -2,7 +2,6 @@
 
 	.clients-offer-text {
 		text-align: justify;
-		color: white;
 
 		.header {
 			font-weight: bold;
@@ -21,9 +20,5 @@
 		.no-wrap {
 			white-space: nowrap;
 		}
-	}
-
-	.#{$prefix}panel-inner {
-		background: transparent;
 	}
 }

@@ -2,7 +2,7 @@ $base-color: #47A3F5;
 
 .link {
 	text-decoration: none;
-	color: #9bd0ff;
+	color: darken($base-color, 30%);
 
 	&-white {
 		color: white;

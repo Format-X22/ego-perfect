@@ -9,7 +9,7 @@ Ext.define('A.view.main.infoPage.ClientsOffer', {
         'A.view.main.infoPage.ClientsOfferText'
     ],
 
-    cls: 'clients-offer grey-back',
+    cls: 'clients-offer',
     scrollable: 'vertical',
     layout: {
         type: 'vbox',

@@ -13,7 +13,7 @@ Ext.define('A.view.main.company.Container', {
         'A.view.main.company.tablet.TabPanel'
     ],
 
-    cls: 'vcard grey-back',
+    cls: 'vcard',
     layout: 'vbox',
     
     items: [
@@ -36,7 +36,7 @@ Ext.define('A.view.main.company.Container', {
                 {
                     itemId: 'backToSearch',
                     xtype: 'button',
-                    width: 150,
+                    text: 'Назад',
                     iconCls: 'x-fa fa-chevron-left'
                 }
             ]
