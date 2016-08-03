@@ -30,6 +30,24 @@ Ext.define('B.biz.search.SearchModel', {
                 min: 1,
                 max: 100
             }
+        },
+        {
+            name: 'lat',
+            type: 'float',
+            validators: {
+                type: 'range',
+                min: -1000,
+                max: 1000
+            }
+        },
+        {
+            name: 'lng',
+            type: 'float',
+            validators: {
+                type: 'range',
+                min: -1000,
+                max: 1000
+            }
         }
     ]
 });
