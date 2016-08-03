@@ -2,7 +2,6 @@ User-Agent: *
 Disallow: /page-account-client
 Disallow: /page-account-partner
 Disallow: /page-root-search
-Disallow: /page-root-offer
 Disallow: /page-all-reg-*
 Disallow: /api/*
 Disallow: /page-company-*_reviews_send
