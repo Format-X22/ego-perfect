@@ -1,10 +1,10 @@
 /**
- * Сервис увеличивания просмотров.
+ * Сервис увеличивания просмотров и рейтинга.
  */
 Ext.define('B.service.ViewUp', {
     extend: 'B.service.AbstractService',
 
-    serviceNameForLogger: 'Обновление просмотров',
+    serviceNameForLogger: 'Обновление просмотров и рейтинга',
 
     config: {
 
@@ -87,8 +87,8 @@ Ext.define('B.service.ViewUp', {
                         },
                         {
                             $inc: {
-                                views: Ext.Number.randomInt(50, 200),
-                                rating: Ext.Number.randomInt(1, 50)
+                                views: Ext.Number.randomInt(20, 100),
+                                rating: Ext.Number.randomInt(1, 20)
                             }
                         },
                         function (error) {
