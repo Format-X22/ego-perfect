@@ -37,7 +37,6 @@ Ext.define('B.biz.search.util.Tokens', {
         value = this.removeTags(value);
         value = this.split(value);
         value = this.removeEnds(value);
-        value = this.removeDuplicates(value);
         value = this.removeEmpty(value);
 
         this.setValue(value);
@@ -113,15 +112,6 @@ Ext.define('B.biz.search.util.Tokens', {
 
                 return token.slice(0, -3);           // 8 и более букв, режем трехбуквенные окончания
             });
-        },
-
-        /**
-         * @private
-         * @param {String[]} value Токены.
-         * @return {String[]} Только уникальные токены.
-         */
-        removeDuplicates: function (value) {
-            return Ext.Array.unique(value);
         },
 
         /**

@@ -306,10 +306,14 @@ Ext.define('B.biz.search.Search', {
             item.equalsCount = 0;
 
             this.getTokens().forEach(function (token) {
-                if (Ext.Array.contains(item.tags, token)) {
-                    item.equalsCount++;
-                }
+                Ext.each(item.tags, function (tag) {
+                    if (token === tag) {
+                        item.equalsCount++;
+                    }
+                });
             });
+
+            item.equalsCount = Math.floor(item.equalsCount / 3);
         },
 
         /**
