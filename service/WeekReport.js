@@ -111,7 +111,6 @@ Ext.define('B.service.WeekReport', {
                     rating:  this.calculateRating(slice),
                     views:   this.calculateViews(slice),
                     reviews: this.calculateReviewsCount(slice),
-                    stars:   this.calculateStarsIndex(slice),
                     payDate: Ext.Date.format(raw.payDate, 'd.m.Y'),
                     login:   raw.login
                 });
@@ -144,30 +143,7 @@ Ext.define('B.service.WeekReport', {
          * @return {Number} Значение.
          */
         calculateReviewsCount: function (slice) {
-            return B.util.Array.diffFinitePropertiesLength(slice, 'reviews');
-        },
-
-        /**
-         * @private
-         * @param {Object[]} slice Срез данных.
-         * @return {Number} Значение.
-         */
-        calculateStarsIndex: function (slice) {
-            var startIndex = -1;
-            //
-
-            Ext.each(slice, function (item, index) {
-                if (item.reviews.length) {
-                    startIndex = index;
-                    return false;
-                }
-            }, this);
-
-            if (startIndex === -1) {
-                return 0;
-            }
-
-            //
+            return B.util.Array.diffFiniteProperties(slice, 'reviewsCount');
         },
 
         /**
