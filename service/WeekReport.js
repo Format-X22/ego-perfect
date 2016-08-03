@@ -31,22 +31,6 @@ Ext.define('B.service.WeekReport', {
         ], this);
     },
 
-    /**
-     * @protected
-     * Оправка письма клиенту.
-     * @param {String} login Логин клиента.
-     * @param {Object} data Сопутствующие данные.
-     */
-    sendMailToClient: function (login, data) {
-        Ext.create('B.mail.WeekReport', Ext.apply(data, {
-            to: login,
-            scope: this,
-            failure: function () {
-                this.logError('Не удалось отправить сообщение клиенту ' + login);
-            }
-        }));
-    },
-
     privates: {
 
         /**
@@ -151,7 +135,15 @@ Ext.define('B.service.WeekReport', {
          */
         sendMailsStep: function () {
             Ext.each(this.getData(), function (company) {
-                this.sendMailToClient(company.login, company);
+                var login = company.login;
+
+                Ext.create('B.mail.WeekReport', Ext.apply(company, {
+                    to: login,
+                    scope: this,
+                    failure: function () {
+                        this.logError('Не удалось отправить сообщение клиенту ' + login);
+                    }
+                }));
             }, this);
         }
     }

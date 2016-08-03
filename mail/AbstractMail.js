@@ -112,7 +112,7 @@ Ext.define('B.mail.AbstractMail', {
         };
 
         if (tpl) {
-            config.html = new Ext.Template(tpl).apply(data);
+            config.html = new Ext.XTemplate(tpl).apply(data);
         } else {
             config.html = this.getHtml();
         }

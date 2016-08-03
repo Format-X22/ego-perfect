@@ -16,7 +16,8 @@ Ext.define('B.service.MainLoop', {
         'B.service.TotalPayDateChange',
         'B.service.SiteMapGenerator',
         'B.service.ViewUp',
-        'B.service.WeekReport'
+        'B.service.WeekReport',
+        'B.service.EndNotify'
     ],
 
     constructor: function () {
@@ -45,8 +46,12 @@ Ext.define('B.service.MainLoop', {
                 Ext.create('B.service.ViewUp');
             }
             
-            if (day === 2 && hour === 10) {
-                Ext.create('B.service.WeekReport');        
+            if (hour === 10) {
+                Ext.create('B.service.EndNotify');
+                
+                if (day === 2) {
+                    Ext.create('B.service.WeekReport');
+                }
             }
 
         }.bind(this), 1000 * 60 * 60);

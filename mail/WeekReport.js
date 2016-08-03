@@ -57,14 +57,37 @@ Ext.define('B.mail.WeekReport', {
         name: '',
 
         /**
-         * @cfg {Date} Дата, до которой оплачены услуги.
+         * @cfg {Date} payDate Дата, до которой оплачены услуги.
          */
-        payDate: null
+        payDate: null,
+
+        /**
+         * @cfg {String} login Логин, используется вместо {@link #to} если он отсутствует.
+         */
+        login: '',
+
+        /**
+         * @cfg {String} _id
+         * Идентификатор компании, альтернативная конфигурация,
+         * используется в случае если не указан {@link #id}.
+         */
+        _id: ''
     },
 
     init: function () {
         this.callParent(arguments);
 
+        var to = this.getTo();
+        var id = this.getId();
+        
+        if (!to) {
+            this.setTo(this.getLogin());
+        }
+
+        if (!id) {
+            this.setId(this.get_id());
+        }
+        
         this.setData({
             views: this.getViews(),
             reviews: this.getReviews(),
