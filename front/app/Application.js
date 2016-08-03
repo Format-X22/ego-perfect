@@ -71,8 +71,14 @@ Ext.define('A.Application', {
     initGeo: function () {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(function (position) {
-                Ext.util.Cookies.set('lat', position.coords.latitude);
-                Ext.util.Cookies.set('lng', position.coords.longitude);
+                var coords = position.coords;
+
+                if (Ext.isClassic) {
+                    Ext.util.Cookies.set('lat', position.coords.latitude);
+                    Ext.util.Cookies.set('lng', position.coords.longitude);
+                } else {
+                    document.cookie += '; lat=' + coords.latitude + '; lng=' + coords.longitude;
+                }
             }.bind(this));
         }
     }
