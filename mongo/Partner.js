@@ -3,7 +3,7 @@
  * Является прослойкой над MongoDB драйвером,
  * все колбеки содержат оригинальные параметры.
  */
-Ext.define('B.mongo.Company', {
+Ext.define('B.mongo.Partner', {
     extend: 'B.mongo.AbstractAccount',
 
     collectionName: 'partner',

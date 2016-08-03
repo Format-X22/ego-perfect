@@ -28,6 +28,8 @@ Ext.define('A.Application', {
         A.Router.goToCurrentPage();
         
         A.adminReg = this.adminReg;
+        
+        this.initGeo();
     },
 
     /**
@@ -61,5 +63,17 @@ Ext.define('A.Application', {
      */
     adminReg: function () {
         A.getCmp('#registerSwitch').show();
+    },
+
+    /**
+     * Получение геопозиции пользователя.
+     */
+    initGeo: function () {
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                Ext.util.Cookies.set('lat', position.coords.latitude);
+                Ext.util.Cookies.set('lng', position.coords.longitude);
+            }.bind(this));
+        }
     }
 });

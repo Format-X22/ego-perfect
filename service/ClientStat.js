@@ -53,7 +53,13 @@ Ext.define('B.service.ClientStat', {
          * @private
          * @cfg {Object[]} reviews Массив отзывов.
          */
-        reviews: null
+        reviews: null,
+
+        /**
+         * @private
+         * @cfg {Object[]} statsDump Текущее состояние статистики.
+         */
+        statsDump: null
     },
 
     /**
@@ -154,6 +160,7 @@ Ext.define('B.service.ClientStat', {
         ];
 
         this.actualizeMonthLine(stats, currentMonthName);
+        this.makeStatsDump();
         this.modifyRatingStat();
         this.modifyViewsStat();
         this.modifyReviewsStat();
@@ -178,6 +185,9 @@ Ext.define('B.service.ClientStat', {
                     viewsStat: this.getViewsStat(),
                     reviewsStat: this.getReviewsStat(),
                     starsStat: this.getStarsStat()
+                },
+                $push: {
+                    statsStack: this.getStatsDump()
                 }
             },
             function (error) {
@@ -238,6 +248,28 @@ Ext.define('B.service.ClientStat', {
             var lastIndex = stat.length - 1;
 
             stat[lastIndex].value = Number(rounded);
+        },
+
+        /**
+         * @private
+         */
+        makeStatsDump: function () {
+            var date = new Date();
+            var rating = this.getRating();
+            var views = this.getViews();
+            var reviewsCount = this.getReviews().length;
+            var starsStat = this.getStarsStat();
+            var starsStatLength = starsStat.length;
+            var currentStarsStat = starsStat[starsStatLength - 1];
+            var starsIndex = currentStarsStat.value;
+
+            this.setStatsDump({
+                date: date,
+                rating: rating,
+                views: views,
+                reviewsCount: reviewsCount,
+                starsIndex: starsIndex
+            });
         }
     }
 });

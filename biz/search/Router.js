@@ -23,11 +23,14 @@ Ext.define('B.biz.search.Router', {
     search: function (request, response) {
         var model = Ext.create('B.biz.search.SearchModel');
         var params = request.query;
+        var cookie = request.cookies;
 
         model.set({
             query: params.query,
             start: params.start,
-            limit: params.limit
+            limit: params.limit,
+            lat: cookie.lat,
+            lng: cookie.lng
         });
 
         if (this.checkRequestModel(model, response)) {

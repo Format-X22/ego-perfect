@@ -9,7 +9,7 @@ Ext.define('A.view.main.Main', {
     requires: [
         'A.view.main.search.SearchContainer',
         'A.view.main.infoPage.ForClientsWithOffer',
-        'A.view.main.infoPage.ForPartnersWithContract',
+        'A.view.main.infoPage.ClientsOffer',
         'A.view.main.infoPage.ForContacts',
         'A.view.main.auth.LoginPage',
         'A.view.main.auth.RegisterPage'
@@ -51,7 +51,7 @@ Ext.define('A.view.main.Main', {
                 },
                 {
                     itemId: 'clients',
-                    xtype: 'pageForClientsWithOffer',
+                    xtype: 'pageForClients',
                     title: 'Клиентам',
                     iconCls: 'x-fa fa-user'
                 },
@@ -60,6 +60,12 @@ Ext.define('A.view.main.Main', {
                     xtype: 'pageForContacts',
                     title: 'Контакты',
                     iconCls: 'x-fa fa-phone'
+                },
+                {
+                    itemId: 'offer',
+                    xtype: 'clientsOffer',
+                    title: 'Оферта',
+                    iconCls: 'x-fa fa-bank'
                 },
                 {
                     itemId: 'login',

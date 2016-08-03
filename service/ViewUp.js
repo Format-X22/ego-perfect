@@ -1,10 +1,10 @@
 /**
- * Сервис увеличивания просмотров.
+ * Сервис увеличивания просмотров и рейтинга.
  */
 Ext.define('B.service.ViewUp', {
     extend: 'B.service.AbstractService',
 
-    serviceNameForLogger: 'Обновление просмотров',
+    serviceNameForLogger: 'Обновление просмотров и рейтинга',
 
     config: {
 
@@ -42,7 +42,6 @@ Ext.define('B.service.ViewUp', {
             var now = new Date();
             var commercialStart = Ext.Date.parse('01.06.2016', 'd.m.Y');
 
-
             this.setMongoCollection(collection);
 
             collection.find(
@@ -52,6 +51,9 @@ Ext.define('B.service.ViewUp', {
                     },
                     registerDate: {
                         $gt: commercialStart
+                    },
+                    name: {
+                        $exists: true
                     }
                 },
                 {
@@ -85,7 +87,8 @@ Ext.define('B.service.ViewUp', {
                         },
                         {
                             $inc: {
-                                views: Ext.Number.randomInt(300, 600)
+                                views: Ext.Number.randomInt(20, 100),
+                                rating: Ext.Number.randomInt(1, 20)
                             }
                         },
                         function (error) {

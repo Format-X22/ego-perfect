@@ -15,7 +15,9 @@ Ext.define('B.service.MainLoop', {
         'B.service.PayOne',
         'B.service.TotalPayDateChange',
         'B.service.SiteMapGenerator',
-        'B.service.ViewUp'
+        'B.service.ViewUp',
+        'B.service.WeekReport',
+        'B.service.EndNotify'
     ],
 
     constructor: function () {
@@ -26,13 +28,10 @@ Ext.define('B.service.MainLoop', {
         setInterval(function () {
             var date = new Date();
             var hour = date.getUTCHours() + 3;
+            var day = date.getDay();
 
             if (!B.Mongo || !B.Mongo.getCollection('search')) {
                 return;
-            }
-
-            if (hour === 2) {
-                Ext.create('B.service.ViewUp');
             }
 
             if (hour === 4) {
@@ -44,6 +43,15 @@ Ext.define('B.service.MainLoop', {
 
             if (hour === 5) {
                 Ext.create('B.service.SiteMapGenerator');
+                Ext.create('B.service.ViewUp');
+            }
+            
+            if (hour === 10) {
+                Ext.create('B.service.EndNotify');
+                
+                if (day === 2) {
+                    Ext.create('B.service.WeekReport');
+                }
             }
 
         }.bind(this), 1000 * 60 * 60);

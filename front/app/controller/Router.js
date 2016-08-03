@@ -26,6 +26,8 @@ Ext.define('A.controller.Router', {
         window.onpopstate = function() {
             this.goToCurrentPage();
         }.bind(this);
+        
+        Ext.onReady(this.parseHash, this, {delay: 1000});
     },
 
     /**
@@ -169,24 +171,7 @@ Ext.define('A.controller.Router', {
             id = 'search';
         }
         
-        if (Ext.isClassic && id === 'offer') {
-            this.changePathTo('root-clients');
-            this.changeSubPathTo('offer');
-            this.goToCurrentPage();
-            return;
-        }
-        
-        if (!Ext.isClassic && id === 'clients' && this.getCurrentSubPath() === 'offer') {
-            this.changePathTo('root-offer', true);
-            this.goToCurrentPage();
-            return;
-        }
-        
         main.setActiveItem(main.down('#' + id));
-        
-        if (id === 'clients') {
-            this.setActiveInfoPageSubIfNeed(id);
-        }
 
         if (id === 'search') {
             if (Ext.isClassic) {
@@ -335,22 +320,6 @@ Ext.define('A.controller.Router', {
 
         /**
          * @private
-         * @param {String} itemId ID страницы.
-         */
-        setActiveInfoPageSubIfNeed: function (itemId) {
-            var main = this.getMainTabPanel();
-            var tabPanel = main.down('#' + itemId);
-            var subPath = this.getCurrentSubPath();
-
-            if (subPath) {
-                tabPanel.setActiveItem(subPath);    
-            } else if (Ext.isClassic) {
-                tabPanel.setActiveItem('show');
-            }
-        },
-
-        /**
-         * @private
          */
         goToCompanyInnerTabFromPage: function () {
             var subPath = this.getCurrentSubPath();
@@ -427,6 +396,18 @@ Ext.define('A.controller.Router', {
          */
         getControllerUnderMainTabPanel: function (selector) {
             return this.getMainTabPanel().down(selector).getController();
+        },
+
+        /**
+         * @private
+         */
+        parseHash: function () {
+            var partnerKeyField = A.getCmp('appMainPublic #register #partner');
+            
+            switch (location.hash) {
+                case '#aw':
+                    partnerKeyField.setValue('aw');
+            }
         }
     }
 });

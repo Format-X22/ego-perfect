@@ -12,6 +12,9 @@ Ext.define('B.service.ReleaseAll', {
         B.Mongo.getCollection('company').find({
             payDate: {
                 $gt: new Date()
+            },
+            name: {
+                $exists: true
             }
         }).toArray(function (error, data) {
             Ext.Array.each(data, function (doc) {

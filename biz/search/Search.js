@@ -30,8 +30,15 @@ Ext.define('B.biz.search.Search', {
             _id: 1,
             tags: 1,
             rating: 1,
-            company: 1
-        }
+            company: 1,
+            map: 1
+        },
+
+        /**
+         * @private
+         * @cfg {Object} geo Утилита для работы с гео-расстояниями.
+         */
+        geo: require('geolib')
     },
 
     constructor: function () {
@@ -155,11 +162,94 @@ Ext.define('B.biz.search.Search', {
          * @return {Object[]} Массив отсортированных данных.
          */
         sortResult: function (data) {
+            if (this.isCoordinatesPresent()) {
+                var geoSorted = this.geoSortAndEqualsCalculate(data);
+                var equalsAndRatingSorted = Ext.Array.map(geoSorted, function (group) {
+                    return this.sortByEqualsAndRating(group);
+                }, this);
+
+                return Ext.Array.flatten(equalsAndRatingSorted);
+            } else {
+                return this.sortByEqualsAndRating(data);
+            }
+        },
+
+        /**
+         * @private
+         * @param {Object[]} data Массив результата запроса для сортировки.
+         * @return {Object[]} Массив отсортированных данных.
+         */
+        sortByEqualsAndRating: function (data) {
             return data.sort(function (itemA, itemB) {
                 this.applyTokenEqualsCount(itemA, itemB);
 
                 return this.compareResultItems(itemA, itemB);
             }.bind(this));
+        },
+
+        /**
+         * @private
+         * @param {Object[]} data Массив результата запроса для сортировки.
+         * @return {Array[]} Массив массивов отсортированных данных.
+         */
+        geoSortAndEqualsCalculate: function (data) {
+            var result = [[],[],[],[],[],[],[],[],[]];
+            var model = this.getRequestModel();
+            var meter = this.getDistanceMeter({
+                latitude: parseFloat(model.get('lat')),
+                longitude: parseFloat(model.get('lng'))
+            });
+
+            Ext.each(data, function (item) {
+                var itemGeo = {
+                    latitude: parseFloat(item.map.lat),
+                    longitude: parseFloat(item.map.lng)
+                };
+
+                switch (true) {
+                    case meter(itemGeo) < 1000:
+                        result[0].push(item);
+                        break;
+                    case meter(itemGeo) < 5000:
+                        result[1].push(item);
+                        break;
+                    case meter(itemGeo) < 15000:
+                        result[2].push(item);
+                        break;
+                    case meter(itemGeo) < 25000:
+                        result[3].push(item);
+                        break;
+                    case meter(itemGeo) < 50000:
+                        result[4].push(item);
+                        break;
+                    case meter(itemGeo) < 75000:
+                        result[5].push(item);
+                        break;
+                    case meter(itemGeo) < 100000:
+                        result[6].push(item);
+                        break;
+                    case meter(itemGeo) < 300000:
+                        result[7].push(item);
+                        break;
+                    default:
+                        result[8].push(item);
+                }
+
+                this.setTokenEqualsCount(item);
+            }, this);
+
+            return result;
+        },
+
+        /**
+         * @private
+         * @param {Object} from От.
+         * @return {Function} Функция принимающая параметром значение до куда.
+         */
+        getDistanceMeter: function (from) {
+            return function (to) {
+                return this.getGeo().getDistance(from, to);
+            }.bind(this);
         },
 
         /**
@@ -173,7 +263,7 @@ Ext.define('B.biz.search.Search', {
             var bCount = itemB.equalsCount;
             var aRating = itemA.rating;
             var bRating = itemB.rating;
-
+            
             if (aCount < bCount) {
                 return 1;
             }
@@ -216,10 +306,14 @@ Ext.define('B.biz.search.Search', {
             item.equalsCount = 0;
 
             this.getTokens().forEach(function (token) {
-                if (Ext.Array.contains(item.tags, token)) {
-                    item.equalsCount++;
-                }
+                Ext.each(item.tags, function (tag) {
+                    if (token === tag) {
+                        item.equalsCount++;
+                    }
+                });
             });
+
+            item.equalsCount = Math.floor(item.equalsCount / 3);
         },
 
         /**
@@ -236,6 +330,16 @@ Ext.define('B.biz.search.Search', {
                     }
                 };
             }
+        },
+
+        /**
+         * @private
+         * @return {Boolean} Представлены ли координаты.
+         */
+        isCoordinatesPresent: function () {
+            var model = this.getRequestModel();
+
+            return model.get('lat') && model.get('lng');
         }
     }
 });

@@ -8,7 +8,8 @@ Ext.define('B.biz.auth.Register', {
         'B.Mail',
         'B.biz.auth.util.Account',
         'B.biz.auth.util.Crypt',
-        'B.biz.auth.util.Session'
+        'B.biz.auth.util.Session',
+        'B.mail.RegNotify'
     ],
 
     config: {
@@ -57,6 +58,7 @@ Ext.define('B.biz.auth.Register', {
             this.sendMailStep,
             this.makeSessionStep,
             this.setSessionCookie,
+            this.sendAdminNotifyMail,
             this.sendSuccess
         ], this);
     },
@@ -377,6 +379,17 @@ Ext.define('B.biz.auth.Register', {
             });
             response.cookie('type', model.get('type'), {
                 httpOnly: false
+            });
+            next();
+        },
+
+        /**
+         * @private
+         * @param {Function} next Следующий шаг.
+         */
+        sendAdminNotifyMail: function (next) {
+            Ext.create('B.mail.RegNotify', {
+                login: this.getRequestModel().get('login')
             });
             next();
         }
