@@ -86,7 +86,8 @@ Ext.define('B.service.WeekReport', {
                 B.util.Array.padLeft(slice, {
                     rating: 0,
                     views: 0,
-                    reviews: []
+                    reviews: [],
+                    reviewsCount: 0
                 }, 7);
 
                 this.setData({

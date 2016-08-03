@@ -17,7 +17,7 @@ Ext.define('B.service.SiteMapGenerator', {
         baseLinks: [
             'root-search',
             'root-clients',
-            'root-clients_offer',
+            'root-offer',
             'root-contacts',
             'root-login',
             'root-register'

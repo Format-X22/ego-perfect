@@ -1,6 +1,5 @@
 /**
  * Письмо с еженедельным отчетом.
- * Требуется заполнить все поля конфигурации.
  */
 Ext.define('B.mail.WeekReport', {
     extend: 'B.mail.AbstractMail',
