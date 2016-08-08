@@ -162,16 +162,20 @@ Ext.define('B.biz.search.Search', {
          * @return {Object[]} Массив отсортированных данных.
          */
         sortResult: function (data) {
-            if (this.isCoordinatesPresent()) {
-                var geoSorted = this.geoSortAndEqualsCalculate(data);
-                var equalsAndRatingSorted = Ext.Array.map(geoSorted, function (group) {
-                    return this.sortByEqualsAndRating(group);
-                }, this);
+            var result = Ext.Array.map(this.relevantGroupsSplit(data), function (data) {
+                if (this.isCoordinatesPresent()) {
+                    var geoSorted = this.geoSortAndEqualsCalculate(data);
+                    var equalsAndRatingSorted = Ext.Array.map(geoSorted, function (group) {
+                        return this.sortByEqualsAndRating(group);
+                    }, this);
 
-                return Ext.Array.flatten(equalsAndRatingSorted);
-            } else {
-                return this.sortByEqualsAndRating(data);
-            }
+                    return Ext.Array.flatten(equalsAndRatingSorted);
+                } else {
+                    return this.sortByEqualsAndRating(data);
+                }
+            }, this);
+
+            return Ext.Array.flatten(result);
         },
 
         /**
@@ -193,7 +197,7 @@ Ext.define('B.biz.search.Search', {
          * @return {Array[]} Массив массивов отсортированных данных.
          */
         geoSortAndEqualsCalculate: function (data) {
-            var result = [[],[],[],[],[],[],[],[],[]];
+            var result = [[],[],[],[],[]];
             var model = this.getRequestModel();
             var meter = this.getDistanceMeter({
                 latitude: parseFloat(model.get('lat')),
@@ -207,32 +211,20 @@ Ext.define('B.biz.search.Search', {
                 };
 
                 switch (true) {
-                    case meter(itemGeo) < 1000:
+                    case meter(itemGeo) < 20000:
                         result[0].push(item);
                         break;
-                    case meter(itemGeo) < 5000:
+                    case meter(itemGeo) < 50000:
                         result[1].push(item);
                         break;
-                    case meter(itemGeo) < 15000:
+                    case meter(itemGeo) < 100000:
                         result[2].push(item);
                         break;
-                    case meter(itemGeo) < 25000:
+                    case meter(itemGeo) < 300000:
                         result[3].push(item);
                         break;
-                    case meter(itemGeo) < 50000:
-                        result[4].push(item);
-                        break;
-                    case meter(itemGeo) < 75000:
-                        result[5].push(item);
-                        break;
-                    case meter(itemGeo) < 100000:
-                        result[6].push(item);
-                        break;
-                    case meter(itemGeo) < 300000:
-                        result[7].push(item);
-                        break;
                     default:
-                        result[8].push(item);
+                        result[4].push(item);
                 }
 
                 this.setTokenEqualsCount(item);
@@ -340,6 +332,33 @@ Ext.define('B.biz.search.Search', {
             var model = this.getRequestModel();
 
             return model.get('lat') && model.get('lng');
+        },
+
+        /**
+         * @private
+         * @param {Array} values Набор значений.
+         * @return {Array[]} Массив массивов отсортированных по релевантности значений.
+         */
+        relevantGroupsSplit: function (values) {
+            var groups = [];
+
+            Ext.each(values, function (item) {
+                item.relevant = 0;
+
+                Ext.each(this.getTokens(), function (token) {
+                    Ext.each(item.tags, function (tag) {
+                        if (token === tag) {
+                            item.relevant++;
+                            return false;
+                        }
+                    });
+                }, this);
+
+                groups[item.relevant] = groups[item.relevant] || [];
+                groups[item.relevant].push(item);
+            }, this);
+
+            return Ext.Array.clean(groups).reverse();
         }
     }
 });
