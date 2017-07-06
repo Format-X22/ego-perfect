@@ -6,10 +6,6 @@ Ext.define('A.view.client.Profile', {
     xtype: 'clientProfile',
     controller: 'clientProfile',
 
-    requires: [
-        'A.view.partner.ProfileController'
-    ],
-
     layout: {
         type: 'vbox',
         align: 'center'

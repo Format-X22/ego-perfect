@@ -46,7 +46,7 @@ Ext.define('A.view.main.Main', {
                 {
                     itemId: 'search',
                     xtype: 'searchContainer',
-                    title: 'Поиск',
+                    title: 'Explorer',
                     iconCls: 'x-fa fa-search'
                 },
                 {
@@ -70,13 +70,13 @@ Ext.define('A.view.main.Main', {
                 {
                     itemId: 'login',
                     xtype: 'loginPage',
-                    title: 'Вход',
+                    title: 'Log In',
                     iconCls: 'x-fa fa-key'
                 },
                 {
                     itemId: 'register',
                     xtype: 'registerPage',
-                    title: 'Регистрация',
+                    title: 'Sign Up',
                     iconCls: 'x-fa fa-user-plus'
                 }
             ],

@@ -18,9 +18,6 @@ Ext.define('A.view.Main', {
         },
         {
             xtype: 'appMainClient'
-        },
-        {
-            xtype: 'appMainPartner'
         }
     ]
 });
