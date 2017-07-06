@@ -22,26 +22,6 @@ Ext.define('A.view.main.Main', {
             itemId: 'mainTabPanel',
             xtype: 'tabpanel',
             tabBarPosition: 'top',
-            tabBar: {
-                items: [
-                    {
-                        xtype: 'tbspacer',
-                        flex: 1
-                    },
-                    {
-                        xtype: 'tbtext',
-                        padding: '6 25',
-                        style: {
-                            color: 'white'
-                        },
-                        html:
-                            '<span>' +
-                                '<a class="link link-white" href="tel:88002500186">8 (800) 25-00-186</a>' +
-                                ' | круглосуточно' +
-                            '</span>'
-                    }
-                ]
-            },
             items: [
                 {
                     itemId: 'search',

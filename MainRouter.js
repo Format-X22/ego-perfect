@@ -9,8 +9,7 @@ Ext.define('B.MainRouter', {
         'B.biz.company.Router',
         'B.biz.reviews.Router',
         'B.biz.auth.Router',
-        'B.biz.client.Router',
-        'B.biz.partner.Router'
+        'B.biz.client.Router'
     ],
 
     delegate: {
@@ -18,8 +17,7 @@ Ext.define('B.MainRouter', {
         '/api/company': 'B.biz.company.Router',
         '/api/reviews': 'B.biz.reviews.Router',
         '/api/auth':    'B.biz.auth.Router',
-        '/api/client':  'B.biz.client.Router',
-        '/api/partner': 'B.biz.partner.Router'
+        '/api/client':  'B.biz.client.Router'
     },
 
     config: {

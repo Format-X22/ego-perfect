@@ -7,17 +7,10 @@ Ext.define('B.service.MainLoop', {
 
     requires: [
         'B.service.ClientStat',
-        'B.service.PartnerStat',
-        'B.service.SearchCleaner',
         'B.service.RatingUpdater',
-        'B.service.ReleaseAll',
-        'B.service.KeyGen',
-        'B.service.PayOne',
-        'B.service.TotalPayDateChange',
         'B.service.SiteMapGenerator',
         'B.service.ViewUp',
-        'B.service.WeekReport',
-        'B.service.EndNotify'
+        'B.service.WeekReport'
     ],
 
     constructor: function () {
@@ -36,8 +29,6 @@ Ext.define('B.service.MainLoop', {
 
             if (hour === 4) {
                 Ext.create('B.service.ClientStat');
-                Ext.create('B.service.PartnerStat');
-                Ext.create('B.service.SearchCleaner');
                 Ext.create('B.service.RatingUpdater');
             }
 
@@ -47,8 +38,6 @@ Ext.define('B.service.MainLoop', {
             }
             
             if (hour === 10) {
-                Ext.create('B.service.EndNotify');
-                
                 if (day === 2) {
                     Ext.create('B.service.WeekReport');
                 }
