@@ -5,10 +5,6 @@ Ext.define('A.view.main.auth.RegisterPage', {
     extend: 'Ext.form.Panel',
     xtype: 'registerPage',
     controller: 'mainAuthRegisterPage',
-
-    listeners: {
-        show: 'updatePartnerKeyOnShow'
-    },
     
     layout: {
         type: 'vbox',
@@ -64,21 +60,34 @@ Ext.define('A.view.main.auth.RegisterPage', {
             name: 'login',
             xtype: 'textfield',
             inputType: 'email',
-            fieldLabel: 'Почта',
+            fieldLabel: 'Email',
             allowBlank: false,
             regex: /^[^\s]+@[^\s]+\.[^\s]+$/,
-            regexText: 'Должно быть похоже на почту вида boss@mail.ru',
+            regexText: 'email@site.com',
             listeners: {
                 specialkey: 'trySendIfEnterKey',
                 change: 'trimValueOnChange'
             }
         },
         {
-            itemId: 'partner',
-            name: 'partner',
+            itemId: 'password',
+            name: 'password',
             xtype: 'textfield',
-            fieldLabel: 'Ключ агента',
-            emptyText: 'если он у вас есть',
+            inputType: 'password',
+            fieldLabel: 'Password',
+            allowBlank: false,
+            listeners: {
+                specialkey: 'trySendIfEnterKey',
+                change: 'trimValueOnChange'
+            }
+        },
+        {
+            itemId: 'password2',
+            name: 'password2',
+            xtype: 'textfield',
+            inputType: 'password',
+            fieldLabel: 'Re-enter password',
+            allowBlank: false,
             listeners: {
                 specialkey: 'trySendIfEnterKey',
                 change: 'trimValueOnChange'
@@ -94,7 +103,7 @@ Ext.define('A.view.main.auth.RegisterPage', {
                 {
                     xtype: 'button',
                     iconCls: 'x-fa fa-user-plus',
-                    text: 'Зарегистрироваться',
+                    text: 'Create account',
                     width: 200,
                     handler: 'trySend'
                 }

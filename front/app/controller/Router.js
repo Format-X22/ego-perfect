@@ -26,8 +26,6 @@ Ext.define('A.controller.Router', {
         window.onpopstate = function() {
             this.goToCurrentPage();
         }.bind(this);
-        
-        Ext.onReady(this.parseHash, this, {delay: 1000});
     },
 
     /**
@@ -396,18 +394,6 @@ Ext.define('A.controller.Router', {
          */
         getControllerUnderMainTabPanel: function (selector) {
             return this.getMainTabPanel().down(selector).getController();
-        },
-
-        /**
-         * @private
-         */
-        parseHash: function () {
-            var partnerKeyField = A.getCmp('appMainPublic #register #partner');
-            
-            switch (location.hash) {
-                case '#aw':
-                    partnerKeyField.setValue('aw');
-            }
         }
     }
 });

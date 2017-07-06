@@ -29,25 +29,5 @@ Ext.define('A.view.main.auth.RegisterPageController', {
         if (event.getKey() === event.ENTER) {
             this.trySend();
         }
-    },
-
-    /**
-     * Обновляет ключ партнера при показе страницы.
-     */
-    updatePartnerKeyOnShow: function () {
-        var partnerKeyField = this.getView().down('#partner');
-        var currentPartnerKey = partnerKeyField.getValue();
-        var localStorage;
-        var storedPartnerKey;
-
-        if (currentPartnerKey) {
-            return;
-        }
-
-        localStorage = Ext.util.LocalStorage.get('partnerKey');
-        storedPartnerKey = localStorage.getItem('key');
-        localStorage.release();
-
-        partnerKeyField.setValue(storedPartnerKey);
     }
 });

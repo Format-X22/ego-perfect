@@ -252,32 +252,6 @@ Ext.define('B.biz.auth.Register', {
 				);
 		},
 
-		/**
-		 * @private
-		 * @return {Object} Конфиг.
-		 */
-		getPushPartnerKeyConfig: function () {
-			var config = {};
-			var field = this.getPushPartnerKeyFieldName();
-
-			config[field] = this.getAccountId();
-
-			return config;
-		},
-
-		/**
-		 * @private
-		 * @return {String} Имя поля.
-		 */
-		getPushPartnerKeyFieldName: function () {
-			switch (this.getRequestModel().get('type')) {
-				case 'company':
-					return 'clients';
-				case 'partner':
-					return 'partners';
-			}
-		},
-
         /**
          * @private
          * @param {Function} next Следующий шаг.

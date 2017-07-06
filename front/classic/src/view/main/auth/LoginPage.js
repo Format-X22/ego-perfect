@@ -32,33 +32,10 @@ Ext.define('A.view.main.auth.LoginPage', {
             margin: '0 0 10 0'
         },
         {
-            xtype: 'fieldcontainer',
-            hidden: true,
-            fieldLabel: 'Я',
-            defaultType: 'radiofield',
-            defaults: {
-                flex: 1
-            },
-            layout: 'vbox',
-            items: [
-                {
-                    boxLabel: 'Клиент',
-                    name: 'type',
-                    inputValue: 'company',
-                    checked: true
-                },
-                {
-                    boxLabel: 'Агент',
-                    name: 'type',
-                    inputValue: 'partner'
-                }
-            ]
-        },
-        {
             name: 'login',
             xtype: 'textfield',
             inputType: 'email',
-            fieldLabel: 'Почта',
+            fieldLabel: 'Email',
             allowBlank: false,
             listeners: {
                 specialkey: 'sendIfEnterKey',
@@ -69,7 +46,7 @@ Ext.define('A.view.main.auth.LoginPage', {
             name: 'pass',
             xtype: 'textfield',
             inputType: 'password',
-            fieldLabel: 'Пароль',
+            fieldLabel: 'Password',
             listeners: {
                 specialkey: 'sendIfEnterKey',
                 change: 'trimValueOnChange'
@@ -84,18 +61,18 @@ Ext.define('A.view.main.auth.LoginPage', {
             items: [
                 {
                     xtype: 'button',
-                    iconCls: 'x-fa fa-key',
-                    text: 'Войти',
+                    iconCls: 'x-fa fa-question',
+                    text: 'Reset password',
                     width: 150,
-                    handler: 'send',
-                    margin: '0 15 0 0'
+                    handler: 'resetPass'
                 },
                 {
                     xtype: 'button',
-                    iconCls: 'x-fa fa-question',
-                    text: 'Сбросить пароль',
+                    iconCls: 'x-fa fa-key',
+                    text: 'Log In',
                     width: 150,
-                    handler: 'resetPass'
+                    handler: 'send',
+                    margin: '0 15 0 0'
                 }
             ]
         },
